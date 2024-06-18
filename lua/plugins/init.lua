@@ -98,11 +98,7 @@ require('lazy').setup({
       -- …etc.
     },
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
-    keys = {
-      { '<tab>', '<Cmd>BufferNext<CR>', mode = 'n', desc = 'buffer goto next' },
-      { '<S-tab>', '<Cmd>BufferPrevious<CR>', mode = 'n', desc = 'buffer goto previous' },
-      { '<leader>x', '<Cmd>BufferClose<CR>', mode = 'n', desc = 'buffer close' },
-    },
+    cmd = { 'BufferNext', 'BufferPrevious', 'BufferClose' },
   },
 
   { -- Add indentation guides even on blank lines
