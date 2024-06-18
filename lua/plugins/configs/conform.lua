@@ -1,0 +1,77 @@
+return { -- Autoformat
+  'stevearc/conform.nvim',
+  lazy = false,
+  keys = {
+    {
+      '<leader>fm',
+      function()
+        require('conform').format { async = true, lsp_fallback = true }
+      end,
+      mode = '',
+      desc = '[F]ormat buffer',
+    },
+  },
+  config = function()
+    local conform = require 'conform'
+    local formatterConfig = vim.fn.stdpath 'config' .. '/formatter_configs'
+
+    conform.setup {
+      notify_on_error = false,
+      format_on_save = function(bufnr)
+        -- Disable "format_on_save lsp_fallback" for languages that don't
+        -- have a well standardized coding style. You can add additional
+        -- languages here or re-enable it for the disabled ones.
+        local disable_filetypes = { c = true, cpp = true }
+        return {
+          timeout_ms = 500,
+          lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+        }
+      end,
+      --
+      -- NOTE: define languages specificed formater here
+      --
+      formatters_by_ft = {
+        -- use `:lua print(vim.bo.filetype)` to check filetype
+        lua = { 'stylua' },
+        css = { 'prettier' },
+        html = { 'prettier' },
+        markdown = { 'prettier' },
+        json = { 'prettier' },
+        python = { 'ruff_fix', 'ruff_format' },
+        c = { 'clang_format' },
+        cpp = { 'clang_format' },
+        -- rust = { "rustfmt" },
+      },
+    }
+
+    conform.formatters.ruff_fix = {
+      args = {
+        'check',
+        '--fix',
+        '--force-exclude',
+        '--exit-zero',
+        '--no-cache',
+        '--config',
+        formatterConfig .. '/ruff.toml',
+        '--stdin-filename',
+        '$FILENAME',
+        '-',
+      },
+    }
+
+    conform.formatters.ruff_format = {
+      args = {
+        'format',
+        '--config',
+        formatterConfig .. '/ruff.toml',
+        '--stdin-filename',
+        '$FILENAME',
+        '-',
+      },
+    }
+
+    conform.formatters.clang_format = {
+      prepend_args = { '--style=Microsoft' },
+    }
+  end,
+}
