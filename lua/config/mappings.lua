@@ -129,5 +129,6 @@ end, { desc = 'cmake build' })
 map('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
   expr = true,
   replace_keycodes = false,
-}, { desc = 'Accept copilot suggestion' })
+  desc = 'Accept copilot suggestion',
+})
 vim.g.copilot_no_tab_map = true
