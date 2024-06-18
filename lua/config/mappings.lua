@@ -118,3 +118,11 @@ map('n', '<leader>mk', function()
   end
   print(vim.inspect(gen_result))
 end, { desc = 'cmake build' })
+
+-- copilot
+
+map('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
+  expr = true,
+  replace_keycodes = false,
+}, { desc = 'Accept copilot suggestion' })
+vim.g.copilot_no_tab_map = true
