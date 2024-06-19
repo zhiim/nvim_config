@@ -125,10 +125,12 @@ map('n', '<leader>mk', function()
 end, { desc = 'cmake build' })
 
 -- copilot
-
 map('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
   expr = true,
   replace_keycodes = false,
   desc = 'Accept copilot suggestion',
 })
 vim.g.copilot_no_tab_map = true
+map('n', '<leader>co', '<cmd>CopilotChatOpen<CR>', { desc = 'Open Copilot Chat' })
+map('n', '<leader>cc', '<cmd>CopilotChatClose<CR>', { desc = 'Close Copilot Chat' })
+map('n', '<leader>ct', '<cmd>CopilotChatToggle<CR>', { desc = 'Toggle Copilot Chat' })
