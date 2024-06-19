@@ -132,7 +132,7 @@ map('n', '<leader>mk', function()
 end, { desc = 'cmake build' })
 
 -- copilot
-map('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
+map('i', '<C-[>', 'copilot#Accept("\\<CR>")', {
   expr = true,
   replace_keycodes = false,
   desc = 'Accept copilot suggestion',
