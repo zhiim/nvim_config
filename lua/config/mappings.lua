@@ -28,6 +28,10 @@ map('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 -- remap Esc to jj
 map('i', 'jj', '<ESC>')
 
+-- mapping for split
+map('n', '<leader>-', '<C-w>v', { desc = 'split vertically' })
+map('n', '<leader>=', '<C-w>s', { desc = 'split horizontally' })
+
 -- nvimtree
 map('n', '<C-n>', '<cmd>NvimTreeToggle<CR>')
 
