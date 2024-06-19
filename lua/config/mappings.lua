@@ -105,6 +105,9 @@ map('n', '<leader>dh', '<cmd>DiffviewFileHistory<cr>', { desc = 'Diffview View F
 -- nvterm
 map({ 'n', 't' }, '<A-v>', function()
   require('nvterm.terminal').toggle 'horizontal'
+end, { desc = 'toggle horizontal terminal' })
+map({ 'n', 't' }, '<A-i>', function()
+  require('nvterm.terminal').toggle 'float'
 end, { desc = 'toggle float terminal' })
 map('n', '<A-n>', '<cmd>term<CR>', { desc = 'open terminal in new tab' })
 
