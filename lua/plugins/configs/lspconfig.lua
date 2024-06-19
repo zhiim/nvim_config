@@ -209,21 +209,19 @@ return { -- LSP Configuration & Plugins
     -- for you, so that they are available from within Neovim.
     local ensure_installed = vim.tbl_keys(servers or {})
     --
-    -- NOTE: add packages need to be installed with Mason here
+    -- NOTE: add packages need to be installed with Mason here,
+    --       lsp added in `servers` is already included
     --
     vim.list_extend(ensure_installed, {
       -- lua
-      'lua-language-server',
       'stylua',
 
       -- c/cpp stuff
-      'clangd',
       'clang-format',
       -- "codelldb",  -- c/c++ debugger
       'cmake-language-server',
 
       -- python stuff
-      'python-lsp-server',
       'ruff', -- linter with lots of syntex check
       -- "debugpy", -- used with dap-python
 
