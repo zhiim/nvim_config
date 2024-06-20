@@ -96,7 +96,7 @@ return { -- Collection of various small independent plugins/modules
       if session_exist(session_name) then
         MiniSessions.read(session_name)
       else
-        print 'Session does not exist'
+        print 'Session does not exist for current directory'
         return
       end
     end, { desc = 'MiniSessions read Session' })
@@ -105,7 +105,7 @@ return { -- Collection of various small independent plugins/modules
       if session_exist(session_name) then
         MiniSessions.delete(session_name, { force = true })
       else
-        print 'Session does not exist'
+        print 'Session does not exist for current directory'
         return
       end
     end, { desc = 'MiniSessions delete Session' })

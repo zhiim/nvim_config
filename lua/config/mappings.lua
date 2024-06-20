@@ -31,6 +31,7 @@ map('i', 'jj', '<ESC>')
 -- mapping for split
 map('n', '<leader>-', '<C-w>v', { desc = 'split vertically' })
 map('n', '<leader>=', '<C-w>s', { desc = 'split horizontally' })
+map('n', '<leader>o', '<cmd>only<CR>', { desc = 'close other windows' })
 
 -- nvimtree
 map('n', '<C-n>', '<cmd>NvimTreeToggle<CR>')
