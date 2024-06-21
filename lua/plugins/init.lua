@@ -249,14 +249,6 @@ require('lazy').setup({
     end,
   },
 
-  {
-    'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function()
-      require('lualine').setup {}
-    end,
-  },
-
   require 'plugins.configs.telescope',
   require 'plugins.configs.cmp',
   require 'plugins.configs.lspconfig',
@@ -266,6 +258,7 @@ require('lazy').setup({
   require 'plugins.configs.lint',
   require 'plugins.configs.nvimtree',
   require 'plugins.configs.mini',
+  require 'plugins.configs.lualine',
   require 'plugins.configs.dashboard',
 
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
