@@ -39,7 +39,7 @@ require('lazy').setup({
       --
       ensure_installed = { 'bash', 'c', 'cpp', 'python', 'diff', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
       -- Autoinstall languages that are not installed
-      auto_install = true,
+      auto_install = false,
       highlight = {
         enable = true,
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
@@ -50,19 +50,9 @@ require('lazy').setup({
       indent = { enable = true, disable = { 'ruby' } },
     },
     config = function(_, opts)
-      -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-
-      -- Prefer git instead of curl in order to improve connectivity in some environments
       require('nvim-treesitter.install').prefer_git = true
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup(opts)
-
-      -- There are additional nvim-treesitter modules that you can use to interact
-      -- with nvim-treesitter. You should go explore a few and see what interests you:
-      --
-      --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-      --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-      --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
   },
 
@@ -106,6 +96,41 @@ require('lazy').setup({
     -- See `:help ibl`
     main = 'ibl',
     opts = {},
+    config = function()
+      local highlight = {
+        'RainbowRed',
+        'RainbowYellow',
+        'RainbowBlue',
+        'RainbowOrange',
+        'RainbowGreen',
+        'RainbowViolet',
+        'RainbowCyan',
+      }
+
+      local colors = require('onedarkpro.helpers').get_colors()
+      local hooks = require 'ibl.hooks'
+      -- create the highlight groups in the highlight setup hook, so they are reset
+      -- every time the colorscheme changes
+      hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+        vim.api.nvim_set_hl(0, 'RainbowRed', { fg = colors.red })
+        vim.api.nvim_set_hl(0, 'RainbowYellow', { fg = colors.yellow })
+        vim.api.nvim_set_hl(0, 'RainbowBlue', { fg = colors.blue })
+        vim.api.nvim_set_hl(0, 'RainbowOrange', { fg = colors.orange })
+        vim.api.nvim_set_hl(0, 'RainbowGreen', { fg = colors.green })
+        vim.api.nvim_set_hl(0, 'RainbowViolet', { fg = colors.purple })
+        vim.api.nvim_set_hl(0, 'RainbowCyan', { fg = colors.cyan })
+      end)
+
+      require('ibl').setup {
+        indent = {
+          highlight = highlight,
+          char = '▏',
+        },
+        exclude = {
+          filetypes = { 'dashboard' },
+        },
+      }
+    end,
   },
 
   {
@@ -186,6 +211,15 @@ require('lazy').setup({
     end,
   },
 
+  -- {
+  --   'catppuccin/nvim',
+  --   name = 'catppuccin',
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd 'colorscheme catppuccin-frappe'
+  --   end,
+  -- },
+
   {
     'CopilotC-Nvim/CopilotChat.nvim',
     branch = 'canary',
@@ -215,6 +249,14 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('lualine').setup {}
+    end,
+  },
+
   require 'plugins.configs.telescope',
   require 'plugins.configs.cmp',
   require 'plugins.configs.lspconfig',
@@ -224,6 +266,7 @@ require('lazy').setup({
   require 'plugins.configs.lint',
   require 'plugins.configs.nvimtree',
   require 'plugins.configs.mini',
+  require 'plugins.configs.dashboard',
 
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
