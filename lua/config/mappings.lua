@@ -77,23 +77,14 @@ map('n', '<A-k>', function()
 end, { desc = 'Resize Up' })
 
 -- trouble.nvim
-map('n', '<leader>tt', '<cmd>TroubleToggle<cr>', { desc = 'Trouble Toggle' })
-map('n', '<leader>tw', '<cmd>TroubleToggle workspace_diagnostics<cr>', { desc = 'Trouble Toggle Workspace Diagnostics' })
-map('n', '<leader>td', '<cmd>TroubleToggle document_diagnostics<cr>', { desc = 'Trouble Toggle Document Diagnostics' })
-map('n', '<leader>tl', '<cmd>TroubleToggle loclist<cr>', { desc = 'Trouble Toggle Loclist' })
-map('n', '<leader>tq', '<cmd>TroubleToggle quickfix<cr>', { desc = 'Trouble Toggle Quickfix' })
-map('n', '<leader>lr', '<cmd>TroubleToggle lsp_references<cr>', { desc = 'Trouble Toggle LSP References' })
+map('n', '<leader>tw', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Trouble Toggle Workspace Diagnostics' })
+map('n', '<leader>tt', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = 'Trouble Toggle Buffer Diagnostics' })
+map('n', '<leader>tl', '<cmd>Trouble loclist toggle<cr>', { desc = 'Trouble Toggle Loclist' })
+map('n', '<leader>tq', '<cmd>Trouble qflist toggle<cr>', { desc = 'Trouble Toggle Quickfix' })
+map('n', '<leader>lr', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', { desc = 'Trouble Toggle LSP References' })
 
 -- lazygit
 map('n', '<leader>lg', '<cmd>LazyGit<cr>', { desc = 'Open LazyGit' })
-
--- trouble.nvim
-map('n', '<leader>tt', '<cmd>TroubleToggle<cr>', { desc = 'Trouble Toggle' })
-map('n', '<leader>tw', '<cmd>TroubleToggle workspace_diagnostics<cr>', { desc = 'Trouble Toggle Workspace Diagnostics' })
-map('n', '<leader>td', '<cmd>TroubleToggle document_diagnostics<cr>', { desc = 'Trouble Toggle Document Diagnostics' })
-map('n', '<leader>tl', '<cmd>TroubleToggle loclist<cr>', { desc = 'Trouble Toggle Loclist' })
-map('n', '<leader>tq', '<cmd>TroubleToggle quickfix<cr>', { desc = 'Trouble Toggle Quickfix' })
-map('n', '<leader>lr', '<cmd>TroubleToggle lsp_references<cr>', { desc = 'Trouble Toggle LSP References' })
 
 -- glow.nvim
 map('n', '<leader>gl', '<cmd>Glow<cr>', { desc = 'Glow Open preview windows' })

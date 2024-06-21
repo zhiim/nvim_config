@@ -1,9 +1,3 @@
---- get the current window number
----@return number
-local function window()
-  return vim.api.nvim_win_get_number(0)
-end
-
 --- get git diff information using gitsigns
 local function diff_source()
   local gitsigns = vim.b.gitsigns_status_dict
@@ -47,7 +41,7 @@ return {
     require('lualine').setup {
       sections = {
         lualine_b = { { 'b:gitsigns_head', icon = '' }, { 'diff', source = diff_source }, 'diagnostics' },
-        lualine_c = { window, custom_fname, 'lsp_progress' },
+        lualine_c = { custom_fname, 'lsp_progress' },
       },
     }
   end,

@@ -174,7 +174,7 @@ require('lazy').setup({
   {
     'folke/trouble.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    cmd = 'TroubleToggle',
+    cmd = 'Trouble',
     opts = {
       -- your configuration comes here
       -- or leave it empty to use the default settings
