@@ -9,6 +9,7 @@ return {
     lint.linters_by_ft = {
       python = { 'ruff' },
       markdown = { 'markdownlint' },
+      json = { 'jsonlint' },
     }
 
     vim.keymap.set('n', '<leader>lt', function()

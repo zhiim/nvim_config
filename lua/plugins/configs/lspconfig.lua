@@ -225,6 +225,9 @@ return { -- LSP Configuration & Plugins
       -- markdown
       'markdownlint',
       'prettier',
+
+      -- json
+      'jsonlint',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
