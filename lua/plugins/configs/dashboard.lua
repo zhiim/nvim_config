@@ -71,7 +71,7 @@ return {
             action = 'Telescope live_grep',
           },
           {
-            icon = ' ',
+            icon = '  ',
             icon_hl = 'Title',
             desc = 'New Files',
             desc_hl = 'String',
