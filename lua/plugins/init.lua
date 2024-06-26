@@ -158,10 +158,6 @@ require('lazy').setup({
     'kdheepak/lazygit.nvim',
     cmd = {
       'LazyGit',
-      'LazyGitConfig',
-      'LazyGitCurrentFile',
-      'LazyGitFilter',
-      'LazyGitFilterCurrentFile',
     },
     -- optional for floating window border decoration
     dependencies = {
@@ -243,16 +239,34 @@ require('lazy').setup({
   },
 
   {
-    'NvChad/nvterm',
+    'nvim-treesitter/nvim-treesitter-context',
     config = function()
-      require('nvterm').setup {}
+      require('treesitter-context').setup()
     end,
   },
 
   {
-    'nvim-treesitter/nvim-treesitter-context',
+    'akinsho/toggleterm.nvim',
+    version = '*',
     config = function()
-      require('treesitter-context').setup()
+      require('toggleterm').setup {
+        size = function(term)
+          if term.direction == 'horizontal' then
+            return 15
+          elseif term.direction == 'vertical' then
+            return vim.o.columns * 0.4
+          end
+        end,
+        open_mapping = [[<A-v>]],
+        hide_numbers = true, -- hide the number column in toggleterm buffers
+        shade_terminals = false,
+        start_in_insert = true,
+        insert_mappings = true, -- whether or not the open mapping applies in insert mode
+        persist_size = true,
+        direction = 'horizontal',
+        close_on_exit = true, -- close the terminal window when the process exits
+        shell = vim.o.shell, -- change the default shell
+      }
     end,
   },
 

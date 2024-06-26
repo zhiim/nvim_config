@@ -14,7 +14,7 @@ map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]ui
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
-map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+map('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -94,15 +94,6 @@ map('n', '<leader>dv', '<cmd>DiffviewOpen<cr>', { desc = 'Diffview Open' })
 map('n', '<leader>dc', '<cmd>DiffviewClose<cr>', { desc = 'Diffview Close' })
 map('n', '<leader>dh', '<cmd>DiffviewFileHistory<cr>', { desc = 'Diffview View Files History' })
 
--- nvterm
-map({ 'n', 't' }, '<A-v>', function()
-  require('nvterm.terminal').toggle 'horizontal'
-end, { desc = 'toggle horizontal terminal' })
-map({ 'n', 't' }, '<A-i>', function()
-  require('nvterm.terminal').toggle 'float'
-end, { desc = 'toggle float terminal' })
-map('n', '<A-n>', '<cmd>term<CR>', { desc = 'open terminal in new tab' })
-
 -- cmake
 map('n', '<leader>mk', function()
   if vim.fn.executable 'cmake' == 0 then
@@ -133,3 +124,8 @@ vim.g.copilot_no_tab_map = true
 map('n', '<leader>co', '<cmd>CopilotChatOpen<CR>', { desc = 'Open Copilot Chat' })
 map('n', '<leader>cc', '<cmd>CopilotChatClose<CR>', { desc = 'Close Copilot Chat' })
 map('n', '<leader>ct', '<cmd>CopilotChatToggle<CR>', { desc = 'Toggle Copilot Chat' })
+
+-- toggleterm
+map('n', '<A-i>', '<cmd>ToggleTerm direction=float<CR>', { desc = 'Open terminal in float' })
+map('t', '<A-i>', '<cmd>ToggleTerm direction=float<CR>', { desc = 'Open terminal in float' })
+map('n', '<A-n>', '<cmd>term<CR>', { desc = 'open terminal in new tab' })
