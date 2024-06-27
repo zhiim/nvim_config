@@ -1,5 +1,7 @@
-local conda_command = 'fd python.exe D:\\condaEnvs'
-local venv_command = "fd '^python.exe$' D:\\venv"
+local conda_command = "fd '^python.exe$' D:\\condaEnvs -t x -t l"
+local venv_command = "fd '^python.exe$' D:\\venv -t x -t l"
+-- local conda_command = "fd '^python$' /home/xu/miniconda3/envs -t x -t l"
+-- local venv_command = "fd '^python$' /home/xu/.venvtool -t x -t l"
 
 return {
   'linux-cultist/venv-selector.nvim',
