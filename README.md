@@ -8,11 +8,12 @@
 - Git
 - GCC
 - Make
-- Python (optional, using LSP)
-- Ripgrep (optional, searching with telescope)
-- Node.js (optional, using Prettier, markdownlint and github copilot)
-- Lazygit (optional, using lazygit plugin)
-- Glow (optional, using glow plugin)
+- Python (optional, to use LSP)
+- Ripgrep (optional, to search with telescope)
+- Node.js (optional, to use Prettier, markdownlint and github copilot)
+- Lazygit (optional, to use lazygit plugin)
+- Glow (optional, to use glow plugin)
+- fd (optioanl, to use venv_selector)
 - clangd-format (optional, clangd-format installed with mason may not work)
 
 ### Install
@@ -100,3 +101,4 @@ Trun on a formatter or linter by editing `lua/configs/conform.lua` for formatter
 - If `nvim-treesitter` output error `Invalid node type at position x for language x`, you can use `:echo nvim_get_runtime_file('parser', v:true)` to check whether more than one parser is used or not, than rename the nvim parser folder to another name to use treesitter parser only.
 - Uncomment `event = "VeryLazy",` in `lua/plugins/init.lua` under "github/copilot.vim" to use github copilot and copilot chat.
 - `rust-analyzer` should be installed globally using `rustup component add rust-analyzer` in Windows.
+- set venv searching path by modify `conda_command` and `venv_command` in `lua/plugins/config/venv_selector.lua`
