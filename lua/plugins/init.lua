@@ -259,7 +259,7 @@ require('lazy').setup({
             return vim.o.columns * 0.4
           end
         end,
-        open_mapping = [[<A-v>]],
+        open_mapping = [[<C-\>]],
         hide_numbers = true, -- hide the number column in toggleterm buffers
         shade_terminals = false,
         start_in_insert = true,
@@ -283,6 +283,7 @@ require('lazy').setup({
   require 'plugins.configs.mini',
   require 'plugins.configs.lualine',
   require 'plugins.configs.dashboard',
+  require 'plugins.configs.venv_selector',
 
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`

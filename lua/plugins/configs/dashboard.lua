@@ -10,34 +10,42 @@ logo = string.rep('\n', 8) .. logo .. '\n\n'
 
 local config_center = {
   {
-    icon = '  ',
+    icon = '  ',
     desc = 'Read Saved Session',
     key = 's',
     action = "lua vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Leader>msr', true, false, true), 'm', true)",
   },
   {
-    icon = '󱋡  ',
-    desc = 'Find Recent Files',
+    icon = '  ',
+    desc = 'Recent Files',
     key = 'r',
     action = 'Telescope oldfiles',
   },
   {
-    icon = '󰈞  ',
+    icon = '  ',
     desc = 'Find File',
     key = 'f',
     action = 'Telescope find_files',
   },
   {
-    icon = '  ',
+    icon = '  ',
     desc = 'Find Word',
     key = 'w',
     action = 'Telescope live_grep',
   },
   {
-    icon = '  ',
+    icon = '  ',
     desc = 'New Files',
     key = 'e',
     action = 'ene | startinsert',
+  },
+  {
+    icon = '  ',
+    desc = 'Quit',
+    key = 'q',
+    action = function()
+      vim.api.nvim_input '<cmd>qa<cr>'
+    end,
   },
 }
 

@@ -126,9 +126,9 @@ map('n', '<leader>cc', '<cmd>CopilotChatClose<CR>', { desc = 'Close Copilot Chat
 map('n', '<leader>ct', '<cmd>CopilotChatToggle<CR>', { desc = 'Toggle Copilot Chat' })
 
 -- toggleterm
-map('n', '<A-i>', '<cmd>ToggleTerm direction=float<CR>', { desc = 'Open terminal in float' })
-map('t', '<A-i>', '<cmd>ToggleTerm direction=float<CR>', { desc = 'Open terminal in float' })
-map('n', '<A-n>', '<cmd>term<CR>', { desc = 'open terminal in new tab' })
+map({ 'n', 't' }, '<A-i>', '<cmd>ToggleTerm direction=float<CR>', { desc = 'Toggle terminal in float' })
+map({ 'n', 't' }, '<A-v>', '<cmd>ToggleTerm direction=horizontal size=15<CR>', { desc = 'Toggle terminal in horizontal' })
+map('n', '<A-n>', '<cmd>term<CR>', { desc = 'Toggle terminal in new tab' })
 
 -- treesitter-context
 map('n', '<leader>tct', '<cmd>TSContextToggle<CR>', { desc = 'Toggle Treesitter Context' })
