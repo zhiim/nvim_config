@@ -45,11 +45,6 @@ map('n', '<tab>', '<cmd>BufferNext<CR>', { desc = 'buffer goto next' })
 map('n', '<S-tab>', '<cmd>BufferPrevious<CR>', { desc = 'buffer goto previous' })
 map('n', '<leader>x', '<cmd>BufferClose<CR>', { desc = 'buffer close', noremap = true, silent = true })
 
--- neogen
-map('n', '<leader>gen', function()
-  require('neogen').generate { type = 'any' }
-end, { desc = 'Genearte annotation template' })
-
 -- smart-split
 map('n', '<C-h>', function()
   require('smart-splits').move_cursor_left()

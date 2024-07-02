@@ -145,6 +145,16 @@ require('lazy').setup({
     'danymat/neogen',
     dependencies = 'nvim-treesitter/nvim-treesitter',
     config = true,
+    keys = {
+      {
+        '<leader>gen',
+        function()
+          require('neogen').generate { type = 'any' }
+        end,
+        mode = 'n',
+        desc = 'Genearte annotation template',
+      },
+    },
     -- Uncomment next line if you want to follow only stable versions
     -- version = "*"
   },

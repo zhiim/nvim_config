@@ -1,5 +1,18 @@
 local map = vim.keymap.set
 
+local function get_session_name()
+  local md5 = require 'libs.md5'
+  local cwd = vim.fn.getcwd()
+  local name = md5.sumhexa(cwd)
+  name = 'session_' .. name
+  return name
+end
+
+local function session_exist(session_dir, session_name)
+  local session_file = session_dir .. '/' .. session_name
+  return vim.fn.filereadable(session_file) == 1
+end
+
 return { -- Collection of various small independent plugins/modules
   {
     'echasnovski/mini.map',
@@ -22,28 +35,57 @@ return { -- Collection of various small independent plugins/modules
       }
 
       MiniMap.setup(minimap_opt)
-
-      -- minimap key mappings
-
-      map('n', '<Leader>mmo', function()
-        MiniMap.open()
-      end, { desc = 'MiniMap Open Map' })
-      map('n', '<Leader>mmc', function()
-        MiniMap.close()
-      end, { desc = 'MiniMap Close Map' })
-      map('n', '<Leader>mmt', function()
-        MiniMap.toggle()
-      end, { desc = 'MiniMap Toggle map' })
-      map('n', '<Leader>mmf', function()
-        MiniMap.toggle_focus()
-      end, { desc = 'MiniMap Toggle focus' })
-      map('n', '<Leader>mmr', function()
-        MiniMap.refresh()
-      end, { desc = 'MiniMap Refresh Map' })
-      map('n', '<Leader>mms', function()
-        MiniMap.toggle_side()
-      end, { desc = 'MiniMap Toggle side' })
     end,
+    keys = {
+      {
+        '<leader>mmo',
+        function()
+          require('mini.map').open()
+        end,
+        mode = 'n',
+        desc = 'MiniMap Open Map',
+      },
+      {
+        '<leader>mmc',
+        function()
+          require('mini.map').close()
+        end,
+        mode = 'n',
+        desc = 'MiniMap Close Map',
+      },
+      {
+        '<leader>mmt',
+        function()
+          require('mini.map').toggle()
+        end,
+        mode = 'n',
+        desc = 'MiniMap Toggle map',
+      },
+      {
+        '<leader>mmf',
+        function()
+          require('mini.map').toggle_focus()
+        end,
+        mode = 'n',
+        desc = 'MiniMap Toggle focus',
+      },
+      {
+        '<leader>mmr',
+        function()
+          require('mini.map').refresh()
+        end,
+        mode = 'n',
+        desc = 'MiniMap Refresh Map',
+      },
+      {
+        '<leader>mms',
+        function()
+          require('mini.map').toggle_side()
+        end,
+        mode = 'n',
+        desc = 'MiniMap Toggle side',
+      },
+    },
   },
   {
     'echasnovski/mini.sessions',
@@ -52,41 +94,47 @@ return { -- Collection of various small independent plugins/modules
       require('mini.sessions').setup {
         autowrite = false,
       }
-      -- mappings for mini sessions
-      local function get_session_name()
-        local md5 = require 'libs.md5'
-        local cwd = vim.fn.getcwd()
-        local name = md5.sumhexa(cwd)
-        name = 'session_' .. name
-        return name
-      end
-      local function session_exist(session_name)
-        local session_dir = MiniSessions.config.directory
-        local session_file = session_dir .. '/' .. session_name
-        return vim.fn.filereadable(session_file) == 1
-      end
-      map('n', '<Leader>msw', function()
-        local session_name = get_session_name()
-        MiniSessions.write(session_name)
-      end, { desc = 'MiniSessions Save Session' })
-      map('n', '<Leader>msr', function()
-        local session_name = get_session_name()
-        if session_exist(session_name) then
-          MiniSessions.read(session_name)
-        else
-          print 'Session does not exist for current directory'
-          return
-        end
-      end, { desc = 'MiniSessions read Session' })
-      map('n', '<Leader>msd', function()
-        local session_name = get_session_name()
-        if session_exist(session_name) then
-          MiniSessions.delete(session_name, { force = true })
-        else
-          print 'Session does not exist for current directory'
-          return
-        end
-      end, { desc = 'MiniSessions delete Session' })
     end,
+    keys = {
+      {
+        '<leader>msw',
+        function()
+          local session_name = get_session_name()
+          require('mini.sessions').write(session_name)
+        end,
+        mode = 'n',
+        desc = 'MiniSessions Save Session',
+      },
+      {
+        '<leader>msr',
+        function()
+          local mini_session = require 'mini.sessions'
+          local session_name = get_session_name()
+          if session_exist(mini_session.config.directory, session_name) then
+            mini_session.read(session_name)
+          else
+            print 'Session does not exist for current directory'
+            return
+          end
+        end,
+        mode = 'n',
+        desc = 'MiniSessions read Session',
+      },
+      {
+        '<leader>msd',
+        function()
+          local mini_session = require 'mini.sessions'
+          local session_name = get_session_name()
+          if session_exist(mini_session.config.directory, session_name) then
+            mini_session.delete(session_name, { force = true })
+          else
+            print 'Session does not exist for current directory'
+            return
+          end
+        end,
+        mode = 'n',
+        desc = 'MiniSessions delete Session',
+      },
+    },
   },
 }
