@@ -21,6 +21,7 @@ return {
     local custom_fname = require('lualine.components.filename'):extend()
     local highlight = require 'lualine.highlight'
     local colors = require('onedarkpro.helpers').get_colors()
+    -- local colors = require('tokyonight.colors').setup()
     local default_status_colors = { saved = colors.grey, modified = colors.red }
     function custom_fname:init(options)
       custom_fname.super.init(self, options)

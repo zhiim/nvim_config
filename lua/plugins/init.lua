@@ -108,6 +108,7 @@ require('lazy').setup({
       }
 
       local colors = require('onedarkpro.helpers').get_colors()
+      -- local colors = require('tokyonight.colors').setup()
       local hooks = require 'ibl.hooks'
       -- create the highlight groups in the highlight setup hook, so they are reset
       -- every time the colorscheme changes
@@ -218,11 +219,10 @@ require('lazy').setup({
   },
 
   -- {
-  --   'catppuccin/nvim',
-  --   name = 'catppuccin',
-  --   priority = 1000,
-  --   config = function()
-  --     vim.cmd 'colorscheme catppuccin-frappe'
+  --   'folke/tokyonight.nvim',
+  --   priority = 1000, -- Make sure to load this before all the other start plugins.
+  --   init = function()
+  --     vim.cmd.colorscheme 'tokyonight'
   --   end,
   -- },
 
