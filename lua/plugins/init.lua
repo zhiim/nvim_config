@@ -14,16 +14,11 @@ local theme = {
   end,
 }
 
-local copilot
+local copilot = {
+  'github/copilot.vim',
+}
 if vim.g.use_copilot then
-  copilot = {
-    'github/copilot.vim',
-    event = 'VeryLazy',
-  }
-else
-  copilot = {
-    'github/copilot.vim',
-  }
+  copilot.event = 'VeryLazy'
 end
 
 require('lazy').setup({
