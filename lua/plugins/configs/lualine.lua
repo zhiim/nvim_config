@@ -20,17 +20,11 @@ return {
     -- custom filename component that highlights the filename based on its status
     local custom_fname = require('lualine.components.filename'):extend()
     local highlight = require 'lualine.highlight'
+
     local color_scheme = vim.g.color_scheme or 'onedarkpro'
-    local colors
-    if color_scheme == 'onedarkpro' then
-      colors = require('onedarkpro.helpers').get_colors()
-    elseif color_scheme == 'onenord' then
-      colors = require('onenord.colors').load()
-    elseif color_scheme == 'tokyonight' then
-      colors = require('tokyonight.colors').setup()
-    end
+    local colors = require('utils.util').get_palette(color_scheme)
     -- local colors = require('tokyonight.colors').setup()
-    local default_status_colors = { saved = colors.grey, modified = colors.red }
+    local default_status_colors = { modified = colors.red }
     function custom_fname:init(options)
       custom_fname.super.init(self, options)
       self.status_colors = {

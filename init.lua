@@ -8,7 +8,8 @@ vim.g.use_copilot = false
 vim.g.python_conda_command = "fd '^python.exe$' D:\\condaEnvs -t x -t l"
 vim.g.python_venv_command = "fd '^python.exe$' D:\\venv -t x -t l"
 
--- Set colorscheme, can be 'onedarkpro', 'onenord' or 'tokyonight'
+-- Set colorscheme
+-- can be ['onedarkpro', 'onenord', 'tokyonight', 'nordic', 'catppuccin']
 vim.g.color_scheme = 'onedarkpro'
 
 -- [[ 1. vim options ]]

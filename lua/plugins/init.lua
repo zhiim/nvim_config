@@ -1,31 +1,18 @@
-local color_scheme = vim.g.color_scheme or 'onedarkpro'
-
-local theme
-if color_scheme == 'onedarkpro' then
-  theme = {
-    'olimorris/onedarkpro.nvim',
-    priority = 1000, -- Ensure it loads first
-    config = function()
-      vim.cmd 'colorscheme onedark_vivid'
-    end,
-  }
-elseif color_scheme == 'onenord' then
-  theme = {
-    'rmehri01/onenord.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      vim.cmd.colorscheme 'onenord'
-    end,
-  }
-elseif color_scheme == 'tokyonight' then
-  theme = {
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      vim.cmd.colorscheme 'tokyonight'
-    end,
-  }
-end
+local color_scheme = vim.g.color_scheme or 'onedark'
+local theme_plugins = {
+  ['onedark'] = 'olimorris/onedarkpro.nvim',
+  ['onenord'] = 'rmehri01/onenord.nvim',
+  ['tokyonight'] = 'folke/tokyonight.nvim',
+  ['nordic'] = 'AlexvZyl/nordic.nvim',
+  ['catppuccin'] = 'catppuccin/nvim',
+}
+local theme = {
+  theme_plugins[color_scheme],
+  priority = 1000, -- Ensure it loads first
+  config = function()
+    vim.cmd.colorscheme(color_scheme)
+  end,
+}
 
 local copilot
 if vim.g.use_copilot then
@@ -148,14 +135,7 @@ require('lazy').setup({
         'RainbowCyan',
       }
 
-      local colors
-      if color_scheme == 'onedarkpro' then
-        colors = require('onedarkpro.helpers').get_colors()
-      elseif color_scheme == 'onenord' then
-        colors = require('onenord.colors').load()
-      elseif color_scheme == 'tokyonight' then
-        colors = require('tokyonight.colors').setup()
-      end
+      local colors = require('utils.util').get_palette(color_scheme)
       local hooks = require 'ibl.hooks'
       -- create the highlight groups in the highlight setup hook, so they are reset
       -- every time the colorscheme changes

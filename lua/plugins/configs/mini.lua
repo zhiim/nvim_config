@@ -1,7 +1,5 @@
-local map = vim.keymap.set
-
 local function get_session_name()
-  local md5 = require 'libs.md5'
+  local md5 = require 'utils.md5'
   local cwd = vim.fn.getcwd()
   local name = md5.sumhexa(cwd)
   name = 'session_' .. name
