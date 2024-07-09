@@ -1,8 +1,3 @@
-local conda_command = "fd '^python.exe$' D:\\condaEnvs -t x -t l"
-local venv_command = "fd '^python.exe$' D:\\venv -t x -t l"
--- local conda_command = "fd '^python$' /home/xu/miniconda3/envs -t x -t l"
--- local venv_command = "fd '^python$' /home/xu/.venvtool -t x -t l"
-
 return {
   'linux-cultist/venv-selector.nvim',
   dependencies = {
@@ -16,10 +11,10 @@ return {
       settings = {
         search = {
           find_conda = {
-            command = conda_command,
+            command = vim.g.python_conda_command,
           },
           find_venv = {
-            command = venv_command,
+            command = vim.g.python_venv_command,
           },
         },
       },

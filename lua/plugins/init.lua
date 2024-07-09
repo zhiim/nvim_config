@@ -1,3 +1,44 @@
+local color_scheme = vim.g.color_scheme or 'onedarkpro'
+
+local theme
+if color_scheme == 'onedarkpro' then
+  theme = {
+    'olimorris/onedarkpro.nvim',
+    priority = 1000, -- Ensure it loads first
+    config = function()
+      vim.cmd 'colorscheme onedark_vivid'
+    end,
+  }
+elseif color_scheme == 'onenord' then
+  theme = {
+    'rmehri01/onenord.nvim',
+    priority = 1000, -- Make sure to load this before all the other start plugins.
+    init = function()
+      vim.cmd.colorscheme 'onenord'
+    end,
+  }
+elseif color_scheme == 'tokyonight' then
+  theme = {
+    'folke/tokyonight.nvim',
+    priority = 1000, -- Make sure to load this before all the other start plugins.
+    init = function()
+      vim.cmd.colorscheme 'tokyonight'
+    end,
+  }
+end
+
+local copilot
+if vim.g.use_copilot then
+  copilot = {
+    'github/copilot.vim',
+    event = 'VeryLazy',
+  }
+else
+  copilot = {
+    'github/copilot.vim',
+  }
+end
+
 require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
@@ -107,8 +148,14 @@ require('lazy').setup({
         'RainbowCyan',
       }
 
-      local colors = require('onedarkpro.helpers').get_colors()
-      -- local colors = require('tokyonight.colors').setup()
+      local colors
+      if color_scheme == 'onedarkpro' then
+        colors = require('onedarkpro.helpers').get_colors()
+      elseif color_scheme == 'onenord' then
+        colors = require('onenord.colors').load()
+      elseif color_scheme == 'tokyonight' then
+        colors = require('tokyonight.colors').setup()
+      end
       local hooks = require 'ibl.hooks'
       -- create the highlight groups in the highlight setup hook, so they are reset
       -- every time the colorscheme changes
@@ -211,22 +258,6 @@ require('lazy').setup({
   },
 
   {
-    'olimorris/onedarkpro.nvim',
-    priority = 1000, -- Ensure it loads first
-    config = function()
-      vim.cmd 'colorscheme onedark_vivid'
-    end,
-  },
-
-  -- {
-  --   'folke/tokyonight.nvim',
-  --   priority = 1000, -- Make sure to load this before all the other start plugins.
-  --   init = function()
-  --     vim.cmd.colorscheme 'tokyonight'
-  --   end,
-  -- },
-
-  {
     'CopilotC-Nvim/CopilotChat.nvim',
     branch = 'canary',
     cmd = {
@@ -235,10 +266,7 @@ require('lazy').setup({
       'CopilotChatToggle',
     },
     dependencies = {
-      {
-        'github/copilot.vim',
-        -- event = "VeryLazy",
-      },
+      copilot,
       { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
     },
     opts = {
@@ -282,6 +310,7 @@ require('lazy').setup({
     end,
   },
 
+  theme,
   require 'plugins.configs.telescope',
   require 'plugins.configs.cmp',
   require 'plugins.configs.lspconfig',
