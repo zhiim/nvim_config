@@ -1,3 +1,16 @@
+-- whether to use github copilot
+vim.g.use_copilot = false
+
+-- command to find python env path
+-- in linux
+-- conda_command = "fd '^python$' /home/xu/miniconda3/envs -t x -t l"
+-- venv_command = "fd '^python$' /home/xu/.venvtool -t x -t l"
+vim.g.python_conda_command = "fd '^python.exe$' D:\\condaEnvs -t x -t l"
+vim.g.python_venv_command = "fd '^python.exe$' D:\\venv -t x -t l"
+
+-- Set colorscheme, can be 'onedarkpro', 'onenord' or 'tokyonight'
+vim.g.color_scheme = 'onedarkpro'
+
 -- [[ 1. vim options ]]
 require 'config.options'
 
@@ -35,16 +48,3 @@ require 'plugins'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-
--- whether to use github copilot
-vim.g.use_copilot = false
-
--- command to find python env path
--- in linux
--- conda_command = "fd '^python$' /home/xu/miniconda3/envs -t x -t l"
--- venv_command = "fd '^python$' /home/xu/.venvtool -t x -t l"
-vim.g.python_conda_command = "fd '^python.exe$' D:\\condaEnvs -t x -t l"
-vim.g.python_venv_command = "fd '^python.exe$' D:\\venv -t x -t l"
-
--- Set colorscheme, can be 'onedarkpro', 'onenord' or 'tokyonight'
-vim.g.color_scheme = 'onedarkpro'
