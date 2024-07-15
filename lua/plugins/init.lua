@@ -5,6 +5,7 @@ local theme_plugins = {
   ['tokyonight'] = 'folke/tokyonight.nvim',
   ['nordic'] = 'AlexvZyl/nordic.nvim',
   ['catppuccin'] = 'catppuccin/nvim',
+  ['material'] = 'marko-cerovac/material.nvim',
 }
 local theme = {
   theme_plugins[color_scheme],

@@ -27,6 +27,8 @@ function util.get_palette(color_scheme)
       purple = palette.mauve,
       cyan = palette.teal,
     }
+  elseif color_scheme == 'material' then
+    return require('material.colors').main
   else
     return require('onedarkpro.helpers').get_colors()
   end
