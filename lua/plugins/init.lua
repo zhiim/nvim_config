@@ -10,7 +10,8 @@ local theme = {
   theme_plugins[color_scheme],
   priority = 1000, -- Ensure it loads first
   config = function()
-    vim.cmd.colorscheme(color_scheme)
+    local theme_style = vim.g.scheme_style or color_scheme
+    vim.cmd.colorscheme(theme_style)
   end,
 }
 

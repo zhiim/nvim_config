@@ -11,6 +11,7 @@ vim.g.python_venv_command = "fd '^python.exe$' D:\\venv -t x -t l"
 -- Set colorscheme
 -- can be ['onedark', 'onenord', 'tokyonight', 'nordic', 'catppuccin']
 vim.g.color_scheme = 'onedark'
+vim.g.scheme_style = 'onedark_vivid'
 
 -- [[ 1. vim options ]]
 require 'config.options'
