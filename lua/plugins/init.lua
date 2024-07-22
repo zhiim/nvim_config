@@ -1,21 +1,3 @@
-local color_scheme = vim.g.color_scheme or 'onedark'
-local theme_plugins = {
-  ['onedark'] = 'olimorris/onedarkpro.nvim',
-  ['onenord'] = 'rmehri01/onenord.nvim',
-  ['tokyonight'] = 'folke/tokyonight.nvim',
-  ['nordic'] = 'AlexvZyl/nordic.nvim',
-  ['catppuccin'] = 'catppuccin/nvim',
-  ['material'] = 'marko-cerovac/material.nvim',
-}
-local theme = {
-  theme_plugins[color_scheme],
-  priority = 1000, -- Ensure it loads first
-  config = function()
-    local theme_style = vim.g.scheme_style or color_scheme
-    vim.cmd.colorscheme(theme_style)
-  end,
-}
-
 local copilot = {
   'github/copilot.vim',
 }
@@ -132,7 +114,7 @@ require('lazy').setup({
         'RainbowCyan',
       }
 
-      local colors = require('utils.util').get_palette(color_scheme)
+      local colors = require('utils.util').get_palette(vim.g.color_scheme or 'onedark')
       local hooks = require 'ibl.hooks'
       -- create the highlight groups in the highlight setup hook, so they are reset
       -- every time the colorscheme changes
@@ -294,7 +276,6 @@ require('lazy').setup({
     end,
   },
 
-  theme,
   require 'plugins.configs.telescope',
   require 'plugins.configs.cmp',
   require 'plugins.configs.lspconfig',
@@ -307,6 +288,7 @@ require('lazy').setup({
   require 'plugins.configs.lualine',
   require 'plugins.configs.dashboard',
   require 'plugins.configs.venv_selector',
+  require 'plugins.configs.theme',
 
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
