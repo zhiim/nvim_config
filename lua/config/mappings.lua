@@ -14,7 +14,7 @@ map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]ui
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
-map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+map('t', '<A-n>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -124,7 +124,6 @@ map('n', '<leader>ct', '<cmd>CopilotChatToggle<CR>', { desc = 'Toggle Copilot Ch
 -- toggleterm
 map({ 'n', 't' }, '<A-i>', '<cmd>ToggleTerm direction=float<CR>', { desc = 'Toggle terminal in float' })
 map({ 'n', 't' }, '<A-v>', '<cmd>ToggleTerm direction=horizontal size=15<CR>', { desc = 'Toggle terminal in horizontal' })
-map('n', '<A-n>', '<cmd>term<CR>', { desc = 'Toggle terminal in new tab' })
 
 -- treesitter-context
 map('n', '<leader>tct', '<cmd>TSContextToggle<CR>', { desc = 'Toggle Treesitter Context' })
