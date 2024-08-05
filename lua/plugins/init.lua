@@ -292,6 +292,33 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'smjonas/inc-rename.nvim',
+    config = function()
+      require('inc_rename').setup {}
+    end,
+    keys = {
+      {
+        '<leader>rn',
+        function()
+          require('inc_rename').rename()
+        end,
+        mode = 'n',
+        desc = 'Incremental Rename',
+      },
+    },
+  },
+
+  {
+    'rmagatti/goto-preview',
+    event = 'BufEnter',
+    config = function()
+      require('goto-preview').setup {
+        default_mappings = true,
+      }
+    end,
+  },
+
   require 'plugins.configs.telescope',
   require 'plugins.configs.cmp',
   require 'plugins.configs.lspconfig',
