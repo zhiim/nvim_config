@@ -310,11 +310,16 @@ require('lazy').setup({
   },
 
   {
-    'rmagatti/goto-preview',
-    event = 'BufEnter',
+    'dnlhc/glance.nvim',
+    cmd = 'Glance',
     config = function()
-      require('goto-preview').setup {
-        default_mappings = true,
+      local actions = require('glance').actions
+      require('glance').setup {
+        mappings = {
+          preview = {
+            ['q'] = actions.close,
+          },
+        },
       }
     end,
   },

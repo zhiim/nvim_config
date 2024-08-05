@@ -127,3 +127,9 @@ map({ 'n', 't' }, '<A-v>', '<cmd>ToggleTerm direction=horizontal size=15<CR>', {
 
 -- treesitter-context
 map('n', '<leader>tct', '<cmd>TSContextToggle<CR>', { desc = 'Toggle Treesitter Context' })
+
+-- glance
+map('n', '<leader>gd', '<CMD>Glance definitions<CR>', { desc = 'Glance definitions' })
+map('n', '<leader>gr', '<CMD>Glance references<CR>', { desc = 'Glance references' })
+map('n', '<leader>gD', '<CMD>Glance type_definitions<CR>', { desc = 'Glance type definitions' })
+map('n', '<leader>gI', '<CMD>Glance implementations<CR>', { desc = 'Glance implementations' })
