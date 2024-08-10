@@ -1,43 +1,3 @@
-local copilot = {}
-if vim.g.use_copilot then
-  copilot = {
-    {
-      'CopilotC-Nvim/CopilotChat.nvim',
-      branch = 'canary',
-      cmd = {
-        'CopilotChatOpen',
-        'CopilotChatClose',
-        'CopilotChatToggle',
-      },
-      dependencies = {
-        {
-          'zbirenbaum/copilot.lua',
-          cmd = 'Copilot',
-          event = 'InsertEnter',
-          config = function()
-            require('copilot').setup {
-              suggestion = { enabled = false },
-              panel = { enabled = false },
-            }
-          end,
-        },
-        { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
-      },
-      opts = {
-        debug = true, -- Enable debugging
-        -- See Configuration section for rest
-      },
-      -- See Commands section for default commands if you want to lazy load on them
-    },
-    {
-      'zbirenbaum/copilot-cmp',
-      config = function()
-        require('copilot_cmp').setup()
-      end,
-    },
-  }
-end
-
 require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
@@ -338,13 +298,11 @@ require('lazy').setup({
     end,
   },
 
-  copilot,
-
   require 'plugins.configs.telescope',
   require 'plugins.configs.cmp',
   require 'plugins.configs.lspconfig',
   require 'plugins.configs.gitsigns',
-  -- require 'plugins.configs.debug',
+  require 'plugins.configs.debug',
   require 'plugins.configs.conform',
   require 'plugins.configs.lint',
   require 'plugins.configs.nvimtree',
@@ -353,6 +311,7 @@ require('lazy').setup({
   require 'plugins.configs.dashboard',
   require 'plugins.configs.venv_selector',
   require 'plugins.configs.theme',
+  require 'plugins.configs.copilot',
 
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`

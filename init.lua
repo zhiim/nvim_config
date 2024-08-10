@@ -1,6 +1,9 @@
 -- whether to use github copilot
 vim.g.use_copilot = false
 
+-- whether to use dap
+vim.g.use_dap = false
+
 -- command to find python env path
 -- in linux
 -- conda_command = "fd '^python$' /home/xu/miniconda3/envs -t x -t l"
