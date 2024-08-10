@@ -42,6 +42,21 @@ return {
     end
 
     require('lualine').setup {
+      options = {
+        disabled_filetypes = {
+          'dashboard',
+          'NvimTree',
+          'dapui_watches',
+          'dapui_stacks',
+          'dapui_scopes',
+          'dapui_breakpoints',
+          'dapui_console',
+          'dap-repl',
+          'DiffviewFiles',
+          'trouble',
+          'copilot-chat',
+        },
+      },
       sections = {
         lualine_b = { { 'b:gitsigns_head', icon = '' }, { 'diff', source = diff_source }, 'diagnostics' },
         lualine_c = { custom_fname, 'lsp_progress' },
