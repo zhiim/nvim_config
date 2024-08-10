@@ -1,8 +1,41 @@
-local copilot = {
-  'github/copilot.vim',
-}
+local copilot = {}
 if vim.g.use_copilot then
-  copilot.event = 'VeryLazy'
+  copilot = {
+    {
+      'CopilotC-Nvim/CopilotChat.nvim',
+      branch = 'canary',
+      cmd = {
+        'CopilotChatOpen',
+        'CopilotChatClose',
+        'CopilotChatToggle',
+      },
+      dependencies = {
+        {
+          'zbirenbaum/copilot.lua',
+          cmd = 'Copilot',
+          event = 'InsertEnter',
+          config = function()
+            require('copilot').setup {
+              suggestion = { enabled = false },
+              panel = { enabled = false },
+            }
+          end,
+        },
+        { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
+      },
+      opts = {
+        debug = true, -- Enable debugging
+        -- See Configuration section for rest
+      },
+      -- See Commands section for default commands if you want to lazy load on them
+    },
+    {
+      'zbirenbaum/copilot-cmp',
+      config = function()
+        require('copilot_cmp').setup()
+      end,
+    },
+  }
 end
 
 require('lazy').setup({
@@ -224,25 +257,6 @@ require('lazy').setup({
   },
 
   {
-    'CopilotC-Nvim/CopilotChat.nvim',
-    branch = 'canary',
-    cmd = {
-      'CopilotChatOpen',
-      'CopilotChatClose',
-      'CopilotChatToggle',
-    },
-    dependencies = {
-      copilot,
-      { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
-    },
-    opts = {
-      debug = true, -- Enable debugging
-      -- See Configuration section for rest
-    },
-    -- See Commands section for default commands if you want to lazy load on them
-  },
-
-  {
     'nvim-treesitter/nvim-treesitter-context',
     config = function()
       require('treesitter-context').setup {
@@ -323,6 +337,8 @@ require('lazy').setup({
       }
     end,
   },
+
+  copilot,
 
   require 'plugins.configs.telescope',
   require 'plugins.configs.cmp',
