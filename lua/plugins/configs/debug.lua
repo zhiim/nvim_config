@@ -82,7 +82,7 @@ return {
     if vim.fn.has 'win32' == 0 then
       require('dap-python').setup(vim.fn.stdpath 'data' .. '/mason/packages/debugpy/venv/bin/python')
     else
-      require('dap-python').setup(vim.fn.stdpath 'data' .. '/mason/packages/debugpy/venv/bin/python.exe')
+      require('dap-python').setup(vim.fn.stdpath 'data' .. '/mason/packages/debugpy/venv/Scripts/python.exe')
     end
   end,
 }
