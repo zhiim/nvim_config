@@ -69,8 +69,10 @@ vim.opt.scrolloff = 10
 -- set a column line to indicate line changing of code
 vim.opt.colorcolumn = '80'
 
--- disable smartindent which do not allow comments indenting
-vim.opt.smartindent = false
+vim.opt.expandtab = true -- expand tab input with spaces characters
+vim.opt.smartindent = true -- syntax aware indentations for newline inserts
+vim.opt.tabstop = 4 -- num of space characters per tab
+vim.opt.shiftwidth = 4 -- spaces per indentation level
 
 -- Set highlight on search
 vim.opt.hlsearch = true
