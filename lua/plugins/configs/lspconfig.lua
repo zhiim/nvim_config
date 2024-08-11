@@ -221,8 +221,17 @@ return { -- LSP Configuration & Plugins
 
     -- clangd setting, use mingw in windows
     if vim.fn.has 'win32' ~= 0 then
+      -- using gcc in windows
       require('lspconfig').clangd.setup {
-        cmd = { 'clangd', '--query-driver=' .. require('utils.util').get_gcc_path() },
+        cmd = { 'clangd', '--clang-tidy', '--query-driver=' .. require('utils.util').get_gcc_path() },
+        init_options = {
+          fallbackFlags = { '--target=x86_64-w64-windows-gnu' },
+        },
+      }
+    else
+      -- just enable clangd-tidy in other platform
+      require('lspconfig').clangd.setup {
+        cmd = { 'clangd', '--clang-tidy' },
       }
     end
   end,

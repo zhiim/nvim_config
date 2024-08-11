@@ -37,7 +37,7 @@ end
 function util.get_gcc_path()
   local handle = io.popen 'where c++'
   if handle == nil then
-    print 'get gcc path failed'
+    print 'get g++ path failed'
   else
     local result = handle:read '*a'
     handle:close()
@@ -62,6 +62,7 @@ function util.gen_make_files()
     gen_result = vim.fn.system 'cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -S . -B build'
   end
   print(vim.inspect(gen_result))
+  vim.api.nvim_command 'LspRestart clangd'
 end
 
 return util
