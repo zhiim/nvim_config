@@ -137,6 +137,8 @@ return { -- LSP Configuration & Plugins
       -- But for many setups, the LSP (`tsserver`) will work just fine
       -- tsserver = {},
       --
+      clangd = {},
+
       cmake = {},
 
       pylsp = {
@@ -166,33 +168,6 @@ return { -- LSP Configuration & Plugins
         },
       },
     }
-
-    -- set up clangd
-    local function get_gcc_path()
-      local handle = io.popen 'where c++'
-      if handle == nil then
-        print 'get gcc path failed'
-      else
-        local result = handle:read '*a'
-        handle:close()
-        return result
-      end
-    end
-
-    -- clangd setting, use mingw in windows
-    local clangd_mingw
-    if vim.fn.has 'win32' ~= 0 then
-      clangd_mingw = '--query-driver=' .. get_gcc_path()
-      servers.clangd = {
-        cmd = {
-          'clangd',
-          clangd_mingw,
-        },
-      }
-    else
-      -- if in linux
-      servers.clangd = {}
-    end
 
     -- Ensure the servers and tools above are installed
     --  To check the current status of installed tools and/or manually install
@@ -243,5 +218,12 @@ return { -- LSP Configuration & Plugins
         end,
       },
     }
+
+    -- clangd setting, use mingw in windows
+    if vim.fn.has 'win32' ~= 0 then
+      require('lspconfig').clangd.setup {
+        cmd = { 'clangd', '--query-driver=' .. require('utils.util').get_gcc_path() },
+      }
+    end
   end,
 }

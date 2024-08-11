@@ -92,22 +92,7 @@ map('n', '<leader>dh', '<cmd>DiffviewFileHistory<cr>', { desc = 'Diffview View F
 
 -- cmake
 map('n', '<leader>mk', function()
-  if vim.fn.executable 'cmake' == 0 then
-    print 'cmake not found'
-    return
-  end
-  -- create build dir
-  if vim.fn.isdirectory 'build' == 0 then
-    vim.fn.mkdir 'build'
-  end
-  -- generate build files
-  local gen_result
-  if vim.fn.has 'win32' == 1 then
-    gen_result = vim.fn.system 'cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -S . -B build -G "MinGW Makefiles"'
-  else
-    gen_result = vim.fn.system 'cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -S . -B build'
-  end
-  print(vim.inspect(gen_result))
+  require('utils.util').gen_make_files()
 end, { desc = 'cmake build' })
 
 -- copilot
