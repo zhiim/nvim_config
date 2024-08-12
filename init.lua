@@ -17,10 +17,6 @@ vim.g.python_venv_command = "fd '^python.exe$' D:\\venv -t x -t l"
 vim.g.color_scheme = 'onedark'
 vim.g.scheme_style = 'onedark_vivid'
 
--- vimtex options
-vim.g.tex_flavor = 'latex'
-vim.g.vimtex_view_method = 'zathura'
-
 -- [[ 1. vim options ]]
 require 'config.options'
 
