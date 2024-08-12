@@ -45,10 +45,12 @@ require('lazy').setup({
       -- NOTE: language parsers need to be installed
       --
       ensure_installed = { 'bash', 'c', 'cpp', 'python', 'diff', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
+      ignore_install = { 'latex' },
       -- Autoinstall languages that are not installed
       auto_install = false,
       highlight = {
         enable = true,
+        disable = { 'latex' },
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
@@ -295,6 +297,16 @@ require('lazy').setup({
           },
         },
       }
+    end,
+  },
+
+  {
+    'lervag/vimtex',
+    ft = { 'tex', 'plaintex' },
+    -- tag = "v2.15", -- uncomment to pin to a specific release
+    init = function()
+      -- VimTeX configuration goes here, e.g.
+      vim.g.vimtex_view_method = 'zathura'
     end,
   },
 
