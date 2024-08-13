@@ -307,6 +307,7 @@ require('lazy').setup({
     init = function()
       -- VimTeX configuration goes here, e.g.
       vim.g.tex_flavor = 'latex'
+      vim.g.vimtex_quickfix_mode = 0
       -- vim.g.vimtex_compiler_latexmk_engines = { _ = '-xelatex' }
       -- pdf viewer
       if vim.fn.has 'win32' == 1 then
