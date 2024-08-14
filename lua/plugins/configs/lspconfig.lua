@@ -167,8 +167,6 @@ return { -- LSP Configuration & Plugins
           },
         },
       },
-
-      texlab = {},
     }
 
     -- Ensure the servers and tools above are installed

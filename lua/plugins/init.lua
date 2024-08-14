@@ -317,6 +317,17 @@ require('lazy').setup({
         vim.g.vimtex_view_method = 'zathura'
       end
     end,
+    dependencies = {
+      'micangl/cmp-vimtex',
+      config = function()
+        require('cmp').setup {
+          sources = {
+            { name = 'vimtex' },
+          },
+        }
+        require('cmp_vimtex').setup {}
+      end,
+    },
   },
 
   require 'plugins.configs.telescope',
