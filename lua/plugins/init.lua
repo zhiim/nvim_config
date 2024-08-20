@@ -35,48 +35,11 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
-
-  { -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
-    opts = {
-      --
-      -- NOTE: language parsers need to be installed
-      --
-      ensure_installed = { 'bash', 'c', 'cpp', 'python', 'diff', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
-      ignore_install = { 'latex' },
-      -- Autoinstall languages that are not installed
-      auto_install = false,
-      highlight = {
-        enable = true,
-        disable = { 'latex' },
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-    },
-    config = function(_, opts)
-      require('nvim-treesitter.install').prefer_git = true
-      ---@diagnostic disable-next-line: missing-fields
-      require('nvim-treesitter.configs').setup(opts)
-    end,
-  },
-
   {
-    'windwp/nvim-autopairs',
-    event = 'InsertEnter',
-    -- Optional dependency
-    dependencies = { 'hrsh7th/nvim-cmp' },
-    config = function()
-      require('nvim-autopairs').setup {}
-      -- If you want to automatically add `(` after selecting a function or method
-      local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
-      local cmp = require 'cmp'
-      cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
-    end,
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = { signs = false },
   },
 
   {
@@ -151,24 +114,6 @@ require('lazy').setup({
   },
 
   {
-    'danymat/neogen',
-    dependencies = 'nvim-treesitter/nvim-treesitter',
-    config = true,
-    keys = {
-      {
-        '<leader>gen',
-        function()
-          require('neogen').generate { type = 'any' }
-        end,
-        mode = 'n',
-        desc = 'Genearte annotation template',
-      },
-    },
-    -- Uncomment next line if you want to follow only stable versions
-    -- version = "*"
-  },
-
-  {
     'mrjones2014/smart-splits.nvim',
     lazy = false,
   },
@@ -219,15 +164,6 @@ require('lazy').setup({
   },
 
   {
-    'nvim-treesitter/nvim-treesitter-context',
-    config = function()
-      require('treesitter-context').setup {
-        max_lines = 3,
-      }
-    end,
-  },
-
-  {
     'akinsho/toggleterm.nvim',
     version = '*',
     config = function()
@@ -260,15 +196,6 @@ require('lazy').setup({
   },
 
   {
-    'ray-x/lsp_signature.nvim',
-    event = 'VeryLazy',
-    opts = {},
-    config = function(_, opts)
-      require('lsp_signature').setup(opts)
-    end,
-  },
-
-  {
     'smjonas/inc-rename.nvim',
     config = function()
       require('inc_rename').setup {}
@@ -285,54 +212,10 @@ require('lazy').setup({
     },
   },
 
-  {
-    'dnlhc/glance.nvim',
-    cmd = 'Glance',
-    config = function()
-      local actions = require('glance').actions
-      require('glance').setup {
-        mappings = {
-          preview = {
-            ['q'] = actions.close,
-          },
-        },
-      }
-    end,
-  },
-
-  {
-    'lervag/vimtex',
-    ft = { 'tex', 'plaintex' },
-    -- tag = "v2.15", -- uncomment to pin to a specific release
-    init = function()
-      -- VimTeX configuration goes here, e.g.
-      vim.g.tex_flavor = 'latex'
-      vim.g.vimtex_quickfix_mode = 0
-      -- vim.g.vimtex_compiler_latexmk_engines = { _ = '-xelatex' }
-      -- pdf viewer
-      if vim.fn.has 'win32' == 1 then
-        vim.g.vimtex_view_general_viewer = 'SumatraPDF'
-        vim.g.vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
-      else
-        vim.g.vimtex_view_method = 'zathura'
-      end
-    end,
-    dependencies = {
-      'micangl/cmp-vimtex',
-      config = function()
-        require('cmp').setup {
-          sources = {
-            { name = 'vimtex' },
-          },
-        }
-        require('cmp_vimtex').setup {}
-      end,
-    },
-  },
-
   require 'plugins.configs.telescope',
   require 'plugins.configs.cmp',
   require 'plugins.configs.lspconfig',
+  require 'plugins.configs.treesitter',
   require 'plugins.configs.gitsigns',
   require 'plugins.configs.debug',
   require 'plugins.configs.conform',
@@ -344,6 +227,7 @@ require('lazy').setup({
   require 'plugins.configs.venv_selector',
   require 'plugins.configs.theme',
   require 'plugins.configs.copilot',
+  require 'plugins.configs.vimtex',
 
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`

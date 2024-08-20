@@ -100,19 +100,23 @@ map('n', '<leader>mk', function()
 end, { desc = 'cmake build' })
 
 -- copilot
-map('n', '<leader>co', '<cmd>CopilotChatOpen<CR>', { desc = 'Open Copilot Chat' })
-map('n', '<leader>cc', '<cmd>CopilotChatClose<CR>', { desc = 'Close Copilot Chat' })
-map('n', '<leader>ct', '<cmd>CopilotChatToggle<CR>', { desc = 'Toggle Copilot Chat' })
+if vim.g.use_copilot then
+  map('n', '<leader>co', '<cmd>CopilotChatOpen<CR>', { desc = 'Open Copilot Chat' })
+  map('n', '<leader>cc', '<cmd>CopilotChatClose<CR>', { desc = 'Close Copilot Chat' })
+  map('n', '<leader>ct', '<cmd>CopilotChatToggle<CR>', { desc = 'Toggle Copilot Chat' })
+end
 
 -- toggleterm
 map({ 'n', 't' }, '<A-i>', '<cmd>ToggleTerm direction=float<CR>', { desc = 'Toggle terminal in float' })
 map({ 'n', 't' }, '<A-v>', '<cmd>ToggleTerm direction=horizontal size=15<CR>', { desc = 'Toggle terminal in horizontal' })
 
--- treesitter-context
-map('n', '<leader>tct', '<cmd>TSContextToggle<CR>', { desc = 'Toggle Treesitter Context' })
+if vim.g.enable_language_support then
+  -- treesitter-context
+  map('n', '<leader>tct', '<cmd>TSContextToggle<CR>', { desc = 'Toggle Treesitter Context' })
 
--- glance
-map('n', '<leader>gd', '<CMD>Glance definitions<CR>', { desc = 'Glance definitions' })
-map('n', '<leader>gr', '<CMD>Glance references<CR>', { desc = 'Glance references' })
-map('n', '<leader>gD', '<CMD>Glance type_definitions<CR>', { desc = 'Glance type definitions' })
-map('n', '<leader>gI', '<CMD>Glance implementations<CR>', { desc = 'Glance implementations' })
+  -- glance
+  map('n', '<leader>gd', '<CMD>Glance definitions<CR>', { desc = 'Glance definitions' })
+  map('n', '<leader>gr', '<CMD>Glance references<CR>', { desc = 'Glance references' })
+  map('n', '<leader>gD', '<CMD>Glance type_definitions<CR>', { desc = 'Glance type definitions' })
+  map('n', '<leader>gI', '<CMD>Glance implementations<CR>', { desc = 'Glance implementations' })
+end

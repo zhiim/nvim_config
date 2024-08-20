@@ -1,8 +1,8 @@
--- whether to use github copilot
+-- options to enable extra features
+vim.g.enable_language_support = false
 vim.g.use_copilot = false
-
--- whether to use dap
 vim.g.use_dap = false
+vim.g.use_tex = false
 
 -- command to find python env path
 -- in linux

@@ -1,3 +1,6 @@
+if not vim.g.enable_language_support then
+  return {}
+end
 return {
   'linux-cultist/venv-selector.nvim',
   dependencies = {
