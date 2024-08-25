@@ -45,6 +45,8 @@ return {
       options = {
         disabled_filetypes = {
           'dashboard',
+        },
+        ignore_focus = {
           'NvimTree',
           'dapui_watches',
           'dapui_stacks',
@@ -52,10 +54,10 @@ return {
           'dapui_breakpoints',
           'dapui_console',
           'dap-repl',
-          'DiffviewFiles',
           'trouble',
           'copilot-chat',
         },
+        globalstatus = true,
       },
       sections = {
         lualine_b = { { 'b:gitsigns_head', icon = '' }, { 'diff', source = diff_source }, 'diagnostics' },
