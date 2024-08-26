@@ -22,6 +22,7 @@ return {
     local linterConfig = vim.fn.stdpath 'config' .. '/linter_configs'
 
     lint.linters.ruff.args = {
+      'check',
       '--force-exclude',
       '--quiet',
       '--stdin-filename',
