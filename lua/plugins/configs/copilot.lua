@@ -17,18 +17,14 @@ return {
         event = 'InsertEnter',
         config = function()
           require('copilot').setup {
-            suggestion = { enabled = false },
-            panel = { enabled = false },
+            suggestion = {
+              auto_trigger = true,
+              keymap = {
+                accept = '<M-y>',
+              },
+            },
           }
         end,
-        dependencies = {
-          {
-            'zbirenbaum/copilot-cmp',
-            config = function()
-              require('copilot_cmp').setup()
-            end,
-          },
-        },
       },
       { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
     },

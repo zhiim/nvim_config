@@ -104,6 +104,9 @@ if vim.g.use_copilot then
   map('n', '<leader>co', '<cmd>CopilotChatOpen<CR>', { desc = 'Open Copilot Chat' })
   map('n', '<leader>cc', '<cmd>CopilotChatClose<CR>', { desc = 'Close Copilot Chat' })
   map('n', '<leader>ct', '<cmd>CopilotChatToggle<CR>', { desc = 'Toggle Copilot Chat' })
+  map('n', '<leader>cp', function()
+    require('copilot.panel').open()
+  end, { desc = 'Open Copilot Panel' })
 end
 
 -- toggleterm
