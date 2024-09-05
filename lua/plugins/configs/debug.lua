@@ -84,5 +84,13 @@ return {
     else
       require('dap-python').setup(vim.fn.stdpath 'data' .. '/mason/packages/debugpy/venv/Scripts/python.exe')
     end
+    table.insert(require('dap').configurations.python, {
+      type = 'python',
+      request = 'launch',
+      name = 'Custom: debug outside',
+      program = '${file}',
+      justMyCode = false,
+      -- ... more options, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings
+    })
   end,
 }
