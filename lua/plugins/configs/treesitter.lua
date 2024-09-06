@@ -1,6 +1,3 @@
-if not vim.g.enable_language_support then
-  return {}
-end
 return { -- Highlight, edit, and navigate code
   {
     'nvim-treesitter/nvim-treesitter',
@@ -55,5 +52,26 @@ return { -- Highlight, edit, and navigate code
     },
     -- Uncomment next line if you want to follow only stable versions
     -- version = "*"
+  },
+  {
+    'stevearc/aerial.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function()
+      require('aerial').setup {
+        -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+        on_attach = function(bufnr)
+          -- Jump forwards/backwards with '{' and '}'
+          vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', { buffer = bufnr })
+          vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
+        end,
+      }
+      -- You probably also want to set a keymap to toggle aerial
+      vim.keymap.set('n', '<leader>at', '<cmd>AerialToggle!<CR>')
+    end,
   },
 }
