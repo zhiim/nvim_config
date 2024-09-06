@@ -12,7 +12,6 @@
 - Ripgrep (optional, to search with telescope)
 - Node.js (optional, to use Prettier, markdownlint and github copilot)
 - Lazygit (optional, to use lazygit plugin)
-- Glow (optional, to use glow plugin)
 - fd (optioanl, to use venv_selector)
 - clangd-format (optional, clangd-format installed with mason may not work)
 
