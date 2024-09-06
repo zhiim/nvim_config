@@ -53,6 +53,7 @@ return { -- Highlight, edit, and navigate code
     -- Uncomment next line if you want to follow only stable versions
     -- version = "*"
   },
+
   {
     'stevearc/aerial.nvim',
     opts = {},
@@ -72,6 +73,16 @@ return { -- Highlight, edit, and navigate code
       }
       -- You probably also want to set a keymap to toggle aerial
       vim.keymap.set('n', '<leader>at', '<cmd>AerialToggle!<CR>')
+    end,
+  },
+
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
+    ft = 'markdown',
+    config = function()
+      require('render-markdown').setup {}
+      vim.keymap.set('n', '<leader>rmt', '<cmd>RenderMarkdown toggle<CR>', { desc = 'Toggle markdown preview' })
     end,
   },
 }

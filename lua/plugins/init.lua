@@ -143,12 +143,6 @@ require('lazy').setup({
   },
 
   {
-    'ellisonleao/glow.nvim',
-    config = true,
-    cmd = 'Glow',
-  },
-
-  {
     'sindrets/diffview.nvim',
     cmd = {
       'DiffviewOpen',
@@ -220,7 +214,22 @@ require('lazy').setup({
       -- {'ibhagwan/fzf-lua'},
     },
     config = function()
-      require('neoclip').setup()
+      require('neoclip').setup {
+        keys = {
+          telescope = {
+            i = {
+              select = '<cr>',
+              paste = '<A-p>',
+              paste_behind = '<A-k>',
+              replay = '<A-q>', -- replay a macro
+              delete = '<A-d>', -- delete an entry
+              edit = '<A-e>', -- edit an entry
+              custom = {},
+            },
+          },
+        },
+      }
+      vim.keymap.set('n', '<leader>nc', '<cmd>Telescope neoclip<CR>', { desc = 'Open neoclip' })
     end,
   },
 
