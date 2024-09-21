@@ -13,7 +13,7 @@
 - Node.js (optional, to use Prettier, markdownlint and github copilot)
 - Lazygit (optional, to use lazygit plugin)
 - fd (optioanl, to use venv_selector)
-- clangd-format (optional, clangd-format installed with mason may not work)
+- llvm and MSVC (optional, C++ in windows)
 
 ### Install
 
