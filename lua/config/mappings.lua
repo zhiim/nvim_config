@@ -5,6 +5,12 @@ local map = vim.keymap.set
 -- clear on pressing <Esc> in normal mode
 map('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+-- move in insert mode
+map('i', '<C-j>', '<Down>', { noremap = true })
+map('i', '<C-k>', '<Up>', { noremap = true })
+map('i', '<C-h>', '<Left>', { noremap = true })
+map('i', '<C-l>', '<Right>', { noremap = true })
+
 -- move inside the same line when this line exceeds the window width
 vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, noremap = true, silent = true })
