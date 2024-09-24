@@ -3,7 +3,7 @@ vim.g.enable_language_support = false
 vim.g.use_copilot = false
 vim.g.use_dap = false
 vim.g.use_tex = false
-vim.g.enable_leetcode = true
+vim.g.enable_leetcode = false
 
 -- command to find python env path
 -- in linux
