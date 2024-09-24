@@ -249,7 +249,7 @@ require('lazy').setup({
   require 'plugins.configs.theme',
   require 'plugins.configs.copilot',
   require 'plugins.configs.vimtex',
-
+  require 'plugins.configs.leetcode',
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   { import = 'custom.plugins' },
