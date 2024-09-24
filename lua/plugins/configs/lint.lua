@@ -19,7 +19,7 @@ return {
       lint.try_lint()
     end, { desc = 'Trigger linting for current file' })
 
-    local linterConfig = vim.fn.stdpath 'config' .. '/linter_configs'
+    local linterConfig = vim.fn.stdpath 'config' .. '/config_files/'
 
     lint.linters.ruff.args = {
       'check',
@@ -31,7 +31,7 @@ return {
       '--output-format',
       'json',
       '--config',
-      linterConfig .. '/ruff.toml',
+      linterConfig .. 'ruff_lint.toml',
       '-',
     }
 

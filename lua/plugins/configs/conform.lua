@@ -16,7 +16,7 @@ return { -- Autoformat
   },
   config = function()
     local conform = require 'conform'
-    local formatterConfig = vim.fn.stdpath 'config' .. '/formatter_configs'
+    local formatterConfig = vim.fn.stdpath 'config' .. '/config_files/'
 
     conform.setup {
       notify_on_error = false,
@@ -55,7 +55,7 @@ return { -- Autoformat
         '--exit-zero',
         '--no-cache',
         '--config',
-        formatterConfig .. '/ruff.toml',
+        formatterConfig .. 'ruff_format.toml',
         '--stdin-filename',
         '$FILENAME',
         '-',
@@ -66,7 +66,7 @@ return { -- Autoformat
       args = {
         'format',
         '--config',
-        formatterConfig .. '/ruff.toml',
+        formatterConfig .. 'ruff_format.toml',
         '--stdin-filename',
         '$FILENAME',
         '-',
@@ -74,7 +74,7 @@ return { -- Autoformat
     }
 
     conform.formatters.clang_format = {
-      prepend_args = { '--style=Microsoft' },
+      prepend_args = { '--style=file:' .. formatterConfig .. 'clang_format.yaml' },
     }
   end,
 }
