@@ -35,7 +35,7 @@ return {
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'python',
-        (vim.fn.has 'win32' == 0) and 'codelldb' or 'cppdbg',
+        'codelldb',
       },
     }
 
