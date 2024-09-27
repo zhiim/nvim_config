@@ -1,6 +1,6 @@
 local leet_arg = 'leet'
 
-if vim.g.enable_leetcode and vim.fn.has 'win32' == 0 then
+if vim.g.enable_leetcode then
   return {
     'kawre/leetcode.nvim',
     lazy = leet_arg ~= vim.fn.argv()[1], -- lazy load
@@ -21,6 +21,9 @@ if vim.g.enable_leetcode and vim.fn.has 'win32' == 0 then
       arg = leet_arg,
       cn = {
         enabled = true,
+      },
+      storage = {
+        home = 'C:\\Users\\user\\OneDrive\\Apps\\leetcode',
       },
     },
   }
