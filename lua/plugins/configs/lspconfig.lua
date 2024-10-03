@@ -202,7 +202,6 @@ return { -- LSP Configuration & Plugins
         -- "debugpy", -- used with dap-python
 
         -- markdown
-        'markdownlint',
         'prettier',
 
         -- json

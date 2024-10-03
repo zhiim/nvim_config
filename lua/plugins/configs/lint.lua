@@ -11,7 +11,6 @@ return {
     --
     lint.linters_by_ft = {
       python = { 'ruff' },
-      markdown = { 'markdownlint' },
       json = { 'jsonlint' },
     }
 
@@ -33,12 +32,6 @@ return {
       '--config',
       linterConfig .. 'ruff_lint.toml',
       '-',
-    }
-
-    lint.linters.markdownlint.args = {
-      '--disable',
-      'MD013',
-      '--',
     }
 
     -- To allow other plugins to add linters to require('lint').linters_by_ft,
