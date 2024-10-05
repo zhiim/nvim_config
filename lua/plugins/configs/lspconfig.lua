@@ -145,17 +145,25 @@ return { -- LSP Configuration & Plugins
 
         cmake = {},
 
-        pylsp = {
+        basedpyright = {
           settings = {
-            pylsp = {
-              plugins = {
-                pycodestyle = {
-                  enabled = false,
-                },
-              },
+            basedpyright = {
+              typeCheckingMode = 'standard', -- use the same rule as pyright
             },
           },
         },
+
+        -- pylsp = {
+        --   settings = {
+        --     pylsp = {
+        --       plugins = {
+        --         pycodestyle = {
+        --           enabled = false,
+        --         },
+        --       },
+        --     },
+        --   },
+        -- },
 
         lua_ls = {
           -- cmd = {...},
