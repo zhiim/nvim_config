@@ -25,6 +25,14 @@ if vim.g.enable_leetcode then
       storage = {
         home = 'C:\\Users\\user\\OneDrive\\Apps\\leetcode',
       },
+      hooks = {
+        ['enter'] = function()
+          vim.cmd 'Copilot disable'
+        end,
+        ['leave'] = function()
+          vim.cmd 'Copilot enable'
+        end,
+      },
     },
   }
 else
