@@ -116,6 +116,34 @@ require('lazy').setup({
   {
     'mrjones2014/smart-splits.nvim',
     lazy = false,
+    config = function()
+      local sp = require 'smart-splits'
+      sp.setup()
+      vim.keymap.set('n', '<C-h>', function()
+        sp.move_cursor_left()
+      end, { desc = 'Move Left' })
+      vim.keymap.set('n', '<C-l>', function()
+        sp.move_cursor_right()
+      end, { desc = 'Move Right' })
+      vim.keymap.set('n', '<C-j>', function()
+        sp.move_cursor_down()
+      end, { desc = 'Move Down' })
+      vim.keymap.set('n', '<C-k>', function()
+        sp.move_cursor_up()
+      end, { desc = 'Move Up' })
+      vim.keymap.set('n', '<A-h>', function()
+        sp.resize_left()
+      end, { desc = 'Resize Left' })
+      vim.keymap.set('n', '<A-l>', function()
+        sp.resize_right()
+      end, { desc = 'Resize Right' })
+      vim.keymap.set('n', '<A-j>', function()
+        sp.resize_down()
+      end, { desc = 'Resize Down' })
+      vim.keymap.set('n', '<A-k>', function()
+        sp.resize_up()
+      end, { desc = 'Resize Up' })
+    end,
   },
 
   {

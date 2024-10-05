@@ -1,4 +1,5 @@
 -- [[ Basic Keymaps ]]
+-- plugins lazy loaded with cmd should be mapped here
 --  See `:help map()`
 local map = vim.keymap.set
 
@@ -55,32 +56,6 @@ map('v', '<C-_>', 'gc', { desc = 'comment toggle', remap = true })
 map('n', '<tab>', '<cmd>BufferNext<CR>', { desc = 'buffer goto next' })
 map('n', '<S-tab>', '<cmd>BufferPrevious<CR>', { desc = 'buffer goto previous' })
 map('n', '<leader>x', '<cmd>BufferClose<CR>', { desc = 'buffer close', noremap = true, silent = true })
-
--- smart-split
-map('n', '<C-h>', function()
-  require('smart-splits').move_cursor_left()
-end, { desc = 'Move Left' })
-map('n', '<C-l>', function()
-  require('smart-splits').move_cursor_right()
-end, { desc = 'Move Right' })
-map('n', '<C-j>', function()
-  require('smart-splits').move_cursor_down()
-end, { desc = 'Move Down' })
-map('n', '<C-k>', function()
-  require('smart-splits').move_cursor_up()
-end, { desc = 'Move Up' })
-map('n', '<A-h>', function()
-  require('smart-splits').resize_left()
-end, { desc = 'Resize Left' })
-map('n', '<A-l>', function()
-  require('smart-splits').resize_right()
-end, { desc = 'Resize Right' })
-map('n', '<A-j>', function()
-  require('smart-splits').resize_down()
-end, { desc = 'Resize Down' })
-map('n', '<A-k>', function()
-  require('smart-splits').resize_up()
-end, { desc = 'Resize Up' })
 
 -- trouble.nvim
 map('n', '<leader>tw', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Trouble Toggle Workspace Diagnostics' })
