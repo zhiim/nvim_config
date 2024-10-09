@@ -94,6 +94,32 @@ end
 map({ 'n', 't' }, '<A-i>', '<cmd>ToggleTerm direction=float<CR>', { desc = 'Toggle terminal in float' })
 map({ 'n', 't' }, '<A-v>', '<cmd>ToggleTerm direction=horizontal size=15<CR>', { desc = 'Toggle terminal in horizontal' })
 
+--smart-split
+map('n', '<C-h>', function()
+  require('smart-splits').move_cursor_left()
+end, { desc = 'Move Left' })
+map('n', '<C-l>', function()
+  require('smart-splits').move_cursor_right()
+end, { desc = 'Move Right' })
+map('n', '<C-j>', function()
+  require('smart-splits').move_cursor_down()
+end, { desc = 'Move Down' })
+map('n', '<C-k>', function()
+  require('smart-splits').move_cursor_up()
+end, { desc = 'Move Up' })
+map('n', '<A-h>', function()
+  require('smart-splits').resize_left()
+end, { desc = 'Resize Left' })
+map('n', '<A-l>', function()
+  require('smart-splits').resize_right()
+end, { desc = 'Resize Right' })
+map('n', '<A-j>', function()
+  require('smart-splits').resize_down()
+end, { desc = 'Resize Down' })
+map('n', '<A-k>', function()
+  require('smart-splits').resize_up()
+end, { desc = 'Resize Up' })
+
 if vim.g.enable_language_support then
   -- treesitter-context
   map('n', '<leader>tct', '<cmd>TSContextToggle<CR>', { desc = 'Toggle Treesitter Context' })
