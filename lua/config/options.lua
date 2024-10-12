@@ -67,7 +67,7 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 
 -- set a column line to indicate line changing of code
-vim.opt.colorcolumn = '80'
+vim.opt.colorcolumn = '80,120'
 
 vim.opt.expandtab = true -- expand tab input with spaces characters
 vim.opt.smartindent = true -- syntax aware indentations for newline inserts
