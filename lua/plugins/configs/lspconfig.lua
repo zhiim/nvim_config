@@ -148,7 +148,14 @@ return { -- LSP Configuration & Plugins
         basedpyright = {
           settings = {
             basedpyright = {
-              typeCheckingMode = 'standard', -- use the same rule as pyright
+              analysis = {
+                typeCheckingMode = 'off', -- off, basic, standard, strict, all
+                autoImportCompletions = true,
+                autoSearchPaths = true,
+                diagnosticMode = 'openFilesOnly',
+                useLibraryCodeForTypes = true,
+                reportMissingTypeStubs = false,
+              },
             },
           },
         },
