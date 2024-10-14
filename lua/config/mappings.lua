@@ -91,8 +91,9 @@ if vim.g.use_copilot then
 end
 
 -- toggleterm
+map({ 'n', 't' }, '<A-u>', '<cmd>ToggleTerm direction=horizontal<CR>', { desc = 'Toggle terminal in horizontal' })
 map({ 'n', 't' }, '<A-i>', '<cmd>ToggleTerm direction=float<CR>', { desc = 'Toggle terminal in float' })
-map({ 'n', 't' }, '<A-v>', '<cmd>ToggleTerm direction=horizontal size=15<CR>', { desc = 'Toggle terminal in horizontal' })
+map({ 'n', 't' }, '<A-o>', '<cmd>ToggleTerm direction=vertical<CR>', { desc = 'Toggle terminal in vertical' })
 
 --smart-split
 map('n', '<C-h>', function()
