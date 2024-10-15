@@ -43,6 +43,8 @@ return { -- Autoformat
         python = { 'ruff_fix', 'ruff_format' },
         c = { 'clang_format' },
         cpp = { 'clang_format' },
+        toml = { 'taplo' },
+        yaml = { 'prettier' },
         -- rust = { "rustfmt" },
       },
     }

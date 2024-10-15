@@ -143,6 +143,8 @@ return { -- LSP Configuration & Plugins
         --
         clangd = {},
 
+        taplo = {},
+
         cmake = {},
 
         basedpyright = {
@@ -221,6 +223,9 @@ return { -- LSP Configuration & Plugins
 
         -- json
         'jsonlint',
+
+        -- yaml
+        'yamllint',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

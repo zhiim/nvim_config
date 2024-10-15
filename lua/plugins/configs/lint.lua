@@ -12,6 +12,7 @@ return {
     lint.linters_by_ft = {
       python = { 'ruff' },
       json = { 'jsonlint' },
+      yaml = { 'yamllint' },
     }
 
     vim.keymap.set('n', '<leader>lt', function()
@@ -31,6 +32,14 @@ return {
       'json',
       '--config',
       linterConfig .. 'ruff_lint.toml',
+      '-',
+    }
+
+    lint.linters.yamllint.args = {
+      '-c',
+      linterConfig .. 'yamllint.yaml',
+      '--format',
+      'parsable',
       '-',
     }
 
