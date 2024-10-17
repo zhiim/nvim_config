@@ -13,8 +13,26 @@ vim.g.python_conda_command = "fd '^python.exe$' D:\\condaEnvs -t x -t l"
 vim.g.python_venv_command = "fd '^python.exe$' D:\\venv -t x -t l"
 
 -- Set colorscheme
--- can be ['onedark', 'onenord', 'tokyonight', 'nordic', 'catppuccin',
---         'material', 'github']
+-- {
+--   'onedark':
+--   {'onedark', 'onelight', 'onedark_vivid', 'onedark_dark'},
+--   'onenord',
+--   'tokyonight':
+--   {'tokyonight-night', 'tokyonight-storm', 'tokyonight-day',
+--    'tokyonight-moon'},
+--   'nordic',
+--   'catppuccin':
+--   {'catppuccin-latte', 'catppuccin-frappe',
+--    'catppuccin-macchiato', 'catppuccin-mocha'},
+--   'material':
+--   {'darker', 'lighter', 'oceanic', 'palenight', 'deep ocean'},
+--   'github':
+--   {'github_dark', 'github_light', 'github_dark_dimmed',
+--    'github_dark_default', 'github_light_default',
+--    'github_dark_high_contrast', 'github_light_high_contrast',
+--    'github_dark_colorblind', 'github_light_colorblind',
+--    'github_dark_tritanopia', 'github_light_tritanopia'}
+-- }
 vim.g.color_scheme = 'catppuccin'
 vim.g.scheme_style = 'catppuccin-frappe'
 
