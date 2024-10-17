@@ -21,8 +21,7 @@ return {
     local custom_fname = require('lualine.components.filename'):extend()
     local highlight = require 'lualine.highlight'
 
-    local color_scheme = vim.g.color_scheme or 'onedarkpro'
-    local colors = require('utils.util').get_palette(color_scheme)
+    local colors = require('utils.util').get_palette()
     -- local colors = require('tokyonight.colors').setup()
     local default_status_colors = { modified = colors.red }
     function custom_fname:init(options)

@@ -6,6 +6,7 @@ local theme_plugins = {
   ['nordic'] = 'AlexvZyl/nordic.nvim',
   ['catppuccin'] = 'catppuccin/nvim',
   ['material'] = 'marko-cerovac/material.nvim',
+  ['github'] = 'projekt0n/github-nvim-theme',
 }
 return {
   theme_plugins[color_scheme],

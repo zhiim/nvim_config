@@ -1,6 +1,7 @@
 local util = {}
 
-function util.get_palette(color_scheme)
+function util.get_palette()
+  local color_scheme = vim.g.color_scheme or 'onedark'
   if color_scheme == 'onenord' then
     return require('onenord.colors').load()
   elseif color_scheme == 'tokyonight' then
@@ -29,6 +30,17 @@ function util.get_palette(color_scheme)
     }
   elseif color_scheme == 'material' then
     return require('material.colors').main
+  elseif color_scheme == 'github' then
+    local palette = require('github-theme.palette').load(vim.g.scheme_style)
+    return {
+      red = palette.red.base,
+      yellow = palette.yellow.base,
+      blue = palette.blue.base,
+      orange = palette.orange,
+      green = palette.green.base,
+      purple = palette.magenta.base,
+      cyan = palette.cyan.base,
+    }
   else
     return require('onedarkpro.helpers').get_colors()
   end

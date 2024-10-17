@@ -14,7 +14,7 @@ vim.g.python_venv_command = "fd '^python.exe$' D:\\venv -t x -t l"
 
 -- Set colorscheme
 -- can be ['onedark', 'onenord', 'tokyonight', 'nordic', 'catppuccin',
---         'material']
+--         'material', 'github']
 vim.g.color_scheme = 'catppuccin'
 vim.g.scheme_style = 'catppuccin-frappe'
 
