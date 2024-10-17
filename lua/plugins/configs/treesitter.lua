@@ -48,6 +48,7 @@ else
           '<leader>gen',
           function()
             require('neogen').generate { type = 'any' }
+            require('neogen').setup { snippet_engine = 'luasnip' }
           end,
           mode = 'n',
           desc = 'Genearte annotation template',
