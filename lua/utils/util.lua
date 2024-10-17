@@ -1,12 +1,16 @@
 local util = {}
 
-function util.get_palette()
-  local color_scheme = vim.g.color_scheme or 'onedark'
-  if color_scheme == 'onenord' then
+palette_funcs = {
+  onedark = function()
+    return require('onedarkpro.helpers').get_colors()
+  end,
+  onenord = function()
     return require('onenord.colors').load()
-  elseif color_scheme == 'tokyonight' then
+  end,
+  tokyonight = function()
     return require('tokyonight.colors').setup()
-  elseif color_scheme == 'nordic' then
+  end,
+  nordic = function()
     local palette = require 'nordic.colors'
     return {
       red = palette.red.base,
@@ -17,7 +21,8 @@ function util.get_palette()
       purple = palette.magenta.base,
       cyan = palette.cyan.base,
     }
-  elseif color_scheme == 'catppuccin' then
+  end,
+  catppuccin = function()
     local palette = require('catppuccin.palettes').get_palette()
     return {
       red = palette.red,
@@ -28,9 +33,11 @@ function util.get_palette()
       purple = palette.mauve,
       cyan = palette.teal,
     }
-  elseif color_scheme == 'material' then
+  end,
+  material = function()
     return require('material.colors').main
-  elseif color_scheme == 'github' then
+  end,
+  github = function()
     local palette = require('github-theme.palette').load(vim.g.scheme_style)
     return {
       red = palette.red.base,
@@ -41,9 +48,12 @@ function util.get_palette()
       purple = palette.magenta.base,
       cyan = palette.cyan.base,
     }
-  else
-    return require('onedarkpro.helpers').get_colors()
-  end
+  end,
+}
+
+function util.get_palette()
+  local color_scheme = vim.g.color_scheme or 'onedark'
+  return palette_funcs[color_scheme]()
 end
 
 function util.get_gcc_path()
