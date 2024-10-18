@@ -1,6 +1,6 @@
 local util = {}
 
-palette_funcs = {
+local palette_funcs = {
   onedark = function()
     return require('onedarkpro.helpers').get_colors()
   end,
