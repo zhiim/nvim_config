@@ -237,14 +237,6 @@ require('lazy').setup({
     'LudoPinelli/comment-box.nvim',
     keys = {
       {
-        '<leader>cbb',
-        function()
-          require('comment-box').ccbox(7)
-        end,
-        mode = 'n',
-        desc = 'Comment Box Block',
-      },
-      {
         '<leader>cbt',
         function()
           require('comment-box').llline(15)
@@ -253,20 +245,12 @@ require('lazy').setup({
         desc = 'Comment Box Title Line',
       },
       {
-        '<leader>cbd',
+        '<leader>cbc',
         function()
-          require('comment-box').dbox()
+          require('comment-box').labox(10)
         end,
         mode = 'n',
-        desc = 'Comment Box Delete',
-      },
-      {
-        '<leader>cbe',
-        function()
-          require('comment-box').labox(18)
-        end,
-        mode = 'n',
-        desc = 'Comment Box Emphasis Box',
+        desc = 'Comment Box Content Box',
       },
       {
         '<leader>cbl',
@@ -275,6 +259,14 @@ require('lazy').setup({
         end,
         mode = 'n',
         desc = 'Comment Box Line',
+      },
+      {
+        '<leader>cbd',
+        function()
+          require('comment-box').dbox()
+        end,
+        mode = 'n',
+        desc = 'Comment Box Delete',
       },
     },
   },
