@@ -233,6 +233,52 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'LudoPinelli/comment-box.nvim',
+    keys = {
+      {
+        '<leader>cbb',
+        function()
+          require('comment-box').ccbox(7)
+        end,
+        mode = 'n',
+        desc = 'Comment Box Block',
+      },
+      {
+        '<leader>cbt',
+        function()
+          require('comment-box').llline(15)
+        end,
+        mode = 'n',
+        desc = 'Comment Box Title Line',
+      },
+      {
+        '<leader>cbd',
+        function()
+          require('comment-box').dbox()
+        end,
+        mode = 'n',
+        desc = 'Comment Box Delete',
+      },
+      {
+        '<leader>cbe',
+        function()
+          require('comment-box').labox(18)
+        end,
+        mode = 'n',
+        desc = 'Comment Box Emphasis Box',
+      },
+      {
+        '<leader>cbl',
+        function()
+          require('comment-box').line(15)
+        end,
+        mode = 'n',
+        desc = 'Comment Box Line',
+      },
+    },
+  },
+
   require 'plugins.configs.telescope',
   require 'plugins.configs.cmp',
   require 'plugins.configs.lspconfig',
@@ -250,6 +296,7 @@ require('lazy').setup({
   require 'plugins.configs.copilot',
   require 'plugins.configs.vimtex',
   require 'plugins.configs.leetcode',
+
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   { import = 'custom.plugins' },
