@@ -246,9 +246,9 @@ require('lazy').setup({
         desc = 'Comment Box Title Line',
       },
       {
-        '<leader>cbc',
+        '<leader>cbb',
         function()
-          require('comment-box').labox(10)
+          require('comment-box').ccbox(10)
         end,
         mode = 'n',
         desc = 'Comment Box Content Box',
@@ -270,6 +270,11 @@ require('lazy').setup({
         desc = 'Comment Box Delete',
       },
     },
+    config = function()
+      require('comment-box').setup {
+        box_width = 76,
+      }
+    end,
   },
 
   require 'plugins.configs.telescope',
