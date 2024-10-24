@@ -238,6 +238,14 @@ require('lazy').setup({
     'LudoPinelli/comment-box.nvim',
     keys = {
       {
+        '<leader>cbe',
+        function()
+          require('comment-box').llline(9)
+        end,
+        mode = 'n',
+        desc = 'Comment Box Emphisis Box',
+      },
+      {
         '<leader>cbt',
         function()
           require('comment-box').llline(15)
