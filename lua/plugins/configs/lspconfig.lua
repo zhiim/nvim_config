@@ -213,6 +213,7 @@ return { -- LSP Configuration & Plugins
         'clang-format',
         -- "codelldb",  -- c/c++ debugger
         'cmake-language-server',
+        'cmakelang', -- cmake formatter
 
         -- python stuff
         'ruff', -- linter with lots of syntex check

@@ -46,6 +46,7 @@ return { -- Autoformat
         cpp = { 'clang_format' },
         toml = { 'taplo' },
         yaml = { 'prettier' },
+        cmake = { 'cmake_format' },
         -- rust = { "rustfmt" },
       },
     }
