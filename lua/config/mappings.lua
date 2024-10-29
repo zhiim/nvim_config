@@ -80,16 +80,6 @@ map('n', '<leader>mk', function()
   require('utils.util').gen_make_files()
 end, { desc = 'cmake build' })
 
--- copilot
-if vim.g.use_copilot then
-  map('n', '<leader>co', '<cmd>CopilotChatOpen<CR>', { desc = 'Open Copilot Chat' })
-  map('n', '<leader>cc', '<cmd>CopilotChatClose<CR>', { desc = 'Close Copilot Chat' })
-  map('n', '<leader>ct', '<cmd>CopilotChatToggle<CR>', { desc = 'Toggle Copilot Chat' })
-  map('n', '<leader>cp', function()
-    require('copilot.panel').open()
-  end, { desc = 'Open Copilot Panel' })
-end
-
 -- toggleterm
 map({ 'n', 't' }, '<A-u>', '<cmd>ToggleTerm direction=horizontal<CR>', { desc = 'Toggle terminal in horizontal' })
 map({ 'n', 't' }, '<A-i>', '<cmd>ToggleTerm direction=float<CR>', { desc = 'Toggle terminal in float' })
