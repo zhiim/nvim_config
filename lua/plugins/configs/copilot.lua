@@ -5,7 +5,6 @@ return {
   {
     'CopilotC-Nvim/CopilotChat.nvim',
     branch = 'canary',
-    cmd = 'CopilotChatModels',
     keys = {
       {
         '<leader>ct',
@@ -17,7 +16,9 @@ return {
       },
       {
         '<leader>cs',
-        '<cmd>CopilotChatModels<cr>',
+        function()
+          require('CopilotChat').select_model()
+        end,
         mode = 'n',
         desc = 'CopilotChat Select Models',
       },
