@@ -9,7 +9,13 @@ return {
       {
         '<leader>ct',
         function()
-          require('CopilotChat').toggle()
+          require('CopilotChat').toggle {
+            window = {
+              layout = 'vertical',
+              title = 'Copilot Chat',
+              width = 0.3,
+            },
+          }
         end,
         mode = 'n',
         desc = 'CopilotChat Toggle',
