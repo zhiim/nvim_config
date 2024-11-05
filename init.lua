@@ -1,6 +1,8 @@
 -- options to enable extra features
+vim.g.proxy = 'http://127.0.0.1:7890'
 vim.g.enable_language_support = false
 vim.g.use_copilot = false
+vim.g.enable_copilot_proxy = false
 vim.g.use_dap = false
 vim.g.use_tex = false
 vim.g.enable_leetcode = false
@@ -33,8 +35,8 @@ vim.g.python_venv_command = "fd '^python.exe$' D:\\venv -t x -t l"
 --    'github_dark_colorblind', 'github_light_colorblind',
 --    'github_dark_tritanopia', 'github_light_tritanopia'}
 -- }
-vim.g.color_scheme = 'catppuccin'
-vim.g.scheme_style = 'catppuccin-frappe'
+vim.g.color_scheme = 'github'
+vim.g.scheme_style = 'github_dark_dimmed'
 
 -- [[ 1. vim options ]]
 require 'config.options'

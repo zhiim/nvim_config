@@ -15,6 +15,21 @@ return {
         desc = 'CopilotChat Toggle',
       },
       {
+        '<leader>cf',
+        function()
+          require('CopilotChat').toggle {
+            window = {
+              layout = 'float',
+              title = 'Copilot Chat',
+              width = 0.8,
+              height = 0.8,
+            },
+          }
+        end,
+        mode = 'n',
+        desc = 'CopilotChat Float Windows',
+      },
+      {
         '<leader>cs',
         function()
           require('CopilotChat').select_model()
@@ -71,7 +86,7 @@ return {
       { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
     },
     config = function()
-      require('CopilotChat').setup {
+      local copilot_config = {
         debug = true,
         mappings = {
           complete = {
@@ -79,6 +94,10 @@ return {
           },
         },
       }
+      if vim.g.enable_copilot_proxy then
+        copilot_config.proxy = vim.g.proxy
+      end
+      require('CopilotChat').setup(copilot_config)
       require('CopilotChat.integrations.cmp').setup()
     end,
   },
