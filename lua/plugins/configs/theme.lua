@@ -56,7 +56,7 @@ local config_funcs = {
   end,
   ['nordic'] = function()
     set_theme()
-    require('nordic').set()
+    require('nordic').setup()
   end,
   ['catppuccin'] = function()
     set_theme()
