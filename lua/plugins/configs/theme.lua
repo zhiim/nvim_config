@@ -70,14 +70,6 @@ local config_funcs = {
         numbers = { 'bold' },
         booleans = { 'bold' },
       },
-      integrations = {
-        barbar = true,
-        diffview = true,
-        mason = true,
-        nvimtree = true,
-        lsp_trouble = true,
-        which_key = true,
-      },
     }
   end,
   ['material'] = function()
@@ -91,19 +83,6 @@ local config_funcs = {
         functions = { [[ bold = true, undercurl = true ]] },
         numbers = { [[ bold = true ]] },
         booleans = { [[ bold = true ]] },
-      },
-      plugins = {
-        'dap',
-        'dashboard',
-        'gitsigns',
-        'indent-blankline',
-        'mini',
-        'nvim-cmp',
-        'nvim-tree',
-        'nvim-web-devicons',
-        'telescope',
-        'trouble',
-        'which-key',
       },
     }
   end,

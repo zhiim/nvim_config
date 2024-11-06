@@ -52,11 +52,6 @@ map('n', '<C-n>', '<cmd>NvimTreeToggle<CR>')
 map('n', '<C-_>', 'gcc', { desc = 'comment toggle', remap = true })
 map('v', '<C-_>', 'gc', { desc = 'comment toggle', remap = true })
 
--- barbar
-map('n', '<tab>', '<cmd>BufferNext<CR>', { desc = 'buffer goto next' })
-map('n', '<S-tab>', '<cmd>BufferPrevious<CR>', { desc = 'buffer goto previous' })
-map('n', '<leader>x', '<cmd>BufferClose<CR>', { desc = 'buffer close', noremap = true, silent = true })
-
 -- trouble.nvim
 map('n', '<leader>tw', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Trouble Toggle Workspace Diagnostics' })
 map('n', '<leader>tt', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = 'Trouble Toggle Buffer Diagnostics' })

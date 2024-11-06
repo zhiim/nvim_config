@@ -6,6 +6,7 @@ vim.g.enable_copilot_proxy = false
 vim.g.use_dap = false
 vim.g.use_tex = false
 vim.g.enable_leetcode = false
+vim.g.tab_tool = 'barbar' -- bufferline or barbar
 
 -- command to find python env path
 -- in linux

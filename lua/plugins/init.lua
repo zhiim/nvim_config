@@ -43,26 +43,6 @@ require('lazy').setup({
     opts = { signs = false },
   },
 
-  {
-    'romgrk/barbar.nvim',
-    dependencies = {
-      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-      'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
-    },
-    event = 'BufEnter',
-    init = function()
-      vim.g.barbar_auto_setup = false
-    end,
-    opts = {
-      auto_hide = 1,
-      -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-      -- animation = true,
-      -- insert_at_start = true,
-      -- …etc.
-    },
-    cmd = { 'BufferNext', 'BufferPrevious', 'BufferClose' },
-  },
-
   { -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
@@ -305,6 +285,7 @@ require('lazy').setup({
   require 'plugins.configs.copilot',
   require 'plugins.configs.vimtex',
   require 'plugins.configs.leetcode',
+  require 'plugins.configs.tab',
 
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
