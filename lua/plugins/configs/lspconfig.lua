@@ -151,8 +151,8 @@ return { -- LSP Configuration & Plugins
           settings = {
             basedpyright = {
               analysis = {
-                typeCheckingMode = 'off', -- off, basic, standard, strict, all
-                autoImportCompletions = true,
+                typeCheckingMode = 'basic', -- off, basic, standard, strict, all
+                autoImportCompletions = false,
                 autoSearchPaths = true,
                 diagnosticMode = 'openFilesOnly',
                 useLibraryCodeForTypes = true,
@@ -274,13 +274,14 @@ return { -- LSP Configuration & Plugins
     cmd = 'Glance',
     config = function()
       local actions = require('glance').actions
-      require('glance').setup {
+      local opt = {
         mappings = {
           preview = {
             ['q'] = actions.close,
           },
         },
       }
+      require('glance').setup(opt)
     end,
   },
 }

@@ -69,6 +69,14 @@ return {
         mode = 'n',
         desc = 'CopilotChat Inline Chat',
       },
+      {
+        '<leader>cm',
+        function()
+          print(require('CopilotChat').config.model)
+        end,
+        mode = 'n',
+        desc = 'CopilotChat Model Info',
+      },
     },
     dependencies = {
       {

@@ -35,6 +35,34 @@ return {
 
     -- Add your own debuggers here
     'mfussenegger/nvim-dap-python',
+
+    -- show inline variable values
+    {
+      'theHamsta/nvim-dap-virtual-text',
+      config = function()
+        require('nvim-dap-virtual-text').setup {
+          virt_text_pos = 'eol',
+        }
+      end,
+    },
+
+    -- completion for DAP REPL
+    {
+      'rcarriga/cmp-dap',
+      config = function()
+        require('cmp').setup {
+          enabled = function()
+            return vim.bo.buftype ~= 'prompt' or require('cmp_dap').is_dap_buffer()
+          end,
+        }
+
+        require('cmp').setup.filetype({ 'dap-repl', 'dapui_watches', 'dapui_hover' }, {
+          sources = {
+            { name = 'dap' },
+          },
+        })
+      end,
+    },
   },
   config = function()
     local dap = require 'dap'
@@ -77,21 +105,33 @@ return {
       icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
       controls = {
         icons = {
-          pause = '⏸',
-          play = '▶',
-          step_into = '⏎',
-          step_over = '⏭',
-          step_out = '⏮',
-          step_back = 'b',
-          run_last = '▶▶',
-          terminate = '⏹',
-          disconnect = '⏏',
+          pause = '',
+          play = '',
+          step_into = '',
+          step_over = '',
+          step_out = '',
+          step_back = '',
+          run_last = '',
+          terminate = '',
+          disconnect = '',
         },
       },
     }
-    vim.keymap.set('n', '<F6>', function()
+
+    -- re-define some DAP signs
+    vim.fn.sign_define('DapStopped', { text = '󰁕 ', texthl = 'DiagnosticWarn', linehl = 'DapStoppedLine', numhl = 'DapStoppedLine' })
+    vim.fn.sign_define('DapBreakpoint', { text = ' ', texthl = 'DiagnosticInfo', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapBreakpointCondition', { text = ' ', texthl = 'DiagnosticInfo', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapBreakpointRejected', { text = ' ', texthl = 'DiagnosticInfo', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapLogPoint', { text = '.>', texthl = 'DiagnosticInfo', linehl = '', numhl = '' })
+
+    -- key mappings for DAP UI
+    vim.keymap.set({ 'n', 'i' }, '<F6>', function()
+      dapui.eval()
+    end, { desc = 'DapUI Eval' })
+    vim.keymap.set({ 'n', 'i' }, '<F7>', function()
       dapui.toggle()
-    end, { desc = 'Toggle debug UI.' })
+    end, { desc = 'Toggle debug UI' })
 
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
