@@ -108,7 +108,7 @@ return {
           },
         },
       }
-      if vim.g.enable_copilot_proxy then
+      if vim.g.proxy ~= nil then
         copilot_config.proxy = vim.g.proxy
       end
       require('CopilotChat').setup(copilot_config)

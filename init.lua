@@ -1,14 +1,13 @@
 -- options to enable extra features
-vim.g.proxy = 'http://127.0.0.1:7890'
+vim.g.proxy = nil
 vim.g.enable_language_support = false
 vim.g.use_copilot = false
-vim.g.enable_copilot_proxy = false
 vim.g.use_dap = false
 vim.g.use_tex = false
 vim.g.enable_leetcode = false
+vim.g.enable_bueatify = false
 vim.g.tab_tool = 'barbar' -- bufferline or barbar
 vim.g.file_explorer = 'nvimtree' -- nvimtree or neotree
-vim.g.enable_bueatify = false
 
 -- command to find python env path
 -- in linux
