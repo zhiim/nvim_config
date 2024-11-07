@@ -263,7 +263,7 @@ require('lazy').setup({
   require 'plugins.configs.debug',
   require 'plugins.configs.conform',
   require 'plugins.configs.lint',
-  require 'plugins.configs.nvimtree',
+  require 'plugins.configs.explorer',
   require 'plugins.configs.mini',
   require 'plugins.configs.lualine',
   require 'plugins.configs.dashboard',
