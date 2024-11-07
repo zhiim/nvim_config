@@ -114,7 +114,7 @@ local file_explorers = {
         desc = 'Explorer NeoTree',
       },
       {
-        '<A-n>',
+        '<C-p>',
         function()
           require('neo-tree.command').execute { toggle = true, position = 'current', dir = vim.uv.cwd() }
         end,
@@ -177,23 +177,38 @@ local file_explorers = {
           ['P'] = { 'toggle_preview', config = { use_float = false } },
           ['f'] = {
             function()
-              vim.cmd('Neotree focus filesystem left', true)
-              -- save current source type for toggle
-              neotree_source_type = require('neo-tree.sources.manager').get_state_for_window().name
+              local ntsm = require 'neo-tree.sources.manager'
+              if ntsm.get_state_for_window().current_position == 'left' then
+                vim.cmd('Neotree focus filesystem left', true)
+                -- save current source type for toggle
+                neotree_source_type = ntsm.get_state_for_window().name
+              else
+                vim.notify("can't change tab in Netrw style", vim.log.levels.WARN, { title = 'NeoTree' })
+              end
             end,
             desc = 'Focus Filesystem tab',
           },
           ['b'] = {
             function()
-              vim.cmd('Neotree focus buffers left', true)
-              neotree_source_type = require('neo-tree.sources.manager').get_state_for_window().name
+              local ntsm = require 'neo-tree.sources.manager'
+              if ntsm.get_state_for_window().current_position == 'left' then
+                vim.cmd('Neotree focus buffers left', true)
+                neotree_source_type = ntsm.get_state_for_window().name
+              else
+                vim.notify("can't change tab in Netrw style", vim.log.levels.WARN, { title = 'NeoTree' })
+              end
             end,
             desc = 'Focus Buffers tab',
           },
           ['g'] = {
             function()
-              vim.cmd('Neotree focus git_status left', true)
-              neotree_source_type = require('neo-tree.sources.manager').get_state_for_window().name
+              local ntsm = require 'neo-tree.sources.manager'
+              if ntsm.get_state_for_window().current_position == 'left' then
+                vim.cmd('Neotree focus git_status left', true)
+                neotree_source_type = ntsm.get_state_for_window().name
+              else
+                vim.notify("can't change tab in Netrw style", vim.log.levels.WARN, { title = 'NeoTree' })
+              end
             end,
             desc = 'Focus Git Status tab',
           },

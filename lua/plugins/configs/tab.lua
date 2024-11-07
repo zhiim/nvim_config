@@ -71,7 +71,7 @@ local tab_tools = {
       vim.keymap.set('n', '<A-.>', '<cmd>BufferLineMoveNext<CR>', { desc = 'buffer move next' })
       for i = 1, 9 do
         vim.keymap.set('n', '<A-' .. i .. '>', function()
-          require('bufferline').go_to(i)
+          require('bufferline').go_to(i, true)
         end, { desc = 'buffer goto ' .. i })
       end
     end,

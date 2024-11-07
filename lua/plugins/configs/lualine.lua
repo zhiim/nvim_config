@@ -47,6 +47,7 @@ return {
         },
         ignore_focus = {
           'NvimTree',
+          'neo-tree',
           'dapui_watches',
           'dapui_stacks',
           'dapui_scopes',

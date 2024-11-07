@@ -17,7 +17,7 @@ return {
             },
           }
         end,
-        mode = 'n',
+        mode = { 'n', 'v' },
         desc = 'CopilotChat Toggle',
       },
       {
@@ -32,8 +32,24 @@ return {
             },
           }
         end,
-        mode = 'n',
+        mode = { 'n', 'v' },
         desc = 'CopilotChat Float Windows',
+      },
+      {
+        '<leader>ci',
+        function()
+          require('CopilotChat').toggle {
+            window = {
+              layout = 'float',
+              relative = 'cursor',
+              width = 1,
+              height = 0.4,
+              row = 1,
+            },
+          }
+        end,
+        mode = { 'n', 'v' },
+        desc = 'CopilotChat Inline Chat',
       },
       {
         '<leader>cs',
@@ -52,22 +68,6 @@ return {
           end
         end,
         desc = 'CopilotChat Quick Chat',
-      },
-      {
-        '<leader>ci',
-        function()
-          require('CopilotChat').toggle {
-            window = {
-              layout = 'float',
-              relative = 'cursor',
-              width = 1,
-              height = 0.4,
-              row = 1,
-            },
-          }
-        end,
-        mode = 'n',
-        desc = 'CopilotChat Inline Chat',
       },
       {
         '<leader>cm',
@@ -93,8 +93,8 @@ return {
             },
           }
           vim.keymap.set('n', '<leader>co', function()
-            require('copilot.panel').open()
-          end, { desc = 'Open Copilot Open Panel' })
+            require('copilot.panel').open { position = 'bottom' }
+          end, { desc = 'Copilot Open Panel' })
         end,
       },
       { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper

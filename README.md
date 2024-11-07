@@ -11,7 +11,6 @@
 - Python (optional, to use LSP)
 - Ripgrep (optional, to search with telescope)
 - Node.js (optional, to use Prettier, markdownlint and github copilot)
-- Lazygit (optional, to use lazygit plugin)
 - fd (optioanl, to use venv_selector)
 - llvm and MSVC (optional, C++ in windows)
 

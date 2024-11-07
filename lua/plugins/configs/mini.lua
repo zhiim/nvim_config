@@ -1,16 +1,3 @@
-local function get_session_name()
-  local md5 = require 'utils.md5'
-  local cwd = vim.fn.getcwd()
-  local name = md5.sumhexa(cwd)
-  name = 'session_' .. name
-  return name
-end
-
-local function session_exist(session_dir, session_name)
-  local session_file = session_dir .. '/' .. session_name
-  return vim.fn.filereadable(session_file) == 1
-end
-
 return { -- Collection of various small independent plugins/modules
   {
     'echasnovski/mini.map',
@@ -95,20 +82,20 @@ return { -- Collection of various small independent plugins/modules
     end,
     keys = {
       {
-        '<leader>msw',
+        '<leader>mss',
         function()
-          local session_name = get_session_name()
+          local session_name = require('utils.util').get_session_name()
           require('mini.sessions').write(session_name)
         end,
         mode = 'n',
-        desc = 'MiniSessions Save Session',
+        desc = 'MiniSessions Session Save',
       },
       {
         '<leader>msr',
         function()
           local mini_session = require 'mini.sessions'
-          local session_name = get_session_name()
-          if session_exist(mini_session.config.directory, session_name) then
+          local session_name = require('utils.util').get_session_name()
+          if require('utils.util').session_exist(mini_session.config.directory, session_name) then
             mini_session.read(session_name)
           else
             print 'Session does not exist for current directory'
@@ -116,14 +103,14 @@ return { -- Collection of various small independent plugins/modules
           end
         end,
         mode = 'n',
-        desc = 'MiniSessions read Session',
+        desc = 'MiniSessions Session read',
       },
       {
         '<leader>msd',
         function()
           local mini_session = require 'mini.sessions'
-          local session_name = get_session_name()
-          if session_exist(mini_session.config.directory, session_name) then
+          local session_name = require('utils.util').get_session_name()
+          if require('utils.util').session_exist(mini_session.config.directory, session_name) then
             mini_session.delete(session_name, { force = true })
           else
             print 'Session does not exist for current directory'
@@ -131,7 +118,7 @@ return { -- Collection of various small independent plugins/modules
           end
         end,
         mode = 'n',
-        desc = 'MiniSessions delete Session',
+        desc = 'MiniSessions Session delete',
       },
     },
   },
