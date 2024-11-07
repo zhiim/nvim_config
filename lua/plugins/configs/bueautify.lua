@@ -25,8 +25,8 @@ if vim.g.enable_bueatify then
             inc_rename = true, -- enables an input dialog for inc-rename.nvim
             lsp_doc_border = true, -- add a border to hover docs and signature help
           },
-          -- use a classic bottom cmdline for search
           cmdline = {
+            -- use a classic bottom cmdline for search
             format = {
               search_down = {
                 view = 'cmdline',
@@ -35,6 +35,8 @@ if vim.g.enable_bueatify then
                 view = 'cmdline',
               },
             },
+            -- classic cmdline
+            view = 'cmdline',
           },
           routes = {
             -- dismiss written messages
