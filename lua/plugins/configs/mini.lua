@@ -84,7 +84,7 @@ return { -- Collection of various small independent plugins/modules
       {
         '<leader>mss',
         function()
-          local session_name = require('utils.util').get_session_name()
+          local session_name = require('utils.session').get_session_name()
           require('mini.sessions').write(session_name)
         end,
         mode = 'n',
@@ -94,8 +94,8 @@ return { -- Collection of various small independent plugins/modules
         '<leader>msr',
         function()
           local mini_session = require 'mini.sessions'
-          local session_name = require('utils.util').get_session_name()
-          if require('utils.util').session_exist(mini_session.config.directory, session_name) then
+          local session_name = require('utils.session').get_session_name()
+          if require('utils.session').session_exist(mini_session.config.directory, session_name) then
             mini_session.read(session_name)
           else
             print 'Session does not exist for current directory'
@@ -109,8 +109,8 @@ return { -- Collection of various small independent plugins/modules
         '<leader>msd',
         function()
           local mini_session = require 'mini.sessions'
-          local session_name = require('utils.util').get_session_name()
-          if require('utils.util').session_exist(mini_session.config.directory, session_name) then
+          local session_name = require('utils.session').get_session_name()
+          if require('utils.session').session_exist(mini_session.config.directory, session_name) then
             mini_session.delete(session_name, { force = true })
           else
             print 'Session does not exist for current directory'

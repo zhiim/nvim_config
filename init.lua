@@ -8,6 +8,7 @@ vim.g.use_tex = false
 vim.g.enable_leetcode = false
 vim.g.tab_tool = 'barbar' -- bufferline or barbar
 vim.g.file_explorer = 'nvimtree' -- nvimtree or neotree
+vim.g.enable_bueatify = false
 
 -- command to find python env path
 -- in linux

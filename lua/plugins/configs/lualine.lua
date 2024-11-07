@@ -21,7 +21,7 @@ return {
     local custom_fname = require('lualine.components.filename'):extend()
     local highlight = require 'lualine.highlight'
 
-    local colors = require('utils.util').get_palette()
+    local colors = require('utils.palette').get_palette()
     -- local colors = require('tokyonight.colors').setup()
     local default_status_colors = { modified = colors.red }
     function custom_fname:init(options)

@@ -60,7 +60,7 @@ require('lazy').setup({
         'RainbowCyan',
       }
 
-      local colors = require('utils.util').get_palette()
+      local colors = require('utils.palette').get_palette()
       local hooks = require 'ibl.hooks'
       -- create the highlight groups in the highlight setup hook, so they are reset
       -- every time the colorscheme changes
@@ -273,7 +273,7 @@ require('lazy').setup({
   require 'plugins.configs.vimtex',
   require 'plugins.configs.leetcode',
   require 'plugins.configs.tab',
-
+  require 'plugins.configs.bueautify',
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   { import = 'custom.plugins' },

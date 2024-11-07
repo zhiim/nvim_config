@@ -1,60 +1,5 @@
 local util = {}
 
-function util.get_palette()
-  local palette_funcs = {
-    onedark = function()
-      return require('onedarkpro.helpers').get_colors()
-    end,
-    onenord = function()
-      return require('onenord.colors').load()
-    end,
-    tokyonight = function()
-      return require('tokyonight.colors').setup()
-    end,
-    nordic = function()
-      local palette = require 'nordic.colors'
-      return {
-        red = palette.red.base,
-        yellow = palette.yellow.base,
-        blue = palette.blue0,
-        orange = palette.orange.base,
-        green = palette.green.base,
-        purple = palette.magenta.base,
-        cyan = palette.cyan.base,
-      }
-    end,
-    catppuccin = function()
-      local palette = require('catppuccin.palettes').get_palette()
-      return {
-        red = palette.red,
-        yellow = palette.yellow,
-        blue = palette.blue,
-        orange = palette.flamingo,
-        green = palette.green,
-        purple = palette.mauve,
-        cyan = palette.teal,
-      }
-    end,
-    material = function()
-      return require('material.colors').main
-    end,
-    github = function()
-      local palette = require('github-theme.palette').load(vim.g.scheme_style)
-      return {
-        red = palette.red.base,
-        yellow = palette.yellow.base,
-        blue = palette.blue.base,
-        orange = palette.orange,
-        green = palette.green.base,
-        purple = palette.magenta.base,
-        cyan = palette.cyan.base,
-      }
-    end,
-  }
-  local color_scheme = vim.g.color_scheme or 'onedark'
-  return palette_funcs[color_scheme]()
-end
-
 function util.get_gcc_path()
   local handle = io.popen 'where c++'
   if handle == nil then
@@ -68,7 +13,7 @@ end
 
 function util.gen_make_files()
   if vim.fn.executable 'cmake' == 0 then
-    print 'cmake not found'
+    vim.notify('cmake not found', vim.log.levels.ERROR)
     return
   end
   -- create build dir
@@ -83,21 +28,8 @@ function util.gen_make_files()
   else
     gen_result = vim.fn.system 'cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -S . -B build'
   end
-  print(vim.inspect(gen_result))
+  vim.notify(gen_result, vim.log.levels.INFO, { title = 'Generate build files' })
   vim.api.nvim_command 'LspRestart clangd'
-end
-
-function util.get_session_name()
-  local md5 = require 'utils.md5'
-  local cwd = vim.fn.getcwd()
-  local name = md5.sumhexa(cwd)
-  name = 'session_' .. name
-  return name
-end
-
-function util.session_exist(session_dir, session_name)
-  local session_file = session_dir .. '/' .. session_name
-  return vim.fn.filereadable(session_file) == 1
 end
 
 return util
