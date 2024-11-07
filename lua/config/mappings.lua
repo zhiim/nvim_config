@@ -45,9 +45,6 @@ map('n', '<leader>-', '<C-w>v', { desc = 'split vertically' })
 map('n', '<leader>=', '<C-w>s', { desc = 'split horizontally' })
 map('n', '<leader>o', '<cmd>only<CR>', { desc = 'close other windows' })
 
--- nvimtree
-map('n', '<C-n>', '<cmd>NvimTreeToggle<CR>')
-
 -- Comment
 map('n', '<C-_>', 'gcc', { desc = 'comment toggle', remap = true })
 map('v', '<C-_>', 'gc', { desc = 'comment toggle', remap = true })
@@ -58,12 +55,6 @@ map('n', '<leader>tt', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { des
 map('n', '<leader>tl', '<cmd>Trouble loclist toggle<cr>', { desc = 'Trouble Toggle Loclist' })
 map('n', '<leader>tq', '<cmd>Trouble qflist toggle<cr>', { desc = 'Trouble Toggle Quickfix' })
 map('n', '<leader>lr', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', { desc = 'Trouble Toggle LSP References' })
-
--- lazygit
-map('n', '<leader>lg', '<cmd>LazyGit<cr>', { desc = 'Open LazyGit' })
-
--- glow.nvim
-map('n', '<leader>gl', '<cmd>Glow<cr>', { desc = 'Glow Open preview windows' })
 
 -- for diffview
 map('n', '<leader>dv', '<cmd>DiffviewOpen<cr>', { desc = 'Diffview Open' })
