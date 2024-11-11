@@ -1,52 +1,52 @@
--- options to enable extra features
+-- ━━ options to enable extra features ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 vim.g.proxy = nil
 vim.g.enable_language_support = false
 vim.g.use_copilot = false
 vim.g.use_dap = false
 vim.g.use_tex = false
 vim.g.enable_leetcode = false
+vim.g.enable_enhance = false
 vim.g.tab_tool = 'barbar' -- bufferline or barbar
 vim.g.file_explorer = 'nvimtree' -- nvimtree or neotree
-vim.g.enable_enhance = false
 
--- command to find python env path
+-- ━━ command to find python env path ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 -- in linux
 -- conda_command = "fd '^python$' /home/xu/miniconda3/envs -t x -t l"
 -- venv_command = "fd '^python$' /home/xu/.venvtool -t x -t l"
 vim.g.python_conda_command = "fd '^python.exe$' D:\\condaEnvs -t x -t l"
 vim.g.python_venv_command = "fd '^python.exe$' D:\\venv -t x -t l"
 
--- Set colorscheme
--- {
+-- ━━ Set colorscheme ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+-- -- scheme options --------------------------------------------------
 --   'onedark':
---   {'onedark', 'onelight', 'onedark_vivid', 'onedark_dark'},
---   'onenord',
+--      ['onedark', 'onelight', 'onedark_vivid', 'onedark_dark']
 --   'tokyonight':
---   {'tokyonight-night', 'tokyonight-storm', 'tokyonight-day',
---    'tokyonight-moon'},
---   'nordic',
+--      ['tokyonight-night', 'tokyonight-storm', 'tokyonight-day',
+--       'tokyonight-moon']
 --   'catppuccin':
---   {'catppuccin-latte', 'catppuccin-frappe',
---    'catppuccin-macchiato', 'catppuccin-mocha'},
+--      ['catppuccin-latte', 'catppuccin-frappe',
+--       'catppuccin-macchiato', 'catppuccin-mocha']
 --   'material':
---   {'darker', 'lighter', 'oceanic', 'palenight', 'deep ocean'},
+--      ['darker', 'lighter', 'oceanic', 'palenight', 'deep ocean']
 --   'github':
---   {'github_dark', 'github_light', 'github_dark_dimmed',
---    'github_dark_default', 'github_light_default',
---    'github_dark_high_contrast', 'github_light_high_contrast',
---    'github_dark_colorblind', 'github_light_colorblind',
---    'github_dark_tritanopia', 'github_light_tritanopia'}
--- }
+--      ['github_dark', 'github_light', 'github_dark_dimmed',
+--       'github_dark_default', 'github_light_default',
+--       'github_dark_high_contrast', 'github_light_high_contrast',
+--       'github_dark_colorblind', 'github_light_colorblind',
+--       'github_dark_tritanopia', 'github_light_tritanopia']
+--   'onenord'
+--   'nordic'
+-- ----------------------------------------------------------------------
 vim.g.color_scheme = 'github'
 vim.g.scheme_style = 'github_dark_dimmed'
 
--- [[ 1. vim options ]]
+-- ━━ 1. vim options ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 require 'config.options'
 
--- [[ 2. key mappings]]
+-- ━━ 2. key mappings ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 require 'config.mappings'
 
--- [[ 3. Basic Autocommands ]]
+-- ━━ 3. Basic Autocommands ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 --  See `:help lua-guide-autocommands`
 
 -- Highlight when yanking (copying) text
@@ -60,7 +60,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- [[ 4. Install `lazy.nvim` plugin manager ]]
+-- ━━ 4. Install `lazy.nvim` plugin manager ━━━━━━━━━━━━━━━━━━━━━━━━━━━
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -69,8 +69,7 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
--- [[ 5. Configure and install plugins ]]
---
+-- ━━ 5. Configure and install plugins ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 --  To check the current status of your plugins, run
 --    :Lazy
 require 'plugins'
