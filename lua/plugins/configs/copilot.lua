@@ -72,7 +72,7 @@ return {
       {
         '<leader>cm',
         function()
-          print(require('CopilotChat').config.model)
+          vim.notify(require('CopilotChat').config.model, vim.log.levels.INFO, { title = 'CopilotChat Model Info' })
         end,
         mode = 'n',
         desc = 'CopilotChat Model Info',

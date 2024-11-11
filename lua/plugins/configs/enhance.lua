@@ -10,11 +10,7 @@ if vim.g.enable_enhance then
       config = function()
         require('noice').setup {
           cmdline = {
-            format = {
-              cmdline = {
-                view = 'cmdline',
-              },
-            },
+            view = 'cmdline',
           },
           lsp = {
             -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -47,14 +43,6 @@ if vim.g.enable_enhance then
           },
           routes = {
             -- dismiss written messages
-            -- {
-            --   filter = {
-            --     event = 'msg_show',
-            --     kind = '',
-            --     find = 'written',
-            --   },
-            --   opts = { skip = true },
-            -- },
             -- dismiss lsp hover's no information available
             {
               filter = {
@@ -97,9 +85,34 @@ if vim.g.enable_enhance then
             mini = {
               align = 'message-center',
               position = {
-                row = -1,
-                col = '50%',
+                row = -1, -- bottom
+                col = '50%', -- center
               },
+              border = {
+                style = 'rounded',
+              },
+              size = {
+                width = 'auto',
+                height = 'auto',
+              },
+            },
+          },
+        }
+        require('lualine').setup {
+          sections = {
+            lualine_x = {
+              {
+                require('noice').api.status.message.get_hl,
+                cond = require('noice').api.status.message.has,
+              },
+              {
+                require('noice').api.status.search.get,
+                cond = require('noice').api.status.search.has,
+                color = { fg = require('utils.palette').get_palette().orange },
+              },
+              'encoding',
+              'fileformat',
+              'filetype',
             },
           },
         }
@@ -125,7 +138,6 @@ if vim.g.enable_enhance then
             local opts = {
               render = 'wrapped-compact',
               stages = 'slide',
-              timeout = 5000,
             }
             vim.opt.termguicolors = true
             require('notify').setup(opts)
