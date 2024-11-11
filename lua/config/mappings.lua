@@ -53,54 +53,7 @@ map('n', '<leader>o', '<cmd>only<CR>', { desc = 'close other windows' })
 map('n', '<C-_>', 'gcc', { desc = 'comment toggle', remap = true })
 map('v', '<C-_>', 'gc', { desc = 'comment toggle', remap = true })
 
--- for diffview
-map('n', '<leader>dv', '<cmd>DiffviewOpen<cr>', { desc = 'Diffview Open' })
-map('n', '<leader>dc', '<cmd>DiffviewClose<cr>', { desc = 'Diffview Close' })
-map('n', '<leader>dh', '<cmd>DiffviewFileHistory<cr>', { desc = 'Diffview View Files History' })
-
 -- cmake
 map('n', '<leader>mk', function()
   require('utils.util').gen_make_files()
 end, { desc = 'cmake build' })
-
--- toggleterm
-map({ 'n', 't' }, '<A-u>', '<cmd>ToggleTerm direction=horizontal<CR>', { desc = 'Toggle terminal in horizontal' })
-map({ 'n', 't' }, '<A-i>', '<cmd>ToggleTerm direction=float<CR>', { desc = 'Toggle terminal in float' })
-map({ 'n', 't' }, '<A-o>', '<cmd>ToggleTerm direction=vertical<CR>', { desc = 'Toggle terminal in vertical' })
-
---smart-split
-map('n', '<C-h>', function()
-  require('smart-splits').move_cursor_left()
-end, { desc = 'Move Left' })
-map('n', '<C-l>', function()
-  require('smart-splits').move_cursor_right()
-end, { desc = 'Move Right' })
-map('n', '<C-j>', function()
-  require('smart-splits').move_cursor_down()
-end, { desc = 'Move Down' })
-map('n', '<C-k>', function()
-  require('smart-splits').move_cursor_up()
-end, { desc = 'Move Up' })
-map('n', '<A-h>', function()
-  require('smart-splits').resize_left()
-end, { desc = 'Resize Left' })
-map('n', '<A-l>', function()
-  require('smart-splits').resize_right()
-end, { desc = 'Resize Right' })
-map('n', '<A-j>', function()
-  require('smart-splits').resize_down()
-end, { desc = 'Resize Down' })
-map('n', '<A-k>', function()
-  require('smart-splits').resize_up()
-end, { desc = 'Resize Up' })
-
-if vim.g.enable_language_support then
-  -- treesitter-context
-  map('n', '<leader>tct', '<cmd>TSContextToggle<CR>', { desc = 'Toggle Treesitter Context' })
-
-  -- glance
-  map('n', '<leader>gd', '<CMD>Glance definitions<CR>', { desc = 'Glance definitions' })
-  map('n', '<leader>gr', '<CMD>Glance references<CR>', { desc = 'Glance references' })
-  map('n', '<leader>gD', '<CMD>Glance type_definitions<CR>', { desc = 'Glance type definitions' })
-  map('n', '<leader>gI', '<CMD>Glance implementations<CR>', { desc = 'Glance implementations' })
-end

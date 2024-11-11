@@ -264,6 +264,7 @@ return { -- LSP Configuration & Plugins
     'ray-x/lsp_signature.nvim',
     event = 'InsertEnter',
     opts = {
+      hint_prefix = ' ',
       floating_window_off_x = 5, -- adjust float windows x position.
       floating_window_off_y = function() -- adjust float windows y position. e.g. set to -2 can make floating window move up 2 lines
         local linenr = vim.api.nvim_win_get_cursor(0)[1] -- buf line number
@@ -291,6 +292,32 @@ return { -- LSP Configuration & Plugins
   {
     'dnlhc/glance.nvim',
     cmd = 'Glance',
+    keys = {
+      {
+        '<leader>gd',
+        '<CMD>Glance definitions<CR>',
+        mode = 'n',
+        desc = 'Glance definitions',
+      },
+      {
+        '<leader>gr',
+        '<CMD>Glance references<CR>',
+        mode = 'n',
+        desc = 'Glance references',
+      },
+      {
+        '<leader>gD',
+        '<CMD>Glance type_definitions<CR>',
+        mode = 'n',
+        desc = 'Glance type definitions',
+      },
+      {
+        '<leader>gI',
+        '<CMD>Glance implementations<CR>',
+        mode = 'n',
+        desc = 'Glance implementations',
+      },
+    },
     config = function()
       local actions = require('glance').actions
       local opt = {

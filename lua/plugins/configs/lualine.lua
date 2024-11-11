@@ -14,7 +14,6 @@ return {
   'nvim-lualine/lualine.nvim',
   dependencies = {
     'nvim-tree/nvim-web-devicons',
-    'arkav/lualine-lsp-progress',
   },
   config = function()
     -- custom filename component that highlights the filename based on its status
@@ -61,7 +60,7 @@ return {
       },
       sections = {
         lualine_b = { { 'b:gitsigns_head', icon = '' }, { 'diff', source = diff_source }, 'diagnostics' },
-        lualine_c = { custom_fname, 'lsp_progress' },
+        lualine_c = { custom_fname },
       },
     }
   end,

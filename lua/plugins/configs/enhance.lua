@@ -9,12 +9,22 @@ if vim.g.enable_enhance then
       },
       config = function()
         require('noice').setup {
+          cmdline = {
+            format = {
+              cmdline = {
+                view = 'cmdline',
+              },
+            },
+          },
           lsp = {
             -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
             override = {
               ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
               ['vim.lsp.util.stylize_markdown'] = true,
               ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
+            },
+            signature = {
+              enabled = true, -- used lsp_signature instead
             },
           },
           -- you can enable a preset for easier configuration
@@ -25,32 +35,30 @@ if vim.g.enable_enhance then
             inc_rename = true, -- enables an input dialog for inc-rename.nvim
             lsp_doc_border = true, -- add a border to hover docs and signature help
           },
-          cmdline = {
-            -- use a classic bottom cmdline for search
-            format = {
-              search_down = {
-                view = 'cmdline',
-              },
-              search_up = {
-                view = 'cmdline',
-              },
+          messages = {
+            view = 'mini', -- use mini view for commom messages
+          },
+          format = {
+            lsp_progress_done = {
+              { '󰸞 ', hl_group = 'NoiceLspProgressSpinner' },
+              { '{data.progress.title} ', hl_group = 'NoiceLspProgressTitle' },
+              { '{data.progress.client} ', hl_group = 'NoiceLspProgressClient' },
             },
-            -- classic cmdline
-            view = 'cmdline',
           },
           routes = {
             -- dismiss written messages
-            {
-              filter = {
-                event = 'msg_show',
-                kind = '',
-                find = 'written',
-              },
-              opts = { skip = true },
-            },
+            -- {
+            --   filter = {
+            --     event = 'msg_show',
+            --     kind = '',
+            --     find = 'written',
+            --   },
+            --   opts = { skip = true },
+            -- },
             -- dismiss lsp hover's no information available
             {
               filter = {
+                event = 'notify',
                 find = 'No information available',
               },
               opts = { skip = true },
@@ -84,6 +92,13 @@ if vim.g.enable_enhance then
               },
               win_options = {
                 winhighlight = { Normal = 'Normal', FloatBorder = 'DiagnosticInfo' },
+              },
+            },
+            mini = {
+              align = 'message-center',
+              position = {
+                row = -1,
+                col = '50%',
               },
             },
           },

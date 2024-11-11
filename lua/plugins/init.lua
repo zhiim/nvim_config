@@ -97,6 +97,73 @@ require('lazy').setup({
   {
     'mrjones2014/smart-splits.nvim',
     lazy = false,
+    keys = {
+      --smart-split
+      {
+        '<C-h>',
+        function()
+          require('smart-splits').move_cursor_left()
+        end,
+        mode = 'n',
+        desc = 'Move Left',
+      },
+      {
+        '<C-l>',
+        function()
+          require('smart-splits').move_cursor_right()
+        end,
+        mode = 'n',
+        desc = 'Move Right',
+      },
+      {
+        '<C-j>',
+        function()
+          require('smart-splits').move_cursor_down()
+        end,
+        mode = 'n',
+        desc = 'Move Down',
+      },
+      {
+        '<C-k>',
+        function()
+          require('smart-splits').move_cursor_up()
+        end,
+        mode = 'n',
+        desc = 'Move Up',
+      },
+      {
+        '<A-h>',
+        function()
+          require('smart-splits').resize_left()
+        end,
+        mode = 'n',
+        desc = 'Resize Left',
+      },
+      {
+        '<A-l>',
+        function()
+          require('smart-splits').resize_right()
+        end,
+        mode = 'n',
+        desc = 'Resize Right',
+      },
+      {
+        '<A-j>',
+        function()
+          require('smart-splits').resize_down()
+        end,
+        mode = 'n',
+        desc = 'Resize Down',
+      },
+      {
+        '<A-k>',
+        function()
+          require('smart-splits').resize_up()
+        end,
+        mode = 'n',
+        desc = 'Resize Up',
+      },
+    },
     config = function()
       require('smart-splits').setup {}
     end,
@@ -157,31 +224,26 @@ require('lazy').setup({
       'DiffviewPrev',
       'DiffviewFileHistory',
     },
-  },
-
-  {
-    'akinsho/toggleterm.nvim',
-    version = '*',
-    config = function()
-      require('toggleterm').setup {
-        size = function(term)
-          if term.direction == 'horizontal' then
-            return 15
-          elseif term.direction == 'vertical' then
-            return vim.o.columns * 0.4
-          end
-        end,
-        open_mapping = [[<C-\>]],
-        hide_numbers = true, -- hide the number column in toggleterm buffers
-        shade_terminals = false,
-        start_in_insert = true,
-        insert_mappings = true, -- whether or not the open mapping applies in insert mode
-        persist_size = true,
-        direction = 'horizontal',
-        close_on_exit = true, -- close the terminal window when the process exits
-        shell = vim.o.shell, -- change the default shell
-      }
-    end,
+    keys = {
+      {
+        '<leader>dv',
+        '<cmd>DiffviewOpen<cr>',
+        mode = 'n',
+        desc = 'Diffview Open',
+      },
+      {
+        '<leader>dc',
+        '<cmd>DiffviewClose<cr>',
+        mode = 'n',
+        desc = 'Diffview Close',
+      },
+      {
+        '<leader>dh',
+        '<cmd>DiffviewFileHistory<cr>',
+        mode = 'n',
+        desc = 'Diffview View Files History',
+      },
+    },
   },
 
   {
@@ -304,7 +366,8 @@ require('lazy').setup({
   require 'plugins.configs.vimtex',
   require 'plugins.configs.leetcode',
   require 'plugins.configs.tab',
-  require 'plugins.configs.bueautify',
+  require 'plugins.configs.enhance',
+  require 'plugins.configs.term',
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   { import = 'custom.plugins' },
