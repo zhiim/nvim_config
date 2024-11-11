@@ -71,13 +71,14 @@ else
     -- Lua
     {
       'folke/twilight.nvim',
+      cmd = 'Twilight',
       keys = {
-        '<leader>tw',
-        function()
-          require('twilight').toggle()
-        end,
-        mode = 'n',
-        desc = 'Twilight Toggle',
+        {
+          '<leader>tw',
+          '<cmd>Twilight<cr>',
+          mode = 'n',
+          desc = 'Twilight Toggle',
+        },
       },
     },
   }

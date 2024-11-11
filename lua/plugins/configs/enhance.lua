@@ -1,4 +1,4 @@
-if vim.g.enable_bueatify then
+if vim.g.enable_enhance then
   return {
     -- lazy.nvim
     {
