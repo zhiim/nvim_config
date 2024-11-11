@@ -38,7 +38,7 @@ require('lazy').setup({
   -- Highlight todo, notes, etc in comments
   {
     'folke/todo-comments.nvim',
-    event = 'VimEnter',
+    event = 'BufRead',
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = { signs = false },
   },
@@ -106,10 +106,41 @@ require('lazy').setup({
     'folke/trouble.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     cmd = 'Trouble',
+    keys = {
+      {
+        '<leader>tbw',
+        '<cmd>Trouble diagnostics toggle<cr>',
+        desc = 'Trouble Workspace Diagnostics',
+      },
+      {
+        '<leader>tbb',
+        '<cmd>Trouble diagnostics toggle filter.buf=0<cr>',
+        desc = 'Trouble Buffer Diagnostics',
+      },
+      {
+        '<leader>tbs',
+        '<cmd>Trouble symbols toggle focus=false<cr>',
+        desc = 'Trouble Symbols',
+      },
+      {
+        '<leader>tbl',
+        '<cmd>Trouble lsp toggle focus=false win.position=right<cr>',
+        desc = 'Trouble LSP Definitions / references / ...',
+      },
+      {
+        '<leader>tbL',
+        '<cmd>Trouble loclist toggle<cr>',
+        desc = 'Trouble Location List',
+      },
+      {
+        '<leader>tbq',
+        '<cmd>Trouble qflist toggle<cr>',
+        desc = 'Trouble Quickfix List',
+      },
+    },
     opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
+      auto_close = true, -- auto close when there are no items
+      focus = true, -- Focus the window when opened
     },
   },
 

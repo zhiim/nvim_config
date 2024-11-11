@@ -53,13 +53,6 @@ map('n', '<leader>o', '<cmd>only<CR>', { desc = 'close other windows' })
 map('n', '<C-_>', 'gcc', { desc = 'comment toggle', remap = true })
 map('v', '<C-_>', 'gc', { desc = 'comment toggle', remap = true })
 
--- trouble.nvim
-map('n', '<leader>tw', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Trouble Toggle Workspace Diagnostics' })
-map('n', '<leader>tt', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = 'Trouble Toggle Buffer Diagnostics' })
-map('n', '<leader>tl', '<cmd>Trouble loclist toggle<cr>', { desc = 'Trouble Toggle Loclist' })
-map('n', '<leader>tq', '<cmd>Trouble qflist toggle<cr>', { desc = 'Trouble Toggle Quickfix' })
-map('n', '<leader>lr', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', { desc = 'Trouble Toggle LSP References' })
-
 -- for diffview
 map('n', '<leader>dv', '<cmd>DiffviewOpen<cr>', { desc = 'Diffview Open' })
 map('n', '<leader>dc', '<cmd>DiffviewClose<cr>', { desc = 'Diffview Close' })

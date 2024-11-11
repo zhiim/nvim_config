@@ -59,42 +59,6 @@ else
     },
 
     {
-      'stevearc/aerial.nvim',
-      opts = {},
-      -- Optional dependencies
-      dependencies = {
-        'nvim-treesitter/nvim-treesitter',
-        'nvim-tree/nvim-web-devicons',
-      },
-      keys = {
-        {
-          '<leader>at',
-          function()
-            require('aerial').toggle()
-          end,
-          mode = 'n',
-          desc = 'Toggle aerial',
-        },
-        {
-          '{',
-          function()
-            require('aerial').prev()
-          end,
-          mode = 'n',
-          desc = 'Jump to previous node',
-        },
-        {
-          '}',
-          function()
-            require('aerial').next()
-          end,
-          mode = 'n',
-          desc = 'Jump to next node',
-        },
-      },
-    },
-
-    {
       'MeanderingProgrammer/render-markdown.nvim',
       dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
       ft = 'markdown',
@@ -102,6 +66,19 @@ else
         require('render-markdown').setup {}
         vim.keymap.set('n', '<leader>rmt', '<cmd>RenderMarkdown toggle<CR>', { desc = 'Toggle markdown preview' })
       end,
+    },
+
+    -- Lua
+    {
+      'folke/twilight.nvim',
+      keys = {
+        '<leader>tw',
+        function()
+          require('twilight').toggle()
+        end,
+        mode = 'n',
+        desc = 'Twilight Toggle',
+      },
     },
   }
 end
