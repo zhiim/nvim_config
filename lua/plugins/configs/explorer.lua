@@ -189,6 +189,10 @@ local file_explorers = {
           ['P'] = { 'toggle_preview', config = { use_float = false } },
           [']'] = {
             function()
+              if require('neo-tree.sources.manager').get_state_for_window().current_position == 'current' then
+                vim.notify('Cannot change tab in Netrw style', vim.log.levels.INFO, { title = 'NeoTree' })
+                return
+              end
               change_neotree_source(1)
               vim.cmd('Neotree focus ' .. neotree_source_type[neotree_source_idx] .. ' left', true)
             end,
@@ -196,6 +200,10 @@ local file_explorers = {
           },
           ['['] = {
             function()
+              if require('neo-tree.sources.manager').get_state_for_window().current_position == 'current' then
+                vim.notify('Cannot change tab in Netrw style', vim.log.levels.INFO, { title = 'NeoTree' })
+                return
+              end
               change_neotree_source(-1)
               vim.cmd('Neotree focus ' .. neotree_source_type[neotree_source_idx] .. ' left', true)
             end,
