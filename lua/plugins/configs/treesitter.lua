@@ -9,7 +9,7 @@ else
         --
         -- NOTE: language parsers need to be installed
         --
-        ensure_installed = { 'bash', 'c', 'cpp', 'python', 'diff', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
+        ensure_installed = { 'bash', 'c', 'cpp', 'python', 'diff', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'vim', 'vimdoc' },
         ignore_install = { 'latex' },
         -- Autoinstall languages that are not installed
         auto_install = false,
