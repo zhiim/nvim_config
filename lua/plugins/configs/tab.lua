@@ -55,7 +55,7 @@ local tab_tools = {
           -- a unique tab for file explorer
           offsets = {
             {
-              filetype = explorer_type[vim.g.file_explorer],
+              filetype = explorer_type[vim.g.options.file_explorer],
               text = 'File Explorer',
               text_align = 'center',
               separator = false,
@@ -77,4 +77,4 @@ local tab_tools = {
     end,
   },
 }
-return tab_tools[vim.g.tab_tool]
+return tab_tools[vim.g.options.tab_tool]

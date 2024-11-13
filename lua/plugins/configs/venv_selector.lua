@@ -1,4 +1,4 @@
-if not vim.g.enable_language_support then
+if not vim.g.options.enable_language_support then
   return {}
 end
 return {
@@ -14,10 +14,10 @@ return {
       settings = {
         search = {
           find_conda = {
-            command = vim.g.python_conda_command,
+            command = vim.g.options.python_conda_command,
           },
           find_venv = {
-            command = vim.g.python_venv_command,
+            command = vim.g.options.python_venv_command,
           },
         },
       },

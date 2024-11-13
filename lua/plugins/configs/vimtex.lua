@@ -1,4 +1,4 @@
-if not vim.g.use_tex then
+if not vim.g.options.use_tex then
   return {}
 end
 return {

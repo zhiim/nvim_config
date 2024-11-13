@@ -1,4 +1,4 @@
-if not vim.g.use_copilot then
+if not vim.g.options.use_copilot then
   return {}
 end
 return {
@@ -108,9 +108,7 @@ return {
           },
         },
       }
-      if vim.g.proxy ~= nil then
-        copilot_config.proxy = vim.g.proxy
-      end
+      copilot_config.proxy = vim.g.options.proxy
       require('CopilotChat').setup(copilot_config)
       require('CopilotChat.integrations.cmp').setup()
     end,

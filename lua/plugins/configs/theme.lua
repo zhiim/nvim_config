@@ -1,4 +1,4 @@
-local color_scheme = vim.g.color_scheme or 'onedark'
+local color_scheme = vim.g.options.color_scheme or 'onedark'
 local theme_plugins = {
   ['onedark'] = 'olimorris/onedarkpro.nvim',
   ['onenord'] = 'rmehri01/onenord.nvim',
@@ -10,7 +10,7 @@ local theme_plugins = {
 }
 
 local function set_theme()
-  vim.cmd.colorscheme(vim.g.scheme_style or color_scheme)
+  vim.cmd.colorscheme(vim.g.options.scheme_style or color_scheme)
 end
 
 local config_funcs = {

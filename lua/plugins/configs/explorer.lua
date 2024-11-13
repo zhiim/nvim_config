@@ -1,5 +1,7 @@
 local neotree_source_type = { 'filesystem', 'buffers', 'git_status' }
 local neotree_source_idx = 1 -- 1: filesystem, 2: buffers, 3: git_status
+
+--- Change NeoTree source type
 local change_neotree_source = function(op)
   neotree_source_idx = neotree_source_idx + op
   if neotree_source_idx == 4 then
@@ -246,4 +248,4 @@ local file_explorers = {
   },
 }
 
-return file_explorers[vim.g.file_explorer]
+return file_explorers[vim.g.options.file_explorer]

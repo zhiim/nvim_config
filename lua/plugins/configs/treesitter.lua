@@ -1,4 +1,4 @@
-if not vim.g.enable_language_support then
+if not vim.g.options.enable_language_support then
   return {}
 else
   return { -- Highlight, edit, and navigate code

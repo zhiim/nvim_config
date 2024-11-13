@@ -1,4 +1,4 @@
-if not vim.g.use_dap then
+if not vim.g.options.use_dap then
   return {}
 end
 

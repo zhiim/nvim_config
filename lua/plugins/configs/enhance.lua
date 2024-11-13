@@ -1,4 +1,4 @@
-if vim.g.enable_enhance then
+if vim.g.options.enable_enhance then
   return {
     -- lazy.nvim
     {
@@ -108,7 +108,7 @@ if vim.g.enable_enhance then
               {
                 require('noice').api.status.search.get,
                 cond = require('noice').api.status.search.has,
-                color = { fg = require('utils.palette').get_palette().orange },
+                color = { fg = require('utils.util').get_palette().orange },
               },
               'encoding',
               'fileformat',
