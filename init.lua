@@ -1,7 +1,7 @@
 --  +-------------------------------------------------------------------------+
 --  |                     1. read user options from cache                     |
 --  +-------------------------------------------------------------------------+
-local cache_path = vim.fs.joinpath(vim.fn.stdpath 'config' --[[@as string]], 'cache')
+local cache_path = vim.fn.stdpath 'config' .. '/cache'
 
 vim.g.options = {
   -- ━━ options to enable features ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
