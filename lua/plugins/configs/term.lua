@@ -43,10 +43,10 @@ return {
       shell = vim.o.shell, -- change the default shell
       float_opts = {
         width = function()
-          return math.floor(vim.api.nvim_win_get_width(0) * 0.9)
+          return math.floor(vim.api.nvim_list_uis()[1].width * 0.9)
         end,
         height = function()
-          return math.floor(vim.api.nvim_win_get_height(0) * 0.9)
+          return math.floor(vim.api.nvim_list_uis()[1].height * 0.9)
         end,
       },
     }
