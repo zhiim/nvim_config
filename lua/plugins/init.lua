@@ -186,12 +186,12 @@ require('lazy').setup({
       },
       {
         '<leader>tbs',
-        '<cmd>Trouble symbols toggle focus=false<cr>',
+        '<cmd>Trouble symbols toggle<cr>',
         desc = 'Trouble Symbols',
       },
       {
         '<leader>tbl',
-        '<cmd>Trouble lsp toggle focus=false win.position=right<cr>',
+        '<cmd>Trouble lsp toggle<cr>',
         desc = 'Trouble LSP Definitions / references / ...',
       },
       {
@@ -205,10 +205,17 @@ require('lazy').setup({
         desc = 'Trouble Quickfix List',
       },
     },
-    opts = {
-      auto_close = true, -- auto close when there are no items
-      focus = true, -- Focus the window when opened
-    },
+    config = function()
+      require('trouble').setup {
+        auto_close = true, -- auto close when there are no items
+        focus = true, -- Focus the window when opened
+        modes = {
+          symbols = {
+            focus = true,
+          },
+        },
+      }
+    end,
   },
 
   {
