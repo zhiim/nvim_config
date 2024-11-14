@@ -41,6 +41,8 @@ vim.g.options = {
   --   'nordic'
   color_scheme = 'github',
   scheme_style = 'github_dark_dimmed',
+  -- ━━ use git bash in windows ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  git_bash_path = '',
 }
 
 if vim.uv.fs_stat(cache_path) then

@@ -108,11 +108,16 @@ vim.env.PATH = vim.fn.stdpath 'data' .. '/mason/bin' .. (is_windows and ';' or '
 
 -- use powershell in Windows
 if is_windows then
-  vim.o.shell = vim.fn.executable 'pwsh' and 'pwsh' or 'powershell'
-  vim.o.shellcmdflag =
-    '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
-  vim.o.shellredir = '-RedirectStandardOutput %s -NoNewWindow -Wait'
-  vim.o.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-  vim.o.shellquote = ''
-  vim.o.shellxquote = ''
+  if vim.g.options.git_bash_path ~= '' then
+    vim.o.shell = vim.g.options.git_bash_path
+    vim.o.shellcmdflag = '-s'
+  else
+    vim.o.shell = vim.fn.executable 'pwsh' and 'pwsh' or 'powershell'
+    vim.o.shellcmdflag =
+      '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
+    vim.o.shellredir = '-RedirectStandardOutput %s -NoNewWindow -Wait'
+    vim.o.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+    vim.o.shellquote = ''
+    vim.o.shellxquote = ''
+  end
 end
