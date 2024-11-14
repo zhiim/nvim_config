@@ -108,7 +108,7 @@ vim.env.PATH = vim.fn.stdpath 'data' .. '/mason/bin' .. (is_windows and ';' or '
 
 -- use powershell in Windows
 if is_windows then
-  if vim.g.options.git_bash_path ~= '' then
+  if vim.g.options.git_bash_path ~= '' and vim.loop.fs_stat(vim.g.options.git_bash_path) then
     vim.o.shell = vim.g.options.git_bash_path
     vim.o.shellcmdflag = '-s'
   else

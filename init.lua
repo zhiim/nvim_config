@@ -45,7 +45,7 @@ vim.g.options = {
   git_bash_path = '',
 }
 
-if vim.uv.fs_stat(cache_path) then
+if vim.loop.fs_stat(cache_path) then
   -- if cache exists
   require('utils.util').with_file(cache_path, 'r', function(file)
     -- read cache into options
