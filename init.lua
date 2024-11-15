@@ -14,53 +14,25 @@ vim.g.options = {
   enable_enhance = false,
   tab_tool = 'barbar', -- bufferline or barbar
   file_explorer = 'nvimtree', -- nvimtree or neotree
+  -- ━━ Set colorscheme ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  color_scheme = 'github',
+  scheme_style = 'github_dark_dimmed',
+  -- ━━ use git bash in windows ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  git_bash_path = '',
   -- ━━ command to find python env path ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   -- in linux
   -- conda_command = "fd '^python$' /home/xu/miniconda3/envs -t x -t l"
   -- venv_command = "fd '^python$' /home/xu/.venvtool -t x -t l"
   python_conda_command = "fd '^python.exe$' D:\\condaEnvs -t x -t l",
   python_venv_command = "fd '^python.exe$' D:\\venv -t x -t l",
-  -- ━━ Set colorscheme ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  --   'onedark':
-  --      ['onedark', 'onelight', 'onedark_vivid', 'onedark_dark']
-  --   'tokyonight':
-  --      ['tokyonight-night', 'tokyonight-storm', 'tokyonight-day',
-  --       'tokyonight-moon']
-  --   'catppuccin':
-  --      ['catppuccin-latte', 'catppuccin-frappe',
-  --       'catppuccin-macchiato', 'catppuccin-mocha']
-  --   'material':
-  --      ['darker', 'lighter', 'oceanic', 'palenight', 'deep ocean']
-  --   'github':
-  --      ['github_dark', 'github_light', 'github_dark_dimmed',
-  --       'github_dark_default', 'github_light_default',
-  --       'github_dark_high_contrast', 'github_light_high_contrast',
-  --       'github_dark_colorblind', 'github_light_colorblind',
-  --       'github_dark_tritanopia', 'github_light_tritanopia']
-  --   'onenord'
-  --   'nordic'
-  color_scheme = 'github',
-  scheme_style = 'github_dark_dimmed',
-  -- ━━ use git bash in windows ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  git_bash_path = '',
 }
 
 if vim.loop.fs_stat(cache_path) then
   -- if cache exists
-  require('utils.util').with_file(cache_path, 'r', function(file)
-    -- read cache into options
-    vim.g.options = require('utils.json').decode(file:read '*a')
-  end, function(err)
-    vim.notify('Error reading cache file: ' .. err, vim.log.levels.ERROR, { title = 'Cache Read' })
-  end)
+  require('utils.util').read_options()
 else
   -- if cache does not exist
-  require('utils.util').with_file(cache_path, 'w+', function(file)
-    -- write default options into cache
-    file:write(require('utils.json').encode(vim.g.options))
-  end, function(err)
-    vim.notify('Error writing cache file: ' .. err, vim.log.levels.ERROR, { title = 'Cache Write' })
-  end)
+  require('utils.util').write_options()
 end
 
 --  +-------------------------------------------------------------------------+

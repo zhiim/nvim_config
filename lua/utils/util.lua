@@ -105,4 +105,149 @@ function utils.with_file(file, mode, callback, on_error)
   end
 end
 
+-- read options from cache
+function utils.read_options()
+  local cache_path = vim.fn.stdpath 'config' .. '/cache'
+  require('utils.util').with_file(cache_path, 'r', function(file)
+    -- read cache into options
+    vim.g.options = require('utils.json').decode(file:read '*a')
+  end, function(err)
+    vim.notify('Error reading cache file: ' .. err, vim.log.levels.ERROR, { title = 'Cache Read' })
+  end)
+end
+
+-- write options to cache
+function utils.write_options()
+  local cache_path = vim.fn.stdpath 'config' .. '/cache'
+  require('utils.util').with_file(cache_path, 'w+', function(file)
+    -- write default options into cache
+    file:write(require('utils.json').encode(vim.g.options))
+  end, function(err)
+    vim.notify('Error writing cache file: ' .. err, vim.log.levels.ERROR, { title = 'Cache Write' })
+  end)
+end
+
+-- set user options and write to cache
+function utils.set_options()
+  local style_options = {
+    onedark = { 'onedark', 'onelight', 'onedark_vivid', 'onedark_dark' },
+    tokyonight = {
+      'tokyonight-night',
+      'tokyonight-storm',
+      'tokyonight-day',
+      'tokyonight-moon',
+    },
+    catppuccin = {
+      'catppuccin-latte',
+      'catppuccin-frappe',
+      'catppuccin-macchiato',
+      'catppuccin-mocha',
+    },
+    material = { 'darker', 'lighter', 'oceanic', 'palenight', 'deep ocean' },
+    github = {
+      'github_dark',
+      'github_light',
+      'github_dark_dimmed',
+      'github_dark_default',
+      'github_light_default',
+      'github_dark_high_contrast',
+      'github_light_high_contrast',
+      'github_dark_colorblind',
+      'github_light_colorblind',
+      'github_dark_tritanopia',
+      'github_light_tritanopia',
+    },
+  }
+  local selections = {
+    tab_tool = { 'barbar', 'bufferline' },
+    file_explorer = { 'nvimtree', 'neotree' },
+    color_scheme = {
+      'onedark',
+      'tokyonight',
+      'catppuccin',
+      'material',
+      'github',
+      'onenord',
+      'nordic',
+    },
+    -- scheme_style options
+    scheme_style = style_options[vim.g.options.color_scheme] or {},
+  }
+  local function update_setting(option, result)
+    vim.api.nvim_set_var('options', vim.tbl_extend('force', vim.g.options, { [option] = result }))
+    utils.write_options()
+    if vim.g.options[option] == result then
+      vim.notify(option .. ' is set to ' .. tostring(result) .. ', retart vim to apply changes', vim.log.levels.INFO, { title = 'Options Setting' })
+    end
+  end
+
+  local function find_value(value_to_find, my_table)
+    local found = false
+    for _, value in ipairs(my_table) do -- using ipairs since it's an array-like table
+      if value == value_to_find then
+        found = true
+        break -- Exit the loop once the value is found
+      end
+    end
+    return found
+  end
+
+  local function set_select(option, items)
+    local function selection_decode(selection)
+      if selection == 'off' then
+        return false
+      elseif selection == 'on' then
+        return true
+      end
+      return selection
+    end
+    vim.ui.select(items, {
+      prompt = 'Select an option (' .. option .. '):',
+      format_item = function(item)
+        return item
+      end,
+    }, function(result)
+      update_setting(option, selection_decode(result))
+    end)
+  end
+
+  local function set_string(option)
+    vim.ui.input({ prompt = 'Enter settings (' .. option .. '):' }, function(input)
+      update_setting(option, input)
+    end)
+  end
+
+  vim.ui.select({
+    'proxy',
+    'enable_language_support',
+    'use_copilot',
+    'use_dap',
+    'use_tex',
+    'enable_leetcode',
+    'enable_enhance',
+    'tab_tool',
+    'file_explorer',
+    'color_scheme',
+    'scheme_style',
+    'git_bash_path',
+    'python_conda_command',
+    'python_venv_command',
+  }, {
+    prompt = 'Select an option:',
+    format_item = function(item)
+      return item
+    end,
+  }, function(choice)
+    -- set on or off
+    if find_value(choice, { 'enable_language_support', 'use_copilot', 'use_dap', 'use_tex', 'enable_leetcode', 'enable_enhance' }) then
+      set_select(choice, { 'on', 'off' })
+    -- set one of the options
+    elseif find_value(choice, { 'tab_tool', 'file_explorer', 'color_scheme', 'scheme_style' }) then
+      set_select(choice, selections[choice])
+    else
+      set_string(choice)
+    end
+  end)
+end
+
 return utils

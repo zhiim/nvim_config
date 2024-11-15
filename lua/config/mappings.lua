@@ -57,3 +57,12 @@ map('v', '<C-_>', 'gc', { desc = 'comment toggle', remap = true })
 map('n', '<leader>mk', function()
   require('utils.util').gen_make_files()
 end, { desc = 'cmake build' })
+
+-- set options
+map('n', '<leader>nf', function()
+  require('utils.util').set_options()
+end, { desc = 'Neovim user config' })
+
+map('n', '<leader>nd', function()
+  vim.notify(vim.inspect(vim.g.options), vim.log.levels.INFO, { title = 'Neovim user options' })
+end, { desc = 'Display user config' })

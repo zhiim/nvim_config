@@ -20,7 +20,7 @@ if vim.g.options.enable_enhance then
               ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
             },
             signature = {
-              enabled = true, -- used lsp_signature instead
+              enabled = false, -- used lsp_signature instead
             },
           },
           -- you can enable a preset for easier configuration
@@ -52,36 +52,7 @@ if vim.g.options.enable_enhance then
               opts = { skip = true },
             },
           },
-          -- display the cmdline and popupmenu together
           views = {
-            cmdline_popup = {
-              position = {
-                row = 5,
-                col = '50%',
-              },
-              size = {
-                width = 60,
-                height = 'auto',
-              },
-            },
-            popupmenu = {
-              relative = 'editor',
-              position = {
-                row = 8,
-                col = '50%',
-              },
-              size = {
-                width = 60,
-                height = 10,
-              },
-              border = {
-                style = 'rounded',
-                padding = { 0, 1 },
-              },
-              win_options = {
-                winhighlight = { Normal = 'Normal', FloatBorder = 'DiagnosticInfo' },
-              },
-            },
             mini = {
               align = 'message-center',
               position = {
@@ -136,7 +107,7 @@ if vim.g.options.enable_enhance then
           },
           config = function()
             local opts = {
-              render = 'wrapped-compact',
+              render = 'default',
               stages = 'slide',
             }
             vim.opt.termguicolors = true
