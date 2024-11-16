@@ -326,7 +326,7 @@ require('lazy').setup({
       {
         '<leader>cbb',
         function()
-          require('comment-box').ccbox(10)
+          require('comment-box').lcbox(10)
         end,
         mode = 'n',
         desc = 'Comment Box Content Box',
@@ -349,9 +349,7 @@ require('lazy').setup({
       },
     },
     config = function()
-      require('comment-box').setup {
-        box_width = 76,
-      }
+      require('comment-box').setup {}
     end,
   },
 
