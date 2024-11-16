@@ -250,4 +250,17 @@ function utils.set_options()
   end)
 end
 
+function utils.pyright_type_checking(mode)
+  local clients = vim.lsp.get_clients { name = 'basedpyright' }
+  for _, client in pairs(clients) do
+    client.config.settings.basedpyright.analysis.typeCheckingMode = mode
+    client.notify('workspace/didChangeConfiguration', { settings = client.config.settings })
+    vim.notify(
+      'Pyright type checking is set to ' .. client.config.settings.basedpyright.analysis.typeCheckingMode,
+      vim.log.levels.INFO,
+      { title = 'Pyright Type Checking' }
+    )
+  end
+end
+
 return utils
