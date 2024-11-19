@@ -208,7 +208,7 @@ require('lazy').setup({
     config = function()
       require('trouble').setup {
         auto_close = true, -- auto close when there are no items
-        focus = true, -- Focus the window when opened
+        focus = false, -- Focus the window when opened
         modes = {
           symbols = {
             focus = true,
