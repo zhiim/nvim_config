@@ -127,11 +127,18 @@ return {
 
     -- key mappings for DAP UI
     vim.keymap.set({ 'n', 'i' }, '<F6>', function()
-      dapui.eval()
-    end, { desc = 'DapUI Eval' })
-    vim.keymap.set({ 'n', 'i' }, '<F7>', function()
       dapui.toggle()
     end, { desc = 'Toggle debug UI' })
+    vim.keymap.set({ 'n', 'i' }, '<leader>due', function()
+      dapui.eval()
+    end, { desc = 'DapUI Eval' })
+    vim.keymap.set({ 'n', 'i' }, '<leader>duE', function()
+      local expr = vim.fn.input 'Expression: '
+      dapui.eval(expr)
+    end, { desc = 'DapUI Eval Expression' })
+    vim.keymap.set({ 'n', 'i' }, '<leader>duf', function()
+      dapui.float_element()
+    end, { desc = 'DapUI Float Element' })
 
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
