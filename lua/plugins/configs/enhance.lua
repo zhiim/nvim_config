@@ -118,16 +118,24 @@ if vim.g.options.enable_enhance then
       },
     },
 
+    -- vscode like winbar
     {
       'utilyre/barbecue.nvim',
       name = 'barbecue',
-      version = '*',
       dependencies = {
         'SmiteshP/nvim-navic',
       },
       opts = {
         -- configurations go here
       },
+    },
+
+    -- animation
+    {
+      'echasnovski/mini.animate',
+      config = function()
+        require('mini.animate').setup()
+      end,
     },
   }
 else

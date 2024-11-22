@@ -30,7 +30,6 @@ local tab_tools = {
 
   bufferline = {
     'akinsho/bufferline.nvim',
-    version = '*',
     event = 'BufEnter',
     config = function()
       vim.opt.termguicolors = true
