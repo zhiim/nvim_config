@@ -353,6 +353,24 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'AndrewRadev/linediff.vim',
+    cmd = { 'Linediff', 'LinediffReset' },
+    keys = {
+      {
+        '<leader>ldd',
+        ':Linediff<cr>',
+        mode = 'v',
+        desc = 'Line Diff',
+      },
+      {
+        '<leader>ldr',
+        '<cmd>LinediffReset<CR>',
+        desc = 'Line diff reset',
+      },
+    },
+  },
+
   require 'plugins.configs.telescope',
   require 'plugins.configs.cmp',
   require 'plugins.configs.lspconfig',

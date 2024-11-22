@@ -134,7 +134,14 @@ if vim.g.options.enable_enhance then
     {
       'echasnovski/mini.animate',
       config = function()
-        require('mini.animate').setup()
+        require('mini.animate').setup {
+          scroll = {
+            enable = false,
+          },
+          cursor = {
+            enable = false,
+          },
+        }
       end,
     },
   }
