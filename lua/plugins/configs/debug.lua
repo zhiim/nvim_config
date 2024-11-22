@@ -129,14 +129,14 @@ return {
     vim.keymap.set({ 'n', 'i' }, '<F6>', function()
       dapui.toggle()
     end, { desc = 'Toggle debug UI' })
-    vim.keymap.set({ 'n', 'i' }, '<leader>due', function()
+    vim.keymap.set({ 'n' }, '<leader>due', function()
       dapui.eval()
     end, { desc = 'DapUI Eval' })
-    vim.keymap.set({ 'n', 'i' }, '<leader>duE', function()
+    vim.keymap.set({ 'n' }, '<leader>duE', function()
       local expr = vim.fn.input 'Expression: '
       dapui.eval(expr)
     end, { desc = 'DapUI Eval Expression' })
-    vim.keymap.set({ 'n', 'i' }, '<leader>duf', function()
+    vim.keymap.set({ 'n' }, '<leader>duf', function()
       dapui.float_element()
     end, { desc = 'DapUI Float Element' })
 
