@@ -41,7 +41,7 @@ local tab_tools = {
       require('bufferline').setup {
         options = {
           numbers = 'ordinal', -- show buffer numbers
-          separator_style = 'slant', -- style of buffer separator
+          separator_style = 'thick', -- style of buffer separator
           diagnostics = 'nvim_lsp', -- show diagnostics
           -- snippet used to customize the diagnostics indicator
           diagnostics_indicator = function(_, _, diagnostics_dict)
@@ -62,6 +62,11 @@ local tab_tools = {
               highlight = 'Directory',
             },
           },
+          always_show_bufferline = false,
+          custom_filter = function(buf, buf_nums)
+            -- dont show help buffers in the bufferline
+            return vim.bo[buf].filetype ~= 'dap-repl'
+          end,
         },
       }
       vim.keymap.set('n', '<tab>', '<cmd>BufferLineCycleNext<CR>', { desc = 'buffer goto next' })
