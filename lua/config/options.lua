@@ -108,8 +108,8 @@ vim.env.PATH = vim.fn.stdpath 'data' .. '/mason/bin' .. (is_windows and ';' or '
 
 -- use powershell in Windows
 if is_windows then
-  if vim.g.options.git_bash_path ~= '' and vim.loop.fs_stat(vim.g.options.git_bash_path) then
-    vim.o.shell = vim.g.options.git_bash_path
+  if vim.g.options.bash_path ~= '' and vim.loop.fs_stat(vim.g.options.bash_path) then
+    vim.o.shell = vim.g.options.bash_path .. ' -i' .. ' -l'
     vim.o.shellcmdflag = '-s'
   else
     vim.o.shell = vim.fn.executable 'pwsh' and 'pwsh' or 'powershell'

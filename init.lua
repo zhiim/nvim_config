@@ -17,8 +17,8 @@ vim.g.options = {
   -- ━━ Set colorscheme ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   color_scheme = 'github',
   scheme_style = 'github_dark_dimmed',
-  -- ━━ use git bash in windows ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  git_bash_path = '',
+  -- ━━ use bash in windows ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  bash_path = '',
   -- ━━ command to find python env path ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   -- in linux
   -- conda_command = "fd '^python$' /home/xu/miniconda3/envs -t x -t l"
