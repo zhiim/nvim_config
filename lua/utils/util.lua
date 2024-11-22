@@ -244,7 +244,7 @@ function utils.set_options()
     -- set one of the options
     elseif find_value(choice, { 'tab_tool', 'file_explorer', 'color_scheme', 'scheme_style' }) then
       set_select(choice, selections[choice])
-    else
+    elseif find_value(choice, { 'proxy', 'git_bash_path', 'python_conda_command', 'python_venv_command' }) then
       set_string(choice)
     end
   end)
