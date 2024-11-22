@@ -110,7 +110,6 @@ return {
       }
       copilot_config.proxy = vim.g.options.proxy
       require('CopilotChat').setup(copilot_config)
-      require('CopilotChat.integrations.cmp').setup()
     end,
   },
 }

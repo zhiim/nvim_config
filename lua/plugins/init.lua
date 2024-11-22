@@ -1,9 +1,13 @@
 require('lazy').setup({
 
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  { 'tpope/vim-sleuth', event = 'BufRead' }, -- Detect tabstop and shiftwidth automatically
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  {
+    'numToStr/Comment.nvim',
+    event = 'BufRead',
+    opts = {},
+  },
 
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
@@ -47,6 +51,7 @@ require('lazy').setup({
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
+    event = 'BufRead',
     main = 'ibl',
     opts = {},
     config = function()
@@ -255,6 +260,7 @@ require('lazy').setup({
 
   {
     'norcalli/nvim-colorizer.lua',
+    event = 'BufRead',
     config = function()
       require('colorizer').setup()
     end,
@@ -279,6 +285,7 @@ require('lazy').setup({
 
   {
     'AckslD/nvim-neoclip.lua',
+    event = 'BufRead',
     dependencies = {
       -- you'll need at least one of these
       -- {'nvim-telescope/telescope.nvim'},
@@ -371,6 +378,20 @@ require('lazy').setup({
     },
   },
 
+  {
+    'echasnovski/mini.icons',
+    lazy = true,
+    specs = {
+      { 'nvim-tree/nvim-web-devicons', enabled = false, optional = true },
+    },
+    init = function()
+      package.preload['nvim-web-devicons'] = function()
+        require('mini.icons').mock_nvim_web_devicons()
+        return package.loaded['nvim-web-devicons']
+      end
+    end,
+  },
+
   require 'plugins.configs.telescope',
   require 'plugins.configs.cmp',
   require 'plugins.configs.lspconfig',
@@ -391,6 +412,7 @@ require('lazy').setup({
   require 'plugins.configs.tab',
   require 'plugins.configs.enhance',
   require 'plugins.configs.term',
+  require 'plugins.configs.incline',
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   { import = 'custom.plugins' },

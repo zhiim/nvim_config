@@ -34,7 +34,7 @@ return {
     'jay-babu/mason-nvim-dap.nvim',
 
     -- Add your own debuggers here
-    'mfussenegger/nvim-dap-python',
+    { 'mfussenegger/nvim-dap-python', lazy = true },
 
     -- show inline variable values
     {

@@ -68,8 +68,8 @@ return { -- LSP Configuration & Plugins
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
-          map('<leader>lsp', '<CMD>LspStop', { desc = 'Stop LSP server' })
-          map('<leader>lst', '<CMD>LspStart', { desc = 'Start LSP server' })
+          vim.keymap.set('n', '<leader>lsp', '<CMD>LspStop<CR>', { desc = 'Stop LSP server' })
+          vim.keymap.set('n', '<leader>lst', '<CMD>LspStart<CR>', { desc = 'Start LSP server' })
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.

@@ -118,21 +118,10 @@ if vim.g.options.enable_enhance then
       },
     },
 
-    -- vscode like winbar
-    {
-      'utilyre/barbecue.nvim',
-      name = 'barbecue',
-      dependencies = {
-        'SmiteshP/nvim-navic',
-      },
-      opts = {
-        -- configurations go here
-      },
-    },
-
     -- animation
     {
       'echasnovski/mini.animate',
+      event = 'VeryLazy',
       config = function()
         require('mini.animate').setup {
           scroll = {

@@ -5,7 +5,7 @@ local tab_tools = {
       'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
       'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
     },
-    event = 'BufEnter',
+    event = 'BufReadPre',
     init = function()
       vim.g.barbar_auto_setup = false
       -- barbar
@@ -30,7 +30,7 @@ local tab_tools = {
 
   bufferline = {
     'akinsho/bufferline.nvim',
-    event = 'BufEnter',
+    event = 'BufReadPre',
     config = function()
       vim.opt.termguicolors = true
       local explorer_type = {
