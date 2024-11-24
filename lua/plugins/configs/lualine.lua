@@ -12,9 +12,6 @@ end
 
 return {
   'nvim-lualine/lualine.nvim',
-  dependencies = {
-    'nvim-tree/nvim-web-devicons',
-  },
   config = function()
     -- custom filename component that highlights the filename based on its status
     local custom_fname = require('lualine.components.filename'):extend()

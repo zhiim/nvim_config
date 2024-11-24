@@ -12,9 +12,7 @@ if vim.g.options.enable_leetcode then
       'MunifTanjim/nui.nvim',
 
       -- optional
-      'nvim-treesitter/nvim-treesitter',
-      -- 'rcarriga/nvim-notify',
-      'nvim-tree/nvim-web-devicons',
+      'rcarriga/nvim-notify',
     },
     opts = {
       -- configuration goes here

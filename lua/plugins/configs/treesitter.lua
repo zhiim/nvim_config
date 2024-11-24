@@ -58,7 +58,7 @@ else
 
     {
       'MeanderingProgrammer/render-markdown.nvim',
-      dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
+      dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' },
       ft = 'markdown',
       config = function()
         require('render-markdown').setup {}

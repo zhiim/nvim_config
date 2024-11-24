@@ -176,7 +176,6 @@ require('lazy').setup({
 
   {
     'folke/trouble.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
     cmd = 'Trouble',
     keys = {
       {
@@ -381,9 +380,6 @@ require('lazy').setup({
   {
     'echasnovski/mini.icons',
     lazy = true,
-    specs = {
-      { 'nvim-tree/nvim-web-devicons', enabled = false, optional = true },
-    },
     init = function()
       package.preload['nvim-web-devicons'] = function()
         require('mini.icons').mock_nvim_web_devicons()
@@ -412,7 +408,6 @@ require('lazy').setup({
   require 'plugins.configs.tab',
   require 'plugins.configs.enhance',
   require 'plugins.configs.term',
-  require 'plugins.configs.incline',
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   { import = 'custom.plugins' },
