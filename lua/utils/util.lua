@@ -2,6 +2,17 @@ local utils = {}
 
 --- get palette according to color_scheme
 function utils.get_palette()
+  if not vim.g.options.ui then
+    return {
+      red = '#E06C75',
+      yellow = '#E5C07B',
+      blue = '#61AFEF',
+      orange = '#D19A66',
+      green = '#98C379',
+      purple = '#C678DD',
+      cyan = '#56B6C2',
+    }
+  end
   local palette_funcs = {
     onedark = function()
       return require('onedarkpro.helpers').get_colors()
@@ -159,8 +170,8 @@ function utils.set_options()
     },
   }
   local selections = {
-    tab_tool = { 'barbar', 'bufferline' },
-    file_explorer = { 'nvimtree', 'neotree' },
+    tab = { 'barbar', 'bufferline' },
+    explorer = { 'nvimtree', 'neotree' },
     color_scheme = {
       'onedark',
       'tokyonight',
@@ -219,14 +230,16 @@ function utils.set_options()
 
   vim.ui.select({
     'proxy',
-    'enable_language_support',
-    'use_copilot',
-    'use_dap',
-    'use_tex',
-    'enable_leetcode',
-    'enable_enhance',
-    'tab_tool',
-    'file_explorer',
+    'language_support',
+    'debug',
+    'git',
+    'ui',
+    'copilot',
+    'tex',
+    'leetcode',
+    'ui_enhance',
+    'tab',
+    'explorer',
     'color_scheme',
     'scheme_style',
     'bash_path',
@@ -239,10 +252,10 @@ function utils.set_options()
     end,
   }, function(choice)
     -- set on or off
-    if find_value(choice, { 'enable_language_support', 'use_copilot', 'use_dap', 'use_tex', 'enable_leetcode', 'enable_enhance' }) then
+    if find_value(choice, { 'language_support', 'debug', 'git', 'ui', 'copilot', 'tex', 'leetcode', 'ui_enhance' }) then
       set_select(choice, { 'on', 'off' })
     -- set one of the options
-    elseif find_value(choice, { 'tab_tool', 'file_explorer', 'color_scheme', 'scheme_style' }) then
+    elseif find_value(choice, { 'tab', 'explorer', 'color_scheme', 'scheme_style' }) then
       set_select(choice, selections[choice])
     elseif find_value(choice, { 'proxy', 'bash_path', 'python_conda_command', 'python_venv_command' }) then
       set_string(choice)

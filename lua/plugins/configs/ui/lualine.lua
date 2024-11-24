@@ -18,8 +18,8 @@ return {
     local highlight = require 'lualine.highlight'
 
     local colors = require('utils.util').get_palette()
-    -- local colors = require('tokyonight.colors').setup()
     local default_status_colors = { modified = colors.red }
+
     function custom_fname:init(options)
       custom_fname.super.init(self, options)
       self.status_colors = {

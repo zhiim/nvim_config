@@ -1,4 +1,4 @@
-if not vim.g.options.use_copilot then
+if not vim.g.options.copilot then
   return {}
 end
 return {

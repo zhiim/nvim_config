@@ -1,6 +1,6 @@
-local leet_arg = 'leet'
+local leet_arg = 'leetcode'
 
-if vim.g.options.enable_leetcode then
+if vim.g.options.leetcode then
   return {
     'kawre/leetcode.nvim',
     lazy = leet_arg ~= vim.fn.argv()[1], -- lazy load

@@ -248,4 +248,4 @@ local file_explorers = {
   },
 }
 
-return file_explorers[vim.g.options.file_explorer]
+return file_explorers[vim.g.options.explorer]

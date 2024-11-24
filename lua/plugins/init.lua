@@ -67,8 +67,9 @@ require('lazy').setup({
 
       local colors = require('utils.util').get_palette()
       local hooks = require 'ibl.hooks'
-      -- create the highlight groups in the highlight setup hook, so they are reset
-      -- every time the colorscheme changes
+
+      -- -- create the highlight groups in the highlight setup hook, so they are reset
+      -- -- every time the colorscheme changes
       hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
         vim.api.nvim_set_hl(0, 'RainbowRed', { fg = colors.red })
         vim.api.nvim_set_hl(0, 'RainbowYellow', { fg = colors.yellow })
@@ -172,89 +173,6 @@ require('lazy').setup({
     config = function()
       require('smart-splits').setup {}
     end,
-  },
-
-  {
-    'folke/trouble.nvim',
-    cmd = 'Trouble',
-    keys = {
-      {
-        '<leader>tbw',
-        '<cmd>Trouble diagnostics toggle<cr>',
-        desc = 'Trouble Workspace Diagnostics',
-      },
-      {
-        '<leader>tbb',
-        '<cmd>Trouble diagnostics toggle filter.buf=0<cr>',
-        desc = 'Trouble Buffer Diagnostics',
-      },
-      {
-        '<leader>tbs',
-        '<cmd>Trouble symbols toggle<cr>',
-        desc = 'Trouble Symbols',
-      },
-      {
-        '<leader>tbl',
-        '<cmd>Trouble lsp toggle<cr>',
-        desc = 'Trouble LSP Definitions / references / ...',
-      },
-      {
-        '<leader>tbL',
-        '<cmd>Trouble loclist toggle<cr>',
-        desc = 'Trouble Location List',
-      },
-      {
-        '<leader>tbq',
-        '<cmd>Trouble qflist toggle<cr>',
-        desc = 'Trouble Quickfix List',
-      },
-    },
-    config = function()
-      require('trouble').setup {
-        auto_close = true, -- auto close when there are no items
-        focus = false, -- Focus the window when opened
-        modes = {
-          symbols = {
-            focus = true,
-          },
-        },
-      }
-    end,
-  },
-
-  {
-    'sindrets/diffview.nvim',
-    cmd = {
-      'DiffviewOpen',
-      'DiffviewClose',
-      'DiffviewToggleFiles',
-      'DiffviewFocusFiles',
-      'DiffviewRefresh',
-      'DiffviewToggleFile',
-      'DiffviewNext',
-      'DiffviewPrev',
-      'DiffviewFileHistory',
-    },
-    keys = {
-      {
-        '<leader>dv',
-        '<cmd>DiffviewOpen<cr>',
-        mode = 'n',
-        desc = 'Diffview Open',
-      },
-      {
-        '<leader>dc',
-        '<cmd>DiffviewClose<cr>',
-        mode = 'n',
-        desc = 'Diffview Close',
-      },
-      {
-        '<leader>dh',
-        '<cmd>DiffviewFileHistory<cr>',
-        mode = 'n',
-        desc = 'Diffview View Files History',
-      },
-    },
   },
 
   {
@@ -377,40 +295,18 @@ require('lazy').setup({
     },
   },
 
-  {
-    'echasnovski/mini.icons',
-    lazy = true,
-    init = function()
-      package.preload['nvim-web-devicons'] = function()
-        require('mini.icons').mock_nvim_web_devicons()
-        return package.loaded['nvim-web-devicons']
-      end
-    end,
-  },
-
+  require 'plugins.configs.ui',
+  require 'plugins.configs.language',
+  require 'plugins.configs.git',
   require 'plugins.configs.telescope',
-  require 'plugins.configs.cmp',
-  require 'plugins.configs.lspconfig',
-  require 'plugins.configs.treesitter',
-  require 'plugins.configs.gitsigns',
-  require 'plugins.configs.debug',
-  require 'plugins.configs.conform',
-  require 'plugins.configs.lint',
   require 'plugins.configs.explorer',
-  require 'plugins.configs.mini',
-  require 'plugins.configs.lualine',
-  require 'plugins.configs.dashboard',
-  require 'plugins.configs.venv_selector',
-  require 'plugins.configs.theme',
-  require 'plugins.configs.copilot',
-  require 'plugins.configs.vimtex',
-  require 'plugins.configs.leetcode',
   require 'plugins.configs.tab',
-  require 'plugins.configs.enhance',
   require 'plugins.configs.term',
-  --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
-  { import = 'custom.plugins' },
+  require 'plugins.configs.mini',
+  require 'plugins.configs.extras',
+    --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
+    --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
+    { import = 'custom.plugins' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the

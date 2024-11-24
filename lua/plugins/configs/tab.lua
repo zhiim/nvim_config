@@ -1,7 +1,7 @@
 local tab_tools = {
   barbar = {
     'romgrk/barbar.nvim',
-    event = 'BufReadPre',
+    event = 'BufEnter',
     init = function()
       vim.g.barbar_auto_setup = false
       -- barbar
@@ -77,4 +77,4 @@ local tab_tools = {
     end,
   },
 }
-return tab_tools[vim.g.options.tab_tool]
+return tab_tools[vim.g.options.tab]
