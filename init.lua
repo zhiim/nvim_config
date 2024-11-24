@@ -6,14 +6,16 @@ local cache_path = vim.fn.stdpath 'config' .. '/cache'
 vim.g.options = {
   -- ━━ options to enable features ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   proxy = '',
-  enable_language_support = false,
-  use_copilot = false,
-  use_dap = false,
-  use_tex = false,
-  enable_leetcode = false,
-  enable_enhance = false,
-  tab_tool = 'barbar', -- bufferline or barbar
-  file_explorer = 'nvimtree', -- nvimtree or neotree
+  language_support = false,
+  debug = false,
+  git = false,
+  ui = false,
+  copilot = false,
+  tex = false,
+  leetcode = false,
+  ui_enhance = false,
+  tab = 'barbar', -- bufferline or barbar
+  explorer = 'nvimtree', -- nvimtree or neotree
   -- ━━ Set colorscheme ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   color_scheme = 'github',
   scheme_style = 'github_dark_dimmed',
