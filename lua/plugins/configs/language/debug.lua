@@ -10,7 +10,7 @@ return {
       function()
         require('dap').toggle_breakpoint()
       end,
-      mode = 'n',
+      mode = { 'n', 'i' },
       desc = 'Debug: Toggle Breakpoint',
     },
     {
@@ -18,7 +18,7 @@ return {
       function()
         require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
       end,
-      mode = 'n',
+      mode = { 'n', 'i' },
       desc = 'Debug: Set Breakpoint',
     },
   },

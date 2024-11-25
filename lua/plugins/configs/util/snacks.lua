@@ -84,7 +84,7 @@ if vim.g.options.enhance then
           Snacks.words.jump(vim.v.count1)
         end,
         desc = 'Next Reference',
-        mode = { 'n', 't' },
+        mode = 'n',
       },
       {
         '[[',
@@ -92,7 +92,7 @@ if vim.g.options.enhance then
           Snacks.words.jump(-vim.v.count1)
         end,
         desc = 'Prev Reference',
-        mode = { 'n', 't' },
+        mode = 'n',
       },
       {
         '<leader>nh',
@@ -100,7 +100,7 @@ if vim.g.options.enhance then
           Snacks.notifier.show_history()
         end,
         desc = 'Notification History',
-        mode = { 'n', 't' },
+        mode = 'n',
       },
       {
         '<leader>nu',
