@@ -302,11 +302,11 @@ require('lazy').setup({
   require 'plugins.configs.explorer',
   require 'plugins.configs.tab',
   require 'plugins.configs.term',
-  require 'plugins.configs.mini',
+  require 'plugins.configs.util',
   require 'plugins.configs.extras',
-    --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-    --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
-    { import = 'custom.plugins' },
+  --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
+  --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
+  { import = 'custom.plugins' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the

@@ -1,4 +1,4 @@
-if vim.g.options.ui_enhance then
+if vim.g.options.enhance then
   return {
     -- lazy.nvim
     {
@@ -96,18 +96,8 @@ if vim.g.options.ui_enhance then
         --   If not available, we use `mini` as the fallback
         {
           'rcarriga/nvim-notify',
-          keys = {
-            {
-              '<leader>un',
-              function()
-                require('notify').dismiss { silent = true, pending = true }
-              end,
-              desc = 'Dismiss All Notifications',
-            },
-          },
           config = function()
             local opts = {
-              render = 'default',
               stages = 'slide',
             }
             vim.opt.termguicolors = true

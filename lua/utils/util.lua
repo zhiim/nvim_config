@@ -234,10 +234,11 @@ function utils.set_options()
     'debug',
     'git',
     'ui',
+    'util',
+    'enhance',
     'copilot',
     'tex',
     'leetcode',
-    'ui_enhance',
     'tab',
     'explorer',
     'color_scheme',
@@ -252,7 +253,7 @@ function utils.set_options()
     end,
   }, function(choice)
     -- set on or off
-    if find_value(choice, { 'language_support', 'debug', 'git', 'ui', 'copilot', 'tex', 'leetcode', 'ui_enhance' }) then
+    if find_value(choice, { 'language_support', 'debug', 'git', 'ui', 'util', 'enhance', 'copilot', 'tex', 'leetcode' }) then
       set_select(choice, { 'on', 'off' })
     -- set one of the options
     elseif find_value(choice, { 'tab', 'explorer', 'color_scheme', 'scheme_style' }) then
