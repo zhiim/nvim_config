@@ -13,6 +13,11 @@ local tab_tools = {
       for i = 1, 9 do
         vim.keymap.set('n', '<A-' .. i .. '>', '<cmd>BufferGoto ' .. i .. '<CR>', { desc = 'buffer goto ' .. i })
       end
+      if vim.g.options.enhance then
+        vim.keymap.set('n', '<leader>x', function()
+          Snacks.bufdelete()
+        end, { desc = 'buffer close' })
+      end
     end,
     opts = {
       auto_hide = 1,
@@ -73,6 +78,11 @@ local tab_tools = {
         vim.keymap.set('n', '<A-' .. i .. '>', function()
           require('bufferline').go_to(i, true)
         end, { desc = 'buffer goto ' .. i })
+      end
+      if vim.g.options.enhance then
+        vim.keymap.set('n', '<leader>x', function()
+          Snacks.bufdelete()
+        end, { desc = 'buffer close' })
       end
     end,
   },

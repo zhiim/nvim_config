@@ -47,14 +47,6 @@ if vim.g.options.enhance then
     },
     keys = {
       {
-        '<leader>bd',
-        function()
-          Snacks.bufdelete()
-        end,
-        desc = 'Delete Buffer',
-        mode = 'n',
-      },
-      {
         '<leader>lgo',
         function()
           Snacks.lazygit()
