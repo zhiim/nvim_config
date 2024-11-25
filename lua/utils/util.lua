@@ -236,7 +236,7 @@ function utils.set_options()
     'ui',
     'util',
     'enhance',
-    'copilot',
+    'ai',
     'tex',
     'leetcode',
     'tab',
@@ -244,6 +244,7 @@ function utils.set_options()
     'color_scheme',
     'scheme_style',
     'bash_path',
+    'gemini_api_key',
     'python_conda_command',
     'python_venv_command',
   }, {
@@ -253,12 +254,12 @@ function utils.set_options()
     end,
   }, function(choice)
     -- set on or off
-    if find_value(choice, { 'language_support', 'debug', 'git', 'ui', 'util', 'enhance', 'copilot', 'tex', 'leetcode' }) then
+    if find_value(choice, { 'language_support', 'debug', 'git', 'ui', 'util', 'enhance', 'ai', 'tex', 'leetcode' }) then
       set_select(choice, { 'on', 'off' })
     -- set one of the options
     elseif find_value(choice, { 'tab', 'explorer', 'color_scheme', 'scheme_style' }) then
       set_select(choice, selections[choice])
-    elseif find_value(choice, { 'proxy', 'bash_path', 'python_conda_command', 'python_venv_command' }) then
+    elseif find_value(choice, { 'proxy', 'bash_path', 'gemini_api_key', 'python_conda_command', 'python_venv_command' }) then
       set_string(choice)
     end
   end)

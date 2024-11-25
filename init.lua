@@ -21,7 +21,7 @@ vim.g.options = {
   ui = false,
   util = false,
   enhance = false,
-  copilot = false,
+  ai = false,
   tex = false,
   leetcode = false,
   tab = 'barbar', -- bufferline or barbar
@@ -31,6 +31,8 @@ vim.g.options = {
   scheme_style = 'github_dark_dimmed',
   -- ━━ use bash in windows ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   bash_path = '',
+  -- ━━ gemini api key ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  gemini_api_key = '',
   -- ━━ command to find python env path ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   -- in linux
   -- conda_command = "fd '^python$' /home/xu/miniconda3/envs -t x -t l"

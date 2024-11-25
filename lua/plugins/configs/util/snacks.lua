@@ -52,6 +52,7 @@ if vim.g.options.enhance then
           Snacks.bufdelete()
         end,
         desc = 'Delete Buffer',
+        mode = 'n',
       },
       {
         '<leader>lgo',
@@ -59,6 +60,7 @@ if vim.g.options.enhance then
           Snacks.lazygit()
         end,
         desc = 'Lazygit Open',
+        mode = 'n',
       },
       {
         '<leader>lgf',
@@ -66,6 +68,7 @@ if vim.g.options.enhance then
           Snacks.lazygit.log_file()
         end,
         desc = 'Lazygit Current File History',
+        mode = 'n',
       },
       {
         '<leader>lgl',
@@ -73,6 +76,7 @@ if vim.g.options.enhance then
           Snacks.lazygit.log()
         end,
         desc = 'Lazygit Log (cwd)',
+        mode = 'n',
       },
       {
         '<leader>Rn',
@@ -80,6 +84,7 @@ if vim.g.options.enhance then
           Snacks.rename.rename_file()
         end,
         desc = 'Rename File',
+        mode = 'n',
       },
       {
         ']]',
@@ -111,6 +116,7 @@ if vim.g.options.enhance then
           Snacks.notifier.hide()
         end,
         desc = 'Dismiss All Notifications',
+        mode = 'n',
       },
     },
     init = function()
