@@ -138,6 +138,17 @@ function utils.write_options()
   end)
 end
 
+function utils.find_value(value_to_find, my_table)
+  local found = false
+  for _, value in ipairs(my_table) do -- using ipairs since it's an array-like table
+    if value == value_to_find then
+      found = true
+      break -- Exit the loop once the value is found
+    end
+  end
+  return found
+end
+
 -- set user options and write to cache
 function utils.set_options()
   local style_options = {
@@ -184,23 +195,33 @@ function utils.set_options()
     -- scheme_style options
     scheme_style = style_options[vim.g.options.color_scheme] or {},
   }
+  local option_info = {
+    proxy = 'Proxy settings',
+    language_support = 'Enable LSP, Treesitter, Linter, Formatter and other tools based on them',
+    debug = 'Enable debug tools',
+    git = 'Enable git integration tools',
+    ui = 'Enable Theme, Statusline, WinBar and other UI tools',
+    util = 'Enable Useful tools',
+    enhance = 'Enable Enhance tools including more UI and Util',
+    ai = 'Enable AI tools',
+    tex = 'Enable TeX tools',
+    leetcode = 'Enable LeetCode',
+    tab = 'Select tabline plugin',
+    explorer = 'Select file explorer plugin',
+    color_scheme = 'Select theme',
+    scheme_style = 'Select style of the theme',
+    bash_path = 'Set bash path in windows to use bash in terminal',
+    gemini_api_key = 'Set gemini api key for AI tools',
+    python_conda_command = 'Set command to find python env path of Conda',
+    python_venv_command = 'Set command to find python env path of venv',
+  }
+
   local function update_setting(option, result)
     vim.api.nvim_set_var('options', vim.tbl_extend('force', vim.g.options, { [option] = result }))
     utils.write_options()
     if vim.g.options[option] == result then
       vim.notify(option .. ' is set to ' .. tostring(result) .. ', retart vim to apply changes', vim.log.levels.INFO, { title = 'Options Setting' })
     end
-  end
-
-  local function find_value(value_to_find, my_table)
-    local found = false
-    for _, value in ipairs(my_table) do -- using ipairs since it's an array-like table
-      if value == value_to_find then
-        found = true
-        break -- Exit the loop once the value is found
-      end
-    end
-    return found
   end
 
   local function set_select(option, items)
@@ -250,16 +271,16 @@ function utils.set_options()
   }, {
     prompt = 'Select an option:',
     format_item = function(item)
-      return item
+      return string.format('%-22s', item) .. ' |  ' .. option_info[item]
     end,
   }, function(choice)
     -- set on or off
-    if find_value(choice, { 'language_support', 'debug', 'git', 'ui', 'util', 'enhance', 'ai', 'tex', 'leetcode' }) then
+    if utils.find_value(choice, { 'language_support', 'debug', 'git', 'ui', 'util', 'enhance', 'ai', 'tex', 'leetcode' }) then
       set_select(choice, { 'on', 'off' })
     -- set one of the options
-    elseif find_value(choice, { 'tab', 'explorer', 'color_scheme', 'scheme_style' }) then
+    elseif utils.find_value(choice, { 'tab', 'explorer', 'color_scheme', 'scheme_style' }) then
       set_select(choice, selections[choice])
-    elseif find_value(choice, { 'proxy', 'bash_path', 'gemini_api_key', 'python_conda_command', 'python_venv_command' }) then
+    elseif utils.find_value(choice, { 'proxy', 'bash_path', 'gemini_api_key', 'python_conda_command', 'python_venv_command' }) then
       set_string(choice)
     end
   end)

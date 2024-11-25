@@ -64,7 +64,7 @@ map('n', '<leader>nf', function()
 end, { desc = 'Neovim user config' })
 
 map('n', '<leader>nd', function()
-  vim.notify(vim.inspect(vim.g.options), vim.log.levels.INFO, { title = 'Neovim user options' })
+  vim.print(vim.g.options)
 end, { desc = 'Display user config' })
 
 vim.cmd "command! -nargs=1 PyrightTypeCheck lua require('utils.util').pyright_type_checking(<f-args>)"

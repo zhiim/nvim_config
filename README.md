@@ -10,7 +10,7 @@
 - Make
 - Python (optional, to use LSP)
 - Ripgrep (optional, to search with telescope)
-- Node.js (optional, to use Prettier, markdownlint and github copilot)
+- Node.js (optional, to use Prettier)
 - fd (optioanl, to use venv_selector)
 - llvm and MSVC (optional, C++ in windows)
 
@@ -29,11 +29,11 @@ nvim
 
 ### Neovim Setting
 
-Edit `lua/config/options.lua`
+`lua/config/options.lua`
 
 ### Key Mapping
 
-Edit `lua/config/mapping.lua`.
+`lua/config/mapping.lua` and `keys` in plugin configs.
 
 ### Plugin Management
 
@@ -49,7 +49,7 @@ Open lazy.nvim panel with command `:Lazy`.
 
 Built with [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter).
 
-Modify `nvim-treesitter.opts.ensure_installed` in `lua/plugins/init.lua`.
+Modify `nvim-treesitter.opts.ensure_installed` in `lua/plugins/language/treesitter.lua`.
 
 Treesitter usage:
 
@@ -61,7 +61,7 @@ Treesitter usage:
 
 [Mason](https://github.com/williamboman/mason.nvim) is used to management language support packages.
 
-Add new packages by modifying `vim.list_extend(ensure_installed, {})` in `lua/plugins/configs/lspconfig.lua`.
+Add new packages by modifying `vim.list_extend(ensure_installed, {})` in `lua/plugins/configs/language/lspconfig.lua`.
 
 Open Mason panel by `:Mason` command.
 
@@ -78,7 +78,7 @@ Mason usage:
 
 LSP configuration support is built with [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig).
 
-Add LSP name to `servers` in `lua/configs/lspconfig.lua` (check [server_configurations](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#clangd) for support for specific LSP).
+Add LSP name to `servers` in `lua/plugins/configs/language/lspconfig.lua` (check [server_configurations](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#clangd) for support for specific LSP).
 
 #### Format & Lint
 
@@ -86,7 +86,7 @@ Formatter is built with [conform.nvim](https://github.com/stevearc/conform.nvim)
 
 Lintter is built with [nvim-lint](https://github.com/mfussenegger/nvim-lint).
 
-Trun on a formatter or linter by editing `lua/configs/conform.lua` for formatter and `lua/configs/lint.lua` for linter.
+Trun on a formatter or linter by editing `lua/plugins/configs/language/conform.lua` for formatter and `lua/plugins/configs/language/lint.lua` for linter.
 
 #### Debugging Support
 
@@ -95,7 +95,7 @@ Trun on a formatter or linter by editing `lua/configs/conform.lua` for formatter
 ### Tips
 
 - To share clipboard with system, install `xclip` on Linux with X11, install `win32yank` on Windows for WSL.
-- In Windows, `pylsp` should be used with `venv` or select Python env using `venv-selector.nvim`.
 - If `nvim-treesitter` output error `Invalid node type at position x for language x`, you can use `:echo nvim_get_runtime_file('parser', v:true)` to check whether more than one parser is used or not, than rename the nvim parser folder to another name to use treesitter parser only.
 - set venv searching path by modify `conda_command` and `venv_command` in `lua/plugins/config/venv_selector.lua`
 - Debugging C/C++ in Windows with codelldb need a program compiled using `clang` with `--target=x86_64-pc-windows-gnu`
+- To use plugins that depend on `curl` within MSYS bash, you need to remove `/usr/bin/curl` to utilize the Windows native `curl`.

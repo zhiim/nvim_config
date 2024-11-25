@@ -187,6 +187,24 @@ if vim.g.options.language_support then
         }
       end,
     },
+
+    {
+      'smjonas/inc-rename.nvim',
+      config = function()
+        require('inc_rename').setup {}
+      end,
+      keys = {
+        {
+          '<leader>rn',
+          function()
+            require('inc_rename').rename()
+          end,
+          mode = 'n',
+          desc = 'Incremental Rename',
+        },
+      },
+    },
+
     require 'plugins.configs.language.lspconfig',
     require 'plugins.configs.language.treesitter',
     require 'plugins.configs.language.cmp',

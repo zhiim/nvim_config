@@ -39,14 +39,6 @@ require('lazy').setup({
     end,
   },
 
-  -- Highlight todo, notes, etc in comments
-  {
-    'folke/todo-comments.nvim',
-    event = 'BufRead',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = { signs = false },
-  },
-
   { -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
@@ -173,31 +165,6 @@ require('lazy').setup({
     config = function()
       require('smart-splits').setup {}
     end,
-  },
-
-  {
-    'norcalli/nvim-colorizer.lua',
-    event = 'BufRead',
-    config = function()
-      require('colorizer').setup()
-    end,
-  },
-
-  {
-    'smjonas/inc-rename.nvim',
-    config = function()
-      require('inc_rename').setup {}
-    end,
-    keys = {
-      {
-        '<leader>rn',
-        function()
-          require('inc_rename').rename()
-        end,
-        mode = 'n',
-        desc = 'Incremental Rename',
-      },
-    },
   },
 
   {
