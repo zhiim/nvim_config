@@ -161,6 +161,8 @@ return { -- LSP Configuration & Plugins
         },
       },
 
+      ruff = {}, -- incase ruff lsp attached to other file type
+
       lua_ls = {
         -- cmd = {...},
         -- filetypes = { ...},

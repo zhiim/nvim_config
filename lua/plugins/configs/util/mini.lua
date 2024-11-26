@@ -32,6 +32,9 @@ return { -- Collection of various small independent plugins/modules
         symbols = {
           encode = MiniMap.gen_encode_symbols.dot '4x2',
         },
+        window = {
+          focusable = true,
+        },
       }
 
       MiniMap.setup(minimap_opt)

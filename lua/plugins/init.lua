@@ -249,7 +249,7 @@ require('lazy').setup({
     cmd = { 'Linediff', 'LinediffReset' },
     keys = {
       {
-        '<leader>ldd',
+        '<leader>ld',
         ':Linediff<cr>',
         mode = 'v',
         desc = 'Line Diff',
