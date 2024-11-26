@@ -63,9 +63,9 @@ local tab_tools = {
             },
           },
           always_show_bufferline = false,
-          custom_filter = function(buf, buf_nums)
+          custom_filter = function(buf, _)
             -- dont show help buffers in the bufferline
-            return vim.bo[buf].filetype ~= 'dap-repl'
+            return vim.bo[buf].filetype ~= 'dap-repl' and vim.bo[buf].filetype ~= 'codecompanion'
           end,
         },
       }
