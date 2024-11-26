@@ -15,9 +15,37 @@ return {
       mode = { 'n', 'v' },
     },
     {
+      'q',
+      function()
+        if vim.api.nvim_get_option_value('filetype', { buf = 0 }) == 'codecompanion' then
+          vim.cmd 'CodeCompanionChat Toggle'
+        end
+      end,
+      desc = 'Toggle the CodeCompanion Chat',
+      mode = { 'n', 'v' },
+    },
+    {
       '<leader>ccs',
-      '<cmd>CodeCompanionChat Add<CR>',
+      ':CodeCompanionChat Add<CR>',
       desc = 'Add Selected to CodeCompanion Chat',
+      mode = { 'n', 'v' },
+    },
+    {
+      '<leader>ccp',
+      '<cmd>CodeCompanion<CR>',
+      desc = 'CodeCompanion',
+      mode = { 'n', 'v' },
+    },
+    {
+      '<leader>ccm',
+      function()
+        vim.ui.input({ prompt = 'Select a model: ' }, function(input)
+          if input then
+            vim.cmd('CodeCompanionChat ' .. input)
+          end
+        end)
+      end,
+      desc = 'CodeCompanionChat with a Selected Model',
       mode = { 'n', 'v' },
     },
   },
@@ -26,11 +54,34 @@ return {
       display = {
         chat = {
           render_headers = false,
+          show_settings = true,
+          window = {
+            width = 0.3,
+          },
         },
       },
       strategies = {
         chat = {
           adapter = 'gemini',
+          keymaps = {
+            close = {
+              modes = {
+                n = '<C-x>',
+                i = '<C-x>',
+              },
+              index = 3,
+              callback = 'keymaps.close',
+              description = 'Close Chat',
+            },
+            stop = {
+              modes = {
+                n = '<C-c>',
+              },
+              index = 4,
+              callback = 'keymaps.stop',
+              description = 'Stop Request',
+            },
+          },
         },
         inline = {
           adapter = 'gemini',
@@ -45,6 +96,7 @@ return {
           })
         end,
         opts = {
+          language = 'Chinese',
           proxy = vim.g.options.proxy,
         },
       },

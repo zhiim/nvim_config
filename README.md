@@ -98,4 +98,5 @@ Trun on a formatter or linter by editing `lua/plugins/configs/language/conform.l
 - If `nvim-treesitter` output error `Invalid node type at position x for language x`, you can use `:echo nvim_get_runtime_file('parser', v:true)` to check whether more than one parser is used or not, than rename the nvim parser folder to another name to use treesitter parser only.
 - set venv searching path by modify `conda_command` and `venv_command` in `lua/plugins/config/venv_selector.lua`
 - Debugging C/C++ in Windows with codelldb need a program compiled using `clang` with `--target=x86_64-pc-windows-gnu`
-- To use plugins that depend on `curl` within MSYS bash, you need to remove `/usr/bin/curl` to utilize the Windows native `curl`.
+- To use `fish` in Windows, set `bash_path` and auto start `fish` every time entering `bash`
+- To use plugins that depend on `curl` within MSYS bash, you need to use mingw curl. A solution is set `MSYSTEM` to `MINGW64` in `/etc/msystem` and `/etc/fish/msystem.fish`
