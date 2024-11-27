@@ -39,7 +39,7 @@ return {
     {
       '<leader>ccm',
       function()
-        local items = { 'gemini', 'copilot_claude', 'copilot_4o', 'copilot_o1' }
+        local items = { 'gemini_flash', 'gemini_pro', 'gemini_1', 'copilot_claude', 'copilot_4o', 'copilot_o1' }
         vim.ui.select(items, {
           prompt = 'Select a model:',
           format_item = function(item)
@@ -70,7 +70,7 @@ return {
       },
       strategies = {
         chat = {
-          adapter = 'gemini',
+          adapter = 'gemini_pro',
           keymaps = {
             close = {
               modes = {
@@ -92,11 +92,23 @@ return {
           },
         },
         inline = {
-          adapter = 'gemini',
+          adapter = 'gemini_pro',
         },
       },
       adapters = {
-        gemini = function()
+        gemini_flash = function()
+          return require('codecompanion.adapters').extend('gemini', {
+            env = {
+              api_key = vim.g.options.gemini_api_key,
+            },
+            schema = {
+              model = {
+                default = 'gemini-1.5-flash',
+              },
+            },
+          })
+        end,
+        gemini_pro = function()
           return require('codecompanion.adapters').extend('gemini', {
             env = {
               api_key = vim.g.options.gemini_api_key,
@@ -104,6 +116,18 @@ return {
             schema = {
               model = {
                 default = 'gemini-1.5-pro',
+              },
+            },
+          })
+        end,
+        gemini_1 = function()
+          return require('codecompanion.adapters').extend('gemini', {
+            env = {
+              api_key = vim.g.options.gemini_api_key,
+            },
+            schema = {
+              model = {
+                default = 'gemini-1.0-pro',
               },
             },
           })
@@ -146,7 +170,7 @@ return {
           description = 'Translate bwtween English and Chinese',
           opts = {
             adapter = {
-              name = 'gemini',
+              name = 'gemini_pro',
             },
             modes = { 'n', 'v' },
             short_name = 'trans',
@@ -193,7 +217,7 @@ You are a senior and professional translator with excellent Chinese-English tran
           description = 'Check English Grammer',
           opts = {
             adapter = {
-              name = 'gemini',
+              name = 'gemini_pro',
             },
             modes = { 'n', 'v' },
             short_name = 'grammar',
@@ -227,7 +251,7 @@ Follow these instructions:
           description = 'Machine Learning Expert',
           opts = {
             adapter = {
-              name = 'gemini',
+              name = 'gemini_pro',
             },
             modes = { 'n', 'v' },
             short_name = 'mlpro',
@@ -287,7 +311,7 @@ You are a knowledgeable and patient AI assistant specializing in machine learnin
           description = 'Cpp Expert',
           opts = {
             adapter = {
-              name = 'gemini',
+              name = 'gemini_pro',
             },
             modes = { 'n', 'v' },
             short_name = 'cpp',
@@ -339,7 +363,7 @@ You're a patient and knowledgeable programming assistant who excels in teaching 
           description = 'Python Expert',
           opts = {
             adapter = {
-              name = 'gemini',
+              name = 'gemini_pro',
             },
             modes = { 'n', 'v' },
             short_name = 'python',

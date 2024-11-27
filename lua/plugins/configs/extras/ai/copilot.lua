@@ -98,14 +98,17 @@ return {
     },
     config = function()
       local copilot_config = {
+        highlight_headers = false,
+        separator = '---',
+        error_header = '> [!ERROR] Error',
         debug = true,
+        proxy = vim.g.options.proxy,
         mappings = {
           complete = {
             insert = '',
           },
         },
       }
-      copilot_config.proxy = vim.g.options.proxy
       require('CopilotChat').setup(copilot_config)
     end,
   },
