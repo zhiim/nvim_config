@@ -17,6 +17,10 @@ return {
     else
       vim.g.vimtex_view_method = 'zathura'
     end
+    -- change mapping prefix
+    vim.g.vimtex_mappings_prefix = '<leader>v'
+    -- enable format
+    vim.g.vimtex_format_enabled = true
   end,
   dependencies = {
     'micangl/cmp-vimtex',

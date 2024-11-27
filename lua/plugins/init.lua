@@ -276,12 +276,12 @@ require('lazy').setup({
   require 'plugins.configs.ui',
   require 'plugins.configs.language',
   require 'plugins.configs.git',
+  require 'plugins.configs.util',
+  require 'plugins.configs.extras',
   require 'plugins.configs.telescope',
   require 'plugins.configs.explorer',
   require 'plugins.configs.tab',
   require 'plugins.configs.term',
-  require 'plugins.configs.util',
-  require 'plugins.configs.extras',
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   { import = 'custom.plugins' },

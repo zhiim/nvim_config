@@ -65,7 +65,7 @@ if vim.g.options.language_support then
         }
       end,
       keys = {
-        { '<leader>vs', '<cmd>VenvSelect<cr>' },
+        { '<leader>pvs', '<cmd>VenvSelect<cr>', mode = 'n', desc = 'Python Virtual Environment Selection' },
       },
     },
 

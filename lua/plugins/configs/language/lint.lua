@@ -12,10 +12,6 @@ return {
       yaml = { 'yamllint' },
     }
 
-    vim.keymap.set('n', '<leader>lt', function()
-      lint.try_lint()
-    end, { desc = 'Trigger linting for current file' })
-
     local linterConfig = vim.fn.stdpath 'config' .. '/config_files/'
 
     lint.linters.ruff.args = {
