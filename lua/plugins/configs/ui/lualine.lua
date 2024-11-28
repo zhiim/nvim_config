@@ -1,15 +1,4 @@
 --- get git diff information using gitsigns
-local function diff_source()
-  local gitsigns = vim.b.gitsigns_status_dict
-  if gitsigns then
-    return {
-      added = gitsigns.added,
-      modified = gitsigns.changed,
-      removed = gitsigns.removed,
-    }
-  end
-end
-
 return {
   'nvim-lualine/lualine.nvim',
   config = function()
@@ -23,8 +12,8 @@ return {
     function custom_fname:init(options)
       custom_fname.super.init(self, options)
       self.status_colors = {
-        saved = highlight.create_component_highlight_group({ bg = default_status_colors.saved }, 'filename_status_saved', self.options),
-        modified = highlight.create_component_highlight_group({ bg = default_status_colors.modified }, 'filename_status_modified', self.options),
+        saved = highlight.create_component_highlight_group({ fg = default_status_colors.saved }, 'filename_status_saved', self.options),
+        modified = highlight.create_component_highlight_group({ fg = default_status_colors.modified }, 'filename_status_modified', self.options),
       }
       if self.options.color == nil then
         self.options.color = ''
@@ -38,8 +27,16 @@ return {
 
     require('lualine').setup {
       options = {
+        refresh = {
+          statusline = 500,
+          tabline = 500,
+          winbar = 500,
+        },
+        component_separators = '|',
+        section_separators = { left = '', right = '' },
         disabled_filetypes = {
           'dashboard',
+          'snacks_dashboard',
         },
         ignore_focus = {
           'NvimTree',
@@ -56,8 +53,49 @@ return {
         globalstatus = true,
       },
       sections = {
-        lualine_b = { { 'b:gitsigns_head', icon = '' }, { 'diff', source = diff_source }, 'diagnostics' },
-        lualine_c = { custom_fname },
+        lualine_b = {
+          { 'branch' },
+          {
+            'diff',
+            symbols = { added = ' ', modified = ' ', removed = ' ' },
+            source = function()
+              local summary = vim.b.minidiff_summary
+              return summary
+                and {
+                  added = summary.add,
+                  modified = summary.change,
+                  removed = summary.delete,
+                }
+            end,
+          },
+          {
+            'diagnostics',
+            symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
+          },
+        },
+        lualine_c = {
+          { custom_fname },
+          {
+            -- Lsp server name .
+            function()
+              local msg = 'No Active Lsp'
+              local buf_ft = vim.api.nvim_get_option_value('filetype', { buf = 0 })
+              local clients = vim.lsp.get_clients()
+              if next(clients) == nil then
+                return msg
+              end
+              local client_names = ''
+              for _, client in ipairs(clients) do
+                local filetypes = client.config.filetypes
+                if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+                  client_names = client_names .. client.name .. ' '
+                end
+              end
+              return client_names
+            end,
+            icon = ' LSP:',
+          },
+        },
       },
     }
   end,
