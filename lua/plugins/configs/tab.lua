@@ -41,7 +41,7 @@ local tab_tools = {
       require('bufferline').setup {
         options = {
           numbers = 'ordinal', -- show buffer numbers
-          separator_style = 'thick', -- style of buffer separator
+          separator_style = '`padded_slant`', -- style of buffer separator
           diagnostics = 'nvim_lsp', -- show diagnostics
           -- snippet used to customize the diagnostics indicator
           diagnostics_indicator = function(_, _, diagnostics_dict)

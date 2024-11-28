@@ -273,6 +273,14 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'tzachar/highlight-undo.nvim',
+    event = 'BufRead',
+    config = function()
+      require('highlight-undo').setup()
+    end,
+  },
+
   require 'plugins.configs.ui',
   require 'plugins.configs.language',
   require 'plugins.configs.git',

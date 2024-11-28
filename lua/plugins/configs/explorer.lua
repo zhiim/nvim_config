@@ -169,7 +169,7 @@ local file_explorers = {
         use_libuv_file_watcher = true,
       },
       window = {
-        width = 30, -- keep value with nvim-tree
+        -- width = 30, -- keep value with nvim-tree
         mappings = {
           ['l'] = 'open',
           ['h'] = 'close_node',
