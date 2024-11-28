@@ -211,6 +211,7 @@ if vim.g.options.language_support then
     require 'plugins.configs.language.conform',
     require 'plugins.configs.language.lint',
     require 'plugins.configs.language.debug',
+    require 'plugins.configs.language.symbol_usage',
   }
 else
   return {}
