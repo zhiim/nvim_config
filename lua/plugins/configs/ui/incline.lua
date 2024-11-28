@@ -57,8 +57,8 @@ return {
           return label
         end
 
-        local color_column_hl = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID 'ColorColumn'), 'bg#')
-        local normal_hl = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID 'Normal'), 'bg#')
+        local color_column_hl = require('utils.util').get_hl('ColorColumn').bg
+        local normal_hl = require('utils.util').get_hl('Normal').bg
         return {
           ft_icon and {
             '',

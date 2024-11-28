@@ -299,4 +299,24 @@ function utils.pyright_type_checking(mode)
   end
 end
 
+function utils.get_hl(name)
+  local function int_to_hex(int)
+    if int == nil then
+      return 'None'
+    end
+    return string.format('#%06X', int)
+  end
+
+  local hi = vim.api.nvim_get_hl(0, {
+    name = name,
+    link = false,
+  })
+
+  return {
+    fg = int_to_hex(hi.fg),
+    bg = int_to_hex(hi.bg),
+    italic = hi.italic,
+  }
+end
+
 return utils

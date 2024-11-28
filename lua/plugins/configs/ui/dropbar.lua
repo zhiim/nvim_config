@@ -106,18 +106,13 @@ return {
             if not menu then
               return
             end
-            local mouse = vim.fn.getmousepos()
-            local clicked_menu = utils.menu.get { win = mouse.winid }
-            -- If clicked on a menu, invoke the corresponding click action,
-            -- else close all menus and set the cursor to the clicked window
-            if clicked_menu then
-              clicked_menu:click_at({ mouse.line, mouse.column - 1 }, nil, 1, 'l')
-              return
-            end
-            utils.menu.exec 'close'
-            utils.bar.exec 'update_current_context_hl'
-            if vim.api.nvim_win_is_valid(mouse.winid) then
-              vim.api.nvim_set_current_win(mouse.winid)
+
+            local cursor = vim.api.nvim_win_get_cursor(menu.win)
+            local entry = menu.entries[cursor[1]]
+            -- stolen from https://github.com/Bekaboo/dropbar.nvim/issues/66
+            local component = entry:first_clickable(entry.padding.left + entry.components[1]:bytewidth())
+            if component then
+              menu:click_on(component, nil, 1, 'l')
             end
           end,
           -- fuzzy find

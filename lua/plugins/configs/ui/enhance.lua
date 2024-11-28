@@ -27,7 +27,6 @@ if vim.g.options.enhance then
       end,
       priority = 1000, -- needs to be loaded in first
       config = function()
-        -- diable default diagnostic virtual text
         vim.diagnostic.config { virtual_text = false }
         -- Default configuration
         require('tiny-inline-diagnostic').setup {
@@ -40,8 +39,17 @@ if vim.g.options.enhance then
             vertical = ' │',
             vertical_end = ' └',
           },
+          hi = {
+            error = 'DiagnosticError',
+            warn = 'DiagnosticWarn',
+            info = 'DiagnosticInfo',
+            hint = 'DiagnosticHint',
+            arrow = 'NonText',
+            background = 'CursorLine',
+            mixing_color = require('utils.util').get_hl('Normal').bg,
+          },
           blend = {
-            factor = 0.38,
+            factor = 0.18,
           },
           options = {
             -- Show the source of the diagnostic.
