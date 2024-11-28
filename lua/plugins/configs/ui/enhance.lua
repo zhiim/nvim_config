@@ -40,6 +40,9 @@ if vim.g.options.enhance then
             vertical = ' │',
             vertical_end = ' └',
           },
+          blend = {
+            factor = 0.38,
+          },
           options = {
             -- Show the source of the diagnostic.
             show_source = true,
