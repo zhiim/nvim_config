@@ -21,6 +21,8 @@ if vim.g.options.ui then
     require 'plugins.configs.ui.incline',
     require 'plugins.configs.ui.theme',
     require 'plugins.configs.ui.enhance',
+    require 'plugins.configs.ui.noice',
+    require 'plugins.configs.ui.dropbar',
   }
 else
   return {}
