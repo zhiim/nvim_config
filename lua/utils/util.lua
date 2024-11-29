@@ -181,7 +181,7 @@ function utils.set_options()
     },
   }
   local selections = {
-    tab = { 'barbar', 'bufferline' },
+    tab = { 'barbar', 'bufferline', 'tabby' },
     explorer = { 'nvimtree', 'neotree' },
     color_scheme = {
       'onedark',
