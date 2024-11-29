@@ -205,6 +205,17 @@ if vim.g.options.language_support then
       },
     },
 
+    {
+      'folke/lazydev.nvim',
+      ft = 'lua',
+      opts = {
+        library = {
+          -- Load luvit types when the `vim.uv` word is found
+          { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+        },
+      },
+    },
+
     require 'plugins.configs.language.lspconfig',
     require 'plugins.configs.language.treesitter',
     require 'plugins.configs.language.cmp',

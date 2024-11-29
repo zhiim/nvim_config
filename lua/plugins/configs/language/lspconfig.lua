@@ -5,17 +5,6 @@ return { -- LSP Configuration & Plugins
     { 'williamboman/mason.nvim', config = true }, -- Must be loaded before dependants
     'williamboman/mason-lspconfig.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
-
-    {
-      'folke/lazydev.nvim',
-      ft = 'lua',
-      opts = {
-        library = {
-          -- Load luvit types when the `vim.uv` word is found
-          { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-        },
-      },
-    },
   },
   config = function()
     vim.api.nvim_create_autocmd('LspAttach', {
