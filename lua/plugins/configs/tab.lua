@@ -143,9 +143,6 @@ local tab_tools = {
 
             line.bufs().foreach(function(buf)
               local hl = buf.is_current() and theme.current_buf or theme.buf
-              if buf.is_changed() then
-                hl['style'] = 'italic'
-              end
               return {
                 line.sep('', hl, theme.fill),
                 buf.is_changed() and '+' or '',
