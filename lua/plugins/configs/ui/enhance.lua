@@ -25,7 +25,7 @@ if vim.g.options.enhance then
           return 'VeryLazy'
         end
       end,
-      priority = 1000, -- needs to be loaded in first
+      priority = 800, -- needs to be loaded in first
       config = function()
         vim.diagnostic.config { virtual_text = false }
         -- Default configuration
@@ -49,7 +49,7 @@ if vim.g.options.enhance then
             mixing_color = require('utils.util').get_hl('Normal').bg,
           },
           blend = {
-            factor = 0.18,
+            factor = 0.12,
           },
           options = {
             -- Show the source of the diagnostic.

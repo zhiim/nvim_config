@@ -111,7 +111,7 @@ local config_funcs = {
 
 return {
   theme_plugins[color_scheme],
-  priority = 1000, -- Ensure it loads first
+  priority = 1200, -- Ensure it loads first
   config = function()
     config_funcs[color_scheme]()
   end,

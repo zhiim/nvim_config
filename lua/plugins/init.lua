@@ -170,11 +170,6 @@ require('lazy').setup({
   {
     'AckslD/nvim-neoclip.lua',
     event = 'BufRead',
-    dependencies = {
-      -- you'll need at least one of these
-      -- {'nvim-telescope/telescope.nvim'},
-      -- {'ibhagwan/fzf-lua'},
-    },
     config = function()
       require('neoclip').setup {
         keys = {
@@ -290,9 +285,6 @@ require('lazy').setup({
   require 'plugins.configs.explorer',
   require 'plugins.configs.tab',
   require 'plugins.configs.term',
-  --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
-  { import = 'custom.plugins' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the

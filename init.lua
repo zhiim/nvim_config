@@ -41,7 +41,7 @@ vim.g.options = {
   python_venv_command = "fd '^python.exe$' D:\\venv -t x -t l",
 }
 
-if vim.loop.fs_stat(cache_path) then
+if (vim.uv or vim.loop).fs_stat(cache_path) then
   -- if cache exists
   require('utils.util').read_options()
 else
@@ -69,7 +69,7 @@ require 'config.autocmd'
 -- +---------------------------------------------------------+
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
   vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
 end ---@diagnostic disable-next-line: undefined-field

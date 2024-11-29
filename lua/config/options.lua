@@ -108,7 +108,7 @@ vim.env.PATH = vim.fn.stdpath 'data' .. '/mason/bin' .. (is_windows and ';' or '
 
 -- use powershell in Windows
 if is_windows then
-  if vim.g.options.bash_path ~= '' and vim.loop.fs_stat(vim.g.options.bash_path) then
+  if vim.g.options.bash_path ~= '' and (vim.uv or vim.loop).fs_stat(vim.g.options.bash_path) then
     vim.o.shell = vim.g.options.bash_path .. ' -i' .. ' -l'
     vim.o.shellcmdflag = '-s'
   else
@@ -121,3 +121,12 @@ if is_windows then
     vim.o.shellxquote = ''
   end
 end
+
+-- set diagnostics signs
+local symbols = { Error = '󰅙', Info = '󰋼', Hint = '󰌵', Warn = '' }
+for name, icon in pairs(symbols) do
+  local hl = 'DiagnosticSign' .. name
+  vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
+end
+
+vim.opt.sessionoptions = { 'blank', 'buffers', 'curdir', 'folds', 'globals', 'help', 'tabpages', 'winsize', 'terminal' }
