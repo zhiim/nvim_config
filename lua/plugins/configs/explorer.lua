@@ -220,6 +220,7 @@ local file_explorers = {
           expander_expanded = '',
           expander_highlight = 'NeoTreeExpander',
         },
+        modified = { symbol = '*' },
         git_status = {
           symbols = {
             unstaged = '󰄱',

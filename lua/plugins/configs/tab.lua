@@ -155,7 +155,7 @@ local tab_tools = {
               local hl = buf.is_current() and theme.current_buf or theme.buf
               return {
                 line.sep('', hl, theme.fill),
-                buf.is_changed() and '+' or '',
+                buf.is_changed() and '*' or '',
                 buf.file_icon(),
                 buf.name(),
                 line.sep('', hl, theme.fill),

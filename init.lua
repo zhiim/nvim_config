@@ -24,8 +24,8 @@ vim.g.options = {
   ai = false,
   tex = false,
   leetcode = false,
-  tab = 'barbar', -- bufferline or barbar
-  explorer = 'nvimtree', -- nvimtree or neotree
+  tab = 'tabby',
+  explorer = 'nvimtree',
   -- ━━ Set colorscheme ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   color_scheme = 'github',
   scheme_style = 'github_dark_dimmed',
