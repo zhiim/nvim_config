@@ -116,6 +116,16 @@ local tab_tools = {
           buf = ll_theme.normal.b,
           tail = ll_theme.normal.b,
         }
+      else
+        theme = {
+          fill = 'TabLineFill',
+          head = 'TabLine',
+          current_tab = 'TabLineSel',
+          tab = 'TabLine',
+          current_buf = 'TabLine',
+          buf = 'TabLine',
+          tail = 'TabLine',
+        }
       end
 
       require('tabby').setup {
@@ -162,7 +172,6 @@ local tab_tools = {
           }
         end,
         option = {
-          lualine_theme = 'auto',
           buf_name = {
             mode = 'tail',
           },
