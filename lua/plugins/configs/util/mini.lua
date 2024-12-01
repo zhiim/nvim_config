@@ -1,3 +1,5 @@
+local session_dir = vim.fn.stdpath 'data' .. '/session'
+
 --- md5 hash of current directory to use as session name
 local function get_session_name()
   local md5 = require 'utils.md5'
@@ -96,6 +98,37 @@ return { -- Collection of various small independent plugins/modules
     config = function()
       require('mini.sessions').setup {
         autowrite = false,
+        directory = session_dir,
+        hooks = {
+          -- Before successful action
+          -- work with scope.nvim to save/restore tab-scoped buffers
+          pre = {
+            write = function()
+              require('scope.core').on_tab_leave()
+              require('scope.core').on_tab_enter()
+              local cache = require('scope.session').serialize_state()
+
+              require('utils.util').with_file(session_dir .. '/' .. get_session_name() .. '_cache', 'w+', function(file)
+                -- write default options into cache
+                file:write(cache)
+              end, function(err)
+                vim.notify('Error writing cache file: ' .. err, vim.log.levels.ERROR, { title = 'Cache Write' })
+              end)
+            end,
+
+            read = function()
+              local cache = ''
+              require('utils.util').with_file(session_dir .. '/' .. get_session_name() .. '_cache', 'r', function(file)
+                -- read cache into options
+                cache = file:read '*a'
+              end, function(err)
+                vim.notify('Error reading cache file: ' .. err, vim.log.levels.ERROR, { title = 'Cache Read' })
+              end)
+
+              require('scope.session').deserialize_state(cache)
+            end,
+          },
+        },
       }
     end,
     keys = {

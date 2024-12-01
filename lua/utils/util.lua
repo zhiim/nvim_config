@@ -121,7 +121,7 @@ function utils.read_options()
   local cache_path = vim.fn.stdpath 'config' .. '/cache'
   require('utils.util').with_file(cache_path, 'r', function(file)
     -- read cache into options
-    vim.g.options = require('utils.json').decode(file:read '*a')
+    vim.g.options = vim.json.decode(file:read '*a')
   end, function(err)
     vim.notify('Error reading cache file: ' .. err, vim.log.levels.ERROR, { title = 'Cache Read' })
   end)
@@ -132,7 +132,7 @@ function utils.write_options()
   local cache_path = vim.fn.stdpath 'config' .. '/cache'
   require('utils.util').with_file(cache_path, 'w+', function(file)
     -- write default options into cache
-    file:write(require('utils.json').encode(vim.g.options))
+    file:write(vim.json.encode(vim.g.options))
   end, function(err)
     vim.notify('Error writing cache file: ' .. err, vim.log.levels.ERROR, { title = 'Cache Write' })
   end)
