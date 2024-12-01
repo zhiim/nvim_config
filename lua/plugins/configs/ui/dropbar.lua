@@ -17,7 +17,7 @@ return {
     local custom_path = {
       get_symbols = function(buff, win, cursor)
         local symbols = require('dropbar.sources').path.get_symbols(buff, win, cursor)
-        vim.api.nvim_set_hl(0, 'DropBarFileName', { fg = '#FFFFFF', italic = true, bold = true })
+        vim.api.nvim_set_hl(0, 'DropBarFileName', { italic = true, bold = true })
         symbols[#symbols].name_hl = 'DropBarFileName'
         return symbols
       end,
@@ -50,10 +50,7 @@ return {
           end
           return {
             custom_path,
-            utils.source.fallback {
-              sources.lsp,
-              sources.treesitter,
-            },
+            sources.lsp,
           }
         end,
       },
