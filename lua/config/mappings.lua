@@ -64,5 +64,5 @@ end, { desc = 'Display user config' })
 vim.cmd "command! -nargs=1 PyrightTypeCheck lua require('utils.util').pyright_type_checking(<f-args>)"
 
 -- mappings for ta
-map('n', 'ga', '<cmd>$tabnew<CR>', { desc = 'tab new' })
+map('n', 'ga', '<cmd>tabnew<CR>', { desc = 'tab new' })
 map('n', 'gx', '<cmd>tabclose<CR>', { desc = 'tab close' })
