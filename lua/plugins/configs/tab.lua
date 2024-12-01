@@ -91,6 +91,7 @@ local tab_tools = {
     'nanozuki/tabby.nvim',
     event = 'BufReadPre',
     config = function()
+      vim.opt.sessionoptions = 'curdir,folds,globals,help,tabpages,terminal,winsize'
       -- always show tabline
       vim.o.showtabline = 2
 
@@ -128,18 +129,18 @@ local tab_tools = {
         }
       end
 
-      local function lsp_diag()
+      local function lsp_diag(bufnr)
         local icons = {
           error = '',
           warn = '',
           info = '',
           hint = '󰌵',
         }
-        local label = {}
+        local label = ''
         for severity, icon in pairs(icons) do
-          local n = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity[string.upper(severity)] })
+          local n = #vim.diagnostic.get(bufnr, { severity = vim.diagnostic.severity[string.upper(severity)] })
           if n > 0 then
-            table.insert(label, { icon .. n })
+            label = label .. icon .. n
           end
         end
         return label
@@ -162,7 +163,7 @@ local tab_tools = {
                   buf.is_changed() and '*' or '',
                   buf.file_icon(),
                   buf.name(),
-                  lsp_diag(),
+                  lsp_diag(buf.id),
                   line.sep('', hl, theme.fill),
                   hl = hl,
                   margin = ' ',
@@ -203,7 +204,7 @@ local tab_tools = {
                   buf.is_changed() and '*' or '',
                   buf.file_icon(),
                   buf.name(),
-                  lsp_diag(),
+                  lsp_diag(buf.id),
                   line.sep('', hl, theme.fill),
                   hl = hl,
                   margin = ' ',
@@ -234,6 +235,11 @@ return {
   {
     'tiagovla/scope.nvim',
     config = function()
+      vim.opt.sessionoptions = { -- required
+        'buffers',
+        'tabpages',
+        'globals',
+      }
       require('scope').setup {}
     end,
   },
