@@ -12,6 +12,14 @@ if vim.g.options.util then
       },
       keys = {
         {
+          '<leader>fll',
+          mode = { 'c', 'n' },
+          function()
+            require('flash').toggle()
+          end,
+          desc = 'Flash Toggle',
+        },
+        {
           '<leader>flj',
           mode = { 'n', 'x', 'o' },
           function()

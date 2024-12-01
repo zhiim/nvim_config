@@ -110,8 +110,8 @@ local tab_tools = {
         theme = {
           fill = ll_theme.normal.c,
           head = ll_theme.normal.b,
-          current_tab = ll_theme.normal.a,
-          tab = ll_theme.normal.b,
+          current_tab = vim.list_extend(ll_theme.normal.a, { style = 'bold' }),
+          tab = vim.list_extend(ll_theme.normal.b, { style = 'bold' }),
           current_buf = ll_theme.normal.a,
           buf = ll_theme.normal.b,
           tail = ll_theme.normal.b,
@@ -122,62 +122,119 @@ local tab_tools = {
           head = 'TabLine',
           current_tab = 'TabLineSel',
           tab = 'TabLine',
-          current_buf = 'TabLine',
+          current_buf = 'TabLineSel',
           buf = 'TabLine',
           tail = 'TabLine',
         }
       end
 
+      local function lsp_diag()
+        local icons = {
+          error = '',
+          warn = '',
+          info = '',
+          hint = '󰌵',
+        }
+        local label = {}
+        for severity, icon in pairs(icons) do
+          local n = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity[string.upper(severity)] })
+          if n > 0 then
+            table.insert(label, { icon .. n })
+          end
+        end
+        return label
+      end
+
       require('tabby').setup {
         line = function(line)
-          return {
-            {
-              { '  ', hl = theme.head },
-              line.sep('', theme.head, theme.fill),
-            },
+          if vim.fn.tabpagenr '$' > 1 then
+            -- if there are multiple tabs, work as the tabline, with wins
+            return {
+              {
+                { '  ', hl = theme.head },
+                line.sep('', theme.head, theme.fill),
+              },
 
-            line.tabs().foreach(function(tab)
-              local hl = tab.is_current() and theme.current_tab or theme.tab
-              return {
-                line.sep('', hl, theme.fill),
-                tab.number(),
-                tab.name(),
-                tab.close_btn '', -- show a close button
-                line.sep('', hl, theme.fill),
-                hl = hl,
-                margin = ' ',
-              }
-            end),
+              line.bufs().foreach(function(buf)
+                local hl = buf.is_current() and theme.current_buf or theme.buf
+                return {
+                  line.sep('', hl, theme.fill),
+                  buf.is_changed() and '*' or '',
+                  buf.file_icon(),
+                  buf.name(),
+                  lsp_diag(),
+                  line.sep('', hl, theme.fill),
+                  hl = hl,
+                  margin = ' ',
+                }
+              end),
 
-            line.spacer(),
+              line.spacer(),
 
-            line.bufs().foreach(function(buf)
-              local hl = buf.is_current() and theme.current_buf or theme.buf
-              return {
-                line.sep('', hl, theme.fill),
-                buf.is_changed() and '*' or '',
-                buf.file_icon(),
-                buf.name(),
-                line.sep('', hl, theme.fill),
-                hl = hl,
-                margin = ' ',
-              }
-            end),
+              line.tabs().foreach(function(tab)
+                local hl = tab.is_current() and theme.current_tab or theme.tab
+                return {
+                  line.sep('', hl, theme.fill),
+                  tab.number(),
+                  line.sep('', hl, theme.fill),
+                  hl = hl,
+                  margin = ' ',
+                }
+              end),
 
-            {
-              line.sep('', theme.tail, theme.fill),
-              { '  ', hl = theme.tail },
-            },
-            hl = theme.fill,
-          }
+              {
+                line.sep('', theme.tail, theme.fill),
+                { '  ', hl = theme.tail },
+              },
+              hl = theme.fill,
+            }
+          else
+            -- if there is only one tab, work as the bufferline
+            return {
+              {
+                { '  ', hl = theme.head },
+                line.sep('', theme.head, theme.fill),
+              },
+
+              line.bufs().foreach(function(buf)
+                local hl = buf.is_current() and theme.current_buf or theme.buf
+                return {
+                  line.sep('', hl, theme.fill),
+                  buf.is_changed() and '*' or '',
+                  buf.file_icon(),
+                  buf.name(),
+                  lsp_diag(),
+                  line.sep('', hl, theme.fill),
+                  hl = hl,
+                  margin = ' ',
+                }
+              end),
+
+              line.spacer(),
+
+              {
+                line.sep('', theme.tail, theme.fill),
+                { '  ', hl = theme.tail },
+              },
+              hl = theme.fill,
+            }
+          end
         end,
         option = {
           buf_name = {
-            mode = 'tail',
+            mode = 'unique',
           },
         },
       }
     end,
   },
 }
-return tab_tools[vim.g.options.tab]
+return {
+  tab_tools[vim.g.options.tab],
+  {
+    'tiagovla/scope.nvim',
+    config = function()
+      require('scope').setup {}
+    end,
+  },
+}
