@@ -75,6 +75,10 @@ return {
     end
 
     require('symbol-usage').setup {
+      vt_position = 'end_of_line',
+      references = { enabled = true, include_declaration = false },
+      definition = { enabled = true },
+      implementation = { enabled = true },
       text_format = text_format,
     }
   end,
