@@ -127,6 +127,10 @@ return { -- Collection of various small independent plugins/modules
 
               require('scope.session').deserialize_state(cache)
             end,
+
+            delete = function()
+              vim.fn.delete(session_dir .. '/' .. get_session_name() .. '_cache')
+            end,
           },
         },
       }
