@@ -22,6 +22,30 @@ return {
         return symbols
       end,
     }
+
+    local function custom_fallback(sources)
+      local function get_lsp(buf)
+        local clients = vim.lsp.get_clients { bufnr = buf }
+        if vim.tbl_isempty(clients) then
+          return false
+        end
+        return true
+      end
+      return {
+        get_symbols = function(buf, win, cursor)
+          local symbols
+          if get_lsp(buf) then -- use lsp
+            symbols = sources[1].get_symbols(buf, win, cursor)
+          else -- fallback to treesitter
+            symbols = sources[2].get_symbols(buf, win, cursor)
+          end
+          if not vim.tbl_isempty(symbols) then
+            return symbols
+          end
+          return {}
+        end,
+      }
+    end
     local utils = require 'dropbar.utils'
     require('dropbar').setup {
       bar = {
@@ -50,7 +74,10 @@ return {
           end
           return {
             custom_path,
-            sources.lsp,
+            custom_fallback {
+              sources.lsp,
+              sources.treesitter,
+            },
           }
         end,
       },
