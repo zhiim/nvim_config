@@ -66,6 +66,41 @@ if vim.g.options.enhance then
         }
       end,
     },
+
+    {
+      'luukvbaal/statuscol.nvim',
+      event = 'BufReadPre',
+      config = function()
+        local builtin = require 'statuscol.builtin'
+        require('statuscol').setup {
+          relculright = true,
+          ft_ignore = { 'codecompanion', 'copilot-chat' },
+          segments = {
+            -- fold sign
+            { text = { builtin.foldfunc }, click = 'v:lua.ScFa' },
+            -- diagnostic sign
+            {
+              sign = { namespace = { 'diagnostic/signs' }, maxwidth = 2, auto = true },
+              click = 'v:lua.ScSa',
+            },
+            -- line number
+            { text = { builtin.lnumfunc, ' ' }, click = 'v:lua.ScLa' },
+            -- minidiff sign
+            {
+              sign = { namespace = { 'MiniDiff*' }, maxwidth = 1, colwidth = 1, auto = true },
+              click = 'v:lua.ScSa',
+            },
+            -- all other signs
+            {
+              sign = { name = { '.*' }, text = { '.*' }, namespace = { '.*' }, maxwidth = 2, colwidth = 1, auto = true },
+              click = 'v:lua.ScSa',
+            },
+            -- empty space
+            { text = { ' ' } },
+          },
+        }
+      end,
+    },
   }
 else
   return {}
