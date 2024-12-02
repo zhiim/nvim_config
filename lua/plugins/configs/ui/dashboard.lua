@@ -3,7 +3,7 @@ local config_center = {
     icon = '  ',
     desc = 'Read Saved Session',
     key = 's',
-    action = "lua vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Leader>msr', true, false, true), 'm', true)",
+    action = "lua vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Leader>rsr', true, false, true), 'm', true)",
   },
   {
     icon = '  ',

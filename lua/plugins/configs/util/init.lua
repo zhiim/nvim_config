@@ -81,8 +81,9 @@ if vim.g.options.util then
       },
     },
 
-    require 'plugins.configs.util.mini',
+    require 'plugins.configs.util.minimap',
     require 'plugins.configs.util.snacks',
+    require 'plugins.configs.util.session',
   }
 else
   return {}

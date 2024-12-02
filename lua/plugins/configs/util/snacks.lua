@@ -13,7 +13,7 @@ return {
             icon = '  ',
             key = 's',
             desc = 'Read Saved Session',
-            action = ":lua vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Leader>msr', true, false, true), 'm', true)",
+            action = ":lua vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Leader>rsr', true, false, true), 'm', true)",
           },
           { icon = '  ', key = 'r', desc = 'Recent Files', action = ':Telescope oldfiles' },
           { icon = '  ', key = 'f', desc = 'Find File', action = ':Telescope find_files' },
