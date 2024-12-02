@@ -140,7 +140,7 @@ local tab_tools = {
         for severity, icon in pairs(icons) do
           local n = #vim.diagnostic.get(bufnr, { severity = vim.diagnostic.severity[string.upper(severity)] })
           if n > 0 then
-            label = label .. icon .. n
+            label = label .. ' ' .. icon .. n
           end
         end
         return label
@@ -157,6 +157,9 @@ local tab_tools = {
               },
 
               line.bufs().foreach(function(buf)
+                if require('utils.util').find_value(vim.bo[buf.id].filetype, { 'dap-repl', 'codecompanion' }) then
+                  return {}
+                end
                 local hl = buf.is_current() and theme.current_buf or theme.buf
                 return {
                   line.sep('', hl, theme.fill),
@@ -198,6 +201,9 @@ local tab_tools = {
               },
 
               line.bufs().foreach(function(buf)
+                if require('utils.util').find_value(vim.bo[buf.id].filetype, { 'dap-repl', 'codecompanion' }) then
+                  return {}
+                end
                 local hl = buf.is_current() and theme.current_buf or theme.buf
                 return {
                   line.sep('', hl, theme.fill),
