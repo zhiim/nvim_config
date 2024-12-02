@@ -9,7 +9,7 @@ end
 
 --- Check if session exists
 local function session_exist(session_name)
-  local session_file = vim.fn.stdpath 'data' .. '/session/' .. session_name
+  local session_file = vim.fn.stdpath 'data' .. '/session/' .. session_name .. '.json'
   return vim.fn.filereadable(session_file) == 1
 end
 
