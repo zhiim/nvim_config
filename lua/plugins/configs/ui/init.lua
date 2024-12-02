@@ -52,57 +52,6 @@ if vim.g.options.ui then
       end,
     },
 
-    {
-      'kevinhwang91/nvim-ufo',
-      event = 'BufRead',
-      dependencies = 'kevinhwang91/promise-async',
-      enabled = vim.fn.has 'nvim-0.7.2',
-      config = function()
-        vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep:│,foldclose:]]
-        vim.o.foldcolumn = '1'
-        vim.o.foldlevel = 99 -- Using ufo provider need a large value
-        vim.o.foldlevelstart = 99
-        vim.o.foldenable = true
-
-        -- Using ufo provider need remap `zR` and `zM`
-        vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
-        vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
-
-        ---@param bufnr number
-        ---@return Promise
-        local function customizeSelector(bufnr)
-          local function handleFallbackException(err, providerName)
-            if type(err) == 'string' and err:match 'UfoFallbackException' then
-              return require('ufo').getFolds(bufnr, providerName)
-            else
-              return require('promise').reject(err)
-            end
-          end
-
-          return require('ufo')
-            .getFolds(bufnr, 'lsp')
-            :catch(function(err)
-              return handleFallbackException(err, 'treesitter')
-            end)
-            :catch(function(err)
-              return handleFallbackException(err, 'indent')
-            end)
-        end
-
-        require('ufo').setup {
-          provider_selector = function(bufnr, filetype, buftype)
-            return customizeSelector
-          end,
-        }
-        -- require('ufo').setup {
-        --
-        --   provider_selector = function(bufnr, filetype, buftype)
-        --     return { 'treesitter', 'indent' }
-        --   end,
-        -- }
-      end,
-    },
-
     require 'plugins.configs.ui.dashboard',
     require 'plugins.configs.ui.lualine',
     require 'plugins.configs.ui.incline',
@@ -110,6 +59,7 @@ if vim.g.options.ui then
     require 'plugins.configs.ui.enhance',
     require 'plugins.configs.ui.noice',
     require 'plugins.configs.ui.dropbar',
+    require 'plugins.configs.ui.ufo',
   }
 else
   return {}
