@@ -163,7 +163,7 @@ local tab_tools = {
                 local hl = buf.is_current() and theme.current_buf or theme.buf
                 return {
                   line.sep('', hl, theme.fill),
-                  buf.is_changed() and '*' or '',
+                  buf.is_changed() and '[+]' or '',
                   buf.file_icon(),
                   buf.name(),
                   lsp_diag(buf.id),
@@ -186,10 +186,6 @@ local tab_tools = {
                 }
               end),
 
-              {
-                line.sep('', theme.tail, theme.fill),
-                { '  ', hl = theme.tail },
-              },
               hl = theme.fill,
             }
           else
@@ -207,7 +203,7 @@ local tab_tools = {
                 local hl = buf.is_current() and theme.current_buf or theme.buf
                 return {
                   line.sep('', hl, theme.fill),
-                  buf.is_changed() and '*' or '',
+                  buf.is_changed() and '[+]' or '',
                   buf.file_icon(),
                   buf.name(),
                   lsp_diag(buf.id),
@@ -219,10 +215,6 @@ local tab_tools = {
 
               line.spacer(),
 
-              {
-                line.sep('', theme.tail, theme.fill),
-                { '  ', hl = theme.tail },
-              },
               hl = theme.fill,
             }
           end
