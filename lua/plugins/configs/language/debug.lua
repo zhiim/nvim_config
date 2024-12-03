@@ -95,24 +95,8 @@ return {
     --   dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
     -- end, { desc = 'Debug: Set Breakpoint' })
 
-    -- Dap UI setup
-    -- For more information, see |:help nvim-dap-ui|
-    dapui.setup {
-      icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
-      controls = {
-        icons = {
-          pause = '',
-          play = '',
-          step_into = '',
-          step_over = '',
-          step_out = '',
-          step_back = '',
-          run_last = '',
-          terminate = '',
-          disconnect = '',
-        },
-      },
-    }
+    local dapui_opt = {}
+    dapui.setup(dapui_opt)
 
     -- re-define some DAP signs
     vim.fn.sign_define('DapStopped', { text = '󰁕 ', texthl = 'DiagnosticWarn', linehl = 'DapStoppedLine', numhl = 'DapStoppedLine' })
@@ -136,17 +120,14 @@ return {
       dapui.float_element()
     end, { desc = 'DapUI Float Element' })
 
-    dap.listeners.before.attach.dapui_config = function()
-      dapui.open()
+    dap.listeners.after.event_initialized['dapui_config'] = function()
+      dapui.open {}
     end
-    dap.listeners.before.launch.dapui_config = function()
-      dapui.open()
+    dap.listeners.before.event_terminated['dapui_config'] = function()
+      dapui.close {}
     end
-    dap.listeners.before.event_terminated.dapui_config = function()
-      dapui.close()
-    end
-    dap.listeners.before.event_exited.dapui_config = function()
-      dapui.close()
+    dap.listeners.before.event_exited['dapui_config'] = function()
+      dapui.close {}
     end
 
     if vim.fn.has 'win32' == 0 then
