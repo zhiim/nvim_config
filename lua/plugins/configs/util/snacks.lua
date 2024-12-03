@@ -71,6 +71,14 @@ return {
       mode = 'n',
     },
     {
+      '<leader>yz',
+      function()
+        Snacks.terminal { 'yazi' }
+      end,
+      desc = 'Yazi',
+      mode = 'n',
+    },
+    {
       '<leader>Rn',
       function()
         Snacks.rename.rename_file()
@@ -123,6 +131,8 @@ return {
           Snacks.debug.backtrace()
         end
         vim.print = _G.dd -- Override print to use snacks for `:=` command
+
+        Snacks.toggle.option('relativenumber', { off = false, on = true }):map '<leader>un'
       end,
     })
   end,
