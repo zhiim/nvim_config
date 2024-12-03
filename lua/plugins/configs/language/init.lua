@@ -99,45 +99,58 @@ if vim.g.options.language_support then
     },
 
     {
-      'dnlhc/glance.nvim',
-      cmd = 'Glance',
+      'rmagatti/goto-preview',
       keys = {
         {
           '<leader>gd',
-          '<CMD>Glance definitions<CR>',
+          function()
+            require('goto-preview').goto_preview_definition {}
+          end,
           mode = 'n',
-          desc = 'Glance definitions',
+          desc = 'Go to definitions',
         },
         {
           '<leader>gr',
-          '<CMD>Glance references<CR>',
+          function()
+            require('goto-preview').goto_preview_references()
+          end,
           mode = 'n',
-          desc = 'Glance references',
+          desc = 'Go to references',
         },
         {
           '<leader>gD',
-          '<CMD>Glance type_definitions<CR>',
+          function()
+            require('goto-preview').goto_preview_declaration {}
+          end,
           mode = 'n',
-          desc = 'Glance type definitions',
+          desc = 'Go to declarations',
         },
         {
-          '<leader>gI',
-          '<CMD>Glance implementations<CR>',
+          '<leader>gt',
+          function()
+            require('goto-preview').goto_preview_type_definition {}
+          end,
           mode = 'n',
-          desc = 'Glance implementations',
+          desc = 'Go to type definitions',
+        },
+        {
+          '<leader>gi',
+          function()
+            require('goto-preview').goto_preview_implementation {}
+          end,
+          mode = 'n',
+          desc = 'Go to implementations',
+        },
+        {
+          '<leader>gc',
+          function()
+            require('goto-preview').close_all_win()
+          end,
+          mode = 'n',
+          desc = 'Go to implementations',
         },
       },
-      config = function()
-        local actions = require('glance').actions
-        local opt = {
-          mappings = {
-            preview = {
-              ['q'] = actions.close,
-            },
-          },
-        }
-        require('glance').setup(opt)
-      end,
+      config = true,
     },
 
     {
