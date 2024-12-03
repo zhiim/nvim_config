@@ -67,6 +67,14 @@ return {
     local dap = require 'dap'
     local dapui = require 'dapui'
 
+    -- auto close repl buffer
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = 'dap-repl',
+      callback = function(args)
+        vim.api.nvim_set_option_value('buflisted', false, { buf = args.buf })
+      end,
+    })
+
     require('mason-nvim-dap').setup {
       -- Makes a best effort to setup the various debuggers with
       -- reasonable debug configurations
