@@ -32,6 +32,7 @@ return {
         local session_name = get_session_name()
         if session_exist(session_name) then
           require('resession').load(session_name)
+          vim.cmd 'silent! :e'
         else
           vim.notify('Session does not exist for current directory', vim.log.levels.INFO, { title = 'Resession' })
         end
