@@ -41,6 +41,7 @@ return { -- Autoformat
         toml = { 'taplo' },
         yaml = { 'prettier' },
         cmake = { 'cmake_format' },
+        tex = { 'latexindent' },
         -- rust = { "rustfmt" },
       },
     }

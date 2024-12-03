@@ -1,9 +1,7 @@
---- md5 hash of current directory to use as session name
+--- name of current directory to use as session name
 local function get_session_name()
-  local md5 = require 'utils.md5'
   local cwd = vim.fn.getcwd()
-  local name = md5.sumhexa(cwd)
-  name = 'session_' .. name
+  local name = string.lower(string.gsub(cwd, '[:/\\]', '_'))
   return name
 end
 

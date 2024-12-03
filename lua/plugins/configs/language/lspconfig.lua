@@ -128,18 +128,6 @@ return { -- LSP Configuration & Plugins
     -- NOTE: add lsp need to be configured with lspconfig here
     --
     local servers = {
-      -- clangd = {},
-      -- gopls = {},
-      -- pyright = {},
-      -- rust_analyzer = {},
-      -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-      --
-      -- Some languages (like typescript) have entire language plugins that can be useful:
-      --    https://github.com/pmizio/typescript-tools.nvim
-      --
-      -- But for many setups, the LSP (`tsserver`) will work just fine
-      -- tsserver = {},
-      --
       clangd = {},
 
       taplo = {},
@@ -164,20 +152,20 @@ return { -- LSP Configuration & Plugins
       ruff = {}, -- incase ruff lsp attached to other file type
 
       lua_ls = {
-        -- cmd = {...},
-        -- filetypes = { ...},
-        -- capabilities = {},
         settings = {
           Lua = {
             completion = {
               callSnippet = 'Replace',
             },
-            -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-            -- diagnostics = { disable = { 'missing-fields' } },
           },
         },
       },
     }
+
+    -- enable texlab
+    if vim.g.options.tex then
+      servers.texlab = {}
+    end
 
     -- Ensure the servers and tools above are installed
     --  To check the current status of installed tools and/or manually install
@@ -217,6 +205,13 @@ return { -- LSP Configuration & Plugins
       -- yaml
       'yamllint',
     })
+
+    -- latex formatter
+    if vim.g.options.tex then
+      vim.list_extend(ensure_installed, {
+        'latexindent',
+      })
+    end
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
     require('mason-lspconfig').setup {
