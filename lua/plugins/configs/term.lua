@@ -42,6 +42,7 @@ return {
       close_on_exit = true, -- close the terminal window when the process exits
       shell = vim.o.shell, -- change the default shell
       float_opts = {
+        border = 'curved',
         width = function()
           return math.floor(vim.api.nvim_list_uis()[1].width * 0.9)
         end,
