@@ -26,19 +26,19 @@ return { -- Fuzzy Finder (files, lsp, etc)
     local normal = get_hl 'Normal'
     local fg, bg = normal.fg, normal.bg
     local bg_alt = get_hl('CursorLine').bg
-    local green = get_hl('String').fg
-    local red = get_hl('Error').fg
+    local preview_title = get_hl('CurSearch').bg
+    local prompt_title_bg = get_hl('Title').fg
     -- return a table of highlights for telescope based on
     -- colors gotten from highlight groups
     vim.api.nvim_set_hl(0, 'TelescopeBorder', { fg = bg_alt, bg = bg })
     vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = bg })
     vim.api.nvim_set_hl(0, 'TelescopePreviewBorder', { fg = bg, bg = bg })
     vim.api.nvim_set_hl(0, 'TelescopePreviewNormal', { bg = bg })
-    vim.api.nvim_set_hl(0, 'TelescopePreviewTitle', { fg = bg, bg = green })
+    vim.api.nvim_set_hl(0, 'TelescopePreviewTitle', { fg = bg, bg = preview_title })
     vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { fg = bg_alt, bg = bg_alt })
     vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { fg = fg, bg = bg_alt })
-    vim.api.nvim_set_hl(0, 'TelescopePromptPrefix', { fg = red, bg = bg_alt })
-    vim.api.nvim_set_hl(0, 'TelescopePromptTitle', { fg = bg, bg = red })
+    vim.api.nvim_set_hl(0, 'TelescopePromptPrefix', { fg = prompt_title_bg, bg = bg_alt })
+    vim.api.nvim_set_hl(0, 'TelescopePromptTitle', { fg = bg, bg = prompt_title_bg })
     vim.api.nvim_set_hl(0, 'TelescopeResultsBorder', { fg = bg, bg = bg })
     vim.api.nvim_set_hl(0, 'TelescopeResultsNormal', { bg = bg })
     vim.api.nvim_set_hl(0, 'TelescopeResultsTitle', { fg = bg, bg = bg })

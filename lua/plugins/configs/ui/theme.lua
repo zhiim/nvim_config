@@ -17,87 +17,35 @@ local config_funcs = {
   ['onedark'] = function()
     set_theme()
     require('onedarkpro').setup {
-      styles = {
-        methods = 'italic',
-        numbers = 'italic',
-        strings = 'bold',
-        comments = 'italic',
-        keywords = 'bold,italic',
-        constants = 'bold',
-        functions = 'bold,undercurl',
-        conditionals = 'italic',
-      },
       filetypes = {
         all = true,
       },
     }
   end,
   ['onenord'] = function()
-    set_theme()
-    require('onenord').setup {
-      styles = {
-        comments = 'italic',
-        strings = 'bold',
-        keywords = 'underline',
-        functions = 'bold,undercurl',
-        diagnostics = 'underline',
-      },
-    }
+    vim.cmd.colorscheme 'onenord'
+    require('onenord').setup {}
   end,
   ['tokyonight'] = function()
     set_theme()
-    require('tokyonight').setup {
-      styles = {
-        comments = { italic = true },
-        keywords = { underline = true },
-        functions = { bold = true, undercurl = true },
-      },
-    }
+    require('tokyonight').setup {}
   end,
   ['nordic'] = function()
-    set_theme()
-    require('nordic').setup()
+    vim.cmd.colorscheme 'nordic'
+    require('nordic').setup {}
   end,
   ['catppuccin'] = function()
     set_theme()
-    require('catppuccin').setup {
-      styles = {
-        comments = { 'italic' },
-        conditionals = { 'italic' },
-        functions = { 'bold', 'undercurl' },
-        keywords = { 'underline' },
-        strings = { 'bold' },
-        numbers = { 'bold' },
-        booleans = { 'bold' },
-      },
-    }
+    require('catppuccin').setup {}
   end,
   ['material'] = function()
     vim.cmd.colorscheme 'material'
     vim.g.material_style = vim.g.scheme_style or 'deep ocean'
-    require('material').setup {
-      styles = {
-        comments = { [[ italic = true ]] },
-        strings = { [[ bold = true ]] },
-        keywords = { [[ underline = true ]] },
-        functions = { [[ bold = true, undercurl = true ]] },
-        numbers = { [[ bold = true ]] },
-        booleans = { [[ bold = true ]] },
-      },
-    }
+    require('material').setup {}
   end,
   ['github'] = function()
     set_theme()
-    require('github-theme').setup {
-      styles = {
-        comments = 'italic',
-        functions = 'bold,undercurl',
-        keywords = 'underline',
-        strings = 'blod',
-        numbers = 'bold',
-        booleans = 'bold',
-      },
-    }
+    require('github-theme').setup {}
     -- set notify body to normal color
     vim.cmd [[
       highlight link NotifyERRORBody Normal
