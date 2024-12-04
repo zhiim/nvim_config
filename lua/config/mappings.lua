@@ -24,18 +24,16 @@ vim.diagnostic.config { jump = { float = true } }
 -- is not what someone will guess without a bit more experience.
 map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
--- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
---
 --  See `:help wincmd` for a list of all window commands
 map('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 map('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 map('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 map('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
--- remap Esc to jj and keep ESC
-map('i', 'jj', '<ESC>')
-map('i', '<ESC>', '<ESC>')
+-- remap Esc to jj and keep ESC, defined in better_escape.vim
+-- map('i', 'jj', '<ESC>')
+-- map('i', '<ESC>', '<ESC>')
 
 -- mapping for split
 map('n', '<leader>-', '<C-w>v', { desc = 'split vertically' })
