@@ -14,6 +14,7 @@ end
 return {
   'stevearc/resession.nvim',
   enabled = vim.fn.has 'nvim-0.7.2',
+  dependencies = { 'stevearc/oil.nvim' },
   keys = {
     {
       '<leader>rss',

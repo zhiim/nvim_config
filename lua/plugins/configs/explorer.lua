@@ -21,7 +21,7 @@ local file_explorers = {
         dotfiles = false,
       },
       disable_netrw = true,
-      hijack_netrw = true,
+      hijack_netrw = false,
       hijack_cursor = true,
       hijack_unnamed_buffer_when_opening = false,
       sync_root_with_cwd = true,
@@ -126,13 +126,7 @@ local file_explorers = {
           end
         end,
         desc = 'Explorer NeoTree',
-      },
-      {
-        '<C-p>',
-        function()
-          require('neo-tree.command').execute { toggle = true, position = 'current', dir = vim.uv.cwd() }
-        end,
-        desc = 'NeoTree Netrw Style',
+        mode = 'n',
       },
     },
     deactivate = function()
@@ -164,6 +158,7 @@ local file_explorers = {
         filtered_items = {
           hide_dotfiles = false, -- show hidden files
         },
+        hijack_netrw_behavior = 'disabled',
         bind_to_cwd = false,
         follow_current_file = { enabled = true },
         use_libuv_file_watcher = true,
@@ -191,10 +186,6 @@ local file_explorers = {
           ['P'] = { 'toggle_preview', config = { use_float = false } },
           [']'] = {
             function()
-              if require('neo-tree.sources.manager').get_state_for_window().current_position == 'current' then
-                vim.notify('Cannot change tab in Netrw style', vim.log.levels.INFO, { title = 'NeoTree' })
-                return
-              end
               change_neotree_source(1)
               vim.cmd('Neotree focus ' .. neotree_source_type[neotree_source_idx] .. ' left', true)
             end,
@@ -202,10 +193,6 @@ local file_explorers = {
           },
           ['['] = {
             function()
-              if require('neo-tree.sources.manager').get_state_for_window().current_position == 'current' then
-                vim.notify('Cannot change tab in Netrw style', vim.log.levels.INFO, { title = 'NeoTree' })
-                return
-              end
               change_neotree_source(-1)
               vim.cmd('Neotree focus ' .. neotree_source_type[neotree_source_idx] .. ' left', true)
             end,
@@ -266,4 +253,46 @@ local file_explorers = {
   },
 }
 
-return file_explorers[vim.g.options.explorer]
+return {
+  file_explorers[vim.g.options.explorer],
+
+  {
+    'stevearc/oil.nvim',
+    enabled = vim.fn.has 'nvim-0.8',
+    keys = {
+      {
+        '<C-p>',
+        function()
+          local path = vim.fn.getcwd()
+          vim.cmd('Oil ' .. path)
+        end,
+        desc = 'Explorer Oil',
+        mode = 'n',
+      },
+    },
+    opts = {
+      columns = {
+        'icon',
+        'permissions',
+        'size',
+        'mtime',
+      },
+      keymaps = {
+        ['g?'] = { 'actions.show_help', mode = 'n' },
+        ['<CR>'] = 'actions.select',
+        ['<A-r>'] = 'actions.refresh',
+        ['P'] = 'actions.preview',
+        ['q'] = { 'actions.close', mode = 'n' },
+        ['-'] = { 'actions.parent', mode = 'n' },
+        ['_'] = { 'actions.open_cwd', mode = 'n' },
+        ['`'] = { 'actions.cd', mode = 'n' },
+        ['~'] = { 'actions.cd', opts = { scope = 'tab' }, mode = 'n' },
+        ['gs'] = { 'actions.change_sort', mode = 'n' },
+        ['gx'] = 'actions.open_external',
+        ['g.'] = { 'actions.toggle_hidden', mode = 'n' },
+        ['g\\'] = { 'actions.toggle_trash', mode = 'n' },
+      },
+      use_default_keymaps = false,
+    },
+  },
+}

@@ -47,27 +47,11 @@ return {
   },
   keys = {
     {
-      '<leader>lgo',
+      '<leader>lg',
       function()
         Snacks.lazygit()
       end,
-      desc = 'Lazygit Open',
-      mode = 'n',
-    },
-    {
-      '<leader>lgf',
-      function()
-        Snacks.lazygit.log_file()
-      end,
-      desc = 'Lazygit Current File History',
-      mode = 'n',
-    },
-    {
-      '<leader>lgl',
-      function()
-        Snacks.lazygit.log()
-      end,
-      desc = 'Lazygit Log (cwd)',
+      desc = 'Lazygit',
       mode = 'n',
     },
     {

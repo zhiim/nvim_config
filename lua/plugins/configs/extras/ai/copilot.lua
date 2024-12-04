@@ -1,7 +1,7 @@
 return {
   {
     'CopilotC-Nvim/CopilotChat.nvim',
-    branch = 'canary',
+    branch = 'main',
     keys = {
       {
         '<leader>cpt',
@@ -104,8 +104,9 @@ return {
         debug = true,
         proxy = vim.g.options.proxy,
         mappings = {
-          complete = {
-            insert = '',
+          reset = {
+            normal = '<A-r>',
+            insert = '<A-r>',
           },
         },
       }
