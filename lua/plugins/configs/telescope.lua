@@ -23,9 +23,9 @@ return { -- Fuzzy Finder (files, lsp, etc)
   config = function()
     -- highlight group
     local get_hl = require('utils.util').get_hl
-    local bg = get_hl('Normal').bg
+    local bg = get_hl('NormalFloat').bg
     local preview_title = get_hl('String').fg
-    local border_fg = get_hl('FloatBorder').fg
+    local border_fg = get_hl('Title').fg
     local prompt_title_bg = get_hl('Title').fg
     local result_title_bg = get_hl('CurSearch').bg
     -- return a table of highlights for telescope based on
