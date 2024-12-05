@@ -10,21 +10,21 @@ return {
       preset = {
         keys = {
           {
-            icon = '  ',
+            icon = '  ',
             key = 's',
             desc = 'Read Saved Session',
             action = ":lua vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Leader>rsr', true, false, true), 'm', true)",
           },
           { icon = '  ', key = 'r', desc = 'Recent Files', action = ':Telescope oldfiles' },
           { icon = '  ', key = 'f', desc = 'Find File', action = ':Telescope find_files' },
-          { icon = '  ', key = 'w', desc = 'Find Word', action = ':Telescope live_grep' },
-          { icon = '  ', key = 'e', desc = 'New Files', action = ':ene | startinsert' },
+          { icon = '  ', key = 'w', desc = 'Find Word', action = ':Telescope live_grep' },
+          { icon = '  ', key = 'e', desc = 'New Files', action = ':ene | startinsert' },
           {
             icon = '  ',
             key = 'q',
             desc = 'Quit',
             action = function()
-              vim.api.nvim_input ':qa'
+              vim.api.nvim_input ':qa<cr>'
             end,
           },
         },

@@ -1,6 +1,6 @@
 local config_center = {
   {
-    icon = '  ',
+    icon = '  ',
     desc = 'Read Saved Session',
     key = 's',
     action = "lua vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Leader>rsr', true, false, true), 'm', true)",
@@ -18,13 +18,13 @@ local config_center = {
     action = 'Telescope find_files',
   },
   {
-    icon = '  ',
+    icon = '  ',
     desc = 'Find Word',
     key = 'w',
     action = 'Telescope live_grep',
   },
   {
-    icon = '  ',
+    icon = '  ',
     desc = 'New Files',
     key = 'e',
     action = 'ene | startinsert',
