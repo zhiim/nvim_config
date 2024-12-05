@@ -25,7 +25,7 @@ vim.opt.showmode = false
 --  See `:help 'clipboard'`
 vim.opt.clipboard = 'unnamedplus'
 -- share clipboard between Windows and WSL
-if vim.env.WSL_DISTRO_NAME ~= nil and vim.env.WSL_DISTRO_NAME ~= '' then
+if vim.fn.has 'wsl' == 1 then
   vim.g.clipboard = {
     name = 'WslClipboard',
     copy = {

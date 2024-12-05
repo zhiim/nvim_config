@@ -24,7 +24,7 @@ vim.g.options = {
   ai = false,
   tex = false,
   leetcode = false,
-  tab = 'tabby',
+  tab = 'barbar',
   explorer = 'nvimtree',
   -- ━━ Set colorscheme ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   color_scheme = 'github',

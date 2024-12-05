@@ -23,25 +23,25 @@ return { -- Fuzzy Finder (files, lsp, etc)
   config = function()
     -- highlight group
     local get_hl = require('utils.util').get_hl
-    local normal = get_hl 'Normal'
-    local fg, bg = normal.fg, normal.bg
-    local bg_alt = get_hl('CursorLine').bg
-    local preview_title = get_hl('CurSearch').bg
+    local bg = get_hl('Normal').bg
+    local preview_title = get_hl('String').fg
+    local border_fg = get_hl('FloatBorder').fg
     local prompt_title_bg = get_hl('Title').fg
+    local result_title_bg = get_hl('CurSearch').bg
     -- return a table of highlights for telescope based on
     -- colors gotten from highlight groups
-    vim.api.nvim_set_hl(0, 'TelescopeBorder', { fg = bg_alt, bg = bg })
+    vim.api.nvim_set_hl(0, 'TelescopeBorder', { fg = border_fg, bg = bg })
     vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = bg })
-    vim.api.nvim_set_hl(0, 'TelescopePreviewBorder', { fg = bg, bg = bg })
+    vim.api.nvim_set_hl(0, 'TelescopePreviewBorder', { fg = border_fg, bg = bg })
     vim.api.nvim_set_hl(0, 'TelescopePreviewNormal', { bg = bg })
     vim.api.nvim_set_hl(0, 'TelescopePreviewTitle', { fg = bg, bg = preview_title })
-    vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { fg = bg_alt, bg = bg_alt })
-    vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { fg = fg, bg = bg_alt })
-    vim.api.nvim_set_hl(0, 'TelescopePromptPrefix', { fg = prompt_title_bg, bg = bg_alt })
+    vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { fg = border_fg, bg = bg })
+    vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { bg = bg })
+    vim.api.nvim_set_hl(0, 'TelescopePromptPrefix', { fg = prompt_title_bg, bg = bg })
     vim.api.nvim_set_hl(0, 'TelescopePromptTitle', { fg = bg, bg = prompt_title_bg })
-    vim.api.nvim_set_hl(0, 'TelescopeResultsBorder', { fg = bg, bg = bg })
+    vim.api.nvim_set_hl(0, 'TelescopeResultsBorder', { fg = border_fg, bg = bg })
     vim.api.nvim_set_hl(0, 'TelescopeResultsNormal', { bg = bg })
-    vim.api.nvim_set_hl(0, 'TelescopeResultsTitle', { fg = bg, bg = bg })
+    vim.api.nvim_set_hl(0, 'TelescopeResultsTitle', { fg = bg, bg = result_title_bg })
 
     require('telescope').setup {
 
@@ -51,10 +51,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
         layout_config = {
           horizontal = {
             prompt_position = 'top',
-            preview_width = 0.55,
           },
-          width = 0.87,
-          height = 0.80,
         },
         mappings = {
           n = { ['q'] = require('telescope.actions').close },
