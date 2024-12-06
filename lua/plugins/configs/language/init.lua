@@ -146,7 +146,7 @@ if vim.g.options.language_support then
             require('goto-preview').close_all_win()
           end,
           mode = 'n',
-          desc = 'Go to implementations',
+          desc = 'close all preview windows',
         },
       },
       config = function()

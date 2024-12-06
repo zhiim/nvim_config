@@ -64,7 +64,38 @@ return {
     end
 
     require('ufo').setup {
+      open_fold_hl_timeout = 150,
+      enable_get_fold_virt_text = true,
+      close_fold_kinds_for_ft = {
+        default = { 'imports', 'comment' },
+        c = { 'comment', 'region' },
+      },
+      preview = {
+        win_config = {
+          border = { '', '─', '', '', '', '─', '', '' },
+          winhighlight = 'Normal:Folded',
+          winblend = 0,
+        },
+        mappings = {
+          scrollU = '<C-u>',
+          scrollD = '<C-d>',
+          jumpTop = '[',
+          jumpBot = ']',
+        },
+      },
       provider_selector = function(bufnr, filetype, buftype)
+        if
+          require('utils.util').find_value(filetype, {
+            'neo-tree',
+            'NvimTree',
+            'codecompanion',
+            'copilot-chat',
+            'oil',
+            'toggleterm',
+          })
+        then
+          return ''
+        end
         return customizeSelector
       end,
       fold_virt_text_handler = handler,
