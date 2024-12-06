@@ -24,7 +24,7 @@ if vim.g.options.ui then
         local builtin = require 'statuscol.builtin'
         require('statuscol').setup {
           relculright = true,
-          ft_ignore = { 'codecompanion', 'copilot-chat', 'oil' },
+          ft_ignore = { 'codecompanion', 'copilot-chat', 'oil', 'neo-tree', 'NvimTree' },
           segments = {
             -- fold sign
             { text = { builtin.foldfunc, ' ' }, click = 'v:lua.ScFa' },
