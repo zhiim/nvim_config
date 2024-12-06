@@ -32,6 +32,11 @@ return {
           return vim.o.columns * 0.4
         end
       end,
+      highlights = {
+        FloatBorder = {
+          link = 'FloatBorder',
+        },
+      },
       open_mapping = [[<C-\>]],
       hide_numbers = true, -- hide the number column in toggleterm buffers
       shade_terminals = false,

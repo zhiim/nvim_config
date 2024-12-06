@@ -64,10 +64,6 @@ return { -- Autocompletion
         TypeParameter = '󰅲',
       }
 
-      local get_hl = require('utils.util').get_hl
-      vim.api.nvim_set_hl(0, 'MyPmenuSel', { bg = get_hl('Title').fg, fg = get_hl('Normal').bg })
-      vim.api.nvim_set_hl(0, 'MyBorder', { fg = get_hl('Title').fg })
-
       luasnip.config.setup {}
 
       cmp.setup {
@@ -109,10 +105,10 @@ return { -- Autocompletion
         },
         window = {
           completion = cmp.config.window.bordered {
-            winhighlight = 'NormalFloat:Normal,FloatBorder:MyBorder,CursorLine:MyPmenuSel',
+            winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel',
           },
           documentation = cmp.config.window.bordered {
-            winhighlight = 'NormalFloat:Normal,FloatBorder:MyBorder',
+            winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder',
           },
         },
         completion = { completeopt = 'menu,menuone,noinsert' },

@@ -9,7 +9,7 @@ function utils.get_palette()
       blue = '#61AFEF',
       orange = '#D19A66',
       green = '#98C379',
-      purple = '#C678DD',
+      magenta = '#C678DD',
       cyan = '#56B6C2',
     }
   end
@@ -31,7 +31,7 @@ function utils.get_palette()
         blue = palette.blue0,
         orange = palette.orange.base,
         green = palette.green.base,
-        purple = palette.magenta.base,
+        magenta = palette.magenta.base,
         cyan = palette.cyan.base,
       }
     end,
@@ -43,7 +43,7 @@ function utils.get_palette()
         blue = palette.blue,
         orange = palette.flamingo,
         green = palette.green,
-        purple = palette.mauve,
+        magenta = palette.mauve,
         cyan = palette.teal,
       }
     end,
@@ -58,12 +58,28 @@ function utils.get_palette()
         blue = palette.blue.base,
         orange = palette.orange,
         green = palette.green.base,
-        purple = palette.magenta.base,
+        magenta = palette.magenta.base,
         cyan = palette.cyan.base,
       }
     end,
+    kanagawa = function()
+      local colors = require('kanagawa.colors').setup()
+      local theme_colors = colors.theme.term
+      return {
+        red = theme_colors[2],
+        yellow = theme_colors[4],
+        blue = theme_colors[5],
+        orange = theme_colors[17],
+        green = theme_colors[3],
+        magenta = theme_colors[6],
+        cyan = theme_colors[7],
+      }
+    end,
+    nightfox = function()
+      return require('nightfox.palette').load(vim.g.options.scheme_style)
+    end,
   }
-  local color_scheme = vim.g.options.color_scheme or 'onedark'
+  local color_scheme = vim.g.options.color_scheme
   return palette_funcs[color_scheme]()
 end
 
@@ -179,16 +195,18 @@ function utils.set_options()
       'github_dark_tritanopia',
       'github_light_tritanopia',
     },
+    kanagawa = { 'kanagawa-wave', 'kanagawa-dragon', 'kanagawa-lotus' },
   }
   local selections = {
     tab = { 'barbar', 'bufferline', 'tabby' },
     explorer = { 'nvimtree', 'neotree' },
     color_scheme = {
-      'onedark',
+      'github',
       'tokyonight',
       'catppuccin',
+      'kanagawa',
+      'onedark',
       'material',
-      'github',
       'onenord',
       'nordic',
     },

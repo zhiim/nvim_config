@@ -7,6 +7,8 @@ local theme_plugins = {
   ['catppuccin'] = 'catppuccin/nvim',
   ['material'] = 'marko-cerovac/material.nvim',
   ['github'] = 'projekt0n/github-nvim-theme',
+  ['kanagawa'] = 'rebelot/kanagawa.nvim',
+  ['nightfox'] = 'EdenEast/nightfox.nvim',
 }
 
 local function set_theme()
@@ -15,37 +17,37 @@ end
 
 local config_funcs = {
   ['onedark'] = function()
-    set_theme()
     require('onedarkpro').setup {
       filetypes = {
         all = true,
       },
     }
+    set_theme()
   end,
   ['onenord'] = function()
-    vim.cmd.colorscheme 'onenord'
     require('onenord').setup {}
+    vim.cmd.colorscheme 'onenord'
   end,
   ['tokyonight'] = function()
-    set_theme()
     require('tokyonight').setup {}
+    set_theme()
   end,
   ['nordic'] = function()
-    vim.cmd.colorscheme 'nordic'
     require('nordic').setup {}
+    vim.cmd.colorscheme 'nordic'
   end,
   ['catppuccin'] = function()
-    set_theme()
     require('catppuccin').setup {}
+    set_theme()
   end,
   ['material'] = function()
+    require('material').setup {}
     vim.cmd.colorscheme 'material'
     vim.g.material_style = vim.g.scheme_style or 'deep ocean'
-    require('material').setup {}
   end,
   ['github'] = function()
-    set_theme()
     require('github-theme').setup {}
+    set_theme()
     -- set notify body to normal color
     vim.cmd [[
       highlight link NotifyERRORBody Normal
@@ -55,6 +57,16 @@ local config_funcs = {
       highlight link NotifyTRACEBody Normal
     ]]
   end,
+  ['kanagawa'] = function()
+    require('kanagawa').setup {
+      compile = true,
+    }
+    set_theme()
+  end,
+  ['nightfox'] = function()
+    set_theme()
+    require('nightfox').setup {}
+  end,
 }
 
 return {
@@ -62,5 +74,11 @@ return {
   priority = 1200, -- Ensure it loads first
   config = function()
     config_funcs[color_scheme]()
+
+    -- set highlight group after load theme
+    local get_hl = require('utils.util').get_hl
+    vim.api.nvim_set_hl(0, 'PmenuSel', { bg = get_hl('Title').fg, fg = get_hl('Normal').bg })
+    vim.api.nvim_set_hl(0, 'FloatBorder', { fg = get_hl('Visual').bg, bg = get_hl('Normal').bg })
+    vim.api.nvim_set_hl(0, 'NormalFloat', { bg = get_hl('Normal').bg })
   end,
 }

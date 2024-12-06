@@ -33,6 +33,8 @@ if vim.g.options.ui then
               sign = { namespace = { 'diagnostic*' }, maxwidth = 1, colwidth = 1, auto = true },
               click = 'v:lua.ScSa',
             },
+            -- empty space
+            { text = { ' ' } },
             -- line number
             { text = { builtin.lnumfunc, ' ' }, click = 'v:lua.ScLa' },
             -- minidiff sign
