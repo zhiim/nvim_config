@@ -76,7 +76,16 @@ function utils.get_palette()
       }
     end,
     nightfox = function()
-      return require('nightfox.palette').load(vim.g.options.scheme_style)
+      local palette = require('nightfox.palette').load(vim.g.options.scheme_style)
+      return {
+        red = palette.red.base,
+        yellow = palette.yellow.base,
+        blue = palette.blue.base,
+        orange = palette.orange.base,
+        green = palette.green.base,
+        magenta = palette.magenta.base,
+        cyan = palette.cyan.base,
+      }
     end,
   }
   local color_scheme = vim.g.options.color_scheme
@@ -196,6 +205,15 @@ function utils.set_options()
       'github_light_tritanopia',
     },
     kanagawa = { 'kanagawa-wave', 'kanagawa-dragon', 'kanagawa-lotus' },
+    nightfox = {
+      'carbonfox',
+      'dawnfox',
+      'dayfox',
+      'duskfox',
+      'nightfox',
+      'nordfox',
+      'terafox',
+    },
   }
   local selections = {
     tab = { 'barbar', 'bufferline', 'tabby' },
@@ -205,6 +223,7 @@ function utils.set_options()
       'tokyonight',
       'catppuccin',
       'kanagawa',
+      'nightfox',
       'onedark',
       'material',
       'onenord',
