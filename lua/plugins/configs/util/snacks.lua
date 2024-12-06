@@ -55,14 +55,6 @@ return {
       mode = 'n',
     },
     {
-      '<leader>yz',
-      function()
-        Snacks.terminal { 'yazi' }
-      end,
-      desc = 'Yazi',
-      mode = 'n',
-    },
-    {
       '<leader>Rn',
       function()
         Snacks.rename.rename_file()
