@@ -22,7 +22,7 @@ vim.diagnostic.config { jump = { float = true } }
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
-map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Terminal Exit terminal mode' })
 
 --  Use CTRL+<hjkl> to switch between windows
 --  See `:help wincmd` for a list of all window commands
@@ -36,8 +36,8 @@ map('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 -- map('i', '<ESC>', '<ESC>')
 
 -- mapping for split
-map('n', '<leader>-', '<C-w>v', { desc = 'split vertically' })
-map('n', '<leader>=', '<C-w>s', { desc = 'split horizontally' })
+map('n', '<leader>-', '<C-w>v', { desc = 'Split vertically' })
+map('n', '<leader>=', '<C-w>s', { desc = 'Split horizontally' })
 map('n', '<leader>o', '<cmd>only<CR>', { desc = 'close other windows' })
 
 -- Comment
@@ -47,20 +47,27 @@ map('v', '<C-_>', 'gc', { desc = 'comment toggle', remap = true })
 -- cmake
 map('n', '<leader>mk', function()
   require('utils.util').gen_make_files()
-end, { desc = 'cmake build' })
+end, { desc = 'Cmake generate make files' })
 
 -- set options
 map('n', '<leader>nf', function()
   require('utils.util').set_options()
-end, { desc = 'Neovim user config' })
+end, { desc = 'Options change user options' })
 
 map('n', '<leader>nd', function()
   vim.print(vim.g.options)
-end, { desc = 'Display user config' })
+end, { desc = 'Options display user options' })
 
 -- cmd to change pyright type checking mode
 vim.cmd "command! -nargs=1 PyrightTypeCheck lua require('utils.util').pyright_type_checking(<f-args>)"
 
 -- mappings for ta
-map('n', 'ga', '<cmd>tabnew<CR>', { desc = 'tab new' })
-map('n', 'gx', '<cmd>tabclose<CR>', { desc = 'tab close' })
+map('n', 'ga', '<cmd>tabnew<CR>', { desc = 'Tab new tab' })
+map('n', 'gx', '<cmd>tabclose<CR>', { desc = 'Tab close tab' })
+map('n', 'gt', '<cmd>tabn<CR>', { desc = 'Tab next tab' })
+map('n', 'gT', '<cmd>tabp<CR>', { desc = 'Tab previous tab' })
+
+-- mappings for cheatsheet
+map('n', '<leader>ch', function()
+  require('utils.cheatsheet').draw()
+end, { desc = 'Cheatsheet using extmarks' })

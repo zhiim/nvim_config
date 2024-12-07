@@ -30,7 +30,7 @@ return { -- Collection of various small independent plugins/modules
         require('mini.map').open()
       end,
       mode = 'n',
-      desc = 'MiniMap Open Map',
+      desc = 'MiniMap open map',
     },
     {
       '<leader>mmc',
@@ -38,7 +38,7 @@ return { -- Collection of various small independent plugins/modules
         require('mini.map').close()
       end,
       mode = 'n',
-      desc = 'MiniMap Close Map',
+      desc = 'MiniMap close map',
     },
     {
       '<leader>mmt',
@@ -46,7 +46,7 @@ return { -- Collection of various small independent plugins/modules
         require('mini.map').toggle()
       end,
       mode = 'n',
-      desc = 'MiniMap Toggle map',
+      desc = 'MiniMap toggle map',
     },
     {
       '<leader>mmf',
@@ -54,7 +54,7 @@ return { -- Collection of various small independent plugins/modules
         require('mini.map').toggle_focus()
       end,
       mode = 'n',
-      desc = 'MiniMap Toggle focus',
+      desc = 'MiniMap toggle focus',
     },
     {
       '<leader>mmr',
@@ -62,7 +62,7 @@ return { -- Collection of various small independent plugins/modules
         require('mini.map').refresh()
       end,
       mode = 'n',
-      desc = 'MiniMap Refresh Map',
+      desc = 'MiniMap refresh map',
     },
     {
       '<leader>mms',
@@ -70,7 +70,7 @@ return { -- Collection of various small independent plugins/modules
         require('mini.map').toggle_side()
       end,
       mode = 'n',
-      desc = 'MiniMap Toggle side',
+      desc = 'MiniMap toggle side',
     },
   },
 }

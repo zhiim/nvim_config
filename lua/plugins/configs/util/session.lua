@@ -23,7 +23,7 @@ return {
         require('resession').save(session_name)
       end,
       mode = 'n',
-      desc = 'Resessions Session Save',
+      desc = 'Resession session save',
     },
     {
       '<leader>rsr',
@@ -37,7 +37,7 @@ return {
         end
       end,
       mode = 'n',
-      desc = 'Resessions Session Read',
+      desc = 'Resession session read',
     },
     {
       '<leader>rsd',
@@ -50,7 +50,7 @@ return {
         end
       end,
       mode = 'n',
-      desc = 'ReSessions Session Delete',
+      desc = 'Resession session delete',
     },
   },
   opts = {

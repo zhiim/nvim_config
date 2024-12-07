@@ -15,7 +15,7 @@ return {
           }
         end,
         mode = { 'n', 'v' },
-        desc = 'CopilotChat Toggle',
+        desc = 'Copilot toggle chat',
       },
       {
         '<leader>cpf',
@@ -30,7 +30,7 @@ return {
           }
         end,
         mode = { 'n', 'v' },
-        desc = 'CopilotChat Float Windows',
+        desc = 'Copilot chat in float windows',
       },
       {
         '<leader>cpi',
@@ -46,7 +46,7 @@ return {
           }
         end,
         mode = { 'n', 'v' },
-        desc = 'CopilotChat Inline Chat',
+        desc = 'Copilot inline chat',
       },
       {
         '<leader>cps',
@@ -54,7 +54,7 @@ return {
           require('CopilotChat').select_model()
         end,
         mode = 'n',
-        desc = 'CopilotChat Select Models',
+        desc = 'Copilot select chat models',
       },
       {
         '<leader>cpq',
@@ -64,7 +64,7 @@ return {
             require('CopilotChat').ask(input, { selection = require('CopilotChat.select').buffer })
           end
         end,
-        desc = 'CopilotChat Quick Chat',
+        desc = 'Copilot quick chat',
       },
       {
         '<leader>cpm',
@@ -72,7 +72,7 @@ return {
           vim.notify(require('CopilotChat').config.model, vim.log.levels.INFO, { title = 'CopilotChat Model Info' })
         end,
         mode = 'n',
-        desc = 'CopilotChat Model Info',
+        desc = 'Copilot chat model info',
       },
     },
     dependencies = {
@@ -91,7 +91,7 @@ return {
           }
           vim.keymap.set('n', '<leader>cpo', function()
             require('copilot.panel').open { position = 'bottom' }
-          end, { desc = 'Copilot Open Panel' })
+          end, { desc = 'Copilot open panel' })
         end,
       },
       { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper

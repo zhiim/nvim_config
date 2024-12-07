@@ -18,7 +18,7 @@ require('lazy').setup({
         function()
           require('which-key').show { global = false }
         end,
-        desc = 'Buffer Local Keymaps (which-key)',
+        desc = 'Local Keymaps (which-key)',
       },
     },
     config = function() -- This is the function that runs, AFTER loading
@@ -182,7 +182,7 @@ require('lazy').setup({
           },
         },
       }
-      vim.keymap.set('n', '<leader>nc', '<cmd>Telescope neoclip<CR>', { desc = 'Open neoclip' })
+      vim.keymap.set('n', '<leader>sc', '<cmd>Telescope neoclip<CR>', { desc = 'Telescope clipboard history' })
     end,
   },
 
@@ -195,7 +195,7 @@ require('lazy').setup({
           require('comment-box').llline(9)
         end,
         mode = 'n',
-        desc = 'Comment Box Emphisis Box',
+        desc = 'CommentBox Emphisis Box',
       },
       {
         '<leader>cbt',
@@ -203,7 +203,7 @@ require('lazy').setup({
           require('comment-box').llline(15)
         end,
         mode = 'n',
-        desc = 'Comment Box Title Line',
+        desc = 'CommentBox Title Line',
       },
       {
         '<leader>cbb',
@@ -211,7 +211,7 @@ require('lazy').setup({
           require('comment-box').lcbox(10)
         end,
         mode = 'n',
-        desc = 'Comment Box Content Box',
+        desc = 'CommentBox Content Box',
       },
       {
         '<leader>cbl',
@@ -219,7 +219,7 @@ require('lazy').setup({
           require('comment-box').line(15)
         end,
         mode = 'n',
-        desc = 'Comment Box Line',
+        desc = 'CommentBox Line',
       },
       {
         '<leader>cbd',
@@ -227,30 +227,12 @@ require('lazy').setup({
           require('comment-box').dbox()
         end,
         mode = 'n',
-        desc = 'Comment Box Delete',
+        desc = 'CommentBox Delete',
       },
     },
     config = function()
       require('comment-box').setup {}
     end,
-  },
-
-  {
-    'AndrewRadev/linediff.vim',
-    cmd = { 'Linediff', 'LinediffReset' },
-    keys = {
-      {
-        '<leader>ld',
-        ':Linediff<cr>',
-        mode = 'v',
-        desc = 'Line Diff',
-      },
-      {
-        '<leader>ldr',
-        '<cmd>LinediffReset<CR>',
-        desc = 'Line diff reset',
-      },
-    },
   },
 
   {

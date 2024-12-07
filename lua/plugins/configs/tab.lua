@@ -5,18 +5,19 @@ local tab_tools = {
     init = function()
       vim.g.barbar_auto_setup = false
       -- barbar
-      vim.keymap.set('n', '<tab>', '<cmd>BufferNext<CR>', { desc = 'buffer goto next' })
-      vim.keymap.set('n', '<S-tab>', '<cmd>BufferPrevious<CR>', { desc = 'buffer goto previous' })
-      vim.keymap.set('n', '<leader>x', '<cmd>BufferClose<CR>', { desc = 'buffer close', noremap = true, silent = true })
-      vim.keymap.set('n', '<A-,>', '<cmd>BufferMovePrevious<CR>', { desc = 'buffer move previous' })
-      vim.keymap.set('n', '<A-.>', '<cmd>BufferMoveNext<CR>', { desc = 'buffer move next' })
-      for i = 1, 9 do
-        vim.keymap.set('n', '<A-' .. i .. '>', '<cmd>BufferGoto ' .. i .. '<CR>', { desc = 'buffer goto ' .. i })
-      end
+      vim.keymap.set('n', '<tab>', '<cmd>BufferNext<CR>', { desc = 'Buffer goto next' })
+      vim.keymap.set('n', '<S-tab>', '<cmd>BufferPrevious<CR>', { desc = 'Buffer goto previous' })
+      vim.keymap.set('n', '<A-,>', '<cmd>BufferMovePrevious<CR>', { desc = 'Buffer move previous' })
+      vim.keymap.set('n', '<A-.>', '<cmd>BufferMoveNext<CR>', { desc = 'Buffer move next' })
+      -- for i = 1, 9 do
+      --   vim.keymap.set('n', '<A-' .. i .. '>', '<cmd>BufferGoto ' .. i .. '<CR>', { desc = 'Buffer goto ' .. i })
+      -- end
       if vim.g.options.enhance then
         vim.keymap.set('n', '<leader>x', function()
           Snacks.bufdelete()
         end, { desc = 'buffer close' })
+      else
+        vim.keymap.set('n', '<leader>x', '<cmd>BufferClose<CR>', { desc = 'Buffer close', noremap = true, silent = true })
       end
     end,
     opts = {
@@ -69,20 +70,21 @@ local tab_tools = {
           end,
         },
       }
-      vim.keymap.set('n', '<tab>', '<cmd>BufferLineCycleNext<CR>', { desc = 'buffer goto next' })
-      vim.keymap.set('n', '<S-tab>', '<cmd>BufferLineCyclePrev<CR>', { desc = 'buffer goto previous' })
-      vim.keymap.set('n', '<leader>x', '<cmd> bp|sp|bn|bd! <CR>', { desc = 'buffer close', noremap = true, silent = true })
-      vim.keymap.set('n', '<A-,>', '<cmd>BufferLineMovePrev<CR>', { desc = 'buffer move previous' })
-      vim.keymap.set('n', '<A-.>', '<cmd>BufferLineMoveNext<CR>', { desc = 'buffer move next' })
-      for i = 1, 9 do
-        vim.keymap.set('n', '<A-' .. i .. '>', function()
-          require('bufferline').go_to(i, true)
-        end, { desc = 'buffer goto ' .. i })
-      end
+      vim.keymap.set('n', '<tab>', '<cmd>BufferLineCycleNext<CR>', { desc = 'Buffer goto next' })
+      vim.keymap.set('n', '<S-tab>', '<cmd>BufferLineCyclePrev<CR>', { desc = 'Buffer goto previous' })
+      vim.keymap.set('n', '<A-,>', '<cmd>BufferLineMovePrev<CR>', { desc = 'Buffer move previous' })
+      vim.keymap.set('n', '<A-.>', '<cmd>BufferLineMoveNext<CR>', { desc = 'Buffer move next' })
+      -- for i = 1, 9 do
+      --   vim.keymap.set('n', '<A-' .. i .. '>', function()
+      --     require('bufferline').go_to(i, true)
+      --   end, { desc = 'Buffer goto ' .. i })
+      -- end
       if vim.g.options.enhance then
         vim.keymap.set('n', '<leader>x', function()
           Snacks.bufdelete()
-        end, { desc = 'buffer close' })
+        end, { desc = 'Buffer close' })
+      else
+        vim.keymap.set('n', '<leader>x', '<cmd> bp|sp|bn|bd! <CR>', { desc = 'Buffer close', noremap = true, silent = true })
       end
     end,
   },
@@ -95,14 +97,14 @@ local tab_tools = {
       -- always show tabline
       vim.o.showtabline = 2
 
-      vim.keymap.set('n', '<tab>', '<cmd>bnext<CR>', { desc = 'buffer goto next' })
-      vim.keymap.set('n', '<S-tab>', '<cmd>bpre<CR>', { desc = 'buffer goto previous' })
+      vim.keymap.set('n', '<tab>', '<cmd>bnext<CR>', { desc = 'Buffer goto next' })
+      vim.keymap.set('n', '<S-tab>', '<cmd>bpre<CR>', { desc = 'Buffer goto previous' })
       if vim.g.options.enhance then
         vim.keymap.set('n', '<leader>x', function()
           Snacks.bufdelete()
-        end, { desc = 'buffer close' })
+        end, { desc = 'Buffer close' })
       else
-        vim.keymap.set('n', '<leader>x', '<cmd> bp|sp|bn|bd! <CR>', { desc = 'buffer close', noremap = true, silent = true })
+        vim.keymap.set('n', '<leader>x', '<cmd> bp|sp|bn|bd! <CR>', { desc = 'Buffer close', noremap = true, silent = true })
       end
 
       local theme = {}

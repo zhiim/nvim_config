@@ -16,19 +16,19 @@ return {
       '<leader>dv',
       '<cmd>DiffviewOpen<cr>',
       mode = 'n',
-      desc = 'Diffview Open',
+      desc = 'Git Diffview open',
     },
     {
       '<leader>dc',
       '<cmd>DiffviewClose<cr>',
       mode = 'n',
-      desc = 'Diffview Close',
+      desc = 'Git Diffview close',
     },
     {
       '<leader>dh',
       '<cmd>DiffviewFileHistory<cr>',
       mode = 'n',
-      desc = 'Diffview View Files History',
+      desc = 'Git Diffview view files history',
     },
   },
 }

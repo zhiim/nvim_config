@@ -11,7 +11,7 @@ return {
         require('dap').toggle_breakpoint()
       end,
       mode = { 'n', 'i' },
-      desc = 'Debug: Toggle Breakpoint',
+      desc = 'Debug toggle breakpoint',
     },
     {
       '<F8>',
@@ -19,7 +19,7 @@ return {
         require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
       end,
       mode = { 'n', 'i' },
-      desc = 'Debug: Set Breakpoint',
+      desc = 'Debug set breakpoint',
     },
   },
   dependencies = {
@@ -93,11 +93,11 @@ return {
     }
 
     -- Basic debugging keymaps, feel free to change to your liking!
-    vim.keymap.set({ 'n', 'i' }, '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
-    vim.keymap.set({ 'n', 'i' }, '<F4>', dap.terminate, { desc = 'Debug: Terminate' })
-    vim.keymap.set({ 'n', 'i' }, '<F1>', dap.step_into, { desc = 'Debug: Step Into' })
-    vim.keymap.set({ 'n', 'i' }, '<F2>', dap.step_over, { desc = 'Debug: Step Over' })
-    vim.keymap.set({ 'n', 'i' }, '<F3>', dap.step_out, { desc = 'Debug: Step Out' })
+    vim.keymap.set({ 'n', 'i' }, '<F5>', dap.continue, { desc = 'Debug start/continue' })
+    vim.keymap.set({ 'n', 'i' }, '<F4>', dap.terminate, { desc = 'Debug terminate' })
+    vim.keymap.set({ 'n', 'i' }, '<F1>', dap.step_into, { desc = 'Debug step into' })
+    vim.keymap.set({ 'n', 'i' }, '<F2>', dap.step_over, { desc = 'Debug step over' })
+    vim.keymap.set({ 'n', 'i' }, '<F3>', dap.step_out, { desc = 'Debug step out' })
     -- vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
     -- vim.keymap.set('n', '<leader>B', function()
     --   dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
@@ -116,17 +116,17 @@ return {
     -- key mappings for DAP UI
     vim.keymap.set({ 'n', 'i' }, '<F6>', function()
       dapui.toggle()
-    end, { desc = 'Toggle debug UI' })
+    end, { desc = 'Debug toggle debug UI' })
     vim.keymap.set({ 'n' }, '<leader>due', function()
       dapui.eval()
-    end, { desc = 'DapUI Eval' })
+    end, { desc = 'Debug eval' })
     vim.keymap.set({ 'n' }, '<leader>duE', function()
       local expr = vim.fn.input 'Expression: '
       dapui.eval(expr)
-    end, { desc = 'DapUI Eval Expression' })
+    end, { desc = 'Debug eval expression' })
     vim.keymap.set({ 'n' }, '<leader>duf', function()
       dapui.float_element()
-    end, { desc = 'DapUI Float Element' })
+    end, { desc = 'Debug float element' })
 
     dap.listeners.after.event_initialized['dapui_config'] = function()
       dapui.open {}

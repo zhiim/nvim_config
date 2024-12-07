@@ -12,7 +12,7 @@ if vim.g.options.language_support then
             require('neogen').setup { snippet_engine = 'luasnip' }
           end,
           mode = 'n',
-          desc = 'Genearte annotation template',
+          desc = 'LSP genearte annotation template',
         },
       },
       -- Uncomment next line if you want to follow only stable versions
@@ -65,7 +65,7 @@ if vim.g.options.language_support then
         }
       end,
       keys = {
-        { '<leader>pvs', '<cmd>VenvSelect<cr>', mode = 'n', desc = 'Python Virtual Environment Selection' },
+        { '<leader>pv', '<cmd>VenvSelect<cr>', mode = 'n', desc = 'Python Virtual Environment Selection' },
       },
     },
 
@@ -106,7 +106,7 @@ if vim.g.options.language_support then
             require('goto-preview').goto_preview_definition {}
           end,
           mode = 'n',
-          desc = 'Go to definitions',
+          desc = 'GotoPrevew go to definitions',
         },
         {
           '<leader>gr',
@@ -114,7 +114,7 @@ if vim.g.options.language_support then
             require('goto-preview').goto_preview_references()
           end,
           mode = 'n',
-          desc = 'Go to references',
+          desc = 'GotoPrevew go to references',
         },
         {
           '<leader>gD',
@@ -122,7 +122,7 @@ if vim.g.options.language_support then
             require('goto-preview').goto_preview_declaration {}
           end,
           mode = 'n',
-          desc = 'Go to declarations',
+          desc = 'GotoPrevew go to declarations',
         },
         {
           '<leader>gt',
@@ -130,7 +130,7 @@ if vim.g.options.language_support then
             require('goto-preview').goto_preview_type_definition {}
           end,
           mode = 'n',
-          desc = 'Go to type definitions',
+          desc = 'GotoPrevew go to type definitions',
         },
         {
           '<leader>gi',
@@ -138,7 +138,7 @@ if vim.g.options.language_support then
             require('goto-preview').goto_preview_implementation {}
           end,
           mode = 'n',
-          desc = 'Go to implementations',
+          desc = 'GotoPrevew go to implementations',
         },
         {
           '<leader>gc',
@@ -146,7 +146,7 @@ if vim.g.options.language_support then
             require('goto-preview').close_all_win()
           end,
           mode = 'n',
-          desc = 'close all preview windows',
+          desc = 'GotoPrevew close all preview windows',
         },
       },
       config = function()
@@ -209,14 +209,13 @@ if vim.g.options.language_support then
       config = function()
         require('inc_rename').setup {}
       end,
+      cmd = 'IncRename',
       keys = {
         {
           '<leader>rn',
-          function()
-            require('inc_rename').rename()
-          end,
+          ':IncRename ',
           mode = 'n',
-          desc = 'Incremental Rename',
+          desc = 'LSP incremental Rename',
         },
       },
     },

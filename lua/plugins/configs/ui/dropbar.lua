@@ -9,7 +9,7 @@ return {
         require('dropbar.api').pick()
       end,
       mode = 'n',
-      desc = 'Dropbar Pick',
+      desc = 'Dropbar pick',
     },
   },
   config = function()

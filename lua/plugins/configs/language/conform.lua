@@ -2,16 +2,6 @@ return { -- Autoformat
   'stevearc/conform.nvim',
   event = { 'BufWritePre' },
   cmd = { 'ConformInfo' },
-  keys = {
-    {
-      '<leader>fm',
-      function()
-        require('conform').format { async = true, lsp_fallback = true }
-      end,
-      mode = '',
-      desc = '[F]ormat buffer',
-    },
-  },
   config = function()
     local conform = require 'conform'
     local formatterConfig = vim.fn.stdpath 'config' .. '/config_files/'

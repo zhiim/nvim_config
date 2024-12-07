@@ -5,13 +5,13 @@ return {
     {
       '<leader>cca',
       '<cmd>CodeCompanionActions<CR>',
-      desc = 'Open the CodeCompanion Action Palette',
+      desc = 'CodeCompanion open action palette',
       mode = { 'n', 'v' },
     },
     {
       '<leader>ccc',
       '<cmd>CodeCompanionChat Toggle<CR>',
-      desc = 'Toggle the CodeCompanion Chat',
+      desc = 'CodeCompanion toggle chat',
       mode = { 'n', 'v' },
     },
     {
@@ -27,13 +27,13 @@ return {
     {
       '<leader>ccs',
       ':CodeCompanionChat Add<CR>',
-      desc = 'Add Selected to CodeCompanion Chat',
+      desc = 'CodeCompanion add selected to Chat',
       mode = { 'n', 'v' },
     },
     {
       '<leader>ccp',
       '<cmd>CodeCompanion<CR>',
-      desc = 'CodeCompanion',
+      desc = 'CodeCompanion insert prompt',
       mode = { 'n', 'v' },
     },
     {
@@ -53,7 +53,7 @@ return {
           end
         end)
       end,
-      desc = 'CodeCompanionChat with a Selected Model',
+      desc = 'CodeCompanion chat with a selected model',
       mode = { 'n', 'v' },
     },
   },

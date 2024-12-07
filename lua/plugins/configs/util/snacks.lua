@@ -83,7 +83,7 @@ return {
       function()
         Snacks.notifier.show_history()
       end,
-      desc = 'Notification History',
+      desc = 'Notification history',
       mode = 'n',
     },
     {
@@ -91,7 +91,7 @@ return {
       function()
         Snacks.notifier.hide()
       end,
-      desc = 'Dismiss All Notifications',
+      desc = 'Notification dismiss all ',
       mode = 'n',
     },
   },
@@ -108,7 +108,7 @@ return {
         end
         vim.print = _G.dd -- Override print to use snacks for `:=` command
 
-        Snacks.toggle.option('relativenumber', { off = false, on = true }):map '<leader>un'
+        Snacks.toggle.option('relativenumber', { off = false, on = true }):map '<leader>tn'
       end,
     })
   end,

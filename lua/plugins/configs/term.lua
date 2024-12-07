@@ -8,19 +8,19 @@ return {
       '<A-u>',
       '<cmd>ToggleTerm direction=horizontal<CR>',
       mode = { 'n', 't' },
-      desc = 'Toggle terminal in horizontal',
+      desc = 'Terminal Toggle in horizontal',
     },
     {
       '<A-i>',
       '<cmd>ToggleTerm direction=float<CR>',
       mode = { 'n', 't' },
-      desc = 'Toggle terminal in float',
+      desc = 'Terminal toggle in float',
     },
     {
       '<A-o>',
       '<cmd>ToggleTerm direction=vertical<CR>',
       mode = { 'n', 't' },
-      desc = 'Toggle terminal in vertical',
+      desc = 'Terminal toggle in vertical',
     },
   },
   config = function()

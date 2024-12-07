@@ -25,7 +25,7 @@ if vim.g.options.util then
           function()
             require('flash').jump()
           end,
-          desc = 'Flash',
+          desc = 'Flash jump',
         },
         {
           '<leader>flt',
@@ -41,7 +41,7 @@ if vim.g.options.util then
           function()
             require('flash').remote()
           end,
-          desc = 'Remote Flash',
+          desc = 'Flash remote',
         },
         {
           '<leader>fls',
@@ -49,7 +49,7 @@ if vim.g.options.util then
           function()
             require('flash').treesitter_search()
           end,
-          desc = 'Treesitter Search',
+          desc = 'Flash treesitter search',
         },
       },
     },
@@ -76,7 +76,7 @@ if vim.g.options.util then
             }
           end,
           mode = { 'n', 'v' },
-          desc = 'Search and Replace',
+          desc = 'GrugFar search and replace',
         },
       },
     },

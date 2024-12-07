@@ -95,7 +95,7 @@ local file_explorers = {
         mode = 'n',
         '<C-n>',
         '<cmd>NvimTreeToggle<CR>',
-        desc = 'Explorer NvimTree',
+        desc = 'Explorer sidebar',
       },
     },
     config = function(_, opts)
@@ -125,7 +125,7 @@ local file_explorers = {
             vim.notify('Unknown source type', vim.log.levels.WARN, { title = 'NeoTree' })
           end
         end,
-        desc = 'Explorer NeoTree',
+        desc = 'Explorer sidebar',
         mode = 'n',
       },
     },
@@ -266,7 +266,13 @@ return {
           local path = vim.fn.getcwd()
           vim.cmd('Oil ' .. path)
         end,
-        desc = 'Explorer Oil',
+        desc = 'Explorer netrw',
+        mode = 'n',
+      },
+      {
+        '<A-p>',
+        '<cmd>Oil<CR>',
+        desc = 'Explorer netrw in parent directory',
         mode = 'n',
       },
     },
