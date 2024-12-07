@@ -120,12 +120,27 @@ if is_windows then
   end
 end
 
--- set diagnostics signs
-local symbols = { Error = '󰅙', Info = '󰋼', Hint = '󰌵', Warn = '' }
-for name, icon in pairs(symbols) do
-  local hl = 'DiagnosticSign' .. name
-  vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
-end
+vim.diagnostic.config {
+  underline = true,
+  update_in_insert = false,
+  virtual_text = {
+    spacing = 4,
+    source = 'if_many',
+    prefix = '●',
+    -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
+    -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
+    -- prefix = "icons",
+  },
+  severity_sort = true,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = ' ',
+      [vim.diagnostic.severity.WARN] = ' ',
+      [vim.diagnostic.severity.HINT] = ' ',
+      [vim.diagnostic.severity.INFO] = ' ',
+    },
+  },
+}
 
 if not vim.g.options.ui then
   -- set highlight group after load theme

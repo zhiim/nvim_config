@@ -14,8 +14,6 @@ return {
     vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
     vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
 
-    ---@param bufnr number
-    ---@return Promise
     local function customizeSelector(bufnr)
       local function handleFallbackException(err, providerName)
         if type(err) == 'string' and err:match 'UfoFallbackException' then

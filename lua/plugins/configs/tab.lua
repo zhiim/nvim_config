@@ -133,16 +133,16 @@ local tab_tools = {
 
       local function lsp_diag(bufnr)
         local icons = {
-          error = '',
-          warn = '',
-          info = '',
-          hint = '󰌵',
+          error = ' ',
+          warn = ' ',
+          info = ' ',
+          hint = ' ',
         }
         local label = ''
         for severity, icon in pairs(icons) do
           local n = #vim.diagnostic.get(bufnr, { severity = vim.diagnostic.severity[string.upper(severity)] })
           if n > 0 then
-            label = label .. ' ' .. icon .. ' ' .. n
+            label = label .. ' ' .. icon .. n
           end
         end
         return label

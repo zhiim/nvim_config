@@ -64,5 +64,6 @@ if vim.g.options.ui then
     require 'plugins.configs.ui.ufo',
   }
 else
+  vim.cmd.colorscheme 'habamax'
   return {}
 end
