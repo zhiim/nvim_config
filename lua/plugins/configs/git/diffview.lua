@@ -13,22 +13,28 @@ return {
   },
   keys = {
     {
-      '<leader>dv',
+      '<leader>dvo',
       '<cmd>DiffviewOpen<cr>',
       mode = 'n',
       desc = 'Git Diffview open',
     },
     {
-      '<leader>dc',
+      '<leader>dvc',
       '<cmd>DiffviewClose<cr>',
       mode = 'n',
       desc = 'Git Diffview close',
     },
     {
-      '<leader>dh',
+      '<leader>dvh',
       '<cmd>DiffviewFileHistory<cr>',
       mode = 'n',
-      desc = 'Git Diffview view files history',
+      desc = 'Git Diffview view current branch files history',
+    },
+    {
+      '<leader>dvf',
+      '<cmd>DiffviewFileHistory %<cr>',
+      mode = 'n',
+      desc = 'Git Diffview view current file history',
     },
   },
 }

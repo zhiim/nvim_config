@@ -90,6 +90,8 @@ return {
             'copilot-chat',
             'oil',
             'toggleterm',
+            'dashboard',
+            'snacks_dashboard',
           })
         then
           return ''
