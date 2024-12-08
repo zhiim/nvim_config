@@ -9,9 +9,9 @@ local tab_tools = {
       vim.keymap.set('n', '<S-tab>', '<cmd>BufferPrevious<CR>', { desc = 'Buffer goto previous' })
       vim.keymap.set('n', '<A-,>', '<cmd>BufferMovePrevious<CR>', { desc = 'Buffer move previous' })
       vim.keymap.set('n', '<A-.>', '<cmd>BufferMoveNext<CR>', { desc = 'Buffer move next' })
-      -- for i = 1, 9 do
-      --   vim.keymap.set('n', '<A-' .. i .. '>', '<cmd>BufferGoto ' .. i .. '<CR>', { desc = 'Buffer goto ' .. i })
-      -- end
+      for i = 1, 9 do
+        vim.keymap.set('n', '<A-' .. i .. '>', '<cmd>BufferGoto ' .. i .. '<CR>', { desc = 'buffer goto ' .. i })
+      end
       if vim.g.options.enhance then
         vim.keymap.set('n', '<leader>x', function()
           Snacks.bufdelete()
@@ -21,9 +21,7 @@ local tab_tools = {
       end
     end,
     opts = {
-      auto_hide = 1,
-      -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-      -- animation = true,
+      animation = true,
       -- insert_at_start = true,
       -- …etc.
     },
@@ -63,7 +61,6 @@ local tab_tools = {
               highlight = 'Directory',
             },
           },
-          always_show_bufferline = false,
           custom_filter = function(buf, _)
             -- dont show help buffers in the bufferline
             return not require('utils.util').find_value(vim.bo[buf].filetype, { 'dap-repl', 'codecompanion' })

@@ -86,3 +86,28 @@ vim.api.nvim_create_autocmd('FileType', {
     end)
   end,
 })
+
+-- set highlight group after load theme
+vim.api.nvim_create_autocmd('ColorScheme', {
+  pattern = '*',
+  callback = function()
+    -- set highlight group after load theme
+    local get_hl = require('utils.util').get_hl
+    -- highlight group for floating windows
+    vim.api.nvim_set_hl(0, 'PmenuSel', { bg = get_hl('Title').fg, fg = get_hl('Normal').bg })
+    vim.api.nvim_set_hl(0, 'FloatBorder', { fg = get_hl('Visual').bg, bg = get_hl('Normal').bg })
+    vim.api.nvim_set_hl(0, 'NormalFloat', { bg = get_hl('Normal').bg })
+
+    -- highlight group for cheatsheet
+    local colors = require('utils.util').get_palette()
+    vim.api.nvim_set_hl(0, 'ChAsciiHeader', { fg = get_hl('Title').fg })
+    vim.api.nvim_set_hl(0, 'ChSection', { fg = get_hl('Normal').fg, bg = get_hl('ColorColumn').bg })
+    vim.api.nvim_set_hl(0, 'ChBlue', { fg = get_hl('Normal').bg, bg = colors.blue })
+    vim.api.nvim_set_hl(0, 'ChRed', { fg = get_hl('Normal').bg, bg = colors.red })
+    vim.api.nvim_set_hl(0, 'ChGreen', { fg = get_hl('Normal').bg, bg = colors.green })
+    vim.api.nvim_set_hl(0, 'ChYellow', { fg = get_hl('Normal').bg, bg = colors.yellow })
+    vim.api.nvim_set_hl(0, 'ChOrange', { fg = get_hl('Normal').bg, bg = colors.orange })
+    vim.api.nvim_set_hl(0, 'ChMagenta', { fg = get_hl('Normal').bg, bg = colors.magenta })
+    vim.api.nvim_set_hl(0, 'ChCyan', { fg = get_hl('Normal').bg, bg = colors.cyan })
+  end,
+})
