@@ -30,11 +30,9 @@ if vim.g.options.ui then
             { text = { builtin.foldfunc, ' ' }, click = 'v:lua.ScFa' },
             -- diagnostic sign
             {
-              sign = { namespace = { 'diagnostic*' }, maxwidth = 1, colwidth = 1, auto = true },
+              sign = { namespace = { 'diagnostic*' }, maxwidth = 1, colwidth = 2, auto = true },
               click = 'v:lua.ScSa',
             },
-            -- empty space
-            { text = { ' ' } },
             -- line number
             { text = { builtin.lnumfunc, ' ' }, click = 'v:lua.ScLa' },
             -- minidiff sign
@@ -44,7 +42,7 @@ if vim.g.options.ui then
             },
             -- all other signs
             {
-              sign = { name = { '.*' }, text = { '.*' }, namespace = { '.*' }, maxwidth = 2, colwidth = 1, auto = true },
+              sign = { name = { '.*' }, text = { '.*' }, namespace = { '.*' }, maxwidth = 2, colwidth = 2, auto = true },
               click = 'v:lua.ScSa',
             },
             -- empty space
