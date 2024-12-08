@@ -6,10 +6,6 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
--- [[ Setting options ]]
--- See `:help vim.opt`
--- For more options, you can see `:help option-list`
-
 -- Make line numbers default
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -21,24 +17,7 @@ vim.opt.mouse = 'a'
 vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.opt.clipboard = 'unnamedplus'
--- share clipboard between Windows and WSL
-if vim.fn.has 'wsl' == 1 then
-  vim.g.clipboard = {
-    name = 'WslClipboard',
-    copy = {
-      ['+'] = 'clip.exe',
-      ['*'] = 'clip.exe',
-    },
-    paste = {
-      ['+'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-      ['*'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-    },
-    cache_enabled = 0,
-  }
-end
+vim.opt.clipboard = vim.env.SSH_TTY and '' or 'unnamedplus'
 
 -- Enable break indent
 vim.opt.breakindent = true

@@ -94,7 +94,7 @@ Trun on a formatter or linter by editing `lua/plugins/configs/language/conform.l
 
 ### Tips
 
-- To share clipboard with system, install `xclip` on Linux with X11, install `win32yank` on Windows for WSL.
+- To share clipboard with system, install `xclip` on Linux with X11. But install `win32yank` and uninstall `xlibp` for WSL.
 - If `nvim-treesitter` output error `Invalid node type at position x for language x`, you can use `:echo nvim_get_runtime_file('parser', v:true)` to check whether more than one parser is used or not, than rename the nvim parser folder to another name to use treesitter parser only.
 - set venv searching path by modify `conda_command` and `venv_command` in `lua/plugins/config/venv_selector.lua`
 - Debugging C/C++ in Windows with codelldb need a program compiled using `clang` with `--target=x86_64-pc-windows-gnu`
