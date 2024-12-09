@@ -55,7 +55,7 @@ require('lazy').setup({
         vim.api.nvim_set_hl(0, 'RainbowBlue', { fg = colors.blue })
         vim.api.nvim_set_hl(0, 'RainbowOrange', { fg = colors.orange })
         vim.api.nvim_set_hl(0, 'RainbowGreen', { fg = colors.green })
-        vim.api.nvim_set_hl(0, 'RainbowViolet', { fg = colors.magenta })
+        vim.api.nvim_set_hl(0, 'RainbowViolet', { fg = colors.purple })
         vim.api.nvim_set_hl(0, 'RainbowCyan', { fg = colors.cyan })
       end)
 

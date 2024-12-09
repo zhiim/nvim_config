@@ -31,7 +31,7 @@ function utils.get_palette()
         blue = palette.blue0,
         orange = palette.orange.base,
         green = palette.green.base,
-        magenta = palette.magenta.base,
+        purple = palette.magenta.base,
         cyan = palette.cyan.base,
       }
     end,
@@ -43,7 +43,7 @@ function utils.get_palette()
         blue = palette.blue,
         orange = palette.flamingo,
         green = palette.green,
-        magenta = palette.mauve,
+        purple = palette.mauve,
         cyan = palette.teal,
       }
     end,
@@ -61,7 +61,7 @@ function utils.get_palette()
         blue = palette.blue.base,
         orange = palette.orange,
         green = palette.green.base,
-        magenta = palette.magenta.base,
+        purple = palette.magenta.base,
         cyan = palette.cyan.base,
       }
     end,
@@ -74,7 +74,7 @@ function utils.get_palette()
         blue = theme_colors[5],
         orange = theme_colors[17],
         green = theme_colors[3],
-        magenta = theme_colors[6],
+        purple = theme_colors[6],
         cyan = theme_colors[7],
       }
     end,
@@ -89,7 +89,7 @@ function utils.get_palette()
         blue = palette.blue.base,
         orange = palette.orange.base,
         green = palette.green.base,
-        magenta = palette.magenta.base,
+        purple = palette.magenta.base,
         cyan = palette.cyan.base,
       }
     end,

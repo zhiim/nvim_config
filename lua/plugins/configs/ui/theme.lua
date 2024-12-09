@@ -1,6 +1,5 @@
-local color_scheme = vim.g.options.theme ~= ''
-    and vim.g.options.theme
-  or 'onedark'
+local color_scheme = vim.g.options.theme ~= '' and vim.g.options.theme
+  or 'github'
 local theme_plugins = {
   ['onedark'] = 'olimorris/onedarkpro.nvim',
   ['onenord'] = 'rmehri01/onenord.nvim',
@@ -25,6 +24,13 @@ local config_funcs = {
     require('onedarkpro').setup {
       filetypes = {
         all = true,
+      },
+      options = {
+        cursorline = true,
+        transparency = false, -- Use a transparent background?
+        terminal_colors = true, -- Use the theme's colors for Neovim's :terminal?
+        lualine_transparency = false, -- Center bar transparency?
+        highlight_inactive_windows = false, -- When the window is out of focus, change the normal background?
       },
     }
     set_theme()
