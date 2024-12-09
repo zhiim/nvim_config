@@ -3,9 +3,7 @@ return {
   event = { 'BufReadPre', 'BufNewFile' },
   config = function()
     local lint = require 'lint'
-    --
     -- NOTE: set linter for different file here
-    --
     lint.linters_by_ft = {
       python = { 'ruff' },
       json = { 'jsonlint' },

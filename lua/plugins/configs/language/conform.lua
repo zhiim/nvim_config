@@ -15,11 +15,8 @@ return { -- Autoformat
         end
         return { timeout_ms = 500, lsp_format = 'fallback' }
       end,
-      --
       -- NOTE: define languages specificed formater here
-      --
       formatters_by_ft = {
-        -- use `:lua print(vim.bo.filetype)` to check filetype
         lua = { 'stylua' },
         css = { 'prettier' },
         html = { 'prettier' },
@@ -81,7 +78,9 @@ return { -- Autoformat
     }
 
     conform.formatters.clang_format = {
-      prepend_args = { '--style=file:' .. formatterConfig .. 'clang_format.yaml' },
+      prepend_args = {
+        '--style=file:' .. formatterConfig .. 'clang_format.yaml',
+      },
     }
   end,
 }

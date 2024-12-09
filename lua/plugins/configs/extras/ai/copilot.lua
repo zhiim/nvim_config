@@ -61,7 +61,10 @@ return {
         function()
           local input = vim.fn.input 'Quick Chat: '
           if input ~= '' then
-            require('CopilotChat').ask(input, { selection = require('CopilotChat.select').buffer })
+            require('CopilotChat').ask(
+              input,
+              { selection = require('CopilotChat.select').buffer }
+            )
           end
         end,
         desc = 'Copilot quick chat',
@@ -69,7 +72,11 @@ return {
       {
         '<leader>cpm',
         function()
-          vim.notify(require('CopilotChat').config.model, vim.log.levels.INFO, { title = 'CopilotChat Model Info' })
+          vim.notify(
+            require('CopilotChat').config.model,
+            vim.log.levels.INFO,
+            { title = 'CopilotChat Model Info' }
+          )
         end,
         mode = 'n',
         desc = 'Copilot chat model info',

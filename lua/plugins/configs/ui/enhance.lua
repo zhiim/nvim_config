@@ -41,7 +41,10 @@ if vim.g.options.enhance then
           },
           cursor = {
             -- enable = false,
-            timing = animate.gen_timing.exponential { duration = 50, unit = 'total' },
+            timing = animate.gen_timing.exponential {
+              duration = 50,
+              unit = 'total',
+            },
           },
         }
       end,

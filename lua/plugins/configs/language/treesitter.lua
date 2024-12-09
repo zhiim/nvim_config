@@ -6,7 +6,22 @@ return { -- Highlight, edit, and navigate code
       --
       -- NOTE: language parsers need to be installed
       --
-      ensure_installed = { 'bash', 'c', 'cpp', 'python', 'diff', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'vim', 'vimdoc', 'yaml', 'json', 'toml' },
+      ensure_installed = {
+        'bash',
+        'c',
+        'cpp',
+        'python',
+        'diff',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'vim',
+        'vimdoc',
+        'yaml',
+        'json',
+        'toml',
+      },
       -- Autoinstall languages that are not installed
       auto_install = false,
       highlight = {

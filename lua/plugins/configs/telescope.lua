@@ -5,15 +5,12 @@ return { -- Fuzzy Finder (files, lsp, etc)
   dependencies = {
     'nvim-lua/plenary.nvim',
     'debugloop/telescope-undo.nvim',
-    { -- If encountering errors, see telescope-fzf-native README for installation instructions
+    {
       'nvim-telescope/telescope-fzf-native.nvim',
 
       -- `build` is used to run some command when the plugin is installed/updated.
-      -- This is only run then, not every time Neovim starts up.
       build = 'make',
 
-      -- `cond` is a condition used to determine whether this plugin should be
-      -- installed and loaded.
       cond = function()
         return vim.fn.executable 'make' == 1
       end,
@@ -34,14 +31,30 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.api.nvim_set_hl(0, 'TelescopeNormal', { link = 'NormalFloat' })
     vim.api.nvim_set_hl(0, 'TelescopePreviewBorder', { link = 'FloatBorder' })
     vim.api.nvim_set_hl(0, 'TelescopePreviewNormal', { link = 'NormalFloat' })
-    vim.api.nvim_set_hl(0, 'TelescopePreviewTitle', { fg = bg, bg = preview_title })
+    vim.api.nvim_set_hl(
+      0,
+      'TelescopePreviewTitle',
+      { fg = bg, bg = preview_title }
+    )
     vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { link = 'FloatBorder' })
     vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { link = 'NormalFloat' })
-    vim.api.nvim_set_hl(0, 'TelescopePromptPrefix', { fg = prompt_title_bg, bg = bg })
-    vim.api.nvim_set_hl(0, 'TelescopePromptTitle', { fg = bg, bg = prompt_title_bg })
+    vim.api.nvim_set_hl(
+      0,
+      'TelescopePromptPrefix',
+      { fg = prompt_title_bg, bg = bg }
+    )
+    vim.api.nvim_set_hl(
+      0,
+      'TelescopePromptTitle',
+      { fg = bg, bg = prompt_title_bg }
+    )
     vim.api.nvim_set_hl(0, 'TelescopeResultsBorder', { link = 'FloatBorder' })
     vim.api.nvim_set_hl(0, 'TelescopeResultsNormal', { link = 'NormalFloat' })
-    vim.api.nvim_set_hl(0, 'TelescopeResultsTitle', { fg = bg, bg = result_title_bg })
+    vim.api.nvim_set_hl(
+      0,
+      'TelescopeResultsTitle',
+      { fg = bg, bg = result_title_bg }
+    )
 
     require('telescope').setup {
 
@@ -74,39 +87,87 @@ return { -- Fuzzy Finder (files, lsp, etc)
 
     -- See `:help telescope.builtin`
     local builtin = require 'telescope.builtin'
-    vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = 'Telescope search help' })
-    vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = 'Telescope search keymaps' })
-    vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = 'Telescope search files' })
-    vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = 'Telescope search telescope sections' })
-    vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = 'Telescope search current word' })
-    vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = 'Telescope search by grep' })
-    vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = 'Telescope search diagnostics' })
-    vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = 'Telescope search resume' })
-    vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = 'Telescope search recent files' })
-    vim.keymap.set('n', '<leader><leader>', '<cmd>Telescope scope buffers<cr>', { desc = 'Telescope find existing buffers' })
-    vim.keymap.set('n', '<leader>su', '<cmd>Telescope undo<cr>', { desc = 'Telescope search undo history' })
+    vim.keymap.set(
+      'n',
+      '<leader>sh',
+      builtin.help_tags,
+      { desc = 'Telescope search help' }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>sk',
+      builtin.keymaps,
+      { desc = 'Telescope search keymaps' }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>sf',
+      builtin.find_files,
+      { desc = 'Telescope search files' }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>ss',
+      builtin.builtin,
+      { desc = 'Telescope search telescope sections' }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>sw',
+      builtin.grep_string,
+      { desc = 'Telescope search current word' }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>sg',
+      builtin.live_grep,
+      { desc = 'Telescope search by grep' }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>sd',
+      builtin.diagnostics,
+      { desc = 'Telescope search diagnostics' }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>sr',
+      builtin.resume,
+      { desc = 'Telescope search resume' }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>s.',
+      builtin.oldfiles,
+      { desc = 'Telescope search recent files' }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>sb',
+      '<cmd>Telescope scope buffers<cr>',
+      { desc = 'Telescope find existing buffers' }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>su',
+      '<cmd>Telescope undo<cr>',
+      { desc = 'Telescope search undo history' }
+    )
 
-    -- Slightly advanced example of overriding default behavior and theme
-    vim.keymap.set('n', '<leader>/', function()
-      -- You can pass additional configuration to Telescope to change the theme, layout, etc.
-      builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-        -- winblend = 10,
-        previewer = false,
-      })
+    vim.keymap.set('n', '<leader>sl', function()
+      builtin.current_buffer_fuzzy_find(
+        require('telescope.themes').get_dropdown {
+          -- winblend = 10,
+          previewer = false,
+        }
+      )
     end, { desc = 'Telescope search in current buffer fuzzily ' })
 
-    -- It's also possible to pass additional configuration options.
-    --  See `:help telescope.builtin.live_grep()` for information about particular keys
     vim.keymap.set('n', '<leader>s/', function()
       builtin.live_grep {
         grep_open_files = true,
         prompt_title = 'Live Grep in Open Files',
       }
     end, { desc = 'Telescope search in open files' })
-
-    -- Shortcut for searching your Neovim configuration files
-    vim.keymap.set('n', '<leader>sn', function()
-      builtin.find_files { cwd = vim.fn.stdpath 'config' }
-    end, { desc = 'Telescope search neovim files' })
   end,
 }

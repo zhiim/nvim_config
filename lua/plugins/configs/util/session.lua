@@ -7,7 +7,10 @@ end
 
 --- Check if session exists
 local function session_exist(session_name)
-  local session_file = vim.fn.stdpath 'data' .. '/session/' .. session_name .. '.json'
+  local session_file = vim.fn.stdpath 'data'
+    .. '/session/'
+    .. session_name
+    .. '.json'
   return vim.fn.filereadable(session_file) == 1
 end
 
@@ -33,7 +36,11 @@ return {
           require('resession').load(session_name)
           vim.cmd 'silent! :e'
         else
-          vim.notify('Session does not exist for current directory', vim.log.levels.INFO, { title = 'Resession' })
+          vim.notify(
+            'Session does not exist for current directory',
+            vim.log.levels.INFO,
+            { title = 'Resession' }
+          )
         end
       end,
       mode = 'n',
@@ -46,7 +53,11 @@ return {
         if session_exist(session_name) then
           require('resession').delete(session_name)
         else
-          vim.notify('Session does not exist for current directory', vim.log.levels.INFO, { title = 'Resession' })
+          vim.notify(
+            'Session does not exist for current directory',
+            vim.log.levels.INFO,
+            { title = 'Resession' }
+          )
         end
       end,
       mode = 'n',

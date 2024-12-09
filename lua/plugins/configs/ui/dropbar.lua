@@ -16,8 +16,13 @@ return {
     -- hightlight current file name
     local custom_path = {
       get_symbols = function(buff, win, cursor)
-        local symbols = require('dropbar.sources').path.get_symbols(buff, win, cursor)
-        vim.api.nvim_set_hl(0, 'DropBarFileName', { italic = true, bold = true })
+        local symbols =
+          require('dropbar.sources').path.get_symbols(buff, win, cursor)
+        vim.api.nvim_set_hl(
+          0,
+          'DropBarFileName',
+          { italic = true, bold = true }
+        )
         symbols[#symbols].name_hl = 'DropBarFileName'
         return symbols
       end,
@@ -56,7 +61,10 @@ return {
             and vim.wo[win].winbar == ''
             and vim.fn.win_gettype(win) == ''
             -- do not attach to certain filetypes
-            and not require('utils.util').find_value(vim.bo[buf].ft, { 'help', 'copilot-chat', 'codecompanion' })
+            and not require('utils.util').find_value(
+              vim.bo[buf].ft,
+              { 'help', 'copilot-chat', 'codecompanion' }
+            )
             and ((pcall(vim.treesitter.get_parser, buf)) and true or false)
         end,
         sources = function(buf, _)
@@ -99,7 +107,8 @@ return {
             if menu.prev_menu then
               menu:close()
             else
-              local bar = require('dropbar.utils.bar').get { win = menu.prev_win }
+              local bar =
+                require('dropbar.utils.bar').get { win = menu.prev_win }
               if bar ~= nil then
                 local barComponents = bar.components[1]._.bar.components
                 for _, component in ipairs(barComponents) do
@@ -134,7 +143,9 @@ return {
             local cursor = vim.api.nvim_win_get_cursor(menu.win)
             local entry = menu.entries[cursor[1]]
             -- stolen from https://github.com/Bekaboo/dropbar.nvim/issues/66
-            local component = entry:first_clickable(entry.padding.left + entry.components[1]:bytewidth())
+            local component = entry:first_clickable(
+              entry.padding.left + entry.components[1]:bytewidth()
+            )
             if component then
               menu:click_on(component, nil, 1, 'l')
             end

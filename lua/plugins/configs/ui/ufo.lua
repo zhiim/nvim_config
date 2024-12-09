@@ -4,7 +4,7 @@ return {
   dependencies = 'kevinhwang91/promise-async',
   enabled = vim.fn.has 'nvim-0.7.2',
   config = function()
-    vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep:│,foldclose:]]
+    vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
     vim.o.foldcolumn = '1'
     vim.o.foldlevel = 99 -- Using ufo provider need a large value
     vim.o.foldlevelstart = 99
@@ -81,7 +81,7 @@ return {
           jumpBot = ']',
         },
       },
-      provider_selector = function(bufnr, filetype, buftype)
+      provider_selector = function(_, filetype, _)
         if
           require('utils.util').find_value(filetype, {
             'neo-tree',

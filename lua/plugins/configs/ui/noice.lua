@@ -51,7 +51,10 @@ return {
                 padding = { 0, 1 },
               },
               win_options = {
-                winhighlight = { Normal = 'Normal', FloatBorder = 'NoiceCmdlinePopupBorder' },
+                winhighlight = {
+                  Normal = 'Normal',
+                  FloatBorder = 'NoiceCmdlinePopupBorder',
+                },
               },
             },
           },
@@ -98,13 +101,25 @@ return {
         },
       },
     }
+    local fg_colors = require('utils.util').get_palette()
     require('lualine').setup {
       sections = {
         lualine_x = {
+          ---@diagnostic disable: undefined-field
+          {
+            require('noice').api.status.command.get,
+            cond = require('noice').api.status.command.has,
+            color = { fg = fg_colors.blue },
+          },
+          {
+            require('noice').api.status.mode.get,
+            cond = require('noice').api.status.mode.has,
+            color = { fg = fg_colors.magenta },
+          },
           {
             require('noice').api.status.search.get,
             cond = require('noice').api.status.search.has,
-            color = { fg = require('utils.util').get_palette().orange },
+            color = { fg = fg_colors.orange },
           },
           'encoding',
           'fileformat',
@@ -112,13 +127,17 @@ return {
         },
       },
     }
+    require('telescope').load_extension 'noice'
+    vim.keymap.set(
+      'n',
+      '<leader>sn',
+      '<cmd>Telescope noice<cr>',
+      { desc = 'Telescope search noice' }
+    )
   end,
   dependencies = {
     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
     'MunifTanjim/nui.nvim',
-    -- OPTIONAL:
-    --   `nvim-notify` is only needed, if you want to use the notification view.
-    --   If not available, we use `mini` as the fallback
     {
       'rcarriga/nvim-notify',
       config = function()

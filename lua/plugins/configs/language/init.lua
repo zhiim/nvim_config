@@ -21,11 +21,19 @@ if vim.g.options.language_support then
 
     {
       'MeanderingProgrammer/render-markdown.nvim',
-      dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' },
+      dependencies = {
+        'nvim-treesitter/nvim-treesitter',
+        'echasnovski/mini.icons',
+      },
       ft = { 'markdown', 'codecompanion', 'copilot-chat' },
       config = function()
         require('render-markdown').setup {}
-        vim.keymap.set('n', '<leader>rmt', '<cmd>RenderMarkdown toggle<CR>', { desc = 'Toggle markdown preview' })
+        vim.keymap.set(
+          'n',
+          '<leader>rmt',
+          '<cmd>RenderMarkdown toggle<CR>',
+          { desc = 'Toggle markdown preview' }
+        )
       end,
     },
 
@@ -46,7 +54,11 @@ if vim.g.options.language_support then
       'linux-cultist/venv-selector.nvim',
       dependencies = {
         'neovim/nvim-lspconfig',
-        { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
+        {
+          'nvim-telescope/telescope.nvim',
+          branch = '0.1.x',
+          dependencies = { 'nvim-lua/plenary.nvim' },
+        },
       },
       event = 'BufEnter *.py', -- lazy load when entering python files
       branch = 'regexp', -- This is the regexp branch, use this for the new version
@@ -65,7 +77,12 @@ if vim.g.options.language_support then
         }
       end,
       keys = {
-        { '<leader>pv', '<cmd>VenvSelect<cr>', mode = 'n', desc = 'Python Virtual Environment Selection' },
+        {
+          '<leader>pv',
+          '<cmd>VenvSelect<cr>',
+          mode = 'n',
+          desc = 'Python Virtual Environment Selection',
+        },
       },
     },
 

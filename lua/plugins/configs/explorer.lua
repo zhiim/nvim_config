@@ -122,7 +122,11 @@ local file_explorers = {
           elseif neotree_source_idx == 3 then
             ntc.execute { source = 'git_status', toggle = true }
           else
-            vim.notify('Unknown source type', vim.log.levels.WARN, { title = 'NeoTree' })
+            vim.notify(
+              'Unknown source type',
+              vim.log.levels.WARN,
+              { title = 'NeoTree' }
+            )
           end
         end,
         desc = 'Explorer sidebar',
@@ -136,7 +140,10 @@ local file_explorers = {
       -- FIX: use `autocmd` for lazy-loading neo-tree instead of directly requiring it,
       -- because `cwd` is not set up properly.
       vim.api.nvim_create_autocmd('BufEnter', {
-        group = vim.api.nvim_create_augroup('Neotree_start_directory', { clear = true }),
+        group = vim.api.nvim_create_augroup(
+          'Neotree_start_directory',
+          { clear = true }
+        ),
         desc = 'Start Neo-tree with directory',
         once = true,
         callback = function()
@@ -153,7 +160,13 @@ local file_explorers = {
     end,
     opts = {
       sources = { 'filesystem', 'buffers', 'git_status' },
-      open_files_do_not_replace_types = { 'terminal', 'Trouble', 'trouble', 'qf', 'Outline' },
+      open_files_do_not_replace_types = {
+        'terminal',
+        'Trouble',
+        'trouble',
+        'qf',
+        'Outline',
+      },
       filesystem = {
         filtered_items = {
           hide_dotfiles = false, -- show hidden files
@@ -179,7 +192,10 @@ local file_explorers = {
           },
           ['O'] = {
             function(state)
-              require('lazy.util').open(state.tree:get_node().path, { system = true })
+              require('lazy.util').open(
+                state.tree:get_node().path,
+                { system = true }
+              )
             end,
             desc = 'Open with System Application',
           },
@@ -187,14 +203,24 @@ local file_explorers = {
           [']'] = {
             function()
               change_neotree_source(1)
-              vim.cmd('Neotree focus ' .. neotree_source_type[neotree_source_idx] .. ' left', true)
+              vim.cmd(
+                'Neotree focus '
+                  .. neotree_source_type[neotree_source_idx]
+                  .. ' left',
+                true
+              )
             end,
             desc = 'Focus Next Tab',
           },
           ['['] = {
             function()
               change_neotree_source(-1)
-              vim.cmd('Neotree focus ' .. neotree_source_type[neotree_source_idx] .. ' left', true)
+              vim.cmd(
+                'Neotree focus '
+                  .. neotree_source_type[neotree_source_idx]
+                  .. ' left',
+                true
+              )
             end,
             desc = 'Focus Previous Tab',
           },

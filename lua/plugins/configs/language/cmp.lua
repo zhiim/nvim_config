@@ -9,16 +9,12 @@ return { -- Autocompletion
         build = (function()
           -- Build Step is needed for regex support in snippets.
           -- This step is not supported in many windows environments.
-          -- Remove the below condition to re-enable on windows.
-          if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
+          if vim.fn.executable 'make' == 0 then
             return
           end
           return 'make install_jsregexp'
         end)(),
         dependencies = {
-          -- `friendly-snippets` contains a variety of premade snippets.
-          --    See the README about individual language/framework/plugin snippets:
-          --    https://github.com/rafamadriz/friendly-snippets
           {
             'rafamadriz/friendly-snippets',
             config = function()
@@ -78,7 +74,9 @@ return { -- Autocompletion
           format = function(entry, vim_item)
             -- path source
             if vim.tbl_contains({ 'path' }, entry.source.name) then
-              local icon, hl_group = require('nvim-web-devicons').get_icon(entry.completion_item.label)
+              local icon, hl_group = require('nvim-web-devicons').get_icon(
+                entry.completion_item.label
+              )
               if icon then
                 vim_item.kind = icon
                 vim_item.kind_hl_group = hl_group
@@ -89,7 +87,11 @@ return { -- Autocompletion
             -- Kind icons
             -- concatenates the icons with the name of the item kind
             vim_item.abbr = vim_item.abbr .. ' '
-            vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) .. ' '
+            vim_item.kind = string.format(
+              '%s %s',
+              kind_icons[vim_item.kind],
+              vim_item.kind
+            ) .. ' '
             -- Source
             vim_item.menu = ({
               buffer = '(Buffer)',

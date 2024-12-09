@@ -15,10 +15,30 @@ return {
             desc = 'Read Saved Session',
             action = ":lua vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Leader>rsr', true, false, true), 'm', true)",
           },
-          { icon = '  ', key = 'r', desc = 'Recent Files', action = ':Telescope oldfiles' },
-          { icon = '  ', key = 'f', desc = 'Find File', action = ':Telescope find_files' },
-          { icon = '  ', key = 'w', desc = 'Find Word', action = ':Telescope live_grep' },
-          { icon = '  ', key = 'e', desc = 'New Files', action = ':ene | startinsert' },
+          {
+            icon = '  ',
+            key = 'r',
+            desc = 'Recent Files',
+            action = ':Telescope oldfiles',
+          },
+          {
+            icon = '  ',
+            key = 'f',
+            desc = 'Find File',
+            action = ':Telescope find_files',
+          },
+          {
+            icon = '  ',
+            key = 'w',
+            desc = 'Find Word',
+            action = ':Telescope live_grep',
+          },
+          {
+            icon = '  ',
+            key = 'e',
+            desc = 'New Files',
+            action = ':ene | startinsert',
+          },
           {
             icon = '  ',
             key = 'q',
@@ -33,8 +53,20 @@ return {
       sections = {
         { section = 'header' },
         { section = 'keys', gap = 1, padding = 1 },
-        { icon = ' ', title = 'Recent Files', section = 'recent_files', indent = 2, padding = 1 },
-        { icon = ' ', title = 'Projects', section = 'projects', indent = 2, padding = 1 },
+        {
+          icon = ' ',
+          title = 'Recent Files',
+          section = 'recent_files',
+          indent = 2,
+          padding = 1,
+        },
+        {
+          icon = ' ',
+          title = 'Projects',
+          section = 'projects',
+          indent = 2,
+          padding = 1,
+        },
         { section = 'startup' },
       },
     },
@@ -108,7 +140,9 @@ return {
         end
         vim.print = _G.dd -- Override print to use snacks for `:=` command
 
-        Snacks.toggle.option('relativenumber', { off = false, on = true }):map '<leader>tn'
+        Snacks.toggle
+          .option('relativenumber', { off = false, on = true })
+          :map '<leader>tn'
       end,
     })
   end,

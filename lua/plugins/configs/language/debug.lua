@@ -51,15 +51,19 @@ return {
       config = function()
         require('cmp').setup {
           enabled = function()
-            return vim.bo.buftype ~= 'prompt' or require('cmp_dap').is_dap_buffer()
+            return vim.bo.buftype ~= 'prompt'
+              or require('cmp_dap').is_dap_buffer()
           end,
         }
 
-        require('cmp').setup.filetype({ 'dap-repl', 'dapui_watches', 'dapui_hover' }, {
-          sources = {
-            { name = 'dap' },
-          },
-        })
+        require('cmp').setup.filetype(
+          { 'dap-repl', 'dapui_watches', 'dapui_hover' },
+          {
+            sources = {
+              { name = 'dap' },
+            },
+          }
+        )
       end,
     },
   },
@@ -76,42 +80,72 @@ return {
     })
 
     require('mason-nvim-dap').setup {
-      -- Makes a best effort to setup the various debuggers with
-      -- reasonable debug configurations
       automatic_installation = true,
-
-      -- You can provide additional configuration to the handlers, see mason-nvim-dap README for more information
       handlers = {},
 
-      -- You'll need to check that you have the required things installed
-      -- online, please don't ask me how to install them :)
       ensure_installed = {
-        -- Update this to ensure that you have the debuggers for the langs you want
         'python',
         'codelldb',
       },
     }
 
-    -- Basic debugging keymaps, feel free to change to your liking!
-    vim.keymap.set({ 'n', 'i' }, '<F5>', dap.continue, { desc = 'Debug start/continue' })
-    vim.keymap.set({ 'n', 'i' }, '<F4>', dap.terminate, { desc = 'Debug terminate' })
-    vim.keymap.set({ 'n', 'i' }, '<F1>', dap.step_into, { desc = 'Debug step into' })
-    vim.keymap.set({ 'n', 'i' }, '<F2>', dap.step_over, { desc = 'Debug step over' })
-    vim.keymap.set({ 'n', 'i' }, '<F3>', dap.step_out, { desc = 'Debug step out' })
-    -- vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
-    -- vim.keymap.set('n', '<leader>B', function()
-    --   dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
-    -- end, { desc = 'Debug: Set Breakpoint' })
+    vim.keymap.set(
+      { 'n', 'i' },
+      '<F5>',
+      dap.continue,
+      { desc = 'Debug start/continue' }
+    )
+    vim.keymap.set(
+      { 'n', 'i' },
+      '<F4>',
+      dap.terminate,
+      { desc = 'Debug terminate' }
+    )
+    vim.keymap.set(
+      { 'n', 'i' },
+      '<F1>',
+      dap.step_into,
+      { desc = 'Debug step into' }
+    )
+    vim.keymap.set(
+      { 'n', 'i' },
+      '<F2>',
+      dap.step_over,
+      { desc = 'Debug step over' }
+    )
+    vim.keymap.set(
+      { 'n', 'i' },
+      '<F3>',
+      dap.step_out,
+      { desc = 'Debug step out' }
+    )
 
-    local dapui_opt = {}
-    dapui.setup(dapui_opt)
+    ---@diagnostic disable-next-line: missing-fields
+    dapui.setup {}
 
     -- re-define some DAP signs
-    vim.fn.sign_define('DapStopped', { text = '󰁕 ', texthl = 'DiagnosticWarn', linehl = 'DapStoppedLine', numhl = 'DapStoppedLine' })
-    vim.fn.sign_define('DapBreakpoint', { text = ' ', texthl = 'DiagnosticInfo', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapBreakpointCondition', { text = ' ', texthl = 'DiagnosticInfo', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapBreakpointRejected', { text = ' ', texthl = 'DiagnosticInfo', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapLogPoint', { text = '.>', texthl = 'DiagnosticInfo', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapStopped', {
+      text = '󰁕 ',
+      texthl = 'DiagnosticWarn',
+      linehl = 'DapStoppedLine',
+      numhl = 'DapStoppedLine',
+    })
+    vim.fn.sign_define(
+      'DapBreakpoint',
+      { text = ' ', texthl = 'DiagnosticInfo', linehl = '', numhl = '' }
+    )
+    vim.fn.sign_define(
+      'DapBreakpointCondition',
+      { text = ' ', texthl = 'DiagnosticInfo', linehl = '', numhl = '' }
+    )
+    vim.fn.sign_define(
+      'DapBreakpointRejected',
+      { text = ' ', texthl = 'DiagnosticInfo', linehl = '', numhl = '' }
+    )
+    vim.fn.sign_define(
+      'DapLogPoint',
+      { text = '.>', texthl = 'DiagnosticInfo', linehl = '', numhl = '' }
+    )
 
     -- key mappings for DAP UI
     vim.keymap.set({ 'n', 'i' }, '<F6>', function()
@@ -125,6 +159,7 @@ return {
       dapui.eval(expr)
     end, { desc = 'Debug eval expression' })
     vim.keymap.set({ 'n' }, '<leader>duf', function()
+      ---@diagnostic disable-next-line: missing-parameter
       dapui.float_element()
     end, { desc = 'Debug float element' })
 
@@ -139,9 +174,14 @@ return {
     end
 
     if vim.fn.has 'win32' == 0 then
-      require('dap-python').setup(vim.fn.stdpath 'data' .. '/mason/packages/debugpy/venv/bin/python')
+      require('dap-python').setup(
+        vim.fn.stdpath 'data' .. '/mason/packages/debugpy/venv/bin/python'
+      )
     else
-      require('dap-python').setup(vim.fn.stdpath 'data' .. '/mason/packages/debugpy/venv/Scripts/python.exe')
+      require('dap-python').setup(
+        vim.fn.stdpath 'data'
+          .. '/mason/packages/debugpy/venv/Scripts/python.exe'
+      )
     end
     table.insert(require('dap').configurations.python, {
       type = 'python',

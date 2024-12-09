@@ -66,14 +66,23 @@ local get_mappings = function(mappings, tb_to_add)
     local desc = v.desc
 
     -- dont include mappings which have \n in their desc
-    if not desc or (select(2, desc:gsub('%S+', '')) <= 1) or string.find(desc, '\n') then
+    if
+      not desc
+      or (select(2, desc:gsub('%S+', '')) <= 1)
+      or string.find(desc, '\n')
+    then
       goto continue
     end
 
     local heading = desc:match '%S+' -- get first word
 
     -- useful for including groups
-    if not (vim.tbl_contains(included_groups, heading) or vim.tbl_contains(included_groups, desc:match '%S+')) then
+    if
+      not (
+        vim.tbl_contains(included_groups, heading)
+        or vim.tbl_contains(included_groups, desc:match '%S+')
+      )
+    then
       goto continue
     end
 
@@ -84,14 +93,16 @@ local get_mappings = function(mappings, tb_to_add)
       tb_to_add[heading] = {}
     end
 
-    local keybind = string.sub(v.lhs, 1, 1) == ' ' and '<leader> +' .. v.lhs or v.lhs
+    local keybind = string.sub(v.lhs, 1, 1) == ' ' and '<leader> +' .. v.lhs
+      or v.lhs
 
     desc = v.desc:match '%s(.+)' -- remove first word from desc
     desc = capitalize(desc)
 
     -- if desc is already present in the table, dont add it
     local appended = false
-    tb_to_add[heading], appended = append_mode(tb_to_add[heading], keybind, v.mode)
+    tb_to_add[heading], appended =
+      append_mode(tb_to_add[heading], keybind, v.mode)
     if appended then
       goto continue
     end
@@ -119,7 +130,8 @@ local organize_mappings = function()
 end
 
 local rand_hlgroup = function()
-  local hlgroups = { 'Blue', 'Red', 'Green', 'Yellow', 'Orange', 'Magenta', 'Cyan' }
+  local hlgroups =
+    { 'Blue', 'Red', 'Green', 'Yellow', 'Orange', 'Magenta', 'Cyan' }
 
   return 'Ch' .. hlgroups[math.random(1, #hlgroups)]
 end
@@ -142,7 +154,8 @@ function M.draw()
 
   vim.wo[win].winhl = 'NormalFloat:Normal'
 
-  local ascii_padding = (api.nvim_win_get_width(win) / 2) - (#ascii_header[1] / 2)
+  local ascii_padding = (api.nvim_win_get_width(win) / 2)
+    - (#ascii_header[1] / 2)
 
   for i, str in ipairs(ascii_header) do
     ascii_header[i] = string.rep(' ', ascii_padding) .. str
@@ -163,12 +176,17 @@ function M.draw()
   -- 10 = space between mapping txt , 4 = 2 & 2 space around mapping txt
   column_width = column_width + 10
 
-  local win_width = vim.o.columns - vim.fn.getwininfo(api.nvim_get_current_win())[1].textoff - 4
+  local win_width = vim.o.columns
+    - vim.fn.getwininfo(api.nvim_get_current_win())[1].textoff
+    - 4
 
   local columns_qty = math.floor(win_width / column_width)
-  columns_qty = (win_width / column_width < 10 and columns_qty == 0) and 1 or columns_qty
+  columns_qty = (win_width / column_width < 10 and columns_qty == 0) and 1
+    or columns_qty
 
-  column_width = math.floor((win_width - (column_width * columns_qty)) / columns_qty) + column_width
+  column_width = math.floor(
+    (win_width - (column_width * columns_qty)) / columns_qty
+  ) + column_width
 
   -- add mapping tables with their headings as key names
   local cards = {}
@@ -176,10 +194,16 @@ function M.draw()
 
   for name, section in pairs(state.mappings_tb) do
     for _, mapping in ipairs(section) do
-      local padding_left = math.floor((column_width - vim.fn.strdisplaywidth(name)) / 2)
+      local padding_left =
+        math.floor((column_width - vim.fn.strdisplaywidth(name)) / 2)
 
       -- center the heading
-      name = string.rep(' ', padding_left) .. name .. string.rep(' ', column_width - vim.fn.strdisplaywidth(name) - padding_left)
+      name = string.rep(' ', padding_left)
+        .. name
+        .. string.rep(
+          ' ',
+          column_width - vim.fn.strdisplaywidth(name) - padding_left
+        )
 
       table.insert(card_headings, name)
 
@@ -189,8 +213,12 @@ function M.draw()
 
       table.insert(cards[name], string.rep(' ', column_width))
 
-      local whitespace_len = column_width - 4 - vim.fn.strdisplaywidth(mapping[1] .. mapping[2])
-      local pretty_mapping = mapping[1] .. string.rep(' ', whitespace_len) .. mapping[2]
+      local whitespace_len = column_width
+        - 4
+        - vim.fn.strdisplaywidth(mapping[1] .. mapping[2])
+      local pretty_mapping = mapping[1]
+        .. string.rep(' ', whitespace_len)
+        .. mapping[2]
 
       table.insert(cards[name], '  ' .. pretty_mapping .. '  ')
     end
@@ -233,12 +261,18 @@ function M.draw()
         break
       elseif
         column == 1
-        and (getColumn_height(mappings) < getColumn_height(columns[#columns]) or getColumn_height(mappings) == getColumn_height(columns[#columns]))
+        and (
+          getColumn_height(mappings) < getColumn_height(columns[#columns])
+          or getColumn_height(mappings) == getColumn_height(columns[#columns])
+        )
       then
         columns[column][#columns[column] + 1] = heading
         append_table(columns[column], cards[heading])
         break
-      elseif column ~= 1 and (getColumn_height(columns[column - 1]) > getColumn_height(mappings)) then
+      elseif
+        column ~= 1
+        and (getColumn_height(columns[column - 1]) > getColumn_height(mappings))
+      then
         if not vim.tbl_contains(columns[1], heading) then
           columns[column][#columns[column] + 1] = heading
           append_table(columns[column], cards[heading])
@@ -287,12 +321,18 @@ function M.draw()
   -- add highlight to the columns
   for i = 0, max_col_height, 1 do
     for column_i, _ in ipairs(columns) do
-      local col_start = column_i == 1 and 0 or (column_i - 1) * column_width + ((column_i - 1) * 2)
+      local col_start = column_i == 1 and 0
+        or (column_i - 1) * column_width + ((column_i - 1) * 2)
 
       if columns[column_i][i] then
         -- highlight headings & one line after it
         if vim.tbl_contains(card_headings, columns[column_i][i]) then
-          local lines = api.nvim_buf_get_lines(buf, i + #ascii_header - 1, i + #ascii_header + 1, false)
+          local lines = api.nvim_buf_get_lines(
+            buf,
+            i + #ascii_header - 1,
+            i + #ascii_header + 1,
+            false
+          )
 
           -- highlight area around card heading
           api.nvim_buf_add_highlight(
@@ -301,7 +341,10 @@ function M.draw()
             'ChSection',
             i + #ascii_header - 1,
             vim.fn.byteidx(lines[1], col_start),
-            vim.fn.byteidx(lines[1], col_start) + column_width + vim.fn.strlen(columns[column_i][i]) - vim.fn.strdisplaywidth(columns[column_i][i])
+            vim.fn.byteidx(lines[1], col_start)
+              + column_width
+              + vim.fn.strlen(columns[column_i][i])
+              - vim.fn.strdisplaywidth(columns[column_i][i])
           )
           -- highlight card heading & randomize hl groups for colorful colors
           api.nvim_buf_add_highlight(
@@ -309,8 +352,11 @@ function M.draw()
             cheatsheet,
             rand_hlgroup(),
             i + #ascii_header - 1,
-            vim.fn.stridx(lines[1], vim.trim(columns[column_i][i]), col_start) - 1,
-            vim.fn.stridx(lines[1], vim.trim(columns[column_i][i]), col_start) + vim.fn.strlen(vim.trim(columns[column_i][i])) + 1
+            vim.fn.stridx(lines[1], vim.trim(columns[column_i][i]), col_start)
+              - 1,
+            vim.fn.stridx(lines[1], vim.trim(columns[column_i][i]), col_start)
+              + vim.fn.strlen(vim.trim(columns[column_i][i]))
+              + 1
           )
           api.nvim_buf_add_highlight(
             buf,
@@ -322,15 +368,23 @@ function M.draw()
           )
 
           -- highlight mappings & one line after it
-        elseif string.match(columns[column_i][i], '%s+') ~= columns[column_i][i] then
-          local lines = api.nvim_buf_get_lines(buf, i + #ascii_header - 1, i + #ascii_header + 1, false)
+        elseif
+          string.match(columns[column_i][i], '%s+') ~= columns[column_i][i]
+        then
+          local lines = api.nvim_buf_get_lines(
+            buf,
+            i + #ascii_header - 1,
+            i + #ascii_header + 1,
+            false
+          )
           api.nvim_buf_add_highlight(
             buf,
             cheatsheet,
             'ChSection',
             i + #ascii_header - 1,
             vim.fn.stridx(lines[1], columns[column_i][i], col_start),
-            vim.fn.stridx(lines[1], columns[column_i][i], col_start) + vim.fn.strlen(columns[column_i][i])
+            vim.fn.stridx(lines[1], columns[column_i][i], col_start)
+              + vim.fn.strlen(columns[column_i][i])
           )
           api.nvim_buf_add_highlight(
             buf,

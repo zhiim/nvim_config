@@ -51,7 +51,8 @@ function utils.get_palette()
       return require('material.colors').main
     end,
     github = function()
-      local palette = require('github-theme.palette').load(vim.g.options.scheme_style)
+      local palette =
+        require('github-theme.palette').load(vim.g.options.scheme_style)
       return {
         red = palette.red.base,
         yellow = palette.yellow.base,
@@ -76,7 +77,8 @@ function utils.get_palette()
       }
     end,
     nightfox = function()
-      local palette = require('nightfox.palette').load(vim.g.options.scheme_style)
+      local palette =
+        require('nightfox.palette').load(vim.g.options.scheme_style)
       return {
         red = palette.red.base,
         yellow = palette.yellow.base,
@@ -120,9 +122,14 @@ function utils.gen_make_files()
     gen_result =
       vim.fn.system 'cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -S . -B build -G "Unix Makefiles"'
   else
-    gen_result = vim.fn.system 'cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -S . -B build'
+    gen_result =
+      vim.fn.system 'cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -S . -B build'
   end
-  vim.notify(gen_result, vim.log.levels.INFO, { title = 'Generate build files' })
+  vim.notify(
+    gen_result,
+    vim.log.levels.INFO,
+    { title = 'Generate build files' }
+  )
   vim.api.nvim_command 'LspRestart clangd'
 end
 
@@ -148,7 +155,11 @@ function utils.read_options()
     -- read cache into options
     vim.g.options = vim.json.decode(file:read '*a')
   end, function(err)
-    vim.notify('Error reading cache file: ' .. err, vim.log.levels.ERROR, { title = 'Cache Read' })
+    vim.notify(
+      'Error reading cache file: ' .. err,
+      vim.log.levels.ERROR,
+      { title = 'Cache Read' }
+    )
   end)
 end
 
@@ -159,7 +170,11 @@ function utils.write_options()
     -- write default options into cache
     file:write(vim.json.encode(vim.g.options))
   end, function(err)
-    vim.notify('Error writing cache file: ' .. err, vim.log.levels.ERROR, { title = 'Cache Write' })
+    vim.notify(
+      'Error writing cache file: ' .. err,
+      vim.log.levels.ERROR,
+      { title = 'Cache Write' }
+    )
   end)
 end
 
@@ -254,10 +269,20 @@ function utils.set_options()
   }
 
   local function update_setting(option, result)
-    vim.api.nvim_set_var('options', vim.tbl_extend('force', vim.g.options, { [option] = result }))
+    vim.api.nvim_set_var(
+      'options',
+      vim.tbl_extend('force', vim.g.options, { [option] = result })
+    )
     utils.write_options()
     if vim.g.options[option] == result then
-      vim.notify(option .. ' is set to ' .. tostring(result) .. ', retart vim to apply changes', vim.log.levels.INFO, { title = 'Options Setting' })
+      vim.notify(
+        option
+          .. ' is set to '
+          .. tostring(result)
+          .. ', retart vim to apply changes',
+        vim.log.levels.INFO,
+        { title = 'Options Setting' }
+      )
     end
   end
 
@@ -281,9 +306,12 @@ function utils.set_options()
   end
 
   local function set_string(option)
-    vim.ui.input({ prompt = 'Enter settings (' .. option .. '):' }, function(input)
-      update_setting(option, input)
-    end)
+    vim.ui.input(
+      { prompt = 'Enter settings (' .. option .. '):' },
+      function(input)
+        update_setting(option, input)
+      end
+    )
   end
 
   vim.ui.select({
@@ -312,12 +340,43 @@ function utils.set_options()
     end,
   }, function(choice)
     -- set on or off
-    if utils.find_value(choice, { 'language_support', 'debug', 'git', 'ui', 'util', 'enhance', 'ai', 'tex', 'leetcode' }) then
+    if
+      utils.find_value(
+        choice,
+        {
+          'language_support',
+          'debug',
+          'git',
+          'ui',
+          'util',
+          'enhance',
+          'ai',
+          'tex',
+          'leetcode',
+        }
+      )
+    then
       set_select(choice, { 'on', 'off' })
     -- set one of the options
-    elseif utils.find_value(choice, { 'tab', 'explorer', 'color_scheme', 'scheme_style' }) then
+    elseif
+      utils.find_value(
+        choice,
+        { 'tab', 'explorer', 'color_scheme', 'scheme_style' }
+      )
+    then
       set_select(choice, selections[choice])
-    elseif utils.find_value(choice, { 'proxy', 'bash_path', 'gemini_api_key', 'python_conda_command', 'python_venv_command' }) then
+    elseif
+      utils.find_value(
+        choice,
+        {
+          'proxy',
+          'bash_path',
+          'gemini_api_key',
+          'python_conda_command',
+          'python_venv_command',
+        }
+      )
+    then
       set_string(choice)
     end
   end)
@@ -327,9 +386,13 @@ function utils.pyright_type_checking(mode)
   local clients = vim.lsp.get_clients { name = 'basedpyright' }
   for _, client in pairs(clients) do
     client.config.settings.basedpyright.analysis.typeCheckingMode = mode
-    client.notify('workspace/didChangeConfiguration', { settings = client.config.settings })
+    client.notify(
+      'workspace/didChangeConfiguration',
+      { settings = client.config.settings }
+    )
     vim.notify(
-      'Pyright type checking is set to ' .. client.config.settings.basedpyright.analysis.typeCheckingMode,
+      'Pyright type checking is set to '
+        .. client.config.settings.basedpyright.analysis.typeCheckingMode,
       vim.log.levels.INFO,
       { title = 'Pyright Type Checking' }
     )

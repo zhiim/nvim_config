@@ -12,8 +12,16 @@ return {
     function custom_fname:init(options)
       custom_fname.super.init(self, options)
       self.status_colors = {
-        saved = highlight.create_component_highlight_group({ fg = default_status_colors.saved }, 'filename_status_saved', self.options),
-        modified = highlight.create_component_highlight_group({ fg = default_status_colors.modified }, 'filename_status_modified', self.options),
+        saved = highlight.create_component_highlight_group(
+          { fg = default_status_colors.saved },
+          'filename_status_saved',
+          self.options
+        ),
+        modified = highlight.create_component_highlight_group(
+          { fg = default_status_colors.modified },
+          'filename_status_modified',
+          self.options
+        ),
       }
       if self.options.color == nil then
         self.options.color = ''
@@ -21,7 +29,10 @@ return {
     end
     function custom_fname:update_status()
       local data = custom_fname.super.update_status(self)
-      data = highlight.component_format_highlight(vim.bo.modified and self.status_colors.modified or self.status_colors.saved) .. data
+      data = highlight.component_format_highlight(
+        vim.bo.modified and self.status_colors.modified
+          or self.status_colors.saved
+      ) .. data
       return data
     end
 
@@ -70,7 +81,12 @@ return {
           },
           {
             'diagnostics',
-            symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
+            symbols = {
+              error = ' ',
+              warn = ' ',
+              info = ' ',
+              hint = ' ',
+            },
           },
         },
         lualine_c = {
@@ -79,13 +95,15 @@ return {
             -- Lsp server name .
             function()
               local msg = 'No Active Lsp'
-              local buf_ft = vim.api.nvim_get_option_value('filetype', { buf = 0 })
+              local buf_ft =
+                vim.api.nvim_get_option_value('filetype', { buf = 0 })
               local clients = vim.lsp.get_clients()
               if next(clients) == nil then
                 return msg
               end
               local client_names = ''
               for _, client in ipairs(clients) do
+                ---@diagnostic disable-next-line: undefined-field
                 local filetypes = client.config.filetypes
                 if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
                   client_names = client_names .. client.name .. ' '

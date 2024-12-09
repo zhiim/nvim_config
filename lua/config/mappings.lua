@@ -13,8 +13,18 @@ map('i', '<C-h>', '<Left>', { noremap = true })
 map('i', '<C-l>', '<Right>', { noremap = true })
 
 -- move inside the same line when this line exceeds the window width
-vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+  'n',
+  'j',
+  "v:count == 0 ? 'gj' : 'j'",
+  { expr = true, noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap(
+  'n',
+  'k',
+  "v:count == 0 ? 'gk' : 'k'",
+  { expr = true, noremap = true, silent = true }
+)
 
 -- Diagnostic keymaps were predefined
 vim.diagnostic.config { jump = { float = true } }

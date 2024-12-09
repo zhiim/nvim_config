@@ -81,11 +81,17 @@ vim.g['loaded_ruby_provider'] = 0
 
 -- add binaries installed by mason.nvim to path
 local is_windows = vim.fn.has 'win32' ~= 0
-vim.env.PATH = vim.fn.stdpath 'data' .. '/mason/bin' .. (is_windows and ';' or ':') .. vim.env.PATH
+vim.env.PATH = vim.fn.stdpath 'data'
+  .. '/mason/bin'
+  .. (is_windows and ';' or ':')
+  .. vim.env.PATH
 
 -- use powershell in Windows
 if is_windows then
-  if vim.g.options.bash_path ~= '' and (vim.uv or vim.loop).fs_stat(vim.g.options.bash_path) then
+  if
+    vim.g.options.bash_path ~= ''
+    and (vim.uv or vim.loop).fs_stat(vim.g.options.bash_path)
+  then
     vim.o.shell = vim.g.options.bash_path .. ' -i' .. ' -l'
     vim.o.shellcmdflag = '-s'
   else

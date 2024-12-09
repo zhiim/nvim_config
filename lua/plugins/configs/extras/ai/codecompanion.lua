@@ -17,7 +17,10 @@ return {
     {
       'q',
       function()
-        if vim.api.nvim_get_option_value('filetype', { buf = 0 }) == 'codecompanion' then
+        if
+          vim.api.nvim_get_option_value('filetype', { buf = 0 })
+          == 'codecompanion'
+        then
           vim.cmd 'CodeCompanionChat Toggle'
         end
       end,
@@ -39,7 +42,14 @@ return {
     {
       '<leader>ccm',
       function()
-        local items = { 'gemini_flash', 'gemini_pro', 'gemini_1', 'copilot_claude', 'copilot_4o', 'copilot_o1' }
+        local items = {
+          'gemini_flash',
+          'gemini_pro',
+          'gemini_1',
+          'copilot_claude',
+          'copilot_4o',
+          'copilot_o1',
+        }
         vim.ui.select(items, {
           prompt = 'Select a model:',
           format_item = function(item)

@@ -182,7 +182,12 @@ require('lazy').setup({
           },
         },
       }
-      vim.keymap.set('n', '<leader>sc', '<cmd>Telescope neoclip<CR>', { desc = 'Telescope clipboard history' })
+      vim.keymap.set(
+        'n',
+        '<leader>sc',
+        '<cmd>Telescope neoclip<CR>',
+        { desc = 'Telescope clipboard history' }
+      )
     end,
   },
 
@@ -192,7 +197,9 @@ require('lazy').setup({
       {
         '<leader>cbe',
         function()
-          require('comment-box').llline(9)
+          local line_start_pos = vim.fn.line '.'
+          local line_end_pos = line_start_pos
+          require('comment-box').llline(9, line_start_pos, line_end_pos)
         end,
         mode = 'n',
         desc = 'CommentBox Emphisis Box',
@@ -200,7 +207,9 @@ require('lazy').setup({
       {
         '<leader>cbt',
         function()
-          require('comment-box').llline(15)
+          local line_start_pos = vim.fn.line '.'
+          local line_end_pos = line_start_pos
+          require('comment-box').llline(15, line_start_pos, line_end_pos)
         end,
         mode = 'n',
         desc = 'CommentBox Title Line',
@@ -208,9 +217,20 @@ require('lazy').setup({
       {
         '<leader>cbb',
         function()
-          require('comment-box').lcbox(10)
+          local line_start_pos, line_end_pos
+          if vim.api.nvim_get_mode().mode:match '[vV]' then
+            line_start_pos = vim.fn.line 'v'
+            line_end_pos = vim.fn.line '.'
+            if line_start_pos > line_end_pos then
+              line_start_pos, line_end_pos = line_end_pos, line_start_pos
+            end
+          else
+            line_start_pos = vim.fn.line '.'
+            line_end_pos = line_start_pos
+          end
+          require('comment-box').lcbox(10, line_start_pos, line_end_pos)
         end,
-        mode = 'n',
+        mode = { 'n', 'v' },
         desc = 'CommentBox Content Box',
       },
       {
@@ -224,9 +244,20 @@ require('lazy').setup({
       {
         '<leader>cbd',
         function()
-          require('comment-box').dbox()
+          local line_start_pos, line_end_pos
+          if vim.api.nvim_get_mode().mode:match '[vV]' then
+            line_start_pos = vim.fn.line 'v'
+            line_end_pos = vim.fn.line '.'
+            if line_start_pos > line_end_pos then
+              line_start_pos, line_end_pos = line_end_pos, line_start_pos
+            end
+          else
+            line_start_pos = vim.fn.line '.'
+            line_end_pos = line_start_pos
+          end
+          require('comment-box').dbox(line_start_pos, line_end_pos)
         end,
-        mode = 'n',
+        mode = { 'n', 'v' },
         desc = 'CommentBox Delete',
       },
     },

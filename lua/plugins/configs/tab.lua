@@ -5,19 +5,49 @@ local tab_tools = {
     init = function()
       vim.g.barbar_auto_setup = false
       -- barbar
-      vim.keymap.set('n', '<tab>', '<cmd>BufferNext<CR>', { desc = 'Buffer goto next' })
-      vim.keymap.set('n', '<S-tab>', '<cmd>BufferPrevious<CR>', { desc = 'Buffer goto previous' })
-      vim.keymap.set('n', '<A-,>', '<cmd>BufferMovePrevious<CR>', { desc = 'Buffer move previous' })
-      vim.keymap.set('n', '<A-.>', '<cmd>BufferMoveNext<CR>', { desc = 'Buffer move next' })
+      vim.keymap.set(
+        'n',
+        '<tab>',
+        '<cmd>BufferNext<CR>',
+        { desc = 'Buffer goto next' }
+      )
+      vim.keymap.set(
+        'n',
+        '<S-tab>',
+        '<cmd>BufferPrevious<CR>',
+        { desc = 'Buffer goto previous' }
+      )
+      vim.keymap.set(
+        'n',
+        '<A-,>',
+        '<cmd>BufferMovePrevious<CR>',
+        { desc = 'Buffer move previous' }
+      )
+      vim.keymap.set(
+        'n',
+        '<A-.>',
+        '<cmd>BufferMoveNext<CR>',
+        { desc = 'Buffer move next' }
+      )
       for i = 1, 9 do
-        vim.keymap.set('n', '<A-' .. i .. '>', '<cmd>BufferGoto ' .. i .. '<CR>', { desc = 'buffer goto ' .. i })
+        vim.keymap.set(
+          'n',
+          '<A-' .. i .. '>',
+          '<cmd>BufferGoto ' .. i .. '<CR>',
+          { desc = 'buffer goto ' .. i }
+        )
       end
       if vim.g.options.enhance then
         vim.keymap.set('n', '<leader>x', function()
           Snacks.bufdelete()
         end, { desc = 'buffer close' })
       else
-        vim.keymap.set('n', '<leader>x', '<cmd>BufferClose<CR>', { desc = 'Buffer close', noremap = true, silent = true })
+        vim.keymap.set(
+          'n',
+          '<leader>x',
+          '<cmd>BufferClose<CR>',
+          { desc = 'Buffer close', noremap = true, silent = true }
+        )
       end
     end,
     opts = {
@@ -46,7 +76,8 @@ local tab_tools = {
           diagnostics_indicator = function(_, _, diagnostics_dict)
             local s = ' '
             for e, n in pairs(diagnostics_dict) do
-              local sym = e == 'error' and ' ' or (e == 'warning' and ' ' or ' ')
+              local sym = e == 'error' and ' '
+                or (e == 'warning' and ' ' or ' ')
               s = s .. n .. sym
             end
             return s
@@ -63,14 +94,37 @@ local tab_tools = {
           },
           custom_filter = function(buf, _)
             -- dont show help buffers in the bufferline
-            return not require('utils.util').find_value(vim.bo[buf].filetype, { 'dap-repl', 'codecompanion' })
+            return not require('utils.util').find_value(
+              vim.bo[buf].filetype,
+              { 'dap-repl', 'codecompanion' }
+            )
           end,
         },
       }
-      vim.keymap.set('n', '<tab>', '<cmd>BufferLineCycleNext<CR>', { desc = 'Buffer goto next' })
-      vim.keymap.set('n', '<S-tab>', '<cmd>BufferLineCyclePrev<CR>', { desc = 'Buffer goto previous' })
-      vim.keymap.set('n', '<A-,>', '<cmd>BufferLineMovePrev<CR>', { desc = 'Buffer move previous' })
-      vim.keymap.set('n', '<A-.>', '<cmd>BufferLineMoveNext<CR>', { desc = 'Buffer move next' })
+      vim.keymap.set(
+        'n',
+        '<tab>',
+        '<cmd>BufferLineCycleNext<CR>',
+        { desc = 'Buffer goto next' }
+      )
+      vim.keymap.set(
+        'n',
+        '<S-tab>',
+        '<cmd>BufferLineCyclePrev<CR>',
+        { desc = 'Buffer goto previous' }
+      )
+      vim.keymap.set(
+        'n',
+        '<A-,>',
+        '<cmd>BufferLineMovePrev<CR>',
+        { desc = 'Buffer move previous' }
+      )
+      vim.keymap.set(
+        'n',
+        '<A-.>',
+        '<cmd>BufferLineMoveNext<CR>',
+        { desc = 'Buffer move next' }
+      )
       -- for i = 1, 9 do
       --   vim.keymap.set('n', '<A-' .. i .. '>', function()
       --     require('bufferline').go_to(i, true)
@@ -81,7 +135,12 @@ local tab_tools = {
           Snacks.bufdelete()
         end, { desc = 'Buffer close' })
       else
-        vim.keymap.set('n', '<leader>x', '<cmd> bp|sp|bn|bd! <CR>', { desc = 'Buffer close', noremap = true, silent = true })
+        vim.keymap.set(
+          'n',
+          '<leader>x',
+          '<cmd> bp|sp|bn|bd! <CR>',
+          { desc = 'Buffer close', noremap = true, silent = true }
+        )
       end
     end,
   },
@@ -90,18 +149,34 @@ local tab_tools = {
     'nanozuki/tabby.nvim',
     event = 'BufReadPre',
     config = function()
-      vim.opt.sessionoptions = 'curdir,folds,globals,help,tabpages,terminal,winsize'
+      vim.opt.sessionoptions =
+        'curdir,folds,globals,help,tabpages,terminal,winsize'
       -- always show tabline
       vim.o.showtabline = 2
 
-      vim.keymap.set('n', '<tab>', '<cmd>bnext<CR>', { desc = 'Buffer goto next' })
-      vim.keymap.set('n', '<S-tab>', '<cmd>bpre<CR>', { desc = 'Buffer goto previous' })
+      vim.keymap.set(
+        'n',
+        '<tab>',
+        '<cmd>bnext<CR>',
+        { desc = 'Buffer goto next' }
+      )
+      vim.keymap.set(
+        'n',
+        '<S-tab>',
+        '<cmd>bpre<CR>',
+        { desc = 'Buffer goto previous' }
+      )
       if vim.g.options.enhance then
         vim.keymap.set('n', '<leader>x', function()
           Snacks.bufdelete()
         end, { desc = 'Buffer close' })
       else
-        vim.keymap.set('n', '<leader>x', '<cmd> bp|sp|bn|bd! <CR>', { desc = 'Buffer close', noremap = true, silent = true })
+        vim.keymap.set(
+          'n',
+          '<leader>x',
+          '<cmd> bp|sp|bn|bd! <CR>',
+          { desc = 'Buffer close', noremap = true, silent = true }
+        )
       end
 
       local theme = {}
@@ -137,7 +212,10 @@ local tab_tools = {
         }
         local label = ''
         for severity, icon in pairs(icons) do
-          local n = #vim.diagnostic.get(bufnr, { severity = vim.diagnostic.severity[string.upper(severity)] })
+          local n = #vim.diagnostic.get(
+            bufnr,
+            { severity = vim.diagnostic.severity[string.upper(severity)] }
+          )
           if n > 0 then
             label = label .. ' ' .. icon .. n
           end
@@ -156,7 +234,12 @@ local tab_tools = {
               },
 
               line.bufs().foreach(function(buf)
-                if require('utils.util').find_value(vim.bo[buf.id].filetype, { 'dap-repl', 'codecompanion' }) then
+                if
+                  require('utils.util').find_value(
+                    vim.bo[buf.id].filetype,
+                    { 'dap-repl', 'codecompanion' }
+                  )
+                then
                   return {}
                 end
                 local hl = buf.is_current() and theme.current_buf or theme.buf
@@ -196,7 +279,12 @@ local tab_tools = {
               },
 
               line.bufs().foreach(function(buf)
-                if require('utils.util').find_value(vim.bo[buf.id].filetype, { 'dap-repl', 'codecompanion' }) then
+                if
+                  require('utils.util').find_value(
+                    vim.bo[buf.id].filetype,
+                    { 'dap-repl', 'codecompanion' }
+                  )
+                then
                   return {}
                 end
                 local hl = buf.is_current() and theme.current_buf or theme.buf
