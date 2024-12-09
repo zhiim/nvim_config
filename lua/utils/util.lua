@@ -51,8 +51,10 @@ function utils.get_palette()
       return require('material.colors').main
     end,
     github = function()
-      local palette =
-        require('github-theme.palette').load(vim.g.options.scheme_style)
+      local palette = require('github-theme.palette').load(
+        vim.g.options.theme_style ~= '' and vim.g.options.theme_style
+          or 'github_dark'
+      )
       return {
         red = palette.red.base,
         yellow = palette.yellow.base,
@@ -77,8 +79,10 @@ function utils.get_palette()
       }
     end,
     nightfox = function()
-      local palette =
-        require('nightfox.palette').load(vim.g.options.scheme_style)
+      local palette = require('nightfox.palette').load(
+        vim.g.options.theme_style ~= '' and vim.g.options.theme_style
+          or 'nightfox'
+      )
       return {
         red = palette.red.base,
         yellow = palette.yellow.base,
@@ -90,7 +94,7 @@ function utils.get_palette()
       }
     end,
   }
-  local color_scheme = vim.g.options.color_scheme
+  local color_scheme = vim.g.options.theme
   return palette_funcs[color_scheme]()
 end
 
@@ -151,7 +155,7 @@ end
 -- read options from cache
 function utils.read_options()
   local cache_path = vim.fn.stdpath 'config' .. '/cache'
-  require('utils.util').with_file(cache_path, 'r', function(file)
+  utils.with_file(cache_path, 'r', function(file)
     -- read cache into options
     vim.g.options = vim.json.decode(file:read '*a')
   end, function(err)
@@ -166,7 +170,7 @@ end
 -- write options to cache
 function utils.write_options()
   local cache_path = vim.fn.stdpath 'config' .. '/cache'
-  require('utils.util').with_file(cache_path, 'w+', function(file)
+  utils.with_file(cache_path, 'w+', function(file)
     -- write default options into cache
     file:write(vim.json.encode(vim.g.options))
   end, function(err)
@@ -233,7 +237,7 @@ function utils.set_options()
   local selections = {
     tab = { 'barbar', 'bufferline', 'tabby' },
     explorer = { 'nvimtree', 'neotree' },
-    color_scheme = {
+    theme = {
       'github',
       'tokyonight',
       'catppuccin',
@@ -244,8 +248,8 @@ function utils.set_options()
       'onenord',
       'nordic',
     },
-    -- scheme_style options
-    scheme_style = style_options[vim.g.options.color_scheme] or {},
+    -- theme_style options
+    theme_style = style_options[vim.g.options.theme] or {},
   }
   local option_info = {
     proxy = 'Proxy settings',
@@ -260,8 +264,8 @@ function utils.set_options()
     leetcode = 'Enable LeetCode',
     tab = 'Select tabline plugin',
     explorer = 'Select file explorer plugin',
-    color_scheme = 'Select theme',
-    scheme_style = 'Select style of the theme',
+    theme = 'Select theme',
+    theme_style = 'Select style of the theme',
     bash_path = 'Set bash path in windows to use bash in terminal',
     gemini_api_key = 'Set gemini api key for AI tools',
     python_conda_command = 'Set command to find python env path of Conda',
@@ -269,11 +273,29 @@ function utils.set_options()
   }
 
   local function update_setting(option, result)
+    -- if theme changed, reset theme_style
+    if
+      option == 'theme'
+      and utils.find_value(result, selections.theme)
+      and result ~= vim.g.options.theme
+    then
+      vim.g.theme_changed = true
+      vim.api.nvim_set_var(
+        'options',
+        vim.tbl_extend('force', vim.g.options, { ['theme_style'] = '' })
+      )
+    end
+    -- apply theme style when changed
+    if option == 'theme_style' and not vim.g.theme_changed then
+      vim.cmd.colorscheme(result)
+    end
+    -- set option
     vim.api.nvim_set_var(
       'options',
       vim.tbl_extend('force', vim.g.options, { [option] = result })
     )
     utils.write_options()
+
     if vim.g.options[option] == result then
       vim.notify(
         option
@@ -327,8 +349,8 @@ function utils.set_options()
     'leetcode',
     'tab',
     'explorer',
-    'color_scheme',
-    'scheme_style',
+    'theme',
+    'theme_style',
     'bash_path',
     'gemini_api_key',
     'python_conda_command',
@@ -341,41 +363,32 @@ function utils.set_options()
   }, function(choice)
     -- set on or off
     if
-      utils.find_value(
-        choice,
-        {
-          'language_support',
-          'debug',
-          'git',
-          'ui',
-          'util',
-          'enhance',
-          'ai',
-          'tex',
-          'leetcode',
-        }
-      )
+      utils.find_value(choice, {
+        'language_support',
+        'debug',
+        'git',
+        'ui',
+        'util',
+        'enhance',
+        'ai',
+        'tex',
+        'leetcode',
+      })
     then
       set_select(choice, { 'on', 'off' })
     -- set one of the options
     elseif
-      utils.find_value(
-        choice,
-        { 'tab', 'explorer', 'color_scheme', 'scheme_style' }
-      )
+      utils.find_value(choice, { 'tab', 'explorer', 'theme', 'theme_style' })
     then
       set_select(choice, selections[choice])
     elseif
-      utils.find_value(
-        choice,
-        {
-          'proxy',
-          'bash_path',
-          'gemini_api_key',
-          'python_conda_command',
-          'python_venv_command',
-        }
-      )
+      utils.find_value(choice, {
+        'proxy',
+        'bash_path',
+        'gemini_api_key',
+        'python_conda_command',
+        'python_venv_command',
+      })
     then
       set_string(choice)
     end

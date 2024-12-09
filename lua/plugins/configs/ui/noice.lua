@@ -112,11 +112,6 @@ return {
             color = { fg = fg_colors.blue },
           },
           {
-            require('noice').api.status.mode.get,
-            cond = require('noice').api.status.mode.has,
-            color = { fg = fg_colors.magenta },
-          },
-          {
             require('noice').api.status.search.get,
             cond = require('noice').api.status.search.has,
             color = { fg = fg_colors.orange },

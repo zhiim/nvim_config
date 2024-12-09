@@ -1,6 +1,6 @@
 return {
   'kevinhwang91/nvim-ufo',
-  event = 'VeryLazy',
+  event = 'BufRead',
   dependencies = 'kevinhwang91/promise-async',
   enabled = vim.fn.has 'nvim-0.7.2',
   config = function()

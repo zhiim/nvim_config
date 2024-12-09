@@ -17,7 +17,10 @@ end
 return {
   'stevearc/resession.nvim',
   enabled = vim.fn.has 'nvim-0.7.2',
-  dependencies = { 'stevearc/oil.nvim' },
+  dependencies = {
+    { 'stevearc/oil.nvim' },
+    { 'luukvbaal/statuscol.nvim' },
+  },
   keys = {
     {
       '<leader>rss',

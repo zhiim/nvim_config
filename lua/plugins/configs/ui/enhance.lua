@@ -83,7 +83,7 @@ if vim.g.options.enhance then
             mixing_color = require('utils.util').get_hl('Normal').bg,
           },
           blend = {
-            factor = 0.12,
+            factor = 0.1,
           },
           options = {
             -- Show the source of the diagnostic.

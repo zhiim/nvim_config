@@ -68,23 +68,23 @@ local file_explorers = {
             default = '󰈚',
             symlink = '',
             folder = {
-              default = '',
-              empty = '',
-              empty_open = '',
-              open = '',
+              default = '󰉋',
+              empty = '󰉋',
+              empty_open = '󰜌',
+              open = '󰝰',
               symlink = '',
               symlink_open = '',
               arrow_open = '',
               arrow_closed = '',
             },
             git = {
-              unstaged = '✗',
-              staged = '✓',
+              unstaged = '',
+              staged = '',
               unmerged = '',
-              renamed = '➜',
-              untracked = '★',
+              renamed = '󰁕',
+              untracked = '',
               deleted = '',
-              ignored = '◌',
+              ignored = '',
             },
           },
         },
@@ -234,8 +234,8 @@ local file_explorers = {
           expander_highlight = 'NeoTreeExpander',
         },
         icon = {
-          folder_closed = '',
-          folder_open = '',
+          folder_closed = '󰉋',
+          folder_open = '󰝰',
           folder_empty = '󰜌',
         },
         modified = {
@@ -247,13 +247,13 @@ local file_explorers = {
             -- Change type
             added = '', -- or "✚", but this is redundant info if you use git_status_colors on the name
             modified = '', -- or "", but this is redundant info if you use git_status_colors on the name
-            deleted = '✖', -- this can only be used in the git_status source
+            deleted = '', -- this can only be used in the git_status source
             renamed = '󰁕', -- this can only be used in the git_status source
             -- Status type
             untracked = '',
             ignored = '',
-            unstaged = '󰄱',
-            staged = '󰱒',
+            unstaged = '',
+            staged = '',
             conflict = '',
           },
         },

@@ -1,4 +1,6 @@
-local color_scheme = vim.g.options.color_scheme or 'onedark'
+local color_scheme = vim.g.options.theme ~= ''
+    and vim.g.options.theme
+  or 'onedark'
 local theme_plugins = {
   ['onedark'] = 'olimorris/onedarkpro.nvim',
   ['onenord'] = 'rmehri01/onenord.nvim',
@@ -12,7 +14,10 @@ local theme_plugins = {
 }
 
 local function set_theme()
-  vim.cmd.colorscheme(vim.g.options.scheme_style or color_scheme)
+  vim.cmd.colorscheme(
+    vim.g.options.theme_style ~= '' and vim.g.options.theme_style
+      or color_scheme
+  )
 end
 
 local config_funcs = {
@@ -43,11 +48,16 @@ local config_funcs = {
   ['material'] = function()
     require('material').setup {}
     vim.cmd.colorscheme 'material'
-    vim.g.material_style = vim.g.scheme_style or 'deep ocean'
+    vim.g.material_style = vim.g.options.theme_style ~= ''
+        and vim.g.options.theme_style
+      or 'deep ocean'
   end,
   ['github'] = function()
     require('github-theme').setup {}
-    set_theme()
+    vim.cmd.colorscheme(
+      vim.g.options.theme_style ~= '' and vim.g.options.theme_style
+        or 'github_dark'
+    )
     -- set notify body to normal color
     vim.cmd [[
       highlight link NotifyERRORBody Normal
@@ -64,8 +74,8 @@ local config_funcs = {
     set_theme()
   end,
   ['nightfox'] = function()
-    set_theme()
     require('nightfox').setup {}
+    set_theme()
   end,
 }
 

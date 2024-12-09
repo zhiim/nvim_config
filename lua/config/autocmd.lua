@@ -152,5 +152,8 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       'ChCyan',
       { fg = get_hl('Normal').bg, bg = colors.cyan }
     )
+
+    vim.api.nvim_set_hl(0, 'NeoTreeExpander', { fg = colors.blue })
+    vim.api.nvim_set_hl(0, 'NeoTreeModified', { fg = colors.red })
   end,
 })

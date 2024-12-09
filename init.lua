@@ -27,8 +27,8 @@ vim.g.options = {
   tab = 'barbar',
   explorer = 'nvimtree',
   -- ━━ Set colorscheme ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  color_scheme = 'github',
-  scheme_style = 'github_dark_dimmed',
+  theme = 'github',
+  theme_style = 'github_dark_dimmed',
   -- ━━ use bash in windows ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   bash_path = '',
   -- ━━ gemini api key ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
