@@ -2,7 +2,6 @@ return {
   'b0o/incline.nvim',
   event = 'BufReadPre',
   config = function()
-    local helpers = require 'incline.helpers'
     local devicons = require 'nvim-web-devicons'
 
     require('incline').setup {
@@ -68,8 +67,9 @@ return {
           return label
         end
 
-        local color_column_hl = require('utils.util').get_hl('ColorColumn').bg
-        local normal_hl = require('utils.util').get_hl('Normal').bg
+        local get_hl = require('utils.util').get_hl
+        local color_column_hl = get_hl('ColorColumn').bg
+        local normal_hl = get_hl('Normal').bg
         return {
           ft_icon and {
             '',
@@ -81,8 +81,7 @@ return {
             ft_icon,
             ' ',
             guibg = props.focused and ft_color or color_column_hl,
-            guifg = props.focused and helpers.contrast_color(ft_color)
-              or ft_color,
+            guifg = props.focused and normal_hl or ft_color,
           } or '',
 
           { ' ', filename, gui = modified and 'italic' or 'bold' },

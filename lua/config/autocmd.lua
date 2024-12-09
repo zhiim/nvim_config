@@ -105,7 +105,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     vim.api.nvim_set_hl(
       0,
       'FloatBorder',
-      { fg = get_hl('Visual').bg, bg = get_hl('Normal').bg, bold = true }
+      { fg = get_hl('FloatBorder').fg, bg = get_hl('Normal').bg, bold = true }
     )
     vim.api.nvim_set_hl(0, 'NormalFloat', { bg = get_hl('Normal').bg })
 
