@@ -19,6 +19,7 @@ return {
   enabled = vim.fn.has 'nvim-0.7.2',
   dependencies = {
     { 'stevearc/oil.nvim' },
+    { 'kevinhwang91/nvim-ufo' },
     { 'luukvbaal/statuscol.nvim' },
   },
   keys = {
