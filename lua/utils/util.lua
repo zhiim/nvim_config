@@ -432,4 +432,47 @@ function utils.get_hl(name)
   }
 end
 
+function utils.copy_file(source, destination)
+  local input_file = io.open(source, 'rb')
+  if not input_file then
+    error('Could not open source file: ' .. source)
+  end
+
+  local output_file = io.open(destination, 'wb')
+  if not output_file then
+    error('Could not open destination file: ' .. destination)
+  end
+
+  local content = input_file:read '*all'
+  output_file:write(content)
+
+  input_file:close()
+  output_file:close()
+end
+
+function utils.lint_format_config()
+  local config_name = {
+    ruff = 'ruff.toml',
+    yamllint = '.yamllint',
+    clang_format = '.clang-format',
+  }
+  vim.ui.select({
+    'ruff',
+    'yamllint',
+    'clang_format',
+  }, {
+    prompt = 'Select a linter or formatter:',
+    format_item = function(item)
+      return item
+    end,
+  }, function(choice)
+    local cwd_file = vim.fn.getcwd() .. '/' .. config_name[choice]
+    local config_file = vim.fn.stdpath 'config'
+      .. '/lua/utils/config_files/'
+      .. config_name[choice]
+    utils.copy_file(config_file, cwd_file)
+    vim.api.nvim_command 'LspRestart'
+  end)
+end
+
 return utils

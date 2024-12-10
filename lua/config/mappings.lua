@@ -55,18 +55,18 @@ map('n', '<C-_>', 'gcc', { desc = 'comment toggle', remap = true })
 map('v', '<C-_>', 'gc', { desc = 'comment toggle', remap = true })
 
 -- cmake
-map('n', '<leader>mk', function()
+map('n', '<leader>umk', function()
   require('utils.util').gen_make_files()
-end, { desc = 'Cmake generate make files' })
+end, { desc = 'utils generate cmake files' })
 
 -- set options
-map('n', '<leader>nf', function()
+map('n', '<leader>uoc', function()
   require('utils.util').set_options()
-end, { desc = 'Options change user options' })
+end, { desc = 'utils change user options' })
 
-map('n', '<leader>nd', function()
+map('n', '<leader>uod', function()
   vim.print(vim.g.options)
-end, { desc = 'Options display user options' })
+end, { desc = 'utils display user options' })
 
 -- cmd to change pyright type checking mode
 vim.cmd "command! -nargs=1 PyrightTypeCheck lua require('utils.util').pyright_type_checking(<f-args>)"
@@ -78,6 +78,10 @@ map('n', 'gt', '<cmd>tabn<CR>', { desc = 'Tab next tab' })
 map('n', 'gT', '<cmd>tabp<CR>', { desc = 'Tab previous tab' })
 
 -- mappings for cheatsheet
-map('n', '<leader>ch', function()
+map('n', '<leader>uch', function()
   require('utils.cheatsheet').draw()
-end, { desc = 'Cheatsheet using extmarks' })
+end, { desc = 'Utils display cheatsheet' })
+
+map('n', '<leader>ufc', function()
+  require('utils.util').lint_format_config()
+end, { desc = 'Utils create config file' })

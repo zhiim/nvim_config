@@ -4,7 +4,7 @@ return { -- Autoformat
   cmd = { 'ConformInfo', 'FormatDisable', 'FormatEnable' },
   config = function()
     local conform = require 'conform'
-    local formatterConfig = vim.fn.stdpath 'config' .. '/config_files/'
+    -- local formatterConfig = vim.fn.stdpath 'config' .. '/config_files/'
 
     conform.setup {
       notify_on_error = false,
@@ -23,8 +23,8 @@ return { -- Autoformat
         markdown = { 'prettier' },
         json = { 'prettier' },
         python = { 'ruff_fix', 'ruff_format' },
-        c = { 'clang_format' },
-        cpp = { 'clang_format' },
+        c = { 'clang-format' },
+        cpp = { 'clang-format' },
         toml = { 'taplo' },
         yaml = { 'prettier' },
         cmake = { 'cmake_format' },
@@ -51,36 +51,36 @@ return { -- Autoformat
       desc = 'Re-enable autoformat-on-save',
     })
 
-    conform.formatters.ruff_fix = {
-      args = {
-        'check',
-        '--fix',
-        '--force-exclude',
-        '--exit-zero',
-        '--no-cache',
-        '--config',
-        formatterConfig .. 'ruff_format.toml',
-        '--stdin-filename',
-        '$FILENAME',
-        '-',
-      },
-    }
+    -- conform.formatters.ruff_fix = {
+    --   args = {
+    --     'check',
+    --     '--fix',
+    --     '--force-exclude',
+    --     '--exit-zero',
+    --     '--no-cache',
+    --     '--config',
+    --     formatterConfig .. 'ruff.toml',
+    --     '--stdin-filename',
+    --     '$FILENAME',
+    --     '-',
+    --   },
+    -- }
+    --
+    -- conform.formatters.ruff_format = {
+    --   args = {
+    --     'format',
+    --     '--config',
+    --     formatterConfig .. 'ruff.toml',
+    --     '--stdin-filename',
+    --     '$FILENAME',
+    --     '-',
+    --   },
+    -- }
 
-    conform.formatters.ruff_format = {
-      args = {
-        'format',
-        '--config',
-        formatterConfig .. 'ruff_format.toml',
-        '--stdin-filename',
-        '$FILENAME',
-        '-',
-      },
-    }
-
-    conform.formatters.clang_format = {
-      prepend_args = {
-        '--style=file:' .. formatterConfig .. 'clang_format.yaml',
-      },
-    }
+    -- conform.formatters.clang_format = {
+    --   prepend_args = {
+    --     '--style=file:' .. formatterConfig .. 'clang_format.yaml',
+    --   },
+    -- }
   end,
 }

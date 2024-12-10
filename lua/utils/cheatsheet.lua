@@ -15,8 +15,7 @@ local ascii = {
 
 -- only show cheatsheet mappings which are in these groups
 local included_groups = {
-  'Move',
-  'Split',
+  'Utils',
   'Terminal',
   'Options',
   'Tab',
