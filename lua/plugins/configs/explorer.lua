@@ -66,7 +66,7 @@ local file_explorers = {
 
           glyphs = {
             default = '󰈚',
-            symlink = '',
+            symlink = '󱅷',
             folder = {
               default = '󰉋',
               empty = '󰉋',
@@ -80,7 +80,7 @@ local file_explorers = {
             git = {
               unstaged = '',
               staged = '',
-              unmerged = '',
+              unmerged = '󰽜',
               renamed = '󰁕',
               untracked = '',
               deleted = '',
@@ -254,7 +254,7 @@ local file_explorers = {
             ignored = '',
             unstaged = '',
             staged = '',
-            conflict = '',
+            conflict = '󰘬',
           },
         },
       },

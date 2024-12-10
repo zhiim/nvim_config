@@ -34,13 +34,13 @@ return {
             action = ':Telescope live_grep',
           },
           {
-            icon = '  ',
+            icon = '  ',
             key = 'e',
             desc = 'New Files',
             action = ':ene | startinsert',
           },
           {
-            icon = '  ',
+            icon = '  ',
             key = 'q',
             desc = 'Quit',
             action = function()

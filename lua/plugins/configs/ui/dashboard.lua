@@ -24,13 +24,13 @@ local config_center = {
     action = 'Telescope live_grep',
   },
   {
-    icon = '  ',
+    icon = '  ',
     desc = 'New Files',
     key = 'e',
     action = 'ene | startinsert',
   },
   {
-    icon = '  ',
+    icon = '  ',
     desc = 'Quit',
     key = 'q',
     action = function()
