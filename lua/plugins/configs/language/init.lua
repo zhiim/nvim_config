@@ -38,19 +38,6 @@ if vim.g.options.language_support then
     },
 
     {
-      'folke/twilight.nvim',
-      cmd = 'Twilight',
-      keys = {
-        {
-          '<leader>tw',
-          '<cmd>Twilight<cr>',
-          mode = 'n',
-          desc = 'Twilight Toggle',
-        },
-      },
-    },
-
-    {
       'linux-cultist/venv-selector.nvim',
       dependencies = {
         'neovim/nvim-lspconfig',

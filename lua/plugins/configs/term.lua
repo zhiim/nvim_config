@@ -22,6 +22,22 @@ return {
       mode = { 'n', 't' },
       desc = 'Terminal toggle in vertical',
     },
+    {
+      '<A-s>',
+      function()
+        local trim_spaces = true
+        if vim.bo.ft == 'python' then
+          trim_spaces = false -- keep spaces
+        end
+        require('toggleterm').send_lines_to_terminal(
+          'visual_selection',
+          trim_spaces,
+          { args = vim.v.count }
+        )
+      end,
+      mode = 'v',
+      desc = 'Terminal send lines to terminal',
+    },
   },
   config = function()
     require('toggleterm').setup {

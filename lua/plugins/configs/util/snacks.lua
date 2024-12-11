@@ -1,9 +1,14 @@
+local cmd_row = math.floor(vim.api.nvim_list_uis()[1].height) * 0.3
+
 return {
   'folke/snacks.nvim',
   priority = 1000,
   enabled = vim.g.options.enhance,
   lazy = false,
   opts = {
+    input = {
+      row = cmd_row,
+    },
     bigfile = { enabled = true },
     dashboard = {
       enabled = true,
@@ -79,19 +84,19 @@ return {
   },
   keys = {
     {
-      '<leader>lg',
+      '<leader>nlg',
       function()
         Snacks.lazygit()
       end,
-      desc = 'Lazygit',
+      desc = 'Snacks Lazygit',
       mode = 'n',
     },
     {
-      '<leader>Rn',
+      '<leader>nrn',
       function()
         Snacks.rename.rename_file()
       end,
-      desc = 'Rename File',
+      desc = 'Snacks rename File',
       mode = 'n',
     },
     {
@@ -99,7 +104,7 @@ return {
       function()
         Snacks.words.jump(vim.v.count1)
       end,
-      desc = 'Next Reference',
+      desc = 'Snacks next Reference',
       mode = 'n',
     },
     {
@@ -107,15 +112,15 @@ return {
       function()
         Snacks.words.jump(-vim.v.count1)
       end,
-      desc = 'Prev Reference',
+      desc = 'Snacks prev Reference',
       mode = 'n',
     },
     {
-      '<leader>nh',
+      '<leader>nnh',
       function()
         Snacks.notifier.show_history()
       end,
-      desc = 'Notification history',
+      desc = 'Snacks notification history',
       mode = 'n',
     },
     {
@@ -123,8 +128,44 @@ return {
       function()
         Snacks.notifier.hide()
       end,
-      desc = 'Notification dismiss all ',
+      desc = 'Snacks notification dismiss all ',
       mode = 'n',
+    },
+    {
+      '<leader>ndm',
+      function()
+        if Snacks.dim.enabled then
+          Snacks.dim.disable()
+        else
+          Snacks.dim.enable()
+        end
+      end,
+      mode = 'n',
+      desc = 'Snacks dim mode toggle',
+    },
+    {
+      '<leader>nzm',
+      function()
+        Snacks.zen()
+      end,
+      mode = 'n',
+      desc = 'Snacks toggle zen mode',
+    },
+    {
+      '<leader>nsc',
+      function()
+        Snacks.scratch()
+      end,
+      mode = 'n',
+      desc = 'Snacks toggle scratch buffer',
+    },
+    {
+      '<leader>nss',
+      function()
+        Snacks.scratch.select()
+      end,
+      mode = 'n',
+      desc = 'Snacks select scratch buffer',
     },
   },
   init = function()

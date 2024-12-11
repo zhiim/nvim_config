@@ -26,7 +26,6 @@ local included_groups = {
   'GrugFar',
   'MiniMap',
   'Resession',
-  'Notification',
   'Explorer',
   'Buffer',
   'Dropbar',
@@ -37,8 +36,8 @@ local included_groups = {
   'Git',
   'Copilot',
   'CodeCompanion',
-  'Next',
-  'Previous',
+  'DimMode',
+  'Snacks',
 } -- can add group name or with mode
 
 local state = {
