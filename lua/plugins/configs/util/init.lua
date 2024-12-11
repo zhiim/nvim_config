@@ -12,7 +12,7 @@ if vim.g.options.util then
       },
       keys = {
         {
-          '<leader>fll',
+          '<leader>fl',
           mode = { 'c', 'n' },
           function()
             require('flash').toggle()
@@ -20,7 +20,7 @@ if vim.g.options.util then
           desc = 'Flash Toggle',
         },
         {
-          '<leader>flj',
+          '<leader>fj',
           mode = { 'n', 'x', 'o' },
           function()
             require('flash').jump()
@@ -28,7 +28,7 @@ if vim.g.options.util then
           desc = 'Flash jump',
         },
         {
-          '<leader>flt',
+          '<leader>ft',
           mode = { 'n', 'x', 'o' },
           function()
             require('flash').treesitter()
@@ -36,7 +36,7 @@ if vim.g.options.util then
           desc = 'Flash Treesitter',
         },
         {
-          '<leader>flr',
+          '<leader>fr',
           mode = 'o',
           function()
             require('flash').remote()
@@ -44,7 +44,7 @@ if vim.g.options.util then
           desc = 'Flash remote',
         },
         {
-          '<leader>fls',
+          '<leader>fs',
           mode = { 'n', 'o', 'x' },
           function()
             require('flash').treesitter_search()

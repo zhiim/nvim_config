@@ -4,7 +4,7 @@ return {
   version = false,
   keys = {
     {
-      '<leader>mdt',
+      '<leader>md',
       function()
         require('mini.diff').toggle_overlay(0)
       end,

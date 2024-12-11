@@ -6,7 +6,7 @@ if vim.g.options.language_support then
       config = true,
       keys = {
         {
-          '<leader>gen',
+          '<leader>ge',
           function()
             require('neogen').generate { type = 'any' }
             require('neogen').setup { snippet_engine = 'luasnip' }
@@ -28,12 +28,6 @@ if vim.g.options.language_support then
       ft = { 'markdown', 'codecompanion', 'copilot-chat' },
       config = function()
         require('render-markdown').setup {}
-        vim.keymap.set(
-          'n',
-          '<leader>rmt',
-          '<cmd>RenderMarkdown toggle<CR>',
-          { desc = 'Toggle markdown preview' }
-        )
       end,
     },
 

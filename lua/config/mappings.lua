@@ -54,8 +54,17 @@ map('n', '<leader>o', '<cmd>only<CR>', { desc = 'close other windows' })
 map('n', '<C-_>', 'gcc', { desc = 'comment toggle', remap = true })
 map('v', '<C-_>', 'gc', { desc = 'comment toggle', remap = true })
 
+-- cmd to change pyright type checking mode
+vim.cmd "command! -nargs=1 PyrightTypeCheck lua require('utils.util').pyright_type_checking(<f-args>)"
+
+-- mappings for ta
+map('n', 'ga', '<cmd>tabnew<CR>', { desc = 'Tab new tab' })
+map('n', 'gx', '<cmd>tabclose<CR>', { desc = 'Tab close tab' })
+map('n', 'gt', '<cmd>tabn<CR>', { desc = 'Tab next tab' })
+map('n', 'gT', '<cmd>tabp<CR>', { desc = 'Tab previous tab' })
+
 -- cmake
-map('n', '<leader>umk', function()
+map('n', '<leader>um', function()
   require('utils.util').gen_make_files()
 end, { desc = 'utils generate cmake files' })
 
@@ -68,20 +77,11 @@ map('n', '<leader>uod', function()
   vim.print(vim.g.options)
 end, { desc = 'utils display user options' })
 
--- cmd to change pyright type checking mode
-vim.cmd "command! -nargs=1 PyrightTypeCheck lua require('utils.util').pyright_type_checking(<f-args>)"
-
--- mappings for ta
-map('n', 'ga', '<cmd>tabnew<CR>', { desc = 'Tab new tab' })
-map('n', 'gx', '<cmd>tabclose<CR>', { desc = 'Tab close tab' })
-map('n', 'gt', '<cmd>tabn<CR>', { desc = 'Tab next tab' })
-map('n', 'gT', '<cmd>tabp<CR>', { desc = 'Tab previous tab' })
-
 -- mappings for cheatsheet
-map('n', '<leader>uch', function()
+map('n', '<leader>uc', function()
   require('utils.cheatsheet').draw()
 end, { desc = 'Utils display cheatsheet' })
 
-map('n', '<leader>ufc', function()
+map('n', '<leader>uf', function()
   require('utils.util').lint_format_config()
 end, { desc = 'Utils create config file' })

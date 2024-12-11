@@ -46,7 +46,7 @@ return { -- LSP Configuration & Plugins
 
         -- Fuzzy find all the symbols in your current document.
         map(
-          '<leader>ds',
+          '<leader>ld',
           require('telescope.builtin').lsp_document_symbols,
           'LSP document symbols'
         )
@@ -54,7 +54,7 @@ return { -- LSP Configuration & Plugins
         -- Fuzzy find all the symbols in your current workspace.
         --  Similar to document symbols, except searches over your entire project.
         map(
-          '<leader>ws',
+          '<leader>lw',
           require('telescope.builtin').lsp_dynamic_workspace_symbols,
           'LSP workspace symbols'
         )
@@ -65,7 +65,7 @@ return { -- LSP Configuration & Plugins
 
         -- Execute a code action, usually your cursor needs to be on top of an error
         -- or a suggestion from your LSP for this to activate.
-        map('<leader>ca', vim.lsp.buf.code_action, 'LSP code action')
+        map('<leader>lc', vim.lsp.buf.code_action, 'LSP code action')
 
         -- Opens a popup that displays documentation about the word under your cursor
         map('K', vim.lsp.buf.hover, 'LSP hover documentation')
@@ -76,13 +76,13 @@ return { -- LSP Configuration & Plugins
 
         vim.keymap.set(
           'n',
-          '<leader>lsp',
+          '<leader>ls',
           '<CMD>LspStop<CR>',
           { desc = 'LSP stop LSP server' }
         )
         vim.keymap.set(
           'n',
-          '<leader>lst',
+          '<leader>lt',
           '<CMD>LspStart<CR>',
           { desc = 'LSP start LSP server' }
         )
@@ -133,7 +133,7 @@ return { -- LSP Configuration & Plugins
           and client.server_capabilities.inlayHintProvider
           and vim.lsp.inlay_hint
         then
-          map('<leader>th', function()
+          map('<leader>lh', function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
           end, 'LSP toggle inlay hints')
         end

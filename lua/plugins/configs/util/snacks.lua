@@ -84,7 +84,7 @@ return {
   },
   keys = {
     {
-      '<leader>nlg',
+      '<leader>ng',
       function()
         Snacks.lazygit()
       end,
@@ -92,7 +92,7 @@ return {
       mode = 'n',
     },
     {
-      '<leader>nrn',
+      '<leader>nr',
       function()
         Snacks.rename.rename_file()
       end,
@@ -124,7 +124,7 @@ return {
       mode = 'n',
     },
     {
-      '<leader>nu',
+      '<leader>nnu',
       function()
         Snacks.notifier.hide()
       end,
@@ -132,7 +132,7 @@ return {
       mode = 'n',
     },
     {
-      '<leader>ndm',
+      '<leader>nd',
       function()
         if Snacks.dim.enabled then
           Snacks.dim.disable()
@@ -144,7 +144,7 @@ return {
       desc = 'Snacks dim mode toggle',
     },
     {
-      '<leader>nzm',
+      '<leader>nz',
       function()
         Snacks.zen()
       end,
@@ -183,7 +183,7 @@ return {
 
         Snacks.toggle
           .option('relativenumber', { off = false, on = true })
-          :map '<leader>tn'
+          :map '<leader>ntn'
       end,
     })
   end,

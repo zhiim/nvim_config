@@ -23,6 +23,30 @@ require('lazy').setup({
     },
     config = function() -- This is the function that runs, AFTER loading
       require('which-key').setup {}
+      require('which-key').add {
+        { '<leader>c', group = 'Copilot, CodeCompanion, CommentBox' },
+        { '<leader>cc', group = 'CodeCompanion' },
+        { '<leader>cp', group = 'Copilot' },
+        { '<leader>cb', group = 'CommentBox' },
+        { '<leader>d', group = 'Dropbar and DiffView' },
+        { '<leader>dv', group = 'DiffView' },
+        { '<leader>f', group = 'Flashs' },
+        { '<leader>g', group = 'GotoPreview, GrugFar, Neogen' },
+        { '<leader>l', group = 'LSP' },
+        { '<leader>m', group = 'Mini' },
+        { '<leader>mm', group = 'Mini.map' },
+        { '<leader>n', group = 'Snacks' },
+        { '<leader>nn', group = 'Snacks.notification' },
+        { '<leader>nt', group = 'Snacks.toggle' },
+        { '<leader>ns', group = 'Snacks.scratch' },
+        { '<leader>r', group = 'Rename, ReSessison' },
+        { '<leader>rs', group = 'ReSessison' },
+        { '<leader>s', group = 'Telescopes' },
+        { '<leader>t', group = 'Trouble' },
+        { '<leader>tb', group = 'Trouble' },
+        { '<leader>u', group = 'Utils' },
+        { '<leader>uo', group = 'Utils.options' },
+      }
     end,
   },
 
