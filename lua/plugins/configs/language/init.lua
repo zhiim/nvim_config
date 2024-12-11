@@ -59,10 +59,10 @@ if vim.g.options.language_support then
       end,
       keys = {
         {
-          '<leader>pv',
+          '<leader>sv',
           '<cmd>VenvSelect<cr>',
           mode = 'n',
-          desc = 'Python Virtual Environment Selection',
+          desc = 'telescope select Python virtual environment',
         },
       },
     },
