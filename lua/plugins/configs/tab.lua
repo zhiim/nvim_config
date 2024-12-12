@@ -125,11 +125,11 @@ local tab_tools = {
         '<cmd>BufferLineMoveNext<CR>',
         { desc = 'Buffer move next' }
       )
-      -- for i = 1, 9 do
-      --   vim.keymap.set('n', '<A-' .. i .. '>', function()
-      --     require('bufferline').go_to(i, true)
-      --   end, { desc = 'Buffer goto ' .. i })
-      -- end
+      for i = 1, 9 do
+        vim.keymap.set('n', '<A-' .. i .. '>', function()
+          require('bufferline').go_to(i, true)
+        end, { desc = 'buffer goto ' .. i })
+      end
       if vim.g.options.enhance then
         vim.keymap.set('n', '<leader>x', function()
           Snacks.bufdelete()
