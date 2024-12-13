@@ -97,6 +97,8 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   callback = function()
     -- set highlight group after load theme
     local get_hl = require('utils.util').get_hl
+    local colors = require('utils.util').get_palette()
+
     -- highlight group for floating windows
     vim.api.nvim_set_hl(
       0,
@@ -110,8 +112,15 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     )
     vim.api.nvim_set_hl(0, 'NormalFloat', { bg = get_hl('Normal').bg })
 
+    vim.api.nvim_set_hl(0, 'RainbowRed', { fg = colors.red })
+    vim.api.nvim_set_hl(0, 'RainbowYellow', { fg = colors.yellow })
+    vim.api.nvim_set_hl(0, 'RainbowBlue', { fg = colors.blue })
+    vim.api.nvim_set_hl(0, 'RainbowOrange', { fg = colors.orange })
+    vim.api.nvim_set_hl(0, 'RainbowGreen', { fg = colors.green })
+    vim.api.nvim_set_hl(0, 'RainbowViolet', { fg = colors.purple })
+    vim.api.nvim_set_hl(0, 'RainbowCyan', { fg = colors.cyan })
+
     -- highlight group for cheatsheet
-    local colors = require('utils.util').get_palette()
     vim.api.nvim_set_hl(0, 'ChAsciiHeader', { fg = get_hl('Title').fg })
     vim.api.nvim_set_hl(
       0,

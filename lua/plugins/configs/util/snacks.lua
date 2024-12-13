@@ -75,6 +75,19 @@ return {
         { section = 'startup' },
       },
     },
+    indent = {
+      indent = {
+        hl = {
+          'RainbowRed',
+          'RainbowYellow',
+          'RainbowBlue',
+          'RainbowOrange',
+          'RainbowGreen',
+          'RainbowViolet',
+          'RainbowCyan',
+        },
+      },
+    },
     notifier = {
       timeout = 3000,
     },

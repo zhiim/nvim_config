@@ -130,19 +130,4 @@ return {
       { desc = 'Telescope search noice' }
     )
   end,
-  dependencies = {
-    -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-    'MunifTanjim/nui.nvim',
-    {
-      'rcarriga/nvim-notify',
-      config = function()
-        local opts = {
-          stages = 'slide',
-        }
-        vim.opt.termguicolors = true
-        require('notify').setup(opts)
-        vim.notify = require 'notify'
-      end,
-    },
-  },
 }

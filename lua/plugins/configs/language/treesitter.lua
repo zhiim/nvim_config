@@ -21,6 +21,7 @@ return { -- Highlight, edit, and navigate code
         'yaml',
         'json',
         'toml',
+        'dap_repl',
       },
       -- Autoinstall languages that are not installed
       auto_install = false,

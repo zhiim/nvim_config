@@ -24,14 +24,19 @@ require('lazy').setup({
     config = function() -- This is the function that runs, AFTER loading
       require('which-key').setup {}
       require('which-key').add {
-        { '<leader>c', group = 'Copilot, CodeCompanion, CommentBox' },
-        { '<leader>cc', group = 'CodeCompanion' },
-        { '<leader>cp', group = 'Copilot' },
-        { '<leader>cb', group = 'CommentBox' },
+        {
+          '<leader>c',
+          group = 'Copilot, CodeCompanion, CommentBox',
+          mode = { 'n', 'v' },
+        },
+        { '<leader>cc', group = 'CodeCompanion', mode = { 'n', 'v' } },
+        { '<leader>cp', group = 'Copilot', mode = { 'n', 'v' } },
+        { '<leader>cb', group = 'CommentBox', mode = { 'n', 'v' } },
         { '<leader>d', group = 'Dropbar and DiffView' },
         { '<leader>dv', group = 'DiffView' },
-        { '<leader>f', group = 'Flashs' },
+        { '<leader>f', group = 'Flashs', mode = { 'n', 'v' } },
         { '<leader>g', group = 'GotoPreview, GrugFar, Neogen' },
+        { '<leader>g', group = 'GrugFar', mode = 'v' },
         { '<leader>l', group = 'LSP' },
         { '<leader>m', group = 'Mini' },
         { '<leader>mm', group = 'Mini.map' },
@@ -52,40 +57,22 @@ require('lazy').setup({
 
   { -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help ibl`
+    enabled = not vim.g.options.enhance,
     event = 'BufRead',
     main = 'ibl',
     opts = {},
     config = function()
-      local highlight = {
-        'RainbowRed',
-        'RainbowYellow',
-        'RainbowBlue',
-        'RainbowOrange',
-        'RainbowGreen',
-        'RainbowViolet',
-        'RainbowCyan',
-      }
-
-      local colors = require('utils.util').get_palette()
-      local hooks = require 'ibl.hooks'
-
-      -- -- create the highlight groups in the highlight setup hook, so they are reset
-      -- -- every time the colorscheme changes
-      hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-        vim.api.nvim_set_hl(0, 'RainbowRed', { fg = colors.red })
-        vim.api.nvim_set_hl(0, 'RainbowYellow', { fg = colors.yellow })
-        vim.api.nvim_set_hl(0, 'RainbowBlue', { fg = colors.blue })
-        vim.api.nvim_set_hl(0, 'RainbowOrange', { fg = colors.orange })
-        vim.api.nvim_set_hl(0, 'RainbowGreen', { fg = colors.green })
-        vim.api.nvim_set_hl(0, 'RainbowViolet', { fg = colors.purple })
-        vim.api.nvim_set_hl(0, 'RainbowCyan', { fg = colors.cyan })
-      end)
-
       require('ibl').setup {
         indent = {
-          highlight = highlight,
+          highlight = {
+            'RainbowRed',
+            'RainbowYellow',
+            'RainbowBlue',
+            'RainbowOrange',
+            'RainbowGreen',
+            'RainbowViolet',
+            'RainbowCyan',
+          },
           char = '▏',
         },
         exclude = {

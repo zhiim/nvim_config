@@ -39,6 +39,13 @@ return {
       end,
     },
 
+    {
+      'LiadOz/nvim-dap-repl-highlights',
+      config = function()
+        require('nvim-dap-repl-highlights').setup()
+      end,
+    },
+
     -- completion for DAP REPL
     {
       'rcarriga/cmp-dap',
@@ -138,16 +145,8 @@ return {
     )
 
     local widgets = require 'dap.ui.widgets'
-    local scopes = widgets.sidebar(
-      widgets.scopes,
-      { width = math.floor(vim.api.nvim_list_uis()[1].width * 0.3) },
-      'vsplit'
-    )
-    local frames = widgets.sidebar(
-      widgets.frames,
-      { height = math.floor(vim.api.nvim_list_uis()[1].height * 0.3) },
-      'split'
-    )
+    local scopes = widgets.centered_float(widgets.scopes)
+    local frames = widgets.centered_float(widgets.frames)
 
     -- key mappings for DAP
     vim.keymap.set({ 'n' }, '<leader>dh', function()
