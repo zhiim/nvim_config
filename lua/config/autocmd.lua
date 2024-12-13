@@ -74,6 +74,7 @@ vim.api.nvim_create_autocmd('FileType', {
     'lspinfo',
     'notify',
     'snacks_win',
+    'dap-float',
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false

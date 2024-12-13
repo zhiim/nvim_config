@@ -6,7 +6,7 @@ return {
   'mfussenegger/nvim-dap',
   keys = {
     {
-      '<F7>',
+      '<F6>',
       function()
         require('dap').toggle_breakpoint()
       end,
@@ -14,7 +14,7 @@ return {
       desc = 'Debug toggle breakpoint',
     },
     {
-      '<F8>',
+      '<F7>',
       function()
         require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
       end,
@@ -23,12 +23,6 @@ return {
     },
   },
   dependencies = {
-    -- Creates a beautiful debugger UI
-    'rcarriga/nvim-dap-ui',
-
-    -- Required dependency for nvim-dap-ui
-    'nvim-neotest/nvim-nio',
-
     -- Installs the debug adapters for you
     'jay-babu/mason-nvim-dap.nvim',
 
@@ -69,7 +63,6 @@ return {
   },
   config = function()
     local dap = require 'dap'
-    local dapui = require 'dapui'
 
     -- auto close repl buffer
     vim.api.nvim_create_autocmd('FileType', {
@@ -120,9 +113,6 @@ return {
       { desc = 'Debug step out' }
     )
 
-    ---@diagnostic disable-next-line: missing-fields
-    dapui.setup {}
-
     -- re-define some DAP signs
     vim.fn.sign_define('DapStopped', {
       text = '󰁕 ',
@@ -147,31 +137,34 @@ return {
       { text = '.>', texthl = 'DiagnosticInfo', linehl = '', numhl = '' }
     )
 
-    -- key mappings for DAP UI
-    vim.keymap.set({ 'n', 'i' }, '<F6>', function()
-      dapui.toggle()
-    end, { desc = 'Debug toggle debug UI' })
-    vim.keymap.set({ 'n' }, '<leader>due', function()
-      dapui.eval()
-    end, { desc = 'Debug eval' })
-    vim.keymap.set({ 'n' }, '<leader>duE', function()
-      local expr = vim.fn.input 'Expression: '
-      dapui.eval(expr)
-    end, { desc = 'Debug eval expression' })
-    vim.keymap.set({ 'n' }, '<leader>duf', function()
-      ---@diagnostic disable-next-line: missing-parameter
-      dapui.float_element()
-    end, { desc = 'Debug float element' })
+    local widgets = require 'dap.ui.widgets'
+    local scopes = widgets.sidebar(
+      widgets.scopes,
+      { width = math.floor(vim.api.nvim_list_uis()[1].width * 0.3) },
+      'vsplit'
+    )
+    local frames = widgets.sidebar(
+      widgets.frames,
+      { height = math.floor(vim.api.nvim_list_uis()[1].height * 0.3) },
+      'split'
+    )
 
-    dap.listeners.after.event_initialized['dapui_config'] = function()
-      dapui.open {}
-    end
-    dap.listeners.before.event_terminated['dapui_config'] = function()
-      dapui.close {}
-    end
-    dap.listeners.before.event_exited['dapui_config'] = function()
-      dapui.close {}
-    end
+    -- key mappings for DAP
+    vim.keymap.set({ 'n' }, '<leader>dh', function()
+      widgets.hover()
+    end, { desc = 'Debug hover' })
+    vim.keymap.set({ 'n' }, '<leader>ds', function()
+      scopes.toggle()
+    end, { desc = 'Debug toggle scopes widget' })
+    vim.keymap.set({ 'n' }, '<leader>df', function()
+      frames.toggle()
+    end, { desc = 'Debug toggle frames widget' })
+    vim.keymap.set({ 'n' }, '<leader>dr', function()
+      require('dap.repl').toggle(
+        { height = math.floor(vim.api.nvim_list_uis()[1].height * 0.4) },
+        'split'
+      )
+    end, { desc = 'Debug toggle repl widget' })
 
     if vim.fn.has 'win32' == 0 then
       require('dap-python').setup(
