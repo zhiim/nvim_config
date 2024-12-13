@@ -305,6 +305,7 @@ require('lazy').setup({
     'tzachar/highlight-undo.nvim',
     event = 'BufRead',
     config = function()
+      vim.api.nvim_set_hl(0, 'HighlightUndo', { link = 'Visual' })
       require('highlight-undo').setup()
     end,
   },
