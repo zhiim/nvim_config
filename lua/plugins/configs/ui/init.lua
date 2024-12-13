@@ -31,6 +31,7 @@ if vim.g.options.ui then
             'neo-tree',
             'NvimTree',
             'toggleterm',
+            'repl',
           },
           segments = {
             -- diagnostic sign

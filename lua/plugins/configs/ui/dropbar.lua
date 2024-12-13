@@ -63,7 +63,7 @@ return {
             -- do not attach to certain filetypes
             and not require('utils.util').find_value(
               vim.bo[buf].ft,
-              { 'help', 'copilot-chat', 'codecompanion' }
+              { 'help', 'copilot-chat', 'codecompanion', 'dap-repl' }
             )
             and ((pcall(vim.treesitter.get_parser, buf)) and true or false)
         end,

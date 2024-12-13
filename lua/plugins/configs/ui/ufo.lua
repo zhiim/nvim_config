@@ -92,6 +92,7 @@ return {
             'toggleterm',
             'dashboard',
             'snacks_dashboard',
+            'dap-repl',
           })
         then
           return ''

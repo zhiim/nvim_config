@@ -43,6 +43,9 @@ return {
       'LiadOz/nvim-dap-repl-highlights',
       config = function()
         require('nvim-dap-repl-highlights').setup()
+        if not require('nvim-treesitter.parsers').has_parser 'dap_repl' then
+          vim.cmd 'TSInstall dap_repl'
+        end
       end,
     },
 
@@ -145,18 +148,16 @@ return {
     )
 
     local widgets = require 'dap.ui.widgets'
-    local scopes = widgets.centered_float(widgets.scopes)
-    local frames = widgets.centered_float(widgets.frames)
 
     -- key mappings for DAP
     vim.keymap.set({ 'n' }, '<leader>dh', function()
       widgets.hover()
     end, { desc = 'Debug hover' })
     vim.keymap.set({ 'n' }, '<leader>ds', function()
-      scopes.toggle()
+      widgets.centered_float(widgets.scopes)
     end, { desc = 'Debug toggle scopes widget' })
     vim.keymap.set({ 'n' }, '<leader>df', function()
-      frames.toggle()
+      widgets.centered_float(widgets.frames)
     end, { desc = 'Debug toggle frames widget' })
     vim.keymap.set({ 'n' }, '<leader>dr', function()
       require('dap.repl').toggle(
