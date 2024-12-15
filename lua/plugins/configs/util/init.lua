@@ -81,6 +81,14 @@ if vim.g.options.util then
       },
     },
 
+    {
+      'echasnovski/mini.surround',
+      version = false,
+      config = function()
+        require('mini.surround').setup {}
+      end,
+    },
+
     require 'plugins.configs.util.minimap',
     require 'plugins.configs.util.snacks',
     require 'plugins.configs.util.session',

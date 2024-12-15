@@ -73,6 +73,8 @@ return {
   },
   config = function()
     local dap = require 'dap'
+    dap.defaults.fallback.terminal_win_cmd = 'split new | resize'
+      .. math.floor(vim.api.nvim_list_uis()[1].height * 0.4)
 
     -- auto close repl buffer
     vim.api.nvim_create_autocmd('FileType', {
@@ -161,8 +163,8 @@ return {
     end, { desc = 'Debug toggle frames widget' })
     vim.keymap.set({ 'n' }, '<leader>dr', function()
       require('dap.repl').toggle(
-        { height = math.floor(vim.api.nvim_list_uis()[1].height * 0.4) },
-        'split'
+        { width = math.floor(vim.api.nvim_list_uis()[1].width * 0.4) },
+        'vsplit'
       )
     end, { desc = 'Debug toggle repl widget' })
 
