@@ -211,9 +211,12 @@ if vim.g.options.language_support then
       keys = {
         {
           '<leader>rn',
-          ':IncRename ',
+          function()
+            return ':IncRename ' .. vim.fn.expand '<cword>'
+          end,
           mode = 'n',
           desc = 'LSP incremental Rename',
+          expr = true,
         },
       },
     },
