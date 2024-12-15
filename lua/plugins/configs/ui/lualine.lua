@@ -38,6 +38,7 @@ return {
 
     require('lualine').setup {
       options = {
+        theme = vim.g.colors_name and vim.g.colors_name or 'auto',
         refresh = {
           statusline = 500,
           tabline = 500,
