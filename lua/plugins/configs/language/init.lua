@@ -159,32 +159,32 @@ if vim.g.options.language_support then
       cmd = 'Trouble',
       keys = {
         {
-          '<leader>tbw',
+          '<leader>tw',
           '<cmd>Trouble diagnostics toggle<cr>',
           desc = 'Trouble Workspace Diagnostics',
         },
         {
-          '<leader>tbb',
+          '<leader>tb',
           '<cmd>Trouble diagnostics toggle filter.buf=0<cr>',
           desc = 'Trouble Buffer Diagnostics',
         },
         {
-          '<leader>tbs',
+          '<leader>ts',
           '<cmd>Trouble symbols toggle<cr>',
           desc = 'Trouble Symbols',
         },
         {
-          '<leader>tbl',
+          '<leader>tl',
           '<cmd>Trouble lsp toggle<cr>',
           desc = 'Trouble LSP Definitions / references / ...',
         },
         {
-          '<leader>tbL',
+          '<leader>tL',
           '<cmd>Trouble loclist toggle<cr>',
           desc = 'Trouble Location List',
         },
         {
-          '<leader>tbq',
+          '<leader>tq',
           '<cmd>Trouble qflist toggle<cr>',
           desc = 'Trouble Quickfix List',
         },

@@ -49,8 +49,8 @@ select = [
   "I",   # isort
 ]
 ignore = [
-  "N802", # function name should be lowwercase (conflict with PyQt)
-  "E402", # import must at top of file (in some case sys.path.append need to
+  # "N802", # function name should be lowwercase (conflict with PyQt)
+  # "E402", # import must at top of file (in some case sys.path.append need to
   # be called before import some modules)
 ]
 

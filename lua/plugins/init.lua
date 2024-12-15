@@ -48,7 +48,6 @@ require('lazy').setup({
         { '<leader>rs', group = 'ReSessison' },
         { '<leader>s', group = 'Telescopes' },
         { '<leader>t', group = 'Trouble' },
-        { '<leader>tb', group = 'Trouble' },
         { '<leader>u', group = 'Utils' },
         { '<leader>uo', group = 'Utils.options' },
       }
