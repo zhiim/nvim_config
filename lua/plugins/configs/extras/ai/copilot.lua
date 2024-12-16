@@ -116,6 +116,9 @@ return {
             insert = '<A-r>',
           },
         },
+        window = {
+          border = 'rounded', -- 'none', single', 'double', 'rounded', 'solid', 'shadow'
+        },
       }
       require('CopilotChat').setup(copilot_config)
     end,

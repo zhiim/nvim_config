@@ -65,10 +65,10 @@ return {
       float_opts = {
         border = 'curved',
         width = function()
-          return math.floor(vim.api.nvim_list_uis()[1].width * 0.8)
+          return math.floor(vim.api.nvim_list_uis()[1].width * 0.85)
         end,
         height = function()
-          return math.floor(vim.api.nvim_list_uis()[1].height * 0.8)
+          return math.floor(vim.api.nvim_list_uis()[1].height * 0.85)
         end,
       },
     }
