@@ -99,7 +99,7 @@ if vim.g.options.language_support then
       'rmagatti/goto-preview',
       keys = {
         {
-          '<leader>gd',
+          '<leader>gtd',
           function()
             require('goto-preview').goto_preview_definition {}
           end,
@@ -107,7 +107,7 @@ if vim.g.options.language_support then
           desc = 'GotoPrevew go to definitions',
         },
         {
-          '<leader>gr',
+          '<leader>gtr',
           function()
             require('goto-preview').goto_preview_references()
           end,
@@ -115,7 +115,7 @@ if vim.g.options.language_support then
           desc = 'GotoPrevew go to references',
         },
         {
-          '<leader>gD',
+          '<leader>gtD',
           function()
             require('goto-preview').goto_preview_declaration {}
           end,
@@ -123,7 +123,7 @@ if vim.g.options.language_support then
           desc = 'GotoPrevew go to declarations',
         },
         {
-          '<leader>gt',
+          '<leader>gtt',
           function()
             require('goto-preview').goto_preview_type_definition {}
           end,
@@ -131,7 +131,7 @@ if vim.g.options.language_support then
           desc = 'GotoPrevew go to type definitions',
         },
         {
-          '<leader>gi',
+          '<leader>gti',
           function()
             require('goto-preview').goto_preview_implementation {}
           end,
@@ -139,7 +139,7 @@ if vim.g.options.language_support then
           desc = 'GotoPrevew go to implementations',
         },
         {
-          '<leader>gc',
+          '<leader>gtc',
           function()
             require('goto-preview').close_all_win()
           end,

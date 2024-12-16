@@ -83,9 +83,87 @@ if vim.g.options.util then
 
     {
       'echasnovski/mini.surround',
+      event = 'BufRead',
       version = false,
       config = function()
         require('mini.surround').setup {}
+      end,
+    },
+
+    {
+      'cbochs/portal.nvim',
+      keys = {
+        {
+          '<leader>pj',
+          function()
+            require('portal.builtin').jumplist.tunnel()
+          end,
+          mode = 'n',
+          desc = 'Portal jumplist',
+        },
+        {
+          '<leader>pc',
+          function()
+            require('portal.builtin').changelist.tunnel()
+          end,
+          mode = 'n',
+          desc = 'Portal changelist',
+        },
+      },
+      config = function()
+        require('portal').setup {
+          escape = {
+            ['q'] = true,
+          },
+          window_options = {
+            border = 'rounded',
+          },
+        }
+      end,
+    },
+
+    {
+      'cbochs/grapple.nvim',
+      opts = {
+        scope = 'git', -- default scope when creating a new tag
+      },
+      cmd = 'Grapple',
+      keys = {
+        {
+          '<leader>gpt',
+          function()
+            require('grapple').toggle()
+          end,
+          desc = 'Grapple toggle tag',
+        },
+        {
+          '<leader>gpT',
+          function()
+            require('grapple').toggle { scope = 'global' }
+          end,
+          desc = 'Grapple toggle global tag',
+        },
+        {
+          '<leader>gpw',
+          function()
+            require('grapple').open_tags()
+          end,
+          desc = 'Grapple open tags window',
+        },
+        {
+          '<leader>gpW',
+          function()
+            require('grapple').open_tags { scope = 'global' }
+          end,
+          desc = 'Grapple open global tags window',
+        },
+      },
+      config = function()
+        require('grapple').setup {
+          window_options = {
+            border = 'rounded',
+          },
+        }
       end,
     },
 

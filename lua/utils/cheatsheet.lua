@@ -38,6 +38,8 @@ local included_groups = {
   'CodeCompanion',
   'DimMode',
   'Snacks',
+  'Portal',
+  'Grapple',
 } -- can add group name or with mode
 
 local state = {
