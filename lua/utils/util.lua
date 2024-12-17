@@ -455,11 +455,13 @@ function utils.lint_format_config()
     ruff = 'ruff.toml',
     yamllint = '.yamllint',
     clang_format = '.clang-format',
+    stylua = '.stylua.toml',
   }
   vim.ui.select({
     'ruff',
     'yamllint',
     'clang_format',
+    'stylua',
   }, {
     prompt = 'Select a linter or formatter:',
     format_item = function(item)
