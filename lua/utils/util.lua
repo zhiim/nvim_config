@@ -457,17 +457,21 @@ function utils.lint_format_config()
     clang_format = '.clang-format',
     stylua = '.stylua.toml',
   }
-  vim.ui.select({
+  local options = {
     'ruff',
     'yamllint',
     'clang_format',
     'stylua',
-  }, {
+  }
+  vim.ui.select(options, {
     prompt = 'Select a linter or formatter:',
     format_item = function(item)
       return item
     end,
   }, function(choice)
+    if not utils.find_value(choice, options) then
+      return
+    end
     local cwd_file = vim.fn.getcwd() .. '/' .. config_name[choice]
     local config_file = vim.fn.stdpath 'config'
       .. '/lua/utils/config_files/'
