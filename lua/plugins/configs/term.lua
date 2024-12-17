@@ -49,6 +49,12 @@ return {
         end
       end,
       highlights = {
+        Normal = {
+          link = 'NormalFloat',
+        },
+        NormalFloat = {
+          link = 'NormalFloat',
+        },
         FloatBorder = {
           link = 'FloatBorder',
         },
