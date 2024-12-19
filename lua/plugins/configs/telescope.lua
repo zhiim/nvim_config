@@ -153,6 +153,12 @@ return { -- Fuzzy Finder (files, lsp, etc)
       '<cmd>Telescope undo<cr>',
       { desc = 'Telescope search undo history' }
     )
+    vim.keymap.set(
+      'n',
+      '<leader>s\\',
+      builtin.highlights,
+      { desc = 'Telescope search highlights' }
+    )
 
     vim.keymap.set('n', '<leader>sl', function()
       builtin.current_buffer_fuzzy_find(
