@@ -15,6 +15,9 @@ return {
           ['vim.lsp.util.stylize_markdown'] = true,
           ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
         },
+        hover = {
+          silent = true, -- do not show a message if hover is not available
+        },
         signature = {
           enabled = false, -- used lsp_signature instead
         },
@@ -76,13 +79,6 @@ return {
       routes = {
         -- dismiss written messages
         -- dismiss lsp hover's no information available
-        {
-          filter = {
-            event = 'notify',
-            find = 'No information available',
-          },
-          opts = { skip = true },
-        },
       },
       views = {
         mini = {
