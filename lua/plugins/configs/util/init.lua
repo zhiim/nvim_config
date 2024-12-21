@@ -117,6 +117,7 @@ if vim.g.options.util then
           },
           window_options = {
             border = 'rounded',
+            height = 5,
           },
         }
       end,
@@ -160,7 +161,7 @@ if vim.g.options.util then
       },
       config = function()
         require('grapple').setup {
-          window_options = {
+          win_opts = {
             border = 'rounded',
           },
         }
