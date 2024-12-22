@@ -224,11 +224,15 @@ if vim.g.options.language_support then
     {
       'folke/lazydev.nvim',
       ft = 'lua',
+      dependencies = {
+        { 'gonstoll/wezterm-types', lazy = true },
+      },
       opts = {
         library = {
           'snacks.nvim',
           -- Load luvit types when the `vim.uv` word is found
           { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+          { path = 'wezterm-types', mods = { 'wezterm' } },
         },
       },
     },

@@ -6,6 +6,12 @@ return {
     -- add any options here
   },
   config = function()
+    local get_hl = require('utils.util').get_hl
+    vim.api.nvim_set_hl(
+      0,
+      'MyMiniBorder',
+      { bg = get_hl('Normal').bg, fg = get_hl('FloatBorder').fg }
+    )
     local cmd_row = math.floor(vim.api.nvim_list_uis()[1].height) * 0.3
     require('noice').setup {
       lsp = {
@@ -82,6 +88,12 @@ return {
       },
       views = {
         mini = {
+          win_options = {
+            winhighlight = {
+              Normal = 'Normal',
+              FloatBorder = 'NoiceCmdlinePopupBorder',
+            },
+          },
           align = 'message-center',
           position = {
             row = -1, -- bottom
