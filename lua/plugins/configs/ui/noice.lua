@@ -90,13 +90,12 @@ return {
         mini = {
           win_options = {
             winhighlight = {
-              Normal = 'Normal',
-              FloatBorder = 'NoiceCmdlinePopupBorder',
+              FloatBorder = 'MyMiniBorder',
             },
           },
           align = 'message-center',
           position = {
-            row = -1, -- bottom
+            row = -2, -- bottom
             col = '50%', -- center
           },
           border = {
