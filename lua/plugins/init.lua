@@ -170,6 +170,38 @@ require('lazy').setup({
         mode = 'n',
         desc = 'Resize Up',
       },
+      {
+        '<A-H>',
+        function()
+          require('smart-splits').swap_buf_left()
+        end,
+        mode = 'n',
+        desc = 'Swap Left',
+      },
+      {
+        '<A-L>',
+        function()
+          require('smart-splits').swap_buf_right()
+        end,
+        mode = 'n',
+        desc = 'Swap Right',
+      },
+      {
+        '<A-J>',
+        function()
+          require('smart-splits').swap_buf_down()
+        end,
+        mode = 'n',
+        desc = 'Swap Down',
+      },
+      {
+        '<A-K>',
+        function()
+          require('smart-splits').swap_buf_up()
+        end,
+        mode = 'n',
+        desc = 'Swap Up',
+      },
     },
     config = function()
       require('smart-splits').setup {}
