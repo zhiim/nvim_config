@@ -167,7 +167,7 @@ return { -- LSP Configuration & Plugins
         settings = {
           basedpyright = {
             analysis = {
-              typeCheckingMode = 'basic', -- off, basic, standard, strict, all
+              typeCheckingMode = 'off', -- off, basic, standard, strict, all
               autoImportCompletions = false,
               autoSearchPaths = true,
               diagnosticMode = 'openFilesOnly',
