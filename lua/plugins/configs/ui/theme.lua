@@ -10,6 +10,7 @@ local theme_plugins = {
   ['github'] = 'projekt0n/github-nvim-theme',
   ['kanagawa'] = 'rebelot/kanagawa.nvim',
   ['nightfox'] = 'EdenEast/nightfox.nvim',
+  ['everforest'] = 'neanias/everforest-nvim',
 }
 
 local function set_theme()
@@ -82,6 +83,10 @@ local config_funcs = {
   ['nightfox'] = function()
     require('nightfox').setup {}
     set_theme()
+  end,
+  ['everforest'] = function()
+    require('everforest').setup {}
+    vim.cmd.colorscheme 'everforest'
   end,
 }
 

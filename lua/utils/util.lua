@@ -2,16 +2,17 @@ local utils = {}
 
 --- get palette according to color_scheme
 function utils.get_palette()
+  local default_palette = {
+    red = '#E06C75',
+    yellow = '#E5C07B',
+    blue = '#61AFEF',
+    orange = '#D19A66',
+    green = '#98C379',
+    magenta = '#C678DD',
+    cyan = '#56B6C2',
+  }
   if not vim.g.options.ui then
-    return {
-      red = '#E06C75',
-      yellow = '#E5C07B',
-      blue = '#61AFEF',
-      orange = '#D19A66',
-      green = '#98C379',
-      magenta = '#C678DD',
-      cyan = '#56B6C2',
-    }
+    return default_palette
   end
   local palette_funcs = {
     onedark = function()
@@ -91,6 +92,21 @@ function utils.get_palette()
         green = palette.green.base,
         purple = palette.magenta.base,
         cyan = palette.cyan.base,
+      }
+    end,
+    everforest = function()
+      local palette = require('everforest.colours').generate_palette(
+        require('everforest').config,
+        vim.o.background
+      )
+      return {
+        red = palette.red,
+        yellow = palette.yellow,
+        blue = palette.blue,
+        orange = palette.orange,
+        green = palette.green,
+        purple = palette.purple,
+        cyan = palette.aqua,
       }
     end,
   }
@@ -244,6 +260,7 @@ function utils.set_options()
       'nightfox',
       'kanagawa',
       'onedark',
+      'everforest',
       'material',
       'onenord',
       'nordic',

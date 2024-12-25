@@ -38,7 +38,7 @@ return {
 
     require('lualine').setup {
       options = {
-        theme = vim.g.colors_name and vim.g.colors_name or 'auto',
+        theme = 'auto',
         refresh = {
           statusline = 500,
           tabline = 500,
@@ -112,7 +112,7 @@ return {
               end
               return client_names
             end,
-            icon = ' LSP:',
+            icon = '󰐱 LSP:',
           },
         },
       },
