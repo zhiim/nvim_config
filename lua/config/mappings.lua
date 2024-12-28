@@ -51,8 +51,14 @@ map('n', '<leader>=', '<C-w>s', { desc = 'Split horizontally' })
 map('n', '<leader>o', '<cmd>only<CR>', { desc = 'close other windows' })
 
 -- Comment
-map('n', '<C-_>', 'gcc', { desc = 'comment toggle', remap = true })
-map('v', '<C-_>', 'gc', { desc = 'comment toggle', remap = true })
+if vim.fn.has 'linux' ~= 0 then
+  -- fix Ctrl + / in linux (wezterm, kitty)
+  map('n', '<C-/>', 'gcc', { desc = 'comment toggle', remap = true })
+  map('v', '<C-/>', 'gc', { desc = 'comment toggle', remap = true })
+else
+  map('n', '<C-_>', 'gcc', { desc = 'comment toggle', remap = true })
+  map('v', '<C-_>', 'gc', { desc = 'comment toggle', remap = true })
+end
 
 -- cmd to change pyright type checking mode
 vim.cmd "command! -nargs=1 PyrightTypeCheck lua require('utils.util').pyright_type_checking(<f-args>)"
