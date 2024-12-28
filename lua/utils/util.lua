@@ -261,8 +261,8 @@ function utils.set_options()
       'kanagawa',
       'onedark',
       'everforest',
-      'material',
       'onenord',
+      'material',
       'nordic',
     },
     -- theme_style options

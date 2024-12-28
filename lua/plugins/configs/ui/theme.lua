@@ -126,6 +126,11 @@ local config_funcs = {
   end,
   ['material'] = function()
     require('material').setup {
+      contrast = {
+        terminal = true, -- Enable contrast for the built-in terminal
+        sidebars = true, -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
+        floating_windows = true, -- Enable contrast for floating windows
+      },
       styles = {
         comments = { italic = true },
         strings = {},
@@ -219,7 +224,12 @@ local config_funcs = {
     set_theme()
   end,
   ['everforest'] = function()
-    require('everforest').setup {}
+    ---@diagnostic disable-next-line:missing-fields
+    require('everforest').setup {
+      background = 'hard',
+      italics = true,
+      float_style = 'dim',
+    }
     vim.cmd.colorscheme 'everforest'
   end,
 }
