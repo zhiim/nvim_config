@@ -303,7 +303,16 @@ function utils.set_options()
       )
     end
     -- apply theme style when changed
-    if option == 'theme_style' and not vim.g.theme_changed then
+    if
+      option == 'theme_style'
+      and not vim.g.theme_changed
+      and not utils.find_value(vim.g.options.theme, {
+        'everforest',
+        'material',
+        'onenord',
+        'nordic',
+      })
+    then
       vim.cmd.colorscheme(result)
     end
     -- set option

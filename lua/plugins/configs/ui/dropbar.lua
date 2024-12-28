@@ -13,6 +13,7 @@ return {
     },
   },
   config = function()
+    vim.api.nvim_set_hl(0, 'DropBarMenuHoverEntry', { link = 'CursorLine' })
     -- hightlight current file name
     local custom_path = {
       get_symbols = function(buff, win, cursor)

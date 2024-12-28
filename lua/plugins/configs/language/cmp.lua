@@ -107,7 +107,7 @@ return { -- Autocompletion
         },
         window = {
           completion = cmp.config.window.bordered {
-            winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel',
+            winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder,CursorLine:MyPmenuSel',
           },
           documentation = cmp.config.window.bordered {
             winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder',
