@@ -18,14 +18,18 @@ return {
       enabled = true,
     },
     storage = {
-      home = 'C:\\Users\\user\\OneDrive\\Apps\\leetcode',
+      home = vim.fn.getcwd(),
     },
     hooks = {
       ['enter'] = function()
-        vim.cmd 'Copilot disable'
+        if vim.g.options.ai then
+          vim.cmd 'Copilot disable'
+        end
       end,
       ['leave'] = function()
-        vim.cmd 'Copilot enable'
+        if vim.g.options.ai then
+          vim.cmd 'Copilot enable'
+        end
       end,
     },
     image_support = true,
