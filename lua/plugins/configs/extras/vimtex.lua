@@ -1,10 +1,8 @@
-if not vim.g.options.tex then
-  return {}
-end
 return {
   'lervag/vimtex',
   ft = { 'tex', 'plaintex' },
   -- tag = "v2.15", -- uncomment to pin to a specific release
+  enabled = vim.g.options.tex,
   init = function()
     -- VimTeX configuration goes here, e.g.
     vim.g.tex_flavor = 'latex'
