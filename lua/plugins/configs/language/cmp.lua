@@ -26,11 +26,16 @@ return { -- Autocompletion
       'saadparwaiz1/cmp_luasnip',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      {
+        'tzachar/cmp-fuzzy-buffer',
+        dependencies = { 'tzachar/fuzzy.nvim' },
+      },
     },
     config = function()
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
+      local compare = require 'cmp.config.compare'
 
       local kind_icons = {
         Text = '',
@@ -99,6 +104,7 @@ return { -- Autocompletion
               luasnip = '(LuaSnip)',
               path = '(Path)',
               vimtex = '(TeX)',
+              fuzzy_buffer = '(Fuzzy)',
             })[entry.source.name]
             vim_item.menu_hl_group = 'Comment'
 
@@ -130,17 +136,38 @@ return { -- Autocompletion
           -- Manually trigger a completion from nvim-cmp.
           ['<C-Space>'] = cmp.mapping.complete {},
         },
-        sources = cmp.config.sources({
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' }, -- For luasnip users.
-          { name = 'path' },
-          {
-            name = 'lazydev',
-            group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+        sorting = {
+          priority_weight = 2,
+          comparators = {
+            require 'cmp_fuzzy_buffer.compare',
+            compare.offset,
+            compare.exact,
+            -- compare.scopes,
+            compare.score,
+            compare.recently_used,
+            compare.locality,
+            compare.kind,
+            -- compare.sort_text,
+            compare.length,
+            compare.order,
           },
-        }, {
-          { name = 'buffer' },
-        }),
+        },
+        sources = cmp.config.sources(
+          {
+            { name = 'nvim_lsp' },
+            { name = 'luasnip' }, -- For luasnip users.
+            { name = 'path' },
+            {
+              name = 'lazydev',
+              group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+            },
+          },
+          -- if no item in the list, use the following sources
+          {
+            { name = 'fuzzy_buffer' },
+            { name = 'buffer' },
+          }
+        ),
       }
     end,
   },

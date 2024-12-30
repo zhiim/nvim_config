@@ -32,7 +32,7 @@ return {
         end
       end,
     },
-    image_support = true,
+    image_support = vim.fn.has 'linux' and vim.fn.has 'wsl' == 0,
     config = function()
       vim.cmd 'TSUpdate html'
     end,
