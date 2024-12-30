@@ -39,7 +39,7 @@ if vim.g.options.ui then
               sign = {
                 namespace = { 'diagnostic*' },
                 maxwidth = 1,
-                colwidth = 2,
+                colwidth = 1,
                 auto = true,
               },
               click = 'v:lua.ScSa',
