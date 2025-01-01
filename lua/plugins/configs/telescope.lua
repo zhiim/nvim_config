@@ -21,7 +21,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
     -- highlight group
     local get_hl = require('utils.util').get_hl
     local bg = get_hl('NormalFloat').bg
-    local colors = require('utils.util').get_palette()
+    local colors = require('utils.palette').get_palette()
     local preview_title = colors.green
     local prompt_title_bg = colors.blue
     local result_title_bg = colors.orange

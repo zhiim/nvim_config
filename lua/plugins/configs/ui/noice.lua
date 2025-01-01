@@ -108,7 +108,7 @@ return {
         },
       },
     }
-    local fg_colors = require('utils.util').get_palette()
+    local fg_colors = require('utils.palette').get_palette()
     require('lualine').setup {
       sections = {
         lualine_x = {

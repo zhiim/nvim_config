@@ -76,7 +76,7 @@ end, { desc = 'utils generate cmake files' })
 
 -- set options
 map('n', '<leader>uoc', function()
-  require('utils.util').set_options()
+  require('utils.option').set_options()
 end, { desc = 'utils change user options' })
 
 map('n', '<leader>uod', function()

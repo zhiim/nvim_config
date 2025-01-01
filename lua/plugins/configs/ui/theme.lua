@@ -11,6 +11,7 @@ local theme_plugins = {
   ['kanagawa'] = 'rebelot/kanagawa.nvim',
   ['nightfox'] = 'EdenEast/nightfox.nvim',
   ['everforest'] = 'neanias/everforest-nvim',
+  ['gruvbox'] = 'ellisonleao/gruvbox.nvim',
 }
 
 local function set_theme()
@@ -80,9 +81,15 @@ local config_funcs = {
   end,
   ['nordic'] = function()
     require('nordic').setup {
+      on_highlight = function(highlights, palette)
+        highlights.FoldColumn = {
+          link = 'Normal',
+        }
+      end,
       bold_keywords = true,
       -- Enable italic comments.
       italic_comments = true,
+      bright_border = true,
       telescope = {
         -- Available styles: `classic`, `flat`.
         style = 'classic',
@@ -231,6 +238,23 @@ local config_funcs = {
       float_style = 'dim',
     }
     vim.cmd.colorscheme 'everforest'
+  end,
+  ['gruvbox'] = function()
+    ---@diagnostic disable-next-line:missing-fields
+    require('gruvbox').setup {
+      italic = {
+        strings = false,
+        emphasis = true,
+        comments = true,
+        operators = false,
+        folds = true,
+      },
+      overrides = {
+        FoldColumn = { link = 'Normal' },
+        SignColumn = { link = 'Normal' },
+      },
+    }
+    vim.cmd.colorscheme 'gruvbox'
   end,
 }
 

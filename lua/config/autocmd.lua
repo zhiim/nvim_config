@@ -97,7 +97,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   callback = function()
     -- set highlight group after load theme
     local get_hl = require('utils.util').get_hl
-    local colors = require('utils.util').get_palette()
+    local colors = require('utils.palette').get_palette()
 
     -- highlight group for floating windows
     vim.api.nvim_set_hl(
