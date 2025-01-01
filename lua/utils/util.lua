@@ -2,14 +2,15 @@ local utils = {}
 
 --- get palette according to color_scheme
 function utils.get_palette()
+  -- default_palette using habamax colorscheme
   local default_palette = {
-    red = '#E06C75',
-    yellow = '#E5C07B',
-    blue = '#61AFEF',
-    orange = '#D19A66',
-    green = '#98C379',
-    magenta = '#C678DD',
-    cyan = '#56B6C2',
+    red = '#d75f5f',
+    yellow = '#afaf87',
+    blue = '#5f87af',
+    orange = '#d7875f',
+    green = '#87af87',
+    magenta = '#af87af',
+    cyan = '#5f8787',
   }
   if not vim.g.options.ui then
     return default_palette
