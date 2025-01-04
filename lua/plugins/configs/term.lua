@@ -49,19 +49,14 @@ return {
         end
       end,
       highlights = {
-        Normal = {
-          link = 'NormalFloat',
-        },
-        NormalFloat = {
-          link = 'NormalFloat',
-        },
         FloatBorder = {
-          link = 'FloatBorder',
+          link = 'NormalBorder',
         },
       },
       open_mapping = [[<C-\>]],
       hide_numbers = true, -- hide the number column in toggleterm buffers
-      shade_terminals = false,
+      shade_terminals = true,
+      shading_factor = '-10', -- the percentage by which to lighten dark terminal background, default: -30
       start_in_insert = true,
       insert_mappings = true, -- whether or not the open mapping applies in insert mode
       persist_size = true,
@@ -75,6 +70,12 @@ return {
         end,
         height = function()
           return math.floor(vim.api.nvim_list_uis()[1].height * 0.85)
+        end,
+      },
+      winbar = {
+        enabled = true,
+        name_formatter = function(term) --  term: Terminal
+          return '%#Comment# ' .. term.name
         end,
       },
     }
