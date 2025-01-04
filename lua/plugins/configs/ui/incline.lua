@@ -38,7 +38,12 @@ return {
           end
           if #labels > 0 then
             -- number of changed hunks
-            table.insert(labels, 1, { ' |' .. ' 󰊢 ' .. signs.n_ranges })
+            table.insert(
+              labels,
+              1,
+              { ' 󰊢 ' .. signs.n_ranges, group = 'GitHunks' }
+            )
+            table.insert(labels, 1, { ' |' })
             table.insert(labels, { ' ' })
           end
           return labels

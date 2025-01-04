@@ -99,6 +99,10 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     local get_hl = require('utils.util').get_hl
     local colors = require('utils.palette').get_palette()
 
+    vim.api.nvim_set_hl(0, 'GitHunks', {
+      fg = colors.purple,
+    })
+
     -- highlight group for floating windows
     vim.api.nvim_set_hl(
       0,
@@ -108,12 +112,10 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     vim.api.nvim_set_hl(0, 'FloatBorder', {
       fg = get_hl('FloatBorder').fg,
       bg = get_hl('NormalFloat').bg,
-      bold = true,
     })
     vim.api.nvim_set_hl(0, 'NormalBorder', {
       fg = get_hl('FloatBorder').fg,
       bg = get_hl('Normal').bg,
-      bold = true,
     })
 
     vim.api.nvim_set_hl(0, 'RainbowRed', { fg = colors.red })
