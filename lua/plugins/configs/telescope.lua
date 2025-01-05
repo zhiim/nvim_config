@@ -18,44 +18,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
     { 'nvim-telescope/telescope-ui-select.nvim' },
   },
   config = function()
-    -- highlight group
-    local get_hl = require('utils.util').get_hl
-    local bg = get_hl('NormalFloat').bg
-    local colors = require('utils.palette').get_palette()
-    local preview_title = colors.green
-    local prompt_title_bg = colors.blue
-    local result_title_bg = colors.orange
-    -- return a table of highlights for telescope based on
-    -- colors gotten from highlight groups
-    vim.api.nvim_set_hl(0, 'TelescopeBorder', { link = 'FloatBorder' })
-    vim.api.nvim_set_hl(0, 'TelescopeNormal', { link = 'NormalFloat' })
-    vim.api.nvim_set_hl(0, 'TelescopePreviewBorder', { link = 'FloatBorder' })
-    vim.api.nvim_set_hl(0, 'TelescopePreviewNormal', { link = 'NormalFloat' })
-    vim.api.nvim_set_hl(
-      0,
-      'TelescopePreviewTitle',
-      { fg = bg, bg = preview_title }
-    )
-    vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { link = 'FloatBorder' })
-    vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { link = 'NormalFloat' })
-    vim.api.nvim_set_hl(
-      0,
-      'TelescopePromptPrefix',
-      { fg = prompt_title_bg, bg = bg }
-    )
-    vim.api.nvim_set_hl(
-      0,
-      'TelescopePromptTitle',
-      { fg = bg, bg = prompt_title_bg }
-    )
-    vim.api.nvim_set_hl(0, 'TelescopeResultsBorder', { link = 'FloatBorder' })
-    vim.api.nvim_set_hl(0, 'TelescopeResultsNormal', { link = 'NormalFloat' })
-    vim.api.nvim_set_hl(
-      0,
-      'TelescopeResultsTitle',
-      { fg = bg, bg = result_title_bg }
-    )
-
     require('telescope').setup {
 
       defaults = {

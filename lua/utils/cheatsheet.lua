@@ -133,7 +133,7 @@ local rand_hlgroup = function()
   local hlgroups =
     { 'Blue', 'Red', 'Green', 'Yellow', 'Orange', 'Magenta', 'Cyan' }
 
-  return 'Ch' .. hlgroups[math.random(1, #hlgroups)]
+  return 'Back' .. hlgroups[math.random(1, #hlgroups)]
 end
 
 -- drwaing with extmarks, can't search mappings, can auto resize

@@ -174,7 +174,7 @@ function utils.lint_format_config()
     end
     local cwd_file = vim.fn.getcwd() .. '/' .. config_name[choice]
     local config_file = vim.fn.stdpath 'config'
-      .. '/lua/utils/config_files/'
+      .. '/config_files/'
       .. config_name[choice]
     utils.copy_file(config_file, cwd_file)
     vim.api.nvim_command 'LspRestart'

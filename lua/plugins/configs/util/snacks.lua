@@ -78,13 +78,13 @@ return {
     indent = {
       indent = {
         hl = {
-          'RainbowRed',
-          'RainbowYellow',
-          'RainbowBlue',
-          'RainbowOrange',
-          'RainbowGreen',
-          'RainbowViolet',
-          'RainbowCyan',
+          'ForeRed',
+          'ForeYellow',
+          'ForeBlue',
+          'ForeOrange',
+          'ForeGreen',
+          'ForeViolet',
+          'ForeCyan',
         },
       },
     },

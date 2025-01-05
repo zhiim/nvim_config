@@ -9,7 +9,7 @@ function M.get_palette()
     blue = '#5f87af',
     orange = '#d7875f',
     green = '#87af87',
-    magenta = '#af87af',
+    purple = '#af87af',
     cyan = '#5f8787',
   }
   if not vim.g.options.ui then

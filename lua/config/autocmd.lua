@@ -99,80 +99,136 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     local get_hl = require('utils.util').get_hl
     local colors = require('utils.palette').get_palette()
 
+    local normal_bg = get_hl('Normal').bg
+    local cursor_bg = get_hl('CursorLine').bg
+
+    -- -- git symbols -----------------------------------------------------
     vim.api.nvim_set_hl(0, 'GitHunks', {
       fg = colors.purple,
     })
 
-    -- highlight group for floating windows
+    -- -- custom selction highlight ---------------------------------------
     vim.api.nvim_set_hl(
       0,
       'MyPmenuSel',
       { bg = get_hl('Title').fg, fg = get_hl('Normal').bg }
     )
+
+    -- -- float window ----------------------------------------------------
+    -- highlight group for floating windows
     vim.api.nvim_set_hl(0, 'FloatBorder', {
       fg = get_hl('FloatBorder').fg,
       bg = get_hl('NormalFloat').bg,
     })
     vim.api.nvim_set_hl(0, 'NormalBorder', {
       fg = get_hl('FloatBorder').fg,
-      bg = get_hl('Normal').bg,
+      bg = normal_bg,
     })
 
-    vim.api.nvim_set_hl(0, 'RainbowRed', { fg = colors.red })
-    vim.api.nvim_set_hl(0, 'RainbowYellow', { fg = colors.yellow })
-    vim.api.nvim_set_hl(0, 'RainbowBlue', { fg = colors.blue })
-    vim.api.nvim_set_hl(0, 'RainbowOrange', { fg = colors.orange })
-    vim.api.nvim_set_hl(0, 'RainbowGreen', { fg = colors.green })
-    vim.api.nvim_set_hl(
-      0,
-      'RainbowViolet',
-      { fg = colors.purple and colors.purple or colors.magenta }
-    )
-    vim.api.nvim_set_hl(0, 'RainbowCyan', { fg = colors.cyan })
+    -- -- Rainbow colors --------------------------------------------------
+    vim.api.nvim_set_hl(0, 'ForeRed', { fg = colors.red })
+    vim.api.nvim_set_hl(0, 'ForeYellow', { fg = colors.yellow })
+    vim.api.nvim_set_hl(0, 'ForeBlue', { fg = colors.blue })
+    vim.api.nvim_set_hl(0, 'ForeOrange', { fg = colors.orange })
+    vim.api.nvim_set_hl(0, 'ForeGreen', { fg = colors.green })
+    vim.api.nvim_set_hl(0, 'ForePurple', { fg = colors.purple })
+    vim.api.nvim_set_hl(0, 'ForeCyan', { fg = colors.cyan })
+    vim.api.nvim_set_hl(0, 'BackBlue', { fg = normal_bg, bg = colors.blue })
+    vim.api.nvim_set_hl(0, 'BackRed', { fg = normal_bg, bg = colors.red })
+    vim.api.nvim_set_hl(0, 'BackGreen', { fg = normal_bg, bg = colors.green })
+    vim.api.nvim_set_hl(0, 'BackYellow', { fg = normal_bg, bg = colors.yellow })
+    vim.api.nvim_set_hl(0, 'backOrange', { fg = normal_bg, bg = colors.orange })
+    vim.api.nvim_set_hl(0, 'BackPurple', { fg = normal_bg, bg = colors.purple })
+    vim.api.nvim_set_hl(0, 'BackCyan', { fg = normal_bg, bg = colors.cyan })
 
-    -- highlight group for cheatsheet
+    -- -- cheatsheet ------------------------------------------------------
     vim.api.nvim_set_hl(0, 'ChAsciiHeader', { fg = get_hl('Title').fg })
     vim.api.nvim_set_hl(
       0,
       'ChSection',
       { fg = get_hl('Normal').fg, bg = get_hl('ColorColumn').bg }
     )
+
+    -- -- neo-tree --------------------------------------------------------
+    vim.api.nvim_set_hl(0, 'NeoTreeModified', { fg = colors.red })
+
+    -- -- git blame -------------------------------------------------------
+    vim.api.nvim_set_hl(0, 'GitBlame', {
+      fg = get_hl('Comment').fg,
+      bg = cursor_bg,
+    })
+
+    -- -- hl-groups for symbol usage --------------------------------------
     vim.api.nvim_set_hl(
       0,
-      'ChBlue',
-      { fg = get_hl('Normal').bg, bg = colors.blue }
+      'SymbolUsageRounding',
+      { fg = cursor_bg, italic = true }
     )
     vim.api.nvim_set_hl(
       0,
-      'ChRed',
-      { fg = get_hl('Normal').bg, bg = colors.red }
+      'SymbolUsageContent',
+      { bg = cursor_bg, fg = get_hl('Comment').fg, italic = true }
+    )
+    vim.api.nvim_set_hl(0, 'SymbolUsageRef', {
+      fg = get_hl('Function').fg,
+      bg = cursor_bg,
+      italic = true,
+    })
+    vim.api.nvim_set_hl(
+      0,
+      'SymbolUsageDef',
+      { fg = get_hl('Type').fg, bg = cursor_bg, italic = true }
+    )
+    vim.api.nvim_set_hl(0, 'SymbolUsageImpl', {
+      fg = get_hl('@keyword').fg,
+      bg = cursor_bg,
+      italic = true,
+    })
+
+    -- -- highlight undo --------------------------------------------------
+    vim.api.nvim_set_hl(0, 'HighlightUndo', { link = 'Visual' })
+
+    -- -- highlight group for telescope -----------------------------------
+    local bg = get_hl('NormalFloat').bg
+    local preview_title = colors.green
+    local prompt_title_bg = colors.blue
+    local result_title_bg = colors.orange
+    -- return a table of highlights for telescope based on
+    -- colors gotten from highlight groups
+    vim.api.nvim_set_hl(0, 'TelescopeBorder', { link = 'FloatBorder' })
+    vim.api.nvim_set_hl(0, 'TelescopeNormal', { link = 'NormalFloat' })
+    vim.api.nvim_set_hl(0, 'TelescopePreviewBorder', { link = 'FloatBorder' })
+    vim.api.nvim_set_hl(0, 'TelescopePreviewNormal', { link = 'NormalFloat' })
+    vim.api.nvim_set_hl(
+      0,
+      'TelescopePreviewTitle',
+      { fg = bg, bg = preview_title }
+    )
+    vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { link = 'FloatBorder' })
+    vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { link = 'NormalFloat' })
+    vim.api.nvim_set_hl(
+      0,
+      'TelescopePromptPrefix',
+      { fg = prompt_title_bg, bg = bg }
     )
     vim.api.nvim_set_hl(
       0,
-      'ChGreen',
-      { fg = get_hl('Normal').bg, bg = colors.green }
+      'TelescopePromptTitle',
+      { fg = bg, bg = prompt_title_bg }
     )
+    vim.api.nvim_set_hl(0, 'TelescopeResultsBorder', { link = 'FloatBorder' })
+    vim.api.nvim_set_hl(0, 'TelescopeResultsNormal', { link = 'NormalFloat' })
     vim.api.nvim_set_hl(
       0,
-      'ChYellow',
-      { fg = get_hl('Normal').bg, bg = colors.yellow }
-    )
-    vim.api.nvim_set_hl(
-      0,
-      'ChOrange',
-      { fg = get_hl('Normal').bg, bg = colors.orange }
-    )
-    vim.api.nvim_set_hl(
-      0,
-      'ChMagenta',
-      { fg = get_hl('Normal').bg, bg = colors.purple }
-    )
-    vim.api.nvim_set_hl(
-      0,
-      'ChCyan',
-      { fg = get_hl('Normal').bg, bg = colors.cyan }
+      'TelescopeResultsTitle',
+      { fg = bg, bg = result_title_bg }
     )
 
-    vim.api.nvim_set_hl(0, 'NeoTreeModified', { fg = colors.red })
+    -- -- noice -----------------------------------------------------------
+    vim.api.nvim_set_hl(
+      0,
+      'MyMiniBorder',
+      { bg = normal_bg, fg = get_hl('FloatBorder').fg }
+    )
   end,
 })

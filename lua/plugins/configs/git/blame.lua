@@ -2,10 +2,6 @@ return {
   'f-person/git-blame.nvim',
   event = 'BufRead',
   config = function()
-    vim.api.nvim_set_hl(0, 'GitBlame', {
-      fg = require('utils.util').get_hl('Comment').fg,
-      bg = require('utils.util').get_hl('CursorLine').bg,
-    })
     require('gitblame').setup {
       enabled = true,
       message_template = ' <author> • <date> • <summary> • <<sha>>',
