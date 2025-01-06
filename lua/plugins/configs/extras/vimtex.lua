@@ -21,6 +21,7 @@ return {
   end,
   dependencies = {
     'micangl/cmp-vimtex',
+    enabled = vim.g.options.cmp == 'nvim_cmp',
     config = function()
       require('cmp').setup {
         sources = {
