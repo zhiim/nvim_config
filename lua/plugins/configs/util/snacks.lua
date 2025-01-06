@@ -83,7 +83,7 @@ return {
           'ForeBlue',
           'ForeOrange',
           'ForeGreen',
-          'ForeViolet',
+          'ForePurple',
           'ForeCyan',
         },
       },

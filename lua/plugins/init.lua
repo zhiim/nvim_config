@@ -72,7 +72,7 @@ require('lazy').setup({
             'ForeBlue',
             'ForeOrange',
             'ForeGreen',
-            'ForeViolet',
+            'ForePurple',
             'ForeCyan',
           },
           char = '▏',
