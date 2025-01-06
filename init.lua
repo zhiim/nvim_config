@@ -24,7 +24,7 @@ vim.g.options = {
   ai = false,
   tex = false,
   leetcode = false,
-  cmp = 'nvim_cmp',
+  cmp = 'blink_cmp',
   tab = 'barbar',
   explorer = 'nvimtree',
   -- ━━ Set colorscheme ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
