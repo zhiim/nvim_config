@@ -56,8 +56,7 @@ end
 
 -- read options from cache
 function utils.read_options()
-  local cache_path = vim.fn.stdpath 'config' .. '/cache'
-  utils.with_file(cache_path, 'r', function(file)
+  utils.with_file(vim.g.cache_path, 'r', function(file)
     -- read cache into options
     vim.g.options = vim.json.decode(file:read '*a')
   end, function(err)
@@ -71,8 +70,7 @@ end
 
 -- write options to cache
 function utils.write_options()
-  local cache_path = vim.fn.stdpath 'config' .. '/cache'
-  utils.with_file(cache_path, 'w+', function(file)
+  utils.with_file(vim.g.cache_path, 'w+', function(file)
     -- write default options into cache
     file:write(vim.json.encode(vim.g.options))
   end, function(err)

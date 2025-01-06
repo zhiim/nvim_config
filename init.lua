@@ -10,7 +10,7 @@ vim.g.logo = [[
 -- +---------------------------------------------------------+
 -- |             1. read user options from cache             |
 -- +---------------------------------------------------------+
-local cache_path = vim.fn.stdpath 'config' .. '/cache'
+vim.g.cache_path = vim.fn.stdpath 'config' .. '/cache.json'
 
 vim.g.options = {
   -- ━━ options to enable features ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -24,6 +24,7 @@ vim.g.options = {
   ai = false,
   tex = false,
   leetcode = false,
+  cmp = 'nvim_cmp',
   tab = 'barbar',
   explorer = 'nvimtree',
   -- ━━ Set colorscheme ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -41,7 +42,7 @@ vim.g.options = {
   python_venv_command = "fd '^python.exe$' D:\\venv -t x -t l",
 }
 
-if (vim.uv or vim.loop).fs_stat(cache_path) then
+if (vim.uv or vim.loop).fs_stat(vim.g.cache_path) then
   -- if cache exists
   require('utils.util').read_options()
 else
