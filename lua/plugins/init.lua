@@ -49,7 +49,7 @@ require('lazy').setup({
         { '<leader>p', group = 'Portal' },
         { '<leader>r', group = 'Rename, ReSessison' },
         { '<leader>rs', group = 'ReSessison' },
-        { '<leader>s', group = 'Telescopes' },
+        { '<leader>s', group = 'Picer' },
         { '<leader>t', group = 'Trouble' },
         { '<leader>u', group = 'Utils' },
         { '<leader>uo', group = 'Utils.options' },
@@ -225,14 +225,25 @@ require('lazy').setup({
               custom = {},
             },
           },
+          fzf = {
+            select = 'default',
+            paste = 'alt-p',
+            paste_behind = 'alt-k',
+          },
         },
       }
-      vim.keymap.set(
-        'n',
-        '<leader>sc',
-        '<cmd>Telescope neoclip<CR>',
-        { desc = 'Telescope clipboard history' }
-      )
+      if vim.g.options.picker == 'telescope' then
+        vim.keymap.set(
+          'n',
+          '<leader>sc',
+          '<cmd>Telescope neoclip<CR>',
+          { desc = 'Telescope search clipboard' }
+        )
+      else
+        vim.keymap.set('n', '<leader>sc', function()
+          require 'neoclip.fzf'()
+        end, { desc = 'FzfLua search clipboard' })
+      end
     end,
   },
 
@@ -335,7 +346,7 @@ require('lazy').setup({
   require 'plugins.configs.git',
   require 'plugins.configs.util',
   require 'plugins.configs.extras',
-  require 'plugins.configs.telescope',
+  require 'plugins.configs.picker',
   require 'plugins.configs.explorer',
   require 'plugins.configs.tab',
   require 'plugins.configs.term',

@@ -123,12 +123,21 @@ return {
         },
       },
     }
-    require('telescope').load_extension 'noice'
-    vim.keymap.set(
-      'n',
-      '<leader>sn',
-      '<cmd>Telescope noice<cr>',
-      { desc = 'Telescope search noice' }
-    )
+    if vim.g.options.picker == 'telescope' then
+      require('telescope').load_extension 'noice'
+      vim.keymap.set(
+        'n',
+        '<leader>sn',
+        '<cmd>Telescope noice<cr>',
+        { desc = 'Telescope search noice' }
+      )
+    else
+      vim.keymap.set(
+        'n',
+        '<leader>sn',
+        '<cmd>Noice fzf<cr>',
+        { desc = 'FzfLua search noice' }
+      )
+    end
   end,
 }

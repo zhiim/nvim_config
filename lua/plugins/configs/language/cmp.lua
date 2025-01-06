@@ -30,7 +30,7 @@ local cmp = { -- Autocompletion
   nvim_cmp = {
     {
       'hrsh7th/nvim-cmp',
-      event = 'InsertEnter',
+      event = 'BufRead',
       dependencies = {
         -- Snippet Engine & its associated nvim-cmp source
         {
@@ -184,7 +184,7 @@ local cmp = { -- Autocompletion
   blink_cmp = {
     {
       'saghen/blink.cmp',
-      event = 'InsertEnter',
+      event = 'BufRead',
       dependencies = 'rafamadriz/friendly-snippets',
       -- use a release tag to download pre-built binaries
       version = '*',

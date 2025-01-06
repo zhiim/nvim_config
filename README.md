@@ -8,11 +8,13 @@
 - Git
 - GCC
 - Make
+- Ripgrep (if use telescope)
+- fzf (if use fzf-lua)
 - Python (optional, to use LSP)
-- Ripgrep (optional, to search with telescope)
 - Node.js (optional, to use Prettier)
-- fd (optioanl, to use venv_selector)
+- fd (optioanl, to use venv_selector and fzf-lua)
 - llvm and MSVC (optional, C++ in windows)
+- optional for fzf-lua: bat, delta
 
 ### Install
 

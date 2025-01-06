@@ -16,48 +16,73 @@ return { -- LSP Configuration & Plugins
           vim.keymap.set('n', keys, func, { buffer = event.buf, desc = desc })
         end
 
-        -- Jump to the definition of the word under your cursor.
-        map(
-          'gd',
-          require('telescope.builtin').lsp_definitions,
-          'LSP goto definition'
-        )
+        if vim.g.options.picker == 'telescope' then
+          -- Jump to the definition of the word under your cursor.
+          map(
+            'gd',
+            require('telescope.builtin').lsp_definitions,
+            'LSP goto definition'
+          )
 
-        -- Find references for the word under your cursor.
-        map(
-          'gr',
-          require('telescope.builtin').lsp_references,
-          'LSP goto references'
-        )
+          -- Find references for the word under your cursor.
+          map(
+            'gr',
+            require('telescope.builtin').lsp_references,
+            'LSP goto references'
+          )
 
-        -- Jump to the implementation of the word under your cursor.
-        map(
-          'gI',
-          require('telescope.builtin').lsp_implementations,
-          'LSP goto implementation'
-        )
+          -- Jump to the implementation of the word under your cursor.
+          map(
+            'gI',
+            require('telescope.builtin').lsp_implementations,
+            'LSP goto implementation'
+          )
 
-        -- Jump to the type of the word under your cursor.
-        map(
-          '<leader>D',
-          require('telescope.builtin').lsp_type_definitions,
-          'LSP type definition'
-        )
+          -- Jump to the type of the word under your cursor.
+          map(
+            '<leader>D',
+            require('telescope.builtin').lsp_type_definitions,
+            'LSP type definition'
+          )
 
-        -- Fuzzy find all the symbols in your current document.
-        map(
-          '<leader>ld',
-          require('telescope.builtin').lsp_document_symbols,
-          'LSP document symbols'
-        )
+          -- Fuzzy find all the symbols in your current document.
+          map(
+            '<leader>ld',
+            require('telescope.builtin').lsp_document_symbols,
+            'LSP document symbols'
+          )
 
-        -- Fuzzy find all the symbols in your current workspace.
-        --  Similar to document symbols, except searches over your entire project.
-        map(
-          '<leader>lw',
-          require('telescope.builtin').lsp_dynamic_workspace_symbols,
-          'LSP workspace symbols'
-        )
+          -- Fuzzy find all the symbols in your current workspace.
+          --  Similar to document symbols, except searches over your entire project.
+          map(
+            '<leader>lw',
+            require('telescope.builtin').lsp_dynamic_workspace_symbols,
+            'LSP workspace symbols'
+          )
+        else
+          map('gd', '<cmd>FzfLua lsp_definitions<CR>', 'LSP goto definition')
+          map('gr', '<cmd>FzfLua lsp_references<CR>', 'LSP goto references')
+          map(
+            'gI',
+            '<cmd>FzfLua lsp_implementations<CR>',
+            'LSP goto implementation'
+          )
+          map(
+            '<leader>D',
+            '<cmd>FzfLua lsp_typedefs<CR>',
+            'LSP type definition'
+          )
+          map(
+            '<leader>ld',
+            '<cmd>FzfLua lsp_document_symbols<CR>',
+            'LSP document symbols'
+          )
+          map(
+            '<leader>lw',
+            '<cmd>FzfLua lsp_live_workspace_symbols<CR>',
+            'LSP workspace symbols'
+          )
+        end
 
         -- Rename the variable under your cursor.
         -- use inc_rename

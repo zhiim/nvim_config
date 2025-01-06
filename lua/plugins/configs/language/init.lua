@@ -35,11 +35,6 @@ if vim.g.options.language_support then
       'linux-cultist/venv-selector.nvim',
       dependencies = {
         'neovim/nvim-lspconfig',
-        {
-          'nvim-telescope/telescope.nvim',
-          branch = '0.1.x',
-          dependencies = { 'nvim-lua/plenary.nvim' },
-        },
       },
       event = 'BufEnter *.py', -- lazy load when entering python files
       branch = 'regexp', -- This is the regexp branch, use this for the new version
@@ -62,7 +57,7 @@ if vim.g.options.language_support then
           '<leader>sv',
           '<cmd>VenvSelect<cr>',
           mode = 'n',
-          desc = 'telescope select Python virtual environment',
+          desc = 'Select Python virtual environment',
         },
       },
     },

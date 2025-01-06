@@ -21,6 +21,7 @@ local included_groups = {
   'Tab',
   'Cmake',
   'Telescope',
+  'FzfLua',
   'CommentBox',
   'Flash',
   'GrugFar',

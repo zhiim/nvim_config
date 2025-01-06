@@ -24,6 +24,7 @@ vim.g.options = {
   ai = false,
   tex = false,
   leetcode = false,
+  picker = 'fzf_lua',
   cmp = 'blink_cmp',
   tab = 'barbar',
   explorer = 'nvimtree',

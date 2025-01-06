@@ -44,6 +44,7 @@ function M.set_options()
   }
   local selections = {
     cmp = { 'nvim_cmp', 'blink_cmp' },
+    picker = { 'fzf_lua', 'telescope' },
     tab = { 'barbar', 'bufferline', 'tabby' },
     explorer = { 'nvimtree', 'neotree' },
     theme = {
@@ -73,6 +74,7 @@ function M.set_options()
     ai = 'Enable AI tools',
     tex = 'Enable TeX tools',
     leetcode = 'Enable LeetCode',
+    picker = 'Select picker plugin',
     cmp = 'Select completion plugin',
     tab = 'Select tabline plugin',
     explorer = 'Select file explorer plugin',
@@ -168,6 +170,7 @@ function M.set_options()
     'ai',
     'tex',
     'leetcode',
+    'picker',
     'cmp',
     'tab',
     'explorer',
@@ -202,7 +205,7 @@ function M.set_options()
     elseif
       utils.find_value(
         choice,
-        { 'cmp', 'tab', 'explorer', 'theme', 'theme_style' }
+        { 'picker', 'cmp', 'tab', 'explorer', 'theme', 'theme_style' }
       )
     then
       set_select(choice, selections[choice])

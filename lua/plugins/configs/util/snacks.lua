@@ -24,19 +24,19 @@ return {
             icon = '  ',
             key = 'r',
             desc = 'Recent Files',
-            action = ':Telescope oldfiles',
+            action = ":lua Snacks.dashboard.pick('oldfiles')",
           },
           {
             icon = '  ',
             key = 'f',
             desc = 'Find File',
-            action = ':Telescope find_files',
+            action = ":lua Snacks.dashboard.pick('files')",
           },
           {
             icon = '  ',
             key = 'w',
             desc = 'Find Word',
-            action = ':Telescope live_grep',
+            action = ":lua Snacks.dashboard.pick('live_grep')",
           },
           {
             icon = '  ',
