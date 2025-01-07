@@ -48,28 +48,6 @@ return {
         end
       end,
     },
-
-    -- completion for DAP REPL
-    {
-      'rcarriga/cmp-dap',
-      config = function()
-        require('cmp').setup {
-          enabled = function()
-            return vim.bo.buftype ~= 'prompt'
-              or require('cmp_dap').is_dap_buffer()
-          end,
-        }
-
-        require('cmp').setup.filetype(
-          { 'dap-repl', 'dapui_watches', 'dapui_hover' },
-          {
-            sources = {
-              { name = 'dap' },
-            },
-          }
-        )
-      end,
-    },
   },
   config = function()
     local dap = require 'dap'

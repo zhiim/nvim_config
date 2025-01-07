@@ -56,6 +56,28 @@ local cmp_tool = { -- Autocompletion
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-path',
+        -- completion for DAP REPL
+        {
+          'rcarriga/cmp-dap',
+          enabled = vim.g.options.debug,
+          config = function()
+            require('cmp').setup {
+              enabled = function()
+                return vim.bo.buftype ~= 'prompt'
+                  or require('cmp_dap').is_dap_buffer()
+              end,
+            }
+
+            require('cmp').setup.filetype(
+              { 'dap-repl', 'dapui_watches', 'dapui_hover' },
+              {
+                sources = {
+                  { name = 'dap' },
+                },
+              }
+            )
+          end,
+        },
       },
       config = function()
         -- See `:help cmp`
@@ -172,7 +194,20 @@ local cmp_tool = { -- Autocompletion
       'saghen/blink.cmp',
       event = 'BufRead',
       version = '*',
-      dependencies = 'rafamadriz/friendly-snippets',
+      dependencies = {
+        'rafamadriz/friendly-snippets',
+        {
+          'saghen/blink.compat',
+          version = '*',
+          -- make sure to set opts so that lazy.nvim calls blink.compat's setup
+          opts = {},
+        },
+        -- completion for DAP REPL
+        {
+          'rcarriga/cmp-dap',
+          enabled = vim.g.options.debug,
+        },
+      },
       -- use a release tag to download pre-built binaries
       config = function()
         vim.api.nvim_set_hl(0, 'BlinkCmpMenu', { link = 'NormalFloat' })
@@ -300,7 +335,14 @@ local cmp_tool = { -- Autocompletion
                 -- sources used in comments
                 return { 'path', 'buffer' }
               else
-                return { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' }
+                local default =
+                  { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' }
+                if
+                  vim.g.options.debug and require('cmp_dap').is_dap_buffer()
+                then
+                  default = { 'dap', 'buffer' }
+                end
+                return default
               end
             end,
             cmdline = function()
@@ -322,9 +364,22 @@ local cmp_tool = { -- Autocompletion
                 -- make lazydev completions top priority (see `:h blink.cmp`)
                 score_offset = 100,
               },
+              dap = {
+                name = 'dap',
+                module = 'blink.compat.source',
+              },
             },
           },
         }
+
+        -- required by nvim-cmp
+        if vim.g.options.debug then
+          opts.enabled = function()
+            return vim.bo.buftype ~= 'prompt'
+              or require('cmp_dap').is_dap_buffer()
+          end
+        end
+
         require('blink.cmp').setup(opts)
       end,
     },
@@ -337,7 +392,6 @@ return {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
     -- Optional dependency
-    dependencies = { 'hrsh7th/nvim-cmp' },
     config = function()
       require('nvim-autopairs').setup {}
       if vim.g.options.cmp == 'nvim_cmp' then
@@ -349,23 +403,4 @@ return {
       end
     end,
   },
-
-  -- {
-  --   'xzbdmw/colorful-menu.nvim',
-  --   config = function()
-  --     require('colorful-menu').setup {
-  --       ls = {
-  --         -- If true, try to highlight "not supported" languages.
-  --         fallback = true,
-  --       },
-  --       -- If the built-in logic fails to find a suitable highlight group,
-  --       -- this highlight is applied to the label.
-  --       fallback_highlight = '@variable',
-  --       -- If provided, the plugin truncates the final displayed text to
-  --       -- this width (measured in display cells). Any highlights that extend
-  --       -- beyond the truncation point are ignored. Default 60.
-  --       max_width = 60,
-  --     }
-  --   end,
-  -- },
 }
