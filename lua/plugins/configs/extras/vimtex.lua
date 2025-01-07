@@ -21,13 +21,17 @@ return {
   end,
   dependencies = {
     'micangl/cmp-vimtex',
-    enabled = vim.g.options.cmp == 'nvim_cmp',
     config = function()
-      require('cmp').setup {
-        sources = {
-          { name = 'vimtex' },
-        },
-      }
+      if vim.g.options.cmp == 'nvim_cmp' then
+        require('cmp').setup {
+          sources = {
+            { name = 'vimtex' },
+            { name = 'luasnip' },
+            { name = 'path' },
+            { name = 'buffer' },
+          },
+        }
+      end
       require('cmp_vimtex').setup {}
     end,
   },

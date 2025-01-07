@@ -335,14 +335,19 @@ local cmp_tool = { -- Autocompletion
                 -- sources used in comments
                 return { 'path', 'buffer' }
               else
-                local default =
-                  { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' }
                 if
-                  vim.g.options.debug and require('cmp_dap').is_dap_buffer()
+                  vim.g.options.debug
+                  and require('utils.util').find_value(
+                    vim.bo.filetype,
+                    { 'dap-repl', 'dapui_watches', 'dapui_hover' }
+                  )
                 then
-                  default = { 'dap', 'buffer' }
+                  return { 'dap', 'buffer' }
                 end
-                return default
+                if vim.g.options.tex and vim.bo.filetype == 'tex' then
+                  return { 'vimtex', 'path', 'snippets', 'buffer' }
+                end
+                return { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' }
               end
             end,
             cmdline = function()
@@ -367,6 +372,12 @@ local cmp_tool = { -- Autocompletion
               dap = {
                 name = 'dap',
                 module = 'blink.compat.source',
+                score_offset = 3,
+              },
+              vimtex = {
+                name = 'vimtex',
+                module = 'blink.compat.source',
+                score_offset = 3,
               },
             },
           },
