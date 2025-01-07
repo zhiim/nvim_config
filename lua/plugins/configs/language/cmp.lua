@@ -268,9 +268,16 @@ local cmp_tool = { -- Autocompletion
           keymap = {
             preset = 'default',
             ['<Tab>'] = {
-              'show',
               'select_and_accept',
               'fallback',
+            },
+            cmdline = {
+              preset = 'default',
+              ['<Tab>'] = {
+                'show',
+                'select_and_accept',
+                'fallback',
+              },
             },
           },
 
