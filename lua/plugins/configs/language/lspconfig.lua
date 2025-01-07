@@ -60,16 +60,24 @@ return { -- LSP Configuration & Plugins
             'LSP workspace symbols'
           )
         else
-          map('gd', '<cmd>FzfLua lsp_definitions<CR>', 'LSP goto definition')
-          map('gr', '<cmd>FzfLua lsp_references<CR>', 'LSP goto references')
+          map(
+            'gd',
+            '<cmd>FzfLua lsp_definitions jump_to_single_result=true ignore_current_line=true<CR>',
+            'LSP goto definition'
+          )
+          map(
+            'gr',
+            '<cmd>FzfLua lsp_references jump_to_single_result=true ignore_current_line=true<CR>',
+            'LSP goto references'
+          )
           map(
             'gI',
-            '<cmd>FzfLua lsp_implementations<CR>',
+            '<cmd>FzfLua lsp_implementations jump_to_single_result=true ignore_current_line=true<CR>',
             'LSP goto implementation'
           )
           map(
             '<leader>D',
-            '<cmd>FzfLua lsp_typedefs<CR>',
+            '<cmd>FzfLua lsp_typedefs jump_to_single_result=true ignore_current_line=true<CR>',
             'LSP type definition'
           )
           map(

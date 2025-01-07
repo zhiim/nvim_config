@@ -195,6 +195,7 @@ local cmp_tool = { -- Autocompletion
             accept = { auto_brackets = { enabled = false } }, -- auto brackets
             menu = {
               auto_show = function(ctx)
+                -- do not work in cmdline mode but search
                 return ctx.mode ~= 'cmdline'
                   or vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype())
               end,
@@ -267,14 +268,8 @@ local cmp_tool = { -- Autocompletion
           keymap = {
             preset = 'default',
             ['<Tab>'] = {
-              function(cmp)
-                if cmp.snippet_active() then
-                  return cmp.accept()
-                else
-                  return cmp.select_and_accept()
-                end
-              end,
-              'snippet_forward',
+              'show',
+              'select_and_accept',
               'fallback',
             },
           },
@@ -300,6 +295,18 @@ local cmp_tool = { -- Autocompletion
               else
                 return { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' }
               end
+            end,
+            cmdline = function()
+              local type = vim.fn.getcmdtype()
+              -- Search forward and backward
+              if type == '/' or type == '?' then
+                return { 'buffer' }
+              end
+              -- Commands
+              if type == ':' or type == '@' then
+                return { 'path', 'cmdline' }
+              end
+              return {}
             end,
             providers = {
               lazydev = {
