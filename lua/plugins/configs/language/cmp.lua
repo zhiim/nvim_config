@@ -26,7 +26,7 @@ local kind_icons = {
   TypeParameter = '󰅲',
 }
 
-local cmp = { -- Autocompletion
+local cmp_tool = { -- Autocompletion
   nvim_cmp = {
     {
       'hrsh7th/nvim-cmp',
@@ -165,126 +165,193 @@ local cmp = { -- Autocompletion
         })
       end,
     },
-
-    {
-      'windwp/nvim-autopairs',
-      event = 'InsertEnter',
-      -- Optional dependency
-      dependencies = { 'hrsh7th/nvim-cmp' },
-      config = function()
-        require('nvim-autopairs').setup {}
-        -- If you want to automatically add `(` after selecting a function or method
-        local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
-        local cmp = require 'cmp'
-        cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
-      end,
-    },
   },
 
   blink_cmp = {
     {
       'saghen/blink.cmp',
       event = 'BufRead',
+      version = '*',
       dependencies = 'rafamadriz/friendly-snippets',
       -- use a release tag to download pre-built binaries
-      version = '*',
-      opts = {
-        appearance = {
-          use_nvim_cmp_as_default = false,
-          nerd_font_variant = 'normal',
-          kind_icons = kind_icons,
-        },
-
-        completion = {
-          accept = { auto_brackets = { enabled = true } }, -- auto brackets
-          list = {
-            -- pre select the first item
-            selection = function(ctx)
-              return ctx.mode == 'cmdline' and 'auto_insert' or 'preselect'
-            end,
-          },
-          menu = {
-            auto_show = function(ctx)
-              return ctx.mode ~= 'cmdline'
-                or vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype())
-            end,
-            border = 'rounded',
-            draw = {
-              -- like nvim-cmp
-              columns = {
-                { 'label', 'label_description', gap = 1 },
-                { 'kind_icon', 'kind' },
-              },
-              -- highlight item in the menu
-              treesitter = { 'lsp' },
-            },
-          },
-          documentation = {
-            window = { border = 'rounded' },
-            -- auto show documentation
-            auto_show = true,
-            auto_show_delay_ms = 300,
-          },
-          ghost_text = {
-            enabled = false,
-          },
-        },
-        keymap = {
-          preset = 'default',
-          ['<Tab>'] = {
-            function(cmp)
-              if cmp.snippet_active() then
-                return cmp.accept()
-              else
-                return cmp.select_and_accept()
-              end
-            end,
-            'snippet_forward',
-            'fallback',
-          },
-        },
-
-        signature = {
-          enabled = false,
-          window = { border = 'rounded' },
-        },
-
-        sources = {
-          default = function()
-            local success, node = pcall(vim.treesitter.get_node)
-            if
-              success
-              and node
-              and vim.tbl_contains(
-                { 'comment', 'line_comment', 'block_comment' },
-                node:type()
-              )
-            then
-              -- sources used in comments
-              return { 'path', 'buffer' }
-            else
-              return { 'lsp', 'path', 'snippets', 'buffer' }
-            end
-          end,
-          providers = {
-            lazydev = {
-              name = 'LazyDev',
-              module = 'lazydev.integrations.blink',
-              -- make lazydev completions top priority (see `:h blink.cmp`)
-              score_offset = 100,
-            },
-          },
-        },
-      },
-      opts_extend = { 'sources.default' },
-      config = function(_, opts)
+      config = function()
         vim.api.nvim_set_hl(0, 'BlinkCmpMenu', { link = 'NormalFloat' })
         vim.api.nvim_set_hl(0, 'BlinkCmpMenuBorder', { link = 'FloatBorder' })
         vim.api.nvim_set_hl(0, 'BlinkCmpMenuSelection', { link = 'MyPmenuSel' })
         vim.api.nvim_set_hl(0, 'BlinkCmpDocBorder', { link = 'FloatBorder' })
+
+        local components =
+          require('blink.cmp.config.completion.menu').default.draw.components
+        ---@module 'blink.cmp'
+        ---@type blink.cmp.Config
+        local opts = {
+          appearance = {
+            use_nvim_cmp_as_default = false,
+            nerd_font_variant = 'normal',
+            kind_icons = kind_icons,
+          },
+
+          completion = {
+            accept = { auto_brackets = { enabled = false } }, -- auto brackets
+            menu = {
+              auto_show = function(ctx)
+                return ctx.mode ~= 'cmdline'
+                  or vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype())
+              end,
+              border = 'rounded',
+              draw = {
+                -- like nvim-cmp
+                columns = {
+                  { 'label', 'label_description', gap = 1 },
+                  { 'kind_icon', 'kind' },
+                  { 'source_name' },
+                },
+                components = {
+                  -- use the highlights from mini.icons
+                  kind_icon = {
+                    highlight = function(ctx)
+                      local _, hl, _ =
+                        require('mini.icons').get('lsp', ctx.kind)
+                      return hl
+                    end,
+                  },
+                  kind = {
+                    highlight = function(ctx)
+                      local _, hl, _ =
+                        require('mini.icons').get('lsp', ctx.kind)
+                      return hl
+                    end,
+                  },
+                  -- add support for file icons
+                  label = {
+                    text = function(ctx)
+                      if ctx.source_name == 'Path' then
+                        local icon, _ =
+                          require('mini.icons').get('file', ctx.label)
+                        return icon .. ' ' .. ctx.label
+                      end
+                      ---@diagnostic disable-next-line: need-check-nil
+                      return components.label.text(ctx)
+                    end,
+                    highlight = function(ctx)
+                      if ctx.source_name == 'Path' then
+                        local _, hl_group =
+                          require('mini.icons').get('file', ctx.label)
+                        return hl_group
+                      end
+                      ---@diagnostic disable-next-line: need-check-nil, missing-parameter
+                      return components.label.highlight(ctx)
+                    end,
+                  },
+                  -- same as nvim-cmp
+                  source_name = {
+                    text = function(ctx)
+                      return '(' .. ctx.source_name .. ')'
+                    end,
+                  },
+                },
+                -- highlight item in the menu
+                treesitter = { 'lsp' },
+              },
+            },
+            documentation = {
+              window = { border = 'rounded' },
+              -- auto show documentation
+              auto_show = true,
+              auto_show_delay_ms = 300,
+            },
+            ghost_text = {
+              enabled = false,
+            },
+          },
+          keymap = {
+            preset = 'default',
+            ['<Tab>'] = {
+              function(cmp)
+                if cmp.snippet_active() then
+                  return cmp.accept()
+                else
+                  return cmp.select_and_accept()
+                end
+              end,
+              'snippet_forward',
+              'fallback',
+            },
+          },
+
+          signature = {
+            enabled = false,
+            window = { border = 'rounded' },
+          },
+
+          sources = {
+            default = function()
+              local success, node = pcall(vim.treesitter.get_node)
+              if
+                success
+                and node
+                and vim.tbl_contains(
+                  { 'comment', 'line_comment', 'block_comment' },
+                  node:type()
+                )
+              then
+                -- sources used in comments
+                return { 'path', 'buffer' }
+              else
+                return { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' }
+              end
+            end,
+            providers = {
+              lazydev = {
+                name = 'LazyDev',
+                module = 'lazydev.integrations.blink',
+                -- make lazydev completions top priority (see `:h blink.cmp`)
+                score_offset = 100,
+              },
+            },
+          },
+        }
         require('blink.cmp').setup(opts)
       end,
     },
   },
 }
-return cmp[vim.g.options.cmp]
+return {
+  cmp_tool[vim.g.options.cmp],
+
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    -- Optional dependency
+    dependencies = { 'hrsh7th/nvim-cmp' },
+    config = function()
+      require('nvim-autopairs').setup {}
+      if vim.g.options.cmp == 'nvim_cmp' then
+        -- If you want to automatically add `(` after selecting a function or method
+        local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
+        local cmp = require 'cmp'
+        cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+      else
+      end
+    end,
+  },
+
+  -- {
+  --   'xzbdmw/colorful-menu.nvim',
+  --   config = function()
+  --     require('colorful-menu').setup {
+  --       ls = {
+  --         -- If true, try to highlight "not supported" languages.
+  --         fallback = true,
+  --       },
+  --       -- If the built-in logic fails to find a suitable highlight group,
+  --       -- this highlight is applied to the label.
+  --       fallback_highlight = '@variable',
+  --       -- If provided, the plugin truncates the final displayed text to
+  --       -- this width (measured in display cells). Any highlights that extend
+  --       -- beyond the truncation point are ignored. Default 60.
+  --       max_width = 60,
+  --     }
+  --   end,
+  -- },
+}

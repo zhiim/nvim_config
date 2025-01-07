@@ -22,8 +22,8 @@ return {
       virtual_text_column = 1,
       highlight_group = 'GitBlame',
       ignored_filetypes = {},
-      schedule_event = 'CursorMoved',
-      clear_event = 'CursorMovedI',
+      schedule_event = 'CursorHold',
+      clear_event = 'CursorHoldI',
     }
   end,
 }

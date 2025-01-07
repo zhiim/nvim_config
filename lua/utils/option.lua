@@ -183,7 +183,7 @@ function M.set_options()
   }, {
     prompt = 'Select an option:',
     format_item = function(item)
-      return string.format('%-22s', item) .. ' |  ' .. option_info[item]
+      return string.format('%-22s', item) .. ' │  ' .. option_info[item]
     end,
   }, function(choice)
     -- set on or off
