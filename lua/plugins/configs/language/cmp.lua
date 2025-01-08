@@ -56,28 +56,6 @@ local cmp_tool = { -- Autocompletion
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-path',
-        -- completion for DAP REPL
-        {
-          'rcarriga/cmp-dap',
-          enabled = vim.g.options.debug,
-          config = function()
-            require('cmp').setup {
-              enabled = function()
-                return vim.bo.buftype ~= 'prompt'
-                  or require('cmp_dap').is_dap_buffer()
-              end,
-            }
-
-            require('cmp').setup.filetype(
-              { 'dap-repl', 'dapui_watches', 'dapui_hover' },
-              {
-                sources = {
-                  { name = 'dap' },
-                },
-              }
-            )
-          end,
-        },
       },
       config = function()
         -- See `:help cmp`
@@ -201,11 +179,6 @@ local cmp_tool = { -- Autocompletion
           version = '*',
           -- make sure to set opts so that lazy.nvim calls blink.compat's setup
           opts = {},
-        },
-        -- completion for DAP REPL
-        {
-          'rcarriga/cmp-dap',
-          enabled = vim.g.options.debug,
         },
       },
       -- use a release tag to download pre-built binaries
