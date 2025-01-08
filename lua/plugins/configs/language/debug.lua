@@ -33,6 +33,11 @@ return {
     {
       'theHamsta/nvim-dap-virtual-text',
       config = function()
+        vim.api.nvim_set_hl(
+          0,
+          'NvimDapVirtualText',
+          { link = 'DiagnosticSignHint' }
+        )
         require('nvim-dap-virtual-text').setup {
           virt_text_pos = 'eol',
         }
