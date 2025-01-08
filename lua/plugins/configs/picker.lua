@@ -93,13 +93,13 @@ local picker = { -- Fuzzy Finder (files, lsp, etc)
       )
       vim.keymap.set(
         'n',
-        '<leader>s.',
+        '<leader>sr',
         builtin.resume,
         { desc = 'Telescope search resume' }
       )
       vim.keymap.set(
         'n',
-        '<leader>sr',
+        '<leader>so',
         builtin.oldfiles,
         { desc = 'Telescope search recent files' }
       )
@@ -182,6 +182,13 @@ local picker = { -- Fuzzy Finder (files, lsp, etc)
           },
         },
 
+        keymap = {
+          builtin = {
+            true, -- inherit defaults
+            ['<Esc>'] = 'hide',
+          },
+        },
+
         files = {
           actions = {
             ['alt-i'] = { actions.toggle_ignore },
@@ -209,9 +216,6 @@ local picker = { -- Fuzzy Finder (files, lsp, etc)
           'FzfLuaPreviewTitle',
           { link = 'TelescopePreviewTitle' }
         ),
-        vim.api.nvim_set_hl(0, 'FzfLuaBorder', { link = 'FloatBorder' }),
-        vim.api.nvim_set_hl(0, 'FzfLuaBorder', { link = 'FloatBorder' }),
-        vim.api.nvim_set_hl(0, 'FzfLuaBorder', { link = 'FloatBorder' }),
       }
 
       require('fzf-lua').register_ui_select(function(_, items)
@@ -272,13 +276,13 @@ local picker = { -- Fuzzy Finder (files, lsp, etc)
       )
       vim.keymap.set(
         'n',
-        '<leader>s.',
+        '<leader>sr',
         '<cmd>FzfLua resume<cr>',
         { desc = 'FzfLua search resume' }
       )
       vim.keymap.set(
         'n',
-        '<leader>sr',
+        '<leader>so',
         '<cmd>FzfLua oldfiles<cr>',
         { desc = 'FzfLua search recent files' }
       )
