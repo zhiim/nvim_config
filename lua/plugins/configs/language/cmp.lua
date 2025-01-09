@@ -392,7 +392,10 @@ local cmp_tool = { -- Autocompletion
         if vim.g.options.debug then
           opts.enabled = function()
             return vim.bo.buftype ~= 'prompt'
-              or require('cmp_dap').is_dap_buffer()
+              or require('utils.util').find_value(
+                vim.bo.filetype,
+                { 'dap-repl', 'dapui_watches', 'dapui_hover' }
+              )
           end
         end
 

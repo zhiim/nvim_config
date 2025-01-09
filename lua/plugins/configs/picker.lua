@@ -69,9 +69,9 @@ local picker = { -- Fuzzy Finder (files, lsp, etc)
       )
       vim.keymap.set(
         'n',
-        '<leader>ss',
+        '<leader>si',
         builtin.builtin,
-        { desc = 'Telescope search telescope builtins' }
+        { desc = 'Telescope search telescope builtins items' }
       )
       vim.keymap.set(
         'n',
@@ -157,6 +157,13 @@ local picker = { -- Fuzzy Finder (files, lsp, etc)
         '<leader>sj',
         builtin.jumplist,
         { desc = 'Telescope search jumps' }
+      )
+
+      vim.keymap.set(
+        'n',
+        '<leader>ss',
+        builtin.lsp_document_symbols,
+        { desc = 'Telescope search document symbols' }
       )
     end,
   },
@@ -252,9 +259,9 @@ local picker = { -- Fuzzy Finder (files, lsp, etc)
       )
       vim.keymap.set(
         'n',
-        '<leader>ss',
+        '<leader>si',
         '<cmd>FzfLua builtin<cr>',
-        { desc = 'FzfLua search fzflua builtin' }
+        { desc = 'FzfLua search fzflua builtin items' }
       )
       vim.keymap.set(
         'n',
@@ -339,6 +346,13 @@ local picker = { -- Fuzzy Finder (files, lsp, etc)
         '<leader>sj',
         '<cmd>FzfLua jumps<cr>',
         { desc = 'FzfLua search jumps' }
+      )
+
+      vim.keymap.set(
+        'n',
+        '<leader>ss',
+        '<cmd>FzfLua lsp_document_symbols<cr>',
+        { desc = 'FzfLua search document symbols' }
       )
     end,
   },
