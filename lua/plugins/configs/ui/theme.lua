@@ -81,7 +81,7 @@ local config_funcs = {
   end,
   ['nordic'] = function()
     require('nordic').setup {
-      on_highlight = function(highlights, palette)
+      on_highlight = function(highlights, _)
         highlights.FoldColumn = {
           link = 'Normal',
         }
@@ -116,6 +116,7 @@ local config_funcs = {
       },
       integrations = {
         barbar = true,
+        blink_cmp = false,
         diffview = true,
         dropbar = {
           enabled = true,
