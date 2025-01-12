@@ -210,16 +210,6 @@ local cmp_tool = { -- Autocompletion
       },
       -- use a release tag to download pre-built binaries
       config = function()
-        vim.api.nvim_set_hl(0, 'BlinkCmpMenu', { link = 'NormalFloat' })
-        vim.api.nvim_set_hl(0, 'BlinkCmpMenuBorder', { link = 'FloatBorder' })
-        vim.api.nvim_set_hl(0, 'BlinkCmpMenuSelection', { link = 'MyPmenuSel' })
-        vim.api.nvim_set_hl(0, 'BlinkCmpDocBorder', { link = 'FloatBorder' })
-        vim.api.nvim_set_hl(
-          0,
-          'BlinkCmpSignatureHelpBorder',
-          { link = 'FloatBorder' }
-        )
-
         local components =
           require('blink.cmp.config.completion.menu').default.draw.components
         ---@module 'blink.cmp'

@@ -178,6 +178,8 @@ local picker = { -- Fuzzy Finder (files, lsp, etc)
       fzf_lua.setup {
         'default-title',
 
+        fzf_colors = true, -- generate fzf colorscheme from Neovim colorscheme
+
         winopts = {
           backdrop = 180,
           width = 0.85,
@@ -209,24 +211,10 @@ local picker = { -- Fuzzy Finder (files, lsp, etc)
             ['alt-h'] = { actions.toggle_hidden },
           },
         },
-
-        -- highlight groups
-        vim.api.nvim_set_hl(0, 'FzfLuaNormal', { link = 'NormalFloat' }),
-        vim.api.nvim_set_hl(0, 'FzfLuaBorder', { link = 'FloatBorder' }),
-        vim.api.nvim_set_hl(
-          0,
-          'FzfLuaTitle',
-          { link = 'TelescopePromptTitle' }
-        ),
-        vim.api.nvim_set_hl(
-          0,
-          'FzfLuaPreviewTitle',
-          { link = 'TelescopePreviewTitle' }
-        ),
       }
 
       require('fzf-lua').register_ui_select(function(_, items)
-        local min_h, max_h = 0.15, 0.60
+        local min_h, max_h = 0.30, 0.70
         local h = (#items + 4) / vim.o.lines
         if h < min_h then
           h = min_h

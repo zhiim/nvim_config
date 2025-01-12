@@ -22,7 +22,9 @@ require('lazy').setup({
       },
     },
     config = function() -- This is the function that runs, AFTER loading
-      require('which-key').setup {}
+      require('which-key').setup {
+        preset = 'helix',
+      }
       require('which-key').add {
         {
           '<leader>c',

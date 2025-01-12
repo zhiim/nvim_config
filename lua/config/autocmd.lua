@@ -192,16 +192,6 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     local bg = get_hl('NormalFloat').bg
     local preview_title = colors.green
     local prompt_title_bg = colors.blue
-    vim.api.nvim_set_hl(
-      0,
-      'TelescopePreviewTitle',
-      { fg = bg, bg = preview_title }
-    )
-    vim.api.nvim_set_hl(
-      0,
-      'TelescopePromptTitle',
-      { fg = bg, bg = prompt_title_bg }
-    )
     if vim.g.options.picker == 'telescope' then
       local result_title_bg = colors.orange
       -- return a table of highlights for telescope based on
@@ -210,8 +200,18 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       vim.api.nvim_set_hl(0, 'TelescopeNormal', { link = 'NormalFloat' })
       vim.api.nvim_set_hl(0, 'TelescopePreviewBorder', { link = 'FloatBorder' })
       vim.api.nvim_set_hl(0, 'TelescopePreviewNormal', { link = 'NormalFloat' })
+      vim.api.nvim_set_hl(
+        0,
+        'TelescopePreviewTitle',
+        { fg = bg, bg = preview_title }
+      )
       vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { link = 'FloatBorder' })
       vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { link = 'NormalFloat' })
+      vim.api.nvim_set_hl(
+        0,
+        'TelescopePromptTitle',
+        { fg = bg, bg = prompt_title_bg }
+      )
       vim.api.nvim_set_hl(
         0,
         'TelescopePromptPrefix',
@@ -232,5 +232,33 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       'MyMiniBorder',
       { bg = normal_bg, fg = get_hl('FloatBorder').fg }
     )
+
+    -- -- blink.cmp -------------------------------------------------------
+    if vim.g.options.cmp == 'blink_cmp' then
+      vim.api.nvim_set_hl(0, 'BlinkCmpMenu', { link = 'NormalFloat' })
+      vim.api.nvim_set_hl(0, 'BlinkCmpMenuBorder', { link = 'FloatBorder' })
+      vim.api.nvim_set_hl(0, 'BlinkCmpMenuSelection', { link = 'MyPmenuSel' })
+      vim.api.nvim_set_hl(0, 'BlinkCmpDocBorder', { link = 'FloatBorder' })
+      vim.api.nvim_set_hl(
+        0,
+        'BlinkCmpSignatureHelpBorder',
+        { link = 'FloatBorder' }
+      )
+      vim.api.nvim_set_hl(0, 'BlinkCmpLabelMatch', { fg = get_hl('Title').fg })
+      vim.api.nvim_set_hl(0, 'BlinkCmpSource', { link = 'Comment' })
+    end
+
+    -- -- fzf-lua ---------------------------------------------------------
+    if vim.g.options.picker == 'fzf_lua' then
+      vim.api.nvim_set_hl(0, 'FzfLuaNormal', { link = 'NormalFloat' })
+      vim.api.nvim_set_hl(0, 'FzfLuaBorder', { link = 'FloatBorder' })
+      vim.api.nvim_set_hl(0, 'FzfLuaTitle', { fg = bg, bg = prompt_title_bg })
+      vim.api.nvim_set_hl(
+        0,
+        'FzfLuaPreviewTitle',
+        { fg = bg, bg = preview_title }
+      )
+      vim.api.nvim_set_hl(0, 'FzfLuaHeaderText', { link = 'Title' })
+    end
   end,
 })
