@@ -195,6 +195,8 @@ local picker = { -- Fuzzy Finder (files, lsp, etc)
           builtin = {
             true, -- inherit defaults
             ['<Esc>'] = 'hide',
+            ['<C-f>'] = 'preview-page-down',
+            ['<C-b>'] = 'preview-page-up',
           },
         },
 

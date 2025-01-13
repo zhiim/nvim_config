@@ -197,6 +197,9 @@ return {
         Snacks.toggle
           .option('relativenumber', { off = false, on = true })
           :map '<leader>ntn'
+        Snacks.toggle
+          .option('scrollbind', { off = false, on = true })
+          :map '<leader>nts'
       end,
     })
   end,
