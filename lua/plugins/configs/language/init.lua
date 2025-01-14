@@ -63,61 +63,44 @@ if vim.g.options.language_support then
     },
 
     {
-      'rmagatti/goto-preview',
+      'dnlhc/glance.nvim',
+      cmd = 'Glance',
       keys = {
         {
-          '<leader>gtd',
-          function()
-            require('goto-preview').goto_preview_definition {}
-          end,
+          '<leader>gd',
+          '<CMD>Glance definitions<CR>',
           mode = 'n',
-          desc = 'GotoPrevew go to definitions',
+          desc = 'Glance definitions',
         },
         {
-          '<leader>gtr',
-          function()
-            require('goto-preview').goto_preview_references()
-          end,
+          '<leader>gr',
+          '<CMD>Glance references<CR>',
           mode = 'n',
-          desc = 'GotoPrevew go to references',
+          desc = 'Glance references',
         },
         {
-          '<leader>gtD',
-          function()
-            require('goto-preview').goto_preview_declaration {}
-          end,
+          '<leader>gD',
+          '<CMD>Glance type_definitions<CR>',
           mode = 'n',
-          desc = 'GotoPrevew go to declarations',
+          desc = 'Glance type definitions',
         },
         {
-          '<leader>gtt',
-          function()
-            require('goto-preview').goto_preview_type_definition {}
-          end,
+          '<leader>gI',
+          '<CMD>Glance implementations<CR>',
           mode = 'n',
-          desc = 'GotoPrevew go to type definitions',
-        },
-        {
-          '<leader>gti',
-          function()
-            require('goto-preview').goto_preview_implementation {}
-          end,
-          mode = 'n',
-          desc = 'GotoPrevew go to implementations',
-        },
-        {
-          '<leader>gtc',
-          function()
-            require('goto-preview').close_all_win()
-          end,
-          mode = 'n',
-          desc = 'GotoPrevew close all preview windows',
+          desc = 'Glance implementations',
         },
       },
       config = function()
-        require('goto-preview').setup {
-          border = { '↖', '─', '╮', '│', '╯', '─', '╰', '│' },
+        local actions = require('glance').actions
+        local opt = {
+          mappings = {
+            preview = {
+              ['q'] = actions.close,
+            },
+          },
         }
+        require('glance').setup(opt)
       end,
     },
 

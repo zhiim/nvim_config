@@ -30,7 +30,7 @@ local included_groups = {
   'Explorer',
   'Buffer',
   'Dropbar',
-  'GotoPreview',
+  'Glance',
   'Trouble',
   'LSP',
   'Debug',
