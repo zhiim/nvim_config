@@ -132,7 +132,7 @@ end
 
 local rand_hlgroup = function()
   local hlgroups =
-    { 'Blue', 'Red', 'Green', 'Yellow', 'Orange', 'Magenta', 'Cyan' }
+    { 'Blue', 'Red', 'Green', 'Yellow', 'Orange', 'Purple', 'Cyan' }
 
   return 'Back' .. hlgroups[math.random(1, #hlgroups)]
 end
