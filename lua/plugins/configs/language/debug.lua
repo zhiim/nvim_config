@@ -77,6 +77,20 @@ return {
         end
       end,
     },
+
+    {
+      'igorlfs/nvim-dap-view',
+      opts = {},
+      keys = {
+        {
+          '<leader>dt',
+          function()
+            require('dap-view').toggle()
+          end,
+          { desc = 'DapView toggle' },
+        },
+      },
+    },
   },
   config = function()
     local dap = require 'dap'
