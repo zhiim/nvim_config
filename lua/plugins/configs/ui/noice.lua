@@ -13,13 +13,38 @@ return {
         override = {
           ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
           ['vim.lsp.util.stylize_markdown'] = true,
-          ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
+          ['cmp.entry.get_documentation'] = (vim.g.options.cmp == 'nvim_cmp'), -- requires hrsh7th/nvim-cmp
         },
         hover = {
           silent = true, -- do not show a message if hover is not available
         },
         signature = {
-          enabled = false, -- used lsp_signature instead
+          enabled = (vim.g.options.cmp == 'blink_cmp'),
+        },
+        documentation = {
+          view = 'hover',
+          ---@type NoiceViewOptions
+          opts = {
+            lang = 'markdown',
+            replace = true,
+            render = 'markdown',
+            format = { '{message}' },
+            win_options = { concealcursor = 'n', conceallevel = 3 },
+          },
+        },
+      },
+      markdown = {
+        hover = {
+          ['|(%S-)|'] = vim.cmd.help, -- vim help links
+          ['%[.-%]%((%S-)%)'] = require('noice.util').open, -- markdown links
+        },
+        highlights = {
+          ['|%S-|'] = '@text.reference',
+          ['@%S+'] = '@parameter',
+          ['^%s*(Parameters:)'] = '@text.title',
+          ['^%s*(Return:)'] = '@text.title',
+          ['^%s*(See also:)'] = '@text.title',
+          ['{%S-}'] = '@parameter',
         },
       },
       -- you can enable a preset for easier configuration
