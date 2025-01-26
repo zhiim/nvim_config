@@ -312,7 +312,7 @@ local cmp_tool = { -- Autocompletion
           },
 
           signature = {
-            enabled = false,
+            enabled = true,
             window = { border = 'rounded' },
           },
 

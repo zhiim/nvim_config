@@ -21,13 +21,22 @@ if vim.g.options.language_support then
 
     {
       'MeanderingProgrammer/render-markdown.nvim',
-      dependencies = {
-        'nvim-treesitter/nvim-treesitter',
-        'echasnovski/mini.icons',
+      ft = {
+        'markdown',
+        'codecompanion',
+        'copilot-chat',
+        'noice',
       },
-      ft = { 'markdown', 'codecompanion', 'copilot-chat' },
       config = function()
-        require('render-markdown').setup {}
+        vim.treesitter.language.register('markdown', 'noice') -- render noice doc
+        require('render-markdown').setup {
+          file_types = {
+            'markdown',
+            'codecompanion',
+            'copilot-chat',
+            'noice',
+          },
+        }
       end,
     },
 

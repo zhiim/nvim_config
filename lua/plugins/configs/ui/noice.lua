@@ -7,6 +7,7 @@ return {
   },
   config = function()
     local cmd_row = math.floor(vim.api.nvim_list_uis()[1].height) * 0.3
+    ---@diagnostic disable-next-line: missing-fields
     require('noice').setup {
       lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -19,7 +20,7 @@ return {
           silent = true, -- do not show a message if hover is not available
         },
         signature = {
-          enabled = (vim.g.options.cmp == 'blink_cmp'),
+          enabled = false,
         },
         documentation = {
           view = 'hover',
