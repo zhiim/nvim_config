@@ -25,10 +25,10 @@ if vim.g.options.enhance then
         local animate = require 'mini.animate'
         require('mini.animate').setup {
           resize = {
-            timing = animate.gen_timing.linear { duration = 50, unit = 'total' },
+            timing = animate.gen_timing.linear { duration = 100, unit = 'total' },
           },
           scroll = {
-            timing = animate.gen_timing.linear { duration = 150, unit = 'total' },
+            timing = animate.gen_timing.linear { duration = 250, unit = 'total' },
             subscroll = animate.gen_subscroll.equal {
               predicate = function(total_scroll)
                 if mouse_scrolled then
@@ -42,9 +42,15 @@ if vim.g.options.enhance then
           cursor = {
             -- enable = false,
             timing = animate.gen_timing.exponential {
-              duration = 50,
+              duration = 250,
               unit = 'total',
             },
+          },
+          open = {
+            enable = true,
+          },
+          close = {
+            enable = true,
           },
         }
       end,
