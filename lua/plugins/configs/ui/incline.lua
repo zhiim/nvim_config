@@ -5,6 +5,10 @@ return {
     local devicons = require 'nvim-web-devicons'
 
     require('incline').setup {
+      hide = {
+        cursorline = true,
+        focused_win = true,
+      },
       window = {
         padding = 0,
         margin = { horizontal = 0, vertical = 0 },
@@ -73,20 +77,19 @@ return {
         end
 
         local get_hl = require('utils.util').get_hl
-        local color_column_hl = get_hl('ColorColumn').bg
         local normal_hl = get_hl('Normal').bg
         return {
           ft_icon and {
             '',
-            guifg = props.focused and ft_color or color_column_hl,
+            guifg = ft_color,
             guibg = normal_hl,
           } or '',
 
           ft_icon and {
             ft_icon,
             ' ',
-            guibg = props.focused and ft_color or color_column_hl,
-            guifg = props.focused and normal_hl or ft_color,
+            guibg = ft_color,
+            guifg = normal_hl,
           } or '',
 
           { ' ', filename, gui = modified and 'italic' or 'bold' },
