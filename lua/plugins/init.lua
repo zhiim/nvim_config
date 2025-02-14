@@ -36,6 +36,7 @@ require('lazy').setup({
         { '<leader>cb', group = 'CommentBox', mode = { 'n', 'v' } },
         { '<leader>d', group = 'Dropbar and DiffView' },
         { '<leader>dv', group = 'DiffView' },
+        { '<leader>dt', group = 'DapView toggle' },
         { '<leader>f', group = 'Flashs', mode = { 'n', 'v' } },
         { '<leader>g', group = 'Glance, GrugFar, Neogen' },
         { '<leader>g', group = 'GrugFar', mode = 'v' },
@@ -331,14 +332,6 @@ require('lazy').setup({
         require('mini.icons').mock_nvim_web_devicons()
         return package.loaded['nvim-web-devicons']
       end
-    end,
-  },
-
-  {
-    'tzachar/highlight-undo.nvim',
-    event = 'BufRead',
-    config = function()
-      require('highlight-undo').setup()
     end,
   },
 

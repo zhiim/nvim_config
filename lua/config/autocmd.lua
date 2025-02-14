@@ -185,9 +185,6 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       italic = true,
     })
 
-    -- -- highlight undo --------------------------------------------------
-    vim.api.nvim_set_hl(0, 'HighlightUndo', { link = 'Visual' })
-
     -- -- highlight group for telescope -----------------------------------
     local bg = get_hl('NormalFloat').bg
     local preview_title = colors.green

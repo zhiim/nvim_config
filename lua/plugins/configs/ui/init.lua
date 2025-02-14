@@ -75,6 +75,44 @@ if vim.g.options.ui then
       end,
     },
 
+    {
+      'rachartier/tiny-glimmer.nvim',
+      enabled = vim.fn.has 'nvim-0.10',
+      event = 'VeryLazy',
+      config = function()
+        local palette = require('utils.palette').get_palette()
+        local opts = {
+          default_animation = 'left_to_right',
+          overwrite = {
+            auto_map = true,
+            search = {
+              enabled = true,
+              default_animation = 'left_to_right',
+            },
+            paste = {
+              enabled = true,
+              default_animation = 'left_to_right',
+            },
+            undo = {
+              enabled = true,
+              default_animation = 'left_to_right',
+            },
+            redo = {
+              enabled = true,
+              default_animation = 'left_to_right',
+            },
+          },
+          animations = {
+            left_to_right = {
+              from_color = palette.red,
+              to_color = palette.blue,
+            },
+          },
+        }
+        require('tiny-glimmer').setup(opts)
+      end,
+    },
+
     require 'plugins.configs.ui.dashboard',
     require 'plugins.configs.ui.lualine',
     require 'plugins.configs.ui.incline',

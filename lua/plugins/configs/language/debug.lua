@@ -80,6 +80,7 @@ return {
 
     {
       'igorlfs/nvim-dap-view',
+      enabled = vim.fn.has 'nvim-0.11',
       opts = {},
       keys = {
         {
