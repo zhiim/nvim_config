@@ -195,11 +195,15 @@ return {
         vim.print = _G.dd -- Override print to use snacks for `:=` command
 
         Snacks.toggle
-          .option('relativenumber', { off = false, on = true })
+          .option(
+            'relativenumber',
+            { name = 'Relative number', off = false, on = true }
+          )
           :map '<leader>ntn'
         Snacks.toggle
-          .option('scrollbind', { off = false, on = true })
+          .option('scrollbind', { name = 'Scroll bind', off = false, on = true })
           :map '<leader>nts'
+        Snacks.toggle.inlay_hints():map '<leader>nth'
       end,
     })
   end,

@@ -316,5 +316,13 @@ return { -- LSP Configuration & Plugins
       end,
       desc = 'LSP: Disable hover capability from Ruff',
     })
+
+    -- enable inlay hints
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = { 'cpp' },
+      callback = function()
+        vim.lsp.inlay_hint.enable(true)
+      end,
+    })
   end,
 }
