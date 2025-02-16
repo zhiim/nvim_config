@@ -94,6 +94,12 @@ return {
     quickfile = { enabled = true },
     statuscolumn = { enabled = false },
     words = { enabled = true },
+    image = {
+      doc = {
+        max_width = 40,
+        max_height = 20,
+      },
+    },
   },
   keys = {
     {
