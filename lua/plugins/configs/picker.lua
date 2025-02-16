@@ -225,7 +225,6 @@ local picker = { -- Fuzzy Finder (files, lsp, etc)
         end
         return {
           winopts = { height = h, width = 0.60, row = 0.50 },
-          fzf_opts = { ['--with-nth'] = '2..' },
         }
       end)
 
