@@ -294,13 +294,18 @@ local cmp_tool = { -- Autocompletion
             ghost_text = {
               enabled = false,
             },
+            list = {
+              selection = {
+                preselect = function(_)
+                  return not require('blink.cmp').snippet_active {
+                    direction = 1,
+                  }
+                end,
+              },
+            },
           },
           keymap = {
-            preset = 'default',
-            ['<Tab>'] = {
-              'select_and_accept',
-              'fallback',
-            },
+            preset = 'super-tab',
           },
 
           signature = {
@@ -360,12 +365,14 @@ local cmp_tool = { -- Autocompletion
           cmdline = {
             enabled = true,
             keymap = {
-              preset = 'default',
+              ['<C-e>'] = { 'hide', 'fallback' },
               ['<Tab>'] = {
                 'show',
                 'select_and_accept',
                 'fallback',
               },
+              ['<C-p>'] = { 'select_prev', 'fallback' },
+              ['<C-n>'] = { 'select_next', 'fallback' },
             },
             ---@diagnostic disable-next-line: assign-type-mismatch
             sources = function()
