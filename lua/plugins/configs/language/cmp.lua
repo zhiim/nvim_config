@@ -301,14 +301,6 @@ local cmp_tool = { -- Autocompletion
               'select_and_accept',
               'fallback',
             },
-            cmdline = {
-              preset = 'default',
-              ['<Tab>'] = {
-                'show',
-                'select_and_accept',
-                'fallback',
-              },
-            },
           },
 
           signature = {
@@ -345,18 +337,6 @@ local cmp_tool = { -- Autocompletion
                 return { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' }
               end
             end,
-            cmdline = function()
-              local type = vim.fn.getcmdtype()
-              -- Search forward and backward
-              if type == '/' or type == '?' then
-                return { 'buffer' }
-              end
-              -- Commands
-              if type == ':' or type == '@' then
-                return { 'path', 'cmdline' }
-              end
-              return {}
-            end,
             providers = {
               lazydev = {
                 name = 'LazyDev',
@@ -374,6 +354,31 @@ local cmp_tool = { -- Autocompletion
                 module = 'blink.compat.source',
                 score_offset = 3,
               },
+            },
+          },
+
+          cmdline = {
+            keymap = {
+              preset = 'default',
+              ['<Tab>'] = {
+                'show',
+                'select_and_accept',
+                'fallback',
+              },
+            },
+            sources = {
+              default = function()
+                local type = vim.fn.getcmdtype()
+                -- Search forward and backward
+                if type == '/' or type == '?' then
+                  return { 'buffer' }
+                end
+                -- Commands
+                if type == ':' or type == '@' then
+                  return { 'path', 'cmdline' }
+                end
+                return {}
+              end,
             },
           },
         }

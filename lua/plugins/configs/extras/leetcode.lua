@@ -6,7 +6,6 @@ return {
   cmd = 'Leet',
   dependencies = {
     'MunifTanjim/nui.nvim',
-    '3rd/image.nvim',
   },
   enabled = vim.g.options.leetcode,
   opts = {
