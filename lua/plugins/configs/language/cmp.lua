@@ -294,6 +294,15 @@ local cmp_tool = { -- Autocompletion
             ghost_text = {
               enabled = false,
             },
+            list = {
+              selection = {
+                preselect = function(_)
+                  return not require('blink.cmp').snippet_active {
+                    direction = 1,
+                  }
+                end,
+              },
+            },
           },
           keymap = {
             preset = 'none',
