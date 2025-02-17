@@ -72,7 +72,7 @@ return {
           indent = 2,
           padding = 1,
         },
-        { section = 'startup' },
+        { section = 'startup', icon = '󱐋 ' },
       },
     },
     indent = {
@@ -94,12 +94,6 @@ return {
     quickfile = { enabled = true },
     statuscolumn = { enabled = false },
     words = { enabled = true },
-    image = {
-      doc = {
-        max_width = 40,
-        max_height = 20,
-      },
-    },
   },
   keys = {
     {

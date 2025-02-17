@@ -48,7 +48,7 @@ require('lazy').setup({
         { '<leader>nn', group = 'Snacks.notification' },
         { '<leader>nt', group = 'Snacks.toggle' },
         { '<leader>ns', group = 'Snacks.scratch' },
-        { '<leader>p', group = 'Portal' },
+        { '<leader>p', group = 'Portal, Preview image' },
         { '<leader>r', group = 'Rename, ReSessison' },
         { '<leader>rs', group = 'ReSessison' },
         { '<leader>s', group = 'Picer' },
