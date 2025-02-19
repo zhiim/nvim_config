@@ -19,7 +19,7 @@ if vim.g.options.util then
         },
         modes = {
           search = {
-            enabled = true,
+            enabled = false, -- enable this will disort the search result process
           },
         },
       },
