@@ -169,7 +169,7 @@ return {
           return require('codecompanion.adapters').extend('copilot', {
             schema = {
               model = {
-                default = 'o1-preview-2024-09-12',
+                default = 'o1-2024-12-17',
               },
             },
           })
