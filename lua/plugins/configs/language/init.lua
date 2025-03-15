@@ -25,6 +25,7 @@ if vim.g.options.language_support then
         'markdown',
         'codecompanion',
         'copilot-chat',
+        'noice',
       },
       config = function()
         vim.treesitter.language.register('markdown', 'noice') -- render noice doc
@@ -33,6 +34,7 @@ if vim.g.options.language_support then
             'markdown',
             'codecompanion',
             'copilot-chat',
+            'noice',
           },
         }
       end,
