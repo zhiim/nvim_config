@@ -49,6 +49,7 @@ return {
           'copilot_claude',
           'copilot_4o',
           'copilot_o1',
+          'xai',
         }
         vim.ui.select(items, {
           prompt = 'Select a model:',
@@ -85,7 +86,7 @@ return {
       },
       strategies = {
         chat = {
-          adapter = 'gemini_pro',
+          adapter = 'xai',
           keymaps = {
             close = {
               modes = {
@@ -107,7 +108,7 @@ return {
           },
         },
         inline = {
-          adapter = 'gemini_pro',
+          adapter = 'xai',
         },
       },
       adapters = {
@@ -118,7 +119,7 @@ return {
             },
             schema = {
               model = {
-                default = 'gemini-1.5-flash',
+                default = 'gemini-2.0-flash',
               },
             },
           })
@@ -130,19 +131,7 @@ return {
             },
             schema = {
               model = {
-                default = 'gemini-1.5-pro',
-              },
-            },
-          })
-        end,
-        gemini_1 = function()
-          return require('codecompanion.adapters').extend('gemini', {
-            env = {
-              api_key = vim.g.options.gemini_api_key,
-            },
-            schema = {
-              model = {
-                default = 'gemini-1.0-pro',
+                default = 'gemini-2.0-pro-exp-02-05',
               },
             },
           })
@@ -170,6 +159,18 @@ return {
             schema = {
               model = {
                 default = 'o1-2024-12-17',
+              },
+            },
+          })
+        end,
+        xai = function()
+          return require('codecompanion.adapters').extend('xai', {
+            env = {
+              api_key = vim.g.options.xai_api_key,
+            },
+            schema = {
+              model = {
+                default = 'grok-3-beta',
               },
             },
           })

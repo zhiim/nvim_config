@@ -81,7 +81,8 @@ function M.set_options()
     theme = 'Select theme',
     theme_style = 'Select style of the theme',
     bash_path = 'Set bash path in windows to use bash in terminal',
-    gemini_api_key = 'Set gemini api key for AI tools',
+    xai_api_key = 'Set xAI api key for AI tools',
+    gemini_api_key = 'Set Gemini api key for AI tools',
     python_conda_command = 'Set command to find python env path of Conda',
     python_venv_command = 'Set command to find python env path of venv',
   }
@@ -177,6 +178,7 @@ function M.set_options()
     'theme',
     'theme_style',
     'bash_path',
+    'xai_api_key',
     'gemini_api_key',
     'python_conda_command',
     'python_venv_command',
@@ -213,6 +215,7 @@ function M.set_options()
       utils.find_value(choice, {
         'proxy',
         'bash_path',
+        'xai_api_key',
         'gemini_api_key',
         'python_conda_command',
         'python_venv_command',

@@ -33,7 +33,8 @@ vim.g.options = {
   theme_style = 'github_dark_dimmed',
   -- ━━ use bash in windows ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   bash_path = '',
-  -- ━━ gemini api key ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  -- ━━ api key ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  xai_api_key = '',
   gemini_api_key = '',
   -- ━━ command to find python env path ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   -- in linux
