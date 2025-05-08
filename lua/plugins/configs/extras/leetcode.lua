@@ -29,8 +29,8 @@ return {
         end
       end,
     },
-    config = function()
-      vim.cmd 'TSUpdate html'
-    end,
   },
+  config = function(_, opts)
+    require('leetcode').setup(opts)
+  end,
 }

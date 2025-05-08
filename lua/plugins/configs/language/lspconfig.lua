@@ -1,5 +1,6 @@
 return { -- LSP Configuration & Plugins
   'neovim/nvim-lspconfig',
+  enabled = vim.fn.argv()[1] ~= 'leetcode',
   dependencies = {
     { 'williamboman/mason.nvim', config = true }, -- Must be loaded before dependants
     'williamboman/mason-lspconfig.nvim',
