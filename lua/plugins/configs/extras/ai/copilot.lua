@@ -108,7 +108,7 @@ return {
         highlight_headers = false,
         separator = '---',
         error_header = '> [!ERROR] Error',
-        debug = true,
+        debug = false,
         proxy = vim.g.options.proxy,
         mappings = {
           reset = {

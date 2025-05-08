@@ -122,21 +122,16 @@ local picker = { -- Fuzzy Finder (files, lsp, etc)
         { desc = 'Telescope search highlights' }
       )
 
-      vim.keymap.set('n', '<leader>sl', function()
-        builtin.current_buffer_fuzzy_find(
-          require('telescope.themes').get_dropdown {
-            -- winblend = 10,
-            previewer = false,
-          }
-        )
-      end, { desc = 'Telescope search in current buffer fuzzily ' })
-
       vim.keymap.set('n', '<leader>s/', function()
+        builtin.current_buffer_fuzzy_find()
+      end, { desc = 'Telescope search in current buffer fuzzily' })
+
+      vim.keymap.set('n', '<leader>sa', function()
         builtin.live_grep {
           grep_open_files = true,
           prompt_title = 'Live Grep in Open Files',
         }
-      end, { desc = 'Telescope search in open files' })
+      end, { desc = 'Telescope search in all buffers fuzzily' })
 
       vim.keymap.set(
         'n',
@@ -297,16 +292,16 @@ local picker = { -- Fuzzy Finder (files, lsp, etc)
 
       vim.keymap.set(
         'n',
-        '<leader>sl',
-        '<cmd>FzfLua lgrep_curbuf<cr>',
-        { desc = 'FzfLua search in current buffer fuzzily ' }
+        '<leader>s/',
+        '<cmd>FzfLua grep_curbuf<cr>',
+        { desc = 'FzfLua search in current buffer fuzzily' }
       )
 
       vim.keymap.set(
         'n',
-        '<leader>s/',
+        '<leader>sa',
         '<cmd>FzfLua lines<cr>',
-        { desc = 'FzfLua search in open files' }
+        { desc = 'FzfLua search in all buffer fuzzily' }
       )
 
       vim.keymap.set(
@@ -342,6 +337,13 @@ local picker = { -- Fuzzy Finder (files, lsp, etc)
         '<leader>ss',
         '<cmd>FzfLua lsp_document_symbols<cr>',
         { desc = 'FzfLua search document symbols' }
+      )
+
+      vim.keymap.set(
+        'n',
+        '<leader>sp',
+        '<cmd>FzfLua grep_project<cr>',
+        { desc = 'FzfLua search project' }
       )
     end,
   },
