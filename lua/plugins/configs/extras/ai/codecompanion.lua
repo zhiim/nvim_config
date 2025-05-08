@@ -39,54 +39,105 @@ return {
       desc = 'CodeCompanion insert prompt',
       mode = { 'n', 'v' },
     },
-    {
-      '<leader>ccm',
-      function()
-        local items = {
-          'gemini_flash',
-          'gemini_pro',
-          'gemini_1',
-          'copilot_claude',
-          'copilot_4o',
-          'copilot_o1',
-          'xai',
-        }
-        vim.ui.select(items, {
-          prompt = 'Select a model:',
-          format_item = function(item)
-            return item
-          end,
-        }, function(selected)
-          if require('utils.util').find_value(selected, items) then
-            vim.cmd('CodeCompanionChat ' .. selected)
-          else
-            return
-          end
-        end)
-      end,
-      desc = 'CodeCompanion chat with a selected model',
-      mode = { 'n', 'v' },
-    },
   },
   config = function()
+    local change_model = function(chat)
+      local function select_opts(prompt, conditional)
+        return {
+          prompt = prompt,
+          kind = 'codecompanion.nvim',
+          format_item = function(item)
+            if conditional == item then
+              return '* ' .. item
+            end
+            return '  ' .. item
+          end,
+        }
+      end
+
+      local config = require 'codecompanion.config'
+      local util = require 'codecompanion.utils'
+      if config.display.chat.show_settings then
+        return util.notify(
+          "Model can't be changed when `display.chat.show_settings = true`",
+          vim.log.levels.WARN
+        )
+      end
+
+      local current_model = vim.deepcopy(chat.adapter.schema.model.default)
+
+      -- Select a model
+      local models = chat.adapter.schema.model.choices
+      if type(models) == 'function' then
+        models = models(chat.adapter)
+      end
+      if not models or vim.tbl_count(models) < 2 then
+        return
+      end
+
+      local new_model = chat.adapter.schema.model.default
+      if type(new_model) == 'function' then
+        new_model = new_model(chat.adapter)
+      end
+
+      models = vim
+        .iter(models)
+        :map(function(model, value)
+          if type(model) == 'string' then
+            return model
+          else
+            return value -- This is for the table entry case
+          end
+        end)
+        :filter(function(model)
+          return model ~= new_model
+        end)
+        :totable()
+      table.insert(models, 1, new_model)
+
+      vim.ui.select(
+        models,
+        select_opts('Select Model', new_model),
+        function(selected)
+          if not selected then
+            return
+          end
+
+          if current_model ~= selected then
+            util.fire('ChatModel', { bufnr = chat.bufnr, model = selected })
+          end
+
+          chat:apply_model(selected)
+          chat:apply_settings()
+        end
+      )
+    end
+
     require('codecompanion').setup {
-      opts = {
-        -- do not use a default prompt for every chat for a more general model
-        -- instead define the code helper in the prompt_library
-        system_prompt = '',
-      },
       display = {
         chat = {
           render_headers = false,
-          show_settings = true,
+          -- show_settings = true,
           window = {
             width = 0.3,
           },
+        },
+        action_palette = {
+          provider = 'default',
         },
       },
       strategies = {
         chat = {
           adapter = 'xai',
+          roles = {
+            llm = function(adapter)
+              return 'CodeCompanion ('
+                .. adapter.formatted_name
+                .. ': '
+                .. adapter.parameters.model
+                .. ')'
+            end,
+          },
           keymaps = {
             close = {
               modes = {
@@ -105,6 +156,16 @@ return {
               callback = 'keymaps.stop',
               description = 'Stop Request',
             },
+            change_model = {
+              modes = {
+                n = 'gm',
+              },
+              index = 15,
+              callback = function(chat)
+                change_model(chat)
+              end,
+              description = 'Change model',
+            },
           },
         },
         inline = {
@@ -112,54 +173,14 @@ return {
         },
       },
       adapters = {
-        gemini_flash = function()
+        opts = {
+          show_model_choices = false,
+          proxy = vim.g.options.proxy,
+        },
+        gemini = function()
           return require('codecompanion.adapters').extend('gemini', {
             env = {
               api_key = vim.g.options.gemini_api_key,
-            },
-            schema = {
-              model = {
-                default = 'gemini-2.0-flash',
-              },
-            },
-          })
-        end,
-        gemini_pro = function()
-          return require('codecompanion.adapters').extend('gemini', {
-            env = {
-              api_key = vim.g.options.gemini_api_key,
-            },
-            schema = {
-              model = {
-                default = 'gemini-2.0-pro-exp-02-05',
-              },
-            },
-          })
-        end,
-        copilot_claude = function()
-          return require('codecompanion.adapters').extend('copilot', {
-            schema = {
-              model = {
-                default = 'claude-3.5-sonnet',
-              },
-            },
-          })
-        end,
-        copilot_4o = function()
-          return require('codecompanion.adapters').extend('copilot', {
-            schema = {
-              model = {
-                default = 'gpt-4o-2024-08-06',
-              },
-            },
-          })
-        end,
-        copilot_o1 = function()
-          return require('codecompanion.adapters').extend('copilot', {
-            schema = {
-              model = {
-                default = 'o1-2024-12-17',
-              },
             },
           })
         end,
@@ -171,76 +192,23 @@ return {
             schema = {
               model = {
                 default = 'grok-3-beta',
+                choices = {
+                  'grok-3-beta',
+                  'grok-3-mini-beta',
+                  'grok-2-1212',
+                  'grok-beta',
+                },
               },
             },
           })
         end,
-        opts = {
-          proxy = vim.g.options.proxy,
-        },
       },
       prompt_library = {
-        ['Coding-Helper'] = {
-          strategy = 'chat',
-          description = 'Coding Helper',
-          opts = {
-            adapter = {
-              name = 'gemini_pro',
-            },
-            modes = { 'n', 'v' },
-            short_name = 'copilot',
-            user_prompt = false,
-            is_slash_cmd = true,
-          },
-          prompts = {
-            {
-              role = 'system',
-              content = [[You are an AI programming assistant named "CodeCompanion".
-You are currently plugged in to the Neovim text editor on a user's machine.
-
-Your core tasks include:
-- Answering general programming questions.
-- Explaining how the code in a Neovim buffer works.
-- Reviewing the selected code in a Neovim buffer.
-- Generating unit tests for the selected code.
-- Proposing fixes for problems in the selected code.
-- Scaffolding code for a new workspace.
-- Finding relevant code to the user's query.
-- Proposing fixes for test failures.
-- Answering questions about Neovim.
-- Running tools.
-
-You must:
-- Follow the user's requirements carefully and to the letter.
-- Keep your answers short and impersonal, especially if the user responds with context outside of your tasks.
-- Minimize other prose.
-- Use Markdown formatting in your answers.
-- Include the programming language name at the start of the Markdown code blocks.
-- Avoid line numbers in code blocks.
-- Avoid wrapping the whole response in triple backticks.
-- Only return code that's relevant to the task at hand. You may not need to return all of the code that the user has shared.
-- Use actual line breaks instead of '\n' in your response to begin new lines.
-- Use '\n' only when you want a literal backslash followed by a character 'n'.
-
-When given a task:
-1. Think step-by-step and describe your plan for what to build in pseudocode, written out in great detail, unless asked not to do so.
-2. Output the code in a single code block, being careful to only return relevant code.
-3. You should always generate short suggestions for the next user turns that are relevant to the conversation.
-4. You can only give one reply for each conversation turn.]],
-            },
-            {
-              role = 'user',
-              content = [[]],
-            },
-          },
-        },
         ['English-Chinese-Translator'] = {
           strategy = 'chat',
           description = 'Translate bwtween English and Chinese',
           opts = {
-            adapter = {
-              name = 'gemini_pro',
-            },
+            index = 12,
             modes = { 'n', 'v' },
             short_name = 'trans',
             user_prompt = false,
@@ -290,9 +258,7 @@ You are a senior and professional translator with excellent Chinese-English tran
           strategy = 'chat',
           description = 'Check English Grammer',
           opts = {
-            adapter = {
-              name = 'gemini_pro',
-            },
+            index = 12,
             modes = { 'n', 'v' },
             short_name = 'grammar',
             user_prompt = false,
@@ -324,9 +290,7 @@ Follow these instructions:
           strategy = 'chat',
           description = 'Machine Learning Expert',
           opts = {
-            adapter = {
-              name = 'gemini_pro',
-            },
+            index = 12,
             modes = { 'n', 'v' },
             short_name = 'mlpro',
             user_prompt = false,
@@ -384,9 +348,7 @@ You are a knowledgeable and patient AI assistant specializing in machine learnin
           strategy = 'chat',
           description = 'Cpp Expert',
           opts = {
-            adapter = {
-              name = 'gemini_pro',
-            },
+            index = 12,
             modes = { 'n', 'v' },
             short_name = 'cpp',
             user_prompt = false,
@@ -436,9 +398,7 @@ You're a patient and knowledgeable programming assistant who excels in teaching 
           strategy = 'chat',
           description = 'Python Expert',
           opts = {
-            adapter = {
-              name = 'gemini_pro',
-            },
+            index = 12,
             modes = { 'n', 'v' },
             short_name = 'python',
             user_prompt = false,
@@ -476,9 +436,7 @@ Finally, you consider the operational aspects of the solutions. You think about 
           strategy = 'chat',
           description = 'paper expert',
           opts = {
-            adapter = {
-              name = 'gemini_pro',
-            },
+            index = 12,
             modes = { 'n', 'v' },
             short_name = 'paper',
             user_prompt = false,
