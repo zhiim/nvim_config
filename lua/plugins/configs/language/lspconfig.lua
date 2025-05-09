@@ -2,8 +2,8 @@ return { -- LSP Configuration & Plugins
   'neovim/nvim-lspconfig',
   enabled = vim.fn.argv()[1] ~= 'leetcode',
   dependencies = {
-    { 'williamboman/mason.nvim', config = true }, -- Must be loaded before dependants
-    'williamboman/mason-lspconfig.nvim',
+    { 'mason-org/mason.nvim', config = true }, -- Must be loaded before dependants
+    'mason-org/mason-lspconfig.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
   },
   config = function()
@@ -316,14 +316,6 @@ return { -- LSP Configuration & Plugins
         end
       end,
       desc = 'LSP: Disable hover capability from Ruff',
-    })
-
-    -- enable inlay hints
-    vim.api.nvim_create_autocmd('FileType', {
-      pattern = { 'cpp' },
-      callback = function()
-        vim.lsp.inlay_hint.enable(true)
-      end,
     })
   end,
 }

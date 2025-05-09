@@ -81,7 +81,24 @@ return {
     {
       'igorlfs/nvim-dap-view',
       enabled = vim.fn.has 'nvim-0.11' == 1,
-      opts = {},
+      opts = {
+        winbar = {
+          sections = {
+            'watches',
+            'scopes',
+            'repl',
+            'console',
+            'threads',
+            'breakpoints',
+            'exceptions',
+          },
+        },
+        windows = {
+          terminal = {
+            start_hidden = true,
+          },
+        },
+      },
       keys = {
         {
           '<leader>dt',
@@ -208,5 +225,20 @@ return {
       justMyCode = false,
       -- ... more options, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings
     })
+
+    -- auto open and close dap-view
+    local dv = require 'dap-view'
+    dap.listeners.before.attach['dap-view-config'] = function()
+      dv.open()
+    end
+    dap.listeners.before.launch['dap-view-config'] = function()
+      dv.open()
+    end
+    dap.listeners.before.event_terminated['dap-view-config'] = function()
+      dv.close()
+    end
+    dap.listeners.before.event_exited['dap-view-config'] = function()
+      dv.close()
+    end
   end,
 }
