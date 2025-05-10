@@ -10,6 +10,7 @@ return {
       row = cmd_row,
     },
     bigfile = { enabled = true },
+    image = { enabled = true },
     dashboard = {
       enabled = true,
       preset = {
