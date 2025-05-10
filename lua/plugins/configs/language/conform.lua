@@ -29,7 +29,6 @@ return { -- Autoformat
         yaml = { 'prettier' },
         cmake = { 'cmake_format' },
         tex = { 'latexindent' },
-        -- rust = { "rustfmt" },
       },
     }
 
@@ -50,37 +49,5 @@ return { -- Autoformat
     end, {
       desc = 'Re-enable autoformat-on-save',
     })
-
-    -- conform.formatters.ruff_fix = {
-    --   args = {
-    --     'check',
-    --     '--fix',
-    --     '--force-exclude',
-    --     '--exit-zero',
-    --     '--no-cache',
-    --     '--config',
-    --     formatterConfig .. 'ruff.toml',
-    --     '--stdin-filename',
-    --     '$FILENAME',
-    --     '-',
-    --   },
-    -- }
-    --
-    -- conform.formatters.ruff_format = {
-    --   args = {
-    --     'format',
-    --     '--config',
-    --     formatterConfig .. 'ruff.toml',
-    --     '--stdin-filename',
-    --     '$FILENAME',
-    --     '-',
-    --   },
-    -- }
-
-    -- conform.formatters.clang_format = {
-    --   prepend_args = {
-    --     '--style=file:' .. formatterConfig .. 'clang_format.yaml',
-    --   },
-    -- }
   end,
 }

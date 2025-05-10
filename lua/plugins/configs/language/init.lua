@@ -193,6 +193,7 @@ if vim.g.options.language_support then
       },
     },
 
+    require 'plugins.configs.language.mason',
     require 'plugins.configs.language.lspconfig',
     require 'plugins.configs.language.treesitter',
     require 'plugins.configs.language.cmp',

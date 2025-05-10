@@ -10,30 +10,6 @@ return {
       yaml = { 'yamllint' },
     }
 
-    -- local linterConfig = vim.fn.stdpath 'config' .. '/config_files/'
-
-    -- lint.linters.ruff.args = {
-    --   'check',
-    --   '--force-exclude',
-    --   '--quiet',
-    --   '--stdin-filename',
-    --   vim.api.nvim_buf_get_name(0),
-    --   '--no-fix',
-    --   '--output-format',
-    --   'json',
-    --   '--config',
-    --   linterConfig .. 'ruff_lint.toml',
-    --   '-',
-    -- }
-
-    -- lint.linters.yamllint.args = {
-    --   '-c',
-    --   linterConfig .. 'yamllint.yaml',
-    --   '--format',
-    --   'parsable',
-    --   '-',
-    -- }
-
     -- Create autocommand which carries out the actual linting
     -- on the specified events.
     local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
