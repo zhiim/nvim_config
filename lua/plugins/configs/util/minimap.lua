@@ -10,8 +10,13 @@ return { -- Collection of various small independent plugins/modules
     minimap_opt = {
       integrations = {
         MiniMap.gen_integration.builtin_search(),
-        MiniMap.gen_integration.gitsigns(),
-        MiniMap.gen_integration.diagnostic(),
+        MiniMap.gen_integration.diff(),
+        MiniMap.gen_integration.diagnostic {
+          error = 'DiagnosticVirtualTextError',
+          warn = 'DiagnosticVirtualTextWarn',
+          info = 'DiagnosticVirtualTextInfo',
+          hint = 'DiagnosticVirtualTextHint',
+        },
       },
       symbols = {
         encode = MiniMap.gen_encode_symbols.dot '4x2',
