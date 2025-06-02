@@ -370,7 +370,7 @@ return {
     version = false,
     keys = {
       {
-        '<C-m>',
+        '<leader>e',
         function()
           if not MiniFiles.close() then
             require('mini.files').open()
@@ -416,11 +416,7 @@ return {
         end,
       })
 
-      require('mini.files').setup {
-        windows = {
-          preview = true,
-        },
-      }
+      require('mini.files').setup {}
     end,
   },
 }
