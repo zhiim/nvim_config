@@ -58,22 +58,22 @@ return { -- LSP Configuration & Plugins
         else
           map(
             'gd',
-            '<cmd>FzfLua lsp_definitions jump_to_single_result=true ignore_current_line=true<CR>',
+            '<cmd>FzfLua lsp_definitions ignore_current_line=true<CR>',
             'LSP goto definition'
           )
           map(
             'gr',
-            '<cmd>FzfLua lsp_references jump_to_single_result=true ignore_current_line=true<CR>',
+            '<cmd>FzfLua lsp_references ignore_current_line=true<CR>',
             'LSP goto references'
           )
           map(
             'gI',
-            '<cmd>FzfLua lsp_implementations jump_to_single_result=true ignore_current_line=true<CR>',
+            '<cmd>FzfLua lsp_implementations ignore_current_line=true<CR>',
             'LSP goto implementation'
           )
           map(
             '<leader>D',
-            '<cmd>FzfLua lsp_typedefs jump_to_single_result=true ignore_current_line=true<CR>',
+            '<cmd>FzfLua lsp_typedefs ignore_current_line=true<CR>',
             'LSP type definition'
           )
           map(

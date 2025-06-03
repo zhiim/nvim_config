@@ -30,22 +30,6 @@ return { -- Collection of various small independent plugins/modules
   end,
   keys = {
     {
-      '<leader>mmo',
-      function()
-        require('mini.map').open()
-      end,
-      mode = 'n',
-      desc = 'MiniMap open map',
-    },
-    {
-      '<leader>mmc',
-      function()
-        require('mini.map').close()
-      end,
-      mode = 'n',
-      desc = 'MiniMap close map',
-    },
-    {
       '<leader>mmt',
       function()
         require('mini.map').toggle()
