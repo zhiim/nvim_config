@@ -15,6 +15,7 @@ end
 local file_explorers = {
   nvimtree = {
     'nvim-tree/nvim-tree.lua',
+    enabled = vim.g.options.util,
     cmd = { 'NvimTreeToggle', 'NvimTreeFocus' },
     opts = {
       filters = {
@@ -105,6 +106,7 @@ local file_explorers = {
 
   neotree = {
     'nvim-neo-tree/neo-tree.nvim',
+    enabled = vim.g.options.util,
     dependencies = {
       'MunifTanjim/nui.nvim',
     },
@@ -287,7 +289,7 @@ return {
   {
     'stevearc/oil.nvim',
     cmd = 'Oil',
-    enabled = vim.fn.has 'nvim-0.8',
+    enabled = vim.fn.has 'nvim-0.8' and vim.g.options.util,
     keys = {
       {
         '<C-p>',
