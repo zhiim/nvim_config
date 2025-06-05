@@ -221,10 +221,9 @@ return {
     table.insert(require('dap').configurations.python, {
       type = 'python',
       request = 'launch',
-      name = 'Custom: debug outside',
+      name = 'file:workspace',
       program = '${file}',
-      justMyCode = false,
-      -- ... more options, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings
+      cwd = '${workspacefolder}',
     })
 
     -- auto open and close dap-view
