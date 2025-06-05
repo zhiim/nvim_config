@@ -223,7 +223,7 @@ return {
       request = 'launch',
       name = 'file:workspace',
       program = '${file}',
-      cwd = '${workspacefolder}',
+      cwd = '${workspaceFolder}',
     })
 
     -- auto open and close dap-view
