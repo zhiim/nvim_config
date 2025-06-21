@@ -10,7 +10,7 @@ return {
       row = cmd_row,
     },
     bigfile = { enabled = true },
-    image = { enabled = true },
+    image = { enabled = false },
     dashboard = {
       enabled = true,
       preset = {
@@ -180,6 +180,14 @@ return {
       end,
       mode = 'n',
       desc = 'Snacks select scratch buffer',
+    },
+    {
+      '<leader>ni',
+      function()
+        Snacks.image.hover()
+      end,
+      mode = 'n',
+      desc = 'Snacks show image',
     },
   },
   init = function()
