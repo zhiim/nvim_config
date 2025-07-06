@@ -84,15 +84,15 @@ return {
       opts = {
         winbar = {
           sections = {
-            'console',
-            'watches',
             'scopes',
+            'watches',
             'repl',
+            'console',
             'threads',
             'breakpoints',
             'exceptions',
           },
-          default_section = 'console',
+          default_section = 'scopes',
         },
         windows = {
           terminal = {
