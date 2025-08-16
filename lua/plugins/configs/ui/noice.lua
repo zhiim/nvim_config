@@ -1,7 +1,7 @@
 return {
   'folke/noice.nvim',
   event = 'VeryLazy',
-  enabled = vim.g.options.enhance,
+  enabled = vim.g.options.mode == 'IDE',
   opts = {
     -- add any options here
   },

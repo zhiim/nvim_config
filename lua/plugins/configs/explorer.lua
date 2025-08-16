@@ -15,7 +15,7 @@ end
 local file_explorers = {
   nvimtree = {
     'nvim-tree/nvim-tree.lua',
-    enabled = vim.g.options.util,
+    enabled = vim.g.options.mode == 'IDE',
     cmd = { 'NvimTreeToggle', 'NvimTreeFocus' },
     opts = {
       filters = {
@@ -106,7 +106,7 @@ local file_explorers = {
 
   neotree = {
     'nvim-neo-tree/neo-tree.nvim',
-    enabled = vim.g.options.util,
+    enabled = vim.g.options.mode == 'IDE',
     dependencies = {
       'MunifTanjim/nui.nvim',
     },
@@ -287,6 +287,7 @@ return {
   file_explorers[vim.g.options.explorer],
   {
     'refractalize/oil-git-status.nvim',
+    enabled = vim.fn.has 'nvim-0.8' and vim.g.options.mode == 'IDE',
     config = function()
       require('oil-git-status').setup {
         show_ignored = true,
@@ -357,7 +358,7 @@ return {
     dependencies = {
       'stevearc/oil.nvim',
       cmd = 'Oil',
-      enabled = vim.fn.has 'nvim-0.8' and vim.g.options.util,
+      enabled = vim.fn.has 'nvim-0.8' and vim.g.options.mode == 'IDE',
       keys = {
         {
           '<C-p>',

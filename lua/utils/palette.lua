@@ -12,7 +12,7 @@ function M.get_palette()
     purple = '#af87af',
     cyan = '#5f8787',
   }
-  if not vim.g.options.ui then
+  if vim.g.options.mode ~= 'IDE' then
     return default_palette
   end
   local palette_funcs = {

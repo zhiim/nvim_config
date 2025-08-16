@@ -92,7 +92,7 @@ end
 return {
   'nvimdev/dashboard-nvim',
   event = 'VimEnter',
-  enabled = not vim.g.options.enhance,
+  enabled = not vim.g.options.mode == 'IDE',
   config = function()
     require('dashboard').setup {
       -- config

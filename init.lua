@@ -14,16 +14,11 @@ vim.g.cache_path = vim.fn.stdpath 'config' .. '/cache.json'
 
 vim.g.options = {
   -- ━━ options to enable features ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  proxy = '',
-  language_support = false,
-  debug = false,
-  git = false,
-  ui = false,
-  util = false,
-  enhance = false,
   ai = false,
   tex = false,
   leetcode = false,
+  mode = 'minimal',
+  proxy = '',
   picker = 'fzf_lua',
   cmp = 'blink_cmp',
   tab = 'barbar',

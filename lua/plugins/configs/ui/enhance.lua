@@ -1,4 +1,4 @@
-if vim.g.options.enhance then
+if vim.g.options.mode == 'IDE' then
   return {
     -- animation
     {

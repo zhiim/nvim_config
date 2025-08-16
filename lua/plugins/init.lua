@@ -62,7 +62,7 @@ require('lazy').setup({
 
   { -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
-    enabled = not vim.g.options.enhance,
+    enabled = vim.g.options.mode ~= 'IDE',
     event = 'BufRead',
     main = 'ibl',
     opts = {},

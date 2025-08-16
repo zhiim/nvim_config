@@ -1,4 +1,4 @@
-if vim.g.options.ui then
+if vim.g.options.mode == "IDE" then
   return {
     {
       'norcalli/nvim-colorizer.lua',

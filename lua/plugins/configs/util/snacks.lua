@@ -3,7 +3,7 @@ local cmd_row = math.floor(vim.api.nvim_list_uis()[1].height) * 0.3
 return {
   'folke/snacks.nvim',
   priority = 1000,
-  enabled = vim.g.options.enhance,
+  enabled = vim.g.options.mode == 'IDE',
   lazy = false,
   opts = {
     input = {

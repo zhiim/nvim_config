@@ -1,4 +1,4 @@
-if vim.g.options.language_support then
+if vim.g.options.mode == 'IDE' then
   return {
     {
       'danymat/neogen',

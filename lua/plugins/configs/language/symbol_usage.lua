@@ -9,7 +9,7 @@ return {
     end
   end,
   enabled = function()
-    return vim.fn.has 'nvim-0.9' and vim.g.options.enhance
+    return vim.fn.has 'nvim-0.9' and vim.g.options.mode == 'IDE'
   end,
   config = function()
     local function text_format(symbol)

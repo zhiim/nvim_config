@@ -117,16 +117,16 @@ local config_funcs = {
       integrations = {
         barbar = vim.g.options.tab == 'barbar',
         blink_cmp = false,
-        diffview = vim.g.options.git,
+        diffview = vim.g.options.mode == 'IDE',
         dropbar = {
-          enabled = vim.g.options.enhance,
-          color_mode = vim.g.options.enhance, -- enable color for kind's texts, not just kind's icons
+          enabled = vim.g.options.mode == 'IDE',
+          color_mode = vim.g.options.mode == 'IDE', -- enable color for kind's texts, not just kind's icons
         },
-        grug_far = vim.g.options.util,
+        grug_far = vim.g.options.mode == 'IDE',
         mason = true,
-        noice = vim.g.options.enhance,
-        snacks = vim.g.options.enhance,
-        lsp_trouble = vim.g.options.language_support,
+        noice = vim.g.options.mode == 'IDE',
+        snacks = vim.g.options.mode == 'IDE',
+        lsp_trouble = vim.g.options.mode == 'IDE',
         which_key = true,
       },
     }

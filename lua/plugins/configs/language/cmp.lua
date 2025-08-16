@@ -353,7 +353,7 @@ local cmp_tool = { -- Autocompletion
                 return { 'path', 'buffer' }
               else
                 if
-                  vim.g.options.debug
+                  vim.g.options.mode == 'IDE'
                   and require('utils.util').find_value(
                     vim.bo.filetype,
                     { 'dap-repl', 'dapui_watches', 'dapui_hover' }
@@ -416,7 +416,7 @@ local cmp_tool = { -- Autocompletion
         }
 
         -- required by nvim-cmp
-        if vim.g.options.debug then
+        if vim.g.options.mode == 'IDE' then
           opts.enabled = function()
             return vim.bo.buftype ~= 'prompt'
               or require('utils.util').find_value(

@@ -1,4 +1,4 @@
-if vim.g.options.git then
+if vim.g.options.mode == 'IDE' then
   return {
     require 'plugins.configs.git.mini_diff',
     require 'plugins.configs.git.diffview',

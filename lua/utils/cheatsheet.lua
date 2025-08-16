@@ -422,7 +422,7 @@ function M.draw()
   vim.g['cheatsheet' .. '_displayed'] = true
 
   vim.keymap.set('n', 'q', function()
-    if vim.g.options.enhance then
+    if vim.g.options.mode == 'IDE' then
       Snacks.bufdelete()
     else
       vim.cmd 'bp|sp|bn|bd!'

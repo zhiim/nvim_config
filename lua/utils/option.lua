@@ -43,6 +43,7 @@ function M.set_options()
     },
   }
   local selections = {
+    mode = { 'minimal', 'IDE' },
     cmp = { 'nvim_cmp', 'blink_cmp' },
     picker = { 'fzf_lua', 'telescope' },
     tab = { 'barbar', 'bufferline', 'tabby' },
@@ -64,16 +65,11 @@ function M.set_options()
     theme_style = style_options[vim.g.options.theme] or {},
   }
   local option_info = {
-    proxy = 'Proxy settings',
-    language_support = 'Enable LSP, Treesitter, Linter, Formatter and other tools based on them',
-    debug = 'Enable debug tools',
-    git = 'Enable git integration tools',
-    ui = 'Enable Theme, Statusline, WinBar and other UI tools',
-    util = 'Enable Useful tools',
-    enhance = 'Enable Enhance tools including more UI and Util',
     ai = 'Enable AI tools',
     tex = 'Enable TeX tools',
     leetcode = 'Enable LeetCode',
+    mode = 'Enable minimal mode or IDE mode',
+    proxy = 'Proxy settings',
     picker = 'Select picker plugin',
     cmp = 'Select completion plugin',
     tab = 'Select tabline plugin',
@@ -161,16 +157,11 @@ function M.set_options()
   end
 
   vim.ui.select({
-    'proxy',
-    'language_support',
-    'debug',
-    'git',
-    'ui',
-    'util',
-    'enhance',
+    'mode',
     'ai',
     'tex',
     'leetcode',
+    'proxy',
     'picker',
     'cmp',
     'tab',
@@ -191,12 +182,6 @@ function M.set_options()
     -- set on or off
     if
       utils.find_value(choice, {
-        'language_support',
-        'debug',
-        'git',
-        'ui',
-        'util',
-        'enhance',
         'ai',
         'tex',
         'leetcode',
@@ -207,7 +192,7 @@ function M.set_options()
     elseif
       utils.find_value(
         choice,
-        { 'picker', 'cmp', 'tab', 'explorer', 'theme', 'theme_style' }
+        { 'mode', 'picker', 'cmp', 'tab', 'explorer', 'theme', 'theme_style' }
       )
     then
       set_select(choice, selections[choice])

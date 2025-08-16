@@ -1,4 +1,4 @@
-if vim.g.options.util then
+if vim.g.options.mode == "IDE" then
   return {
     {
       'folke/flash.nvim',

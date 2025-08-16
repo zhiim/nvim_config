@@ -9,7 +9,7 @@ local check_external_reqs = function()
     end
   end
 
-  if vim.g.options.language_support then
+  if vim.g.options.mode == 'IDE' then
     for _, exe in ipairs { 'python', 'node', 'fd' } do
       local is_executable = vim.fn.executable(exe) == 1
       if is_executable then
