@@ -45,14 +45,44 @@ if vim.g.options.mode == 'IDE' then
       event = 'BufEnter *.py', -- lazy load when entering python files
       config = function()
         require('venv-selector').setup {
-          settings = {
-            search = {
-              find_conda = {
-                command = vim.g.options.python_conda_command,
-              },
-              find_venv = {
-                command = vim.g.options.python_venv_command,
-              },
+          search = {
+            find_conda = {
+              command = vim.g.options.python_conda_command,
+            },
+            find_venv = {
+              command = vim.g.options.python_venv_command,
+            },
+          },
+          options = {
+            picker_icons = {
+              cwd = ' ',
+              workspace = ' ',
+              file = ' ',
+              virtualenvs = ' ',
+              hatch = ' ',
+              poetry = ' ',
+              pyenv = ' ',
+              anaconda_envs = ' ',
+              anaconda_base = ' ',
+              miniconda_envs = ' ',
+              miniconda_base = ' ',
+              pipx = ' ',
+            },
+            statusline_func = {
+              lualine = function()
+                local venv_path = require('venv-selector').venv()
+                if not venv_path or venv_path == '' then
+                  return ''
+                end
+
+                local venv_name = vim.fn.fnamemodify(venv_path, ':t')
+                if not venv_name then
+                  return ''
+                end
+
+                local output = ' ' .. venv_name .. ' ' -- Changes only the icon but you can change colors or use powerline symbols here.
+                return output
+              end,
             },
           },
         }
