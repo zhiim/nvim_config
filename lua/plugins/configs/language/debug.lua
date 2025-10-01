@@ -84,21 +84,23 @@ return {
       opts = {
         winbar = {
           sections = {
+            'console',
             'scopes',
             'watches',
             'repl',
-            'console',
             'threads',
             'breakpoints',
             'exceptions',
           },
-          default_section = 'scopes',
-        },
-        windows = {
-          terminal = {
-            start_hidden = true,
+          default_section = 'console',
+          controls = {
+            enabled = true,
           },
         },
+        windows = {
+          height = 0.3,
+        },
+        auto_toggle = true,
       },
       keys = {
         {
@@ -113,8 +115,6 @@ return {
   },
   config = function()
     local dap = require 'dap'
-    dap.defaults.fallback.terminal_win_cmd = 'split new | resize'
-      .. math.floor(vim.api.nvim_list_uis()[1].height * 0.4)
 
     -- auto close repl buffer
     vim.api.nvim_create_autocmd('FileType', {
@@ -225,20 +225,5 @@ return {
       program = '${file}',
       cwd = '${workspaceFolder}',
     })
-
-    -- auto open and close dap-view
-    local dv = require 'dap-view'
-    dap.listeners.before.attach['dap-view-config'] = function()
-      dv.open()
-    end
-    dap.listeners.before.launch['dap-view-config'] = function()
-      dv.open()
-    end
-    dap.listeners.before.event_terminated['dap-view-config'] = function()
-      dv.close()
-    end
-    dap.listeners.before.event_exited['dap-view-config'] = function()
-      dv.close()
-    end
   end,
 }
