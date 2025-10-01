@@ -43,7 +43,6 @@ if vim.g.options.mode == 'IDE' then
         'neovim/nvim-lspconfig',
       },
       event = 'BufEnter *.py', -- lazy load when entering python files
-      branch = 'regexp', -- This is the regexp branch, use this for the new version
       config = function()
         require('venv-selector').setup {
           settings = {
