@@ -51,7 +51,10 @@ map('n', '<leader>=', '<C-w>s', { desc = 'Split horizontally' })
 map('n', '<leader>o', '<cmd>only<CR>', { desc = 'close other windows' })
 
 -- Comment
-if vim.fn.has 'linux' ~= 0 and vim.fn.has 'wsl' == 0 then
+if
+  (vim.fn.has 'linux' ~= 0 and vim.fn.has 'wsl' == 0) -- linux but WSL
+  and (vim.env.TERM == 'xterm-kitty' or vim.env.WEZTERM_EXECUTABLE) -- only for kitty and wezterm
+then
   -- fix Ctrl + / in linux (wezterm, kitty)
   map('n', '<C-/>', 'gcc', { desc = 'comment toggle', remap = true })
   map('v', '<C-/>', 'gc', { desc = 'comment toggle', remap = true })
