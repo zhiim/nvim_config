@@ -18,9 +18,24 @@ return {
   'stevearc/resession.nvim',
   enabled = vim.fn.has 'nvim-0.7.2',
   dependencies = {
-    { 'stevearc/oil.nvim' },
-    { 'kevinhwang91/nvim-ufo' },
-    { 'luukvbaal/statuscol.nvim' },
+    {
+      'stevearc/oil.nvim',
+      cond = function()
+        return vim.g.options.mode == 'IDE'
+      end,
+    },
+    {
+      'kevinhwang91/nvim-ufo',
+      cond = function()
+        return vim.g.options.mode == 'IDE'
+      end,
+    },
+    {
+      'luukvbaal/statuscol.nvim',
+      cond = function()
+        return vim.g.options.mode == 'IDE'
+      end,
+    },
   },
   keys = {
     {

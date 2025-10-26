@@ -1,4 +1,4 @@
-if vim.g.options.mode == "IDE" then
+if vim.g.options.mode == 'IDE' then
   return {
     {
       'folke/flash.nvim',
@@ -183,7 +183,6 @@ if vim.g.options.mode == "IDE" then
 
     require 'plugins.configs.util.minimap',
     require 'plugins.configs.util.snacks',
-    require 'plugins.configs.util.session',
   }
 else
   return {}

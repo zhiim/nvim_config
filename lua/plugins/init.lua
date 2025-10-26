@@ -377,6 +377,7 @@ require('lazy').setup({
   require 'plugins.configs.explorer',
   require 'plugins.configs.tab',
   require 'plugins.configs.term',
+  require 'plugins.configs.session',
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
