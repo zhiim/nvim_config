@@ -1,4 +1,4 @@
-if vim.g.options.mode == "IDE" then
+if vim.g.options.mode == 'IDE' then
   return {
     {
       'norcalli/nvim-colorizer.lua',
@@ -124,5 +124,11 @@ if vim.g.options.mode == "IDE" then
   }
 else
   vim.cmd.colorscheme 'habamax'
+  local colors = require('utils.palette').get_palette()
+  local get_hl = require('utils.util').get_hl
+  local fg = get_hl('Normal').bg
+  vim.api.nvim_set_hl(0, 'Search', { bg = colors.blue, fg = fg })
+  vim.api.nvim_set_hl(0, 'IncSearch', { bg = colors.yellow, fg = fg })
+  vim.api.nvim_set_hl(0, 'CurSearch', { bg = colors.yellow, fg = fg })
   return {}
 end
