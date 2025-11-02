@@ -1,6 +1,10 @@
 return {
   'olimorris/codecompanion.nvim',
   cmd = { 'CodeCompanionActions', 'CodeCompanionChat', 'CodeCompanion' },
+  dependencies = {
+    'nvim-lua/plenary.nvim',
+    'nvim-treesitter/nvim-treesitter',
+  },
   keys = {
     {
       '<leader>cca',
@@ -128,7 +132,7 @@ return {
       },
       strategies = {
         chat = {
-          adapter = 'xai',
+          adapter = 'gemini',
           roles = {
             llm = function(adapter)
               return 'CodeCompanion ('
@@ -169,39 +173,41 @@ return {
           },
         },
         inline = {
-          adapter = 'xai',
+          adapter = 'gemini',
         },
       },
       adapters = {
-        opts = {
-          show_model_choices = false,
-          proxy = vim.g.options.proxy,
-        },
-        gemini = function()
-          return require('codecompanion.adapters').extend('gemini', {
-            env = {
-              api_key = vim.g.options.gemini_api_key,
-            },
-          })
-        end,
-        xai = function()
-          return require('codecompanion.adapters').extend('xai', {
-            env = {
-              api_key = vim.g.options.xai_api_key,
-            },
-            schema = {
-              model = {
-                default = 'grok-3-beta',
-                choices = {
-                  'grok-3-beta',
-                  'grok-3-mini-beta',
-                  'grok-2-1212',
-                  'grok-beta',
+        http = {
+          opts = {
+            show_model_choices = false,
+            proxy = vim.g.options.proxy,
+          },
+          gemini = function()
+            return require('codecompanion.adapters').extend('gemini', {
+              env = {
+                api_key = vim.g.options.gemini_api_key,
+              },
+            })
+          end,
+          xai = function()
+            return require('codecompanion.adapters').extend('xai', {
+              env = {
+                api_key = vim.g.options.xai_api_key,
+              },
+              schema = {
+                model = {
+                  default = 'grok-3-beta',
+                  choices = {
+                    'grok-3-beta',
+                    'grok-3-mini-beta',
+                    'grok-2-1212',
+                    'grok-beta',
+                  },
                 },
               },
-            },
-          })
-        end,
+            })
+          end,
+        },
       },
       prompt_library = {
         ['English-Chinese-Translator'] = {
