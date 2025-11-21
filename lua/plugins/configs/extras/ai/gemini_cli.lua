@@ -1,8 +1,12 @@
 return {
   'gutsavgupta/nvim-gemini-companion',
   dependencies = { 'nvim-lua/plenary.nvim' },
-  event = 'VeryLazy',
   config = function()
+    vim.keymap.set('n', 'q', function()
+      if vim.bo.filetype == 'terminalGemini' then
+        vim.cmd 'GeminiToggle'
+      end
+    end)
     require('gemini').setup()
   end,
   keys = {
