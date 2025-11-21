@@ -32,7 +32,7 @@ vim.diagnostic.config { jump = { float = true } }
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
-map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Terminal Exit terminal mode' })
+-- map('t', 'jk', '<C-\\><C-n>', { desc = 'Terminal Exit terminal mode' })
 
 --  Use CTRL+<hjkl> to switch between windows
 --  See `:help wincmd` for a list of all window commands

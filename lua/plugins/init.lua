@@ -99,6 +99,12 @@ require('lazy').setup({
           i = {
             j = {
               j = '<Esc>',
+              k = '<Esc>',
+            },
+          },
+          t = {
+            j = {
+              k = '<C-\\><C-n>',
             },
           },
         },
