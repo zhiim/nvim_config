@@ -92,6 +92,7 @@ return {
             'dashboard',
             'snacks_dashboard',
             'dap-repl',
+            'fyler',
           })
         then
           return ''

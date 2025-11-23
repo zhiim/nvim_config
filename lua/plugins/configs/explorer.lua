@@ -81,7 +81,7 @@ local file_explorers = {
             git = {
               unstaged = '',
               staged = '',
-              unmerged = '󰽜',
+              unmerged = '󰘬',
               renamed = '󰁕',
               untracked = '',
               deleted = '',
@@ -278,6 +278,51 @@ local file_explorers = {
         end,
       })
     end,
+  },
+
+  fyler = {
+    'A7Lavinraj/fyler.nvim',
+    dependencies = { 'nvim-mini/mini.icons' },
+    branch = 'stable', -- Use stable branch for production
+    keys = {
+      {
+        '<C-n>',
+        function()
+          local fyler = require 'fyler'
+          if vim.bo.filetype == 'fyler' then
+            fyler.close()
+          else
+            fyler.open { kind = 'split_left_most' }
+          end
+        end,
+        desc = 'Explorer sidebar',
+        mode = 'n',
+      },
+    },
+    opts = {
+      views = {
+        finder = {
+          delete_to_trash = true,
+          git_status = {
+            symbols = {
+              Untracked = '',
+              Added = '',
+              Modified = '',
+              Deleted = '',
+              Renamed = '󰁕',
+              Copied = '',
+              Conflict = '󰘬',
+              Ignored = '',
+            },
+          },
+          icon = {
+            directory_collapsed = '󰉋',
+            directory_empty = '󰜌',
+            directory_expanded = '󰝰',
+          },
+        },
+      },
+    },
   },
 }
 

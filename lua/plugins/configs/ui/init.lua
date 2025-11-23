@@ -32,6 +32,7 @@ if vim.g.options.mode == 'IDE' then
             'NvimTree',
             'toggleterm',
             'repl',
+            'fyler',
           },
           segments = {
             -- diagnostic sign

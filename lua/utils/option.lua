@@ -47,7 +47,7 @@ function M.set_options()
     cmp = { 'nvim_cmp', 'blink_cmp' },
     picker = { 'fzf_lua', 'telescope' },
     tab = { 'barbar', 'bufferline', 'tabby' },
-    explorer = { 'nvimtree', 'neotree' },
+    explorer = { 'nvimtree', 'neotree', 'fyler' },
     theme = {
       'github',
       'tokyonight',
