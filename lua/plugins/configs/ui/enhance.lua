@@ -3,7 +3,9 @@ if vim.g.options.mode == 'IDE' then
     -- animation
     {
       'sphamba/smear-cursor.nvim',
-      opts = {},
+      opts = {
+        smear_between_neighbor_lines = false,
+      },
     },
 
     {
