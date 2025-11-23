@@ -6,6 +6,20 @@ return {
   enabled = vim.g.options.mode == 'IDE',
   lazy = false,
   opts = {
+    scroll = {
+      animate = {
+        duration = { step = 10, total = 250 },
+        easing = 'linear',
+      },
+      -- what buffers to animate
+      filter = function(buf)
+        local var_set = vim.g.snacks_scroll ~= false
+          and vim.b[buf].snacks_scroll ~= false
+        local bt = vim.bo[buf].buftype ~= 'terminal'
+        local ft = vim.bo[buf].filetype ~= 'grug-far'
+        return var_set and bt and ft
+      end,
+    },
     input = {
       row = cmd_row,
     },
