@@ -33,7 +33,7 @@ local file_explorers = {
       view = {
         adaptive_size = false,
         side = 'left',
-        width = 30,
+        width = 40,
         preserve_window_proportions = true,
       },
       git = {
@@ -288,12 +288,7 @@ local file_explorers = {
       {
         '<C-n>',
         function()
-          local fyler = require 'fyler'
-          if vim.bo.filetype == 'fyler' then
-            fyler.close()
-          else
-            fyler.open { kind = 'split_left_most' }
-          end
+          require('fyler').toggle { kind = 'split_left_most' }
         end,
         desc = 'Explorer sidebar',
         mode = 'n',
@@ -302,6 +297,7 @@ local file_explorers = {
     opts = {
       views = {
         finder = {
+          close_on_select = false,
           delete_to_trash = true,
           git_status = {
             symbols = {
@@ -319,6 +315,16 @@ local file_explorers = {
             directory_collapsed = '󰉋',
             directory_empty = '󰜌',
             directory_expanded = '󰝰',
+          },
+          win = {
+            kinds = {
+              split_left_most = {
+                width = 40,
+                win_opts = {
+                  winfixwidth = true,
+                },
+              },
+            },
           },
         },
       },

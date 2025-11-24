@@ -150,7 +150,9 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     )
 
     -- -- neo-tree --------------------------------------------------------
-    vim.api.nvim_set_hl(0, 'NeoTreeModified', { fg = colors.red })
+    if vim.g.options.explorer == 'nvimtree' then
+      vim.api.nvim_set_hl(0, 'NeoTreeModified', { fg = colors.red })
+    end
 
     -- -- git blame -------------------------------------------------------
     vim.api.nvim_set_hl(0, 'GitBlame', {
@@ -256,6 +258,12 @@ vim.api.nvim_create_autocmd('ColorScheme', {
         { fg = bg, bg = preview_title }
       )
       vim.api.nvim_set_hl(0, 'FzfLuaHeaderText', { link = 'Title' })
+    end
+
+    -- -- fyler -----------------------------------------------------------
+    if vim.g.options.explorer == 'fyler' then
+      vim.api.nvim_set_hl(0, 'FylerNormal', { link = 'NormalFloat' })
+      vim.api.nvim_set_hl(0, 'FylerNormalNC', { link = 'NormalFloat' })
     end
   end,
 })
