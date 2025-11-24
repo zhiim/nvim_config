@@ -22,7 +22,7 @@ vim.g.options = {
   picker = 'fzf_lua',
   cmp = 'blink_cmp',
   tab = 'barbar',
-  explorer = 'fyler',
+  explorer = 'neotree',
   -- ━━ Set colorscheme ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   theme = 'github',
   theme_style = 'github_dark_dimmed',
