@@ -15,23 +15,25 @@ return {
       '<leader>gms',
       ":'<,'>GeminiSend<CR>",
       mode = { 'x' },
-      desc = 'Send selection to Gemini',
-    },
-    {
-      '<leader>gmf',
-      '<cmd>GeminiSwitchSidebarStyle floating<cr>',
-      desc = 'Open Gemini floating',
-    },
-    {
-      '<leader>gms',
-      '<cmd>GeminiSwitchSidebarStyle right-fixed<cr>',
-      desc = 'Open Gemini sidebar',
+      desc = 'Gemini Send selection',
     },
     {
       '<leader>gmd',
       '<cmd>GeminiSendLineDiagnostic<cr>',
       mode = { 'n', 'x' },
-      desc = 'Send line diagnostic to Gemini',
+      desc = 'Gemini Send line diagnostic',
+    },
+    {
+      '<leader>gma',
+      '<cmd>GeminiAccept<cr>',
+      mode = { 'n' },
+      desc = 'Gemini Accept suggestion',
+    },
+    {
+      '<leader>gmr',
+      '<cmd>GeminiReject<cr>',
+      mode = { 'n' },
+      desc = 'Gemini Reject suggestion',
     },
   },
 }

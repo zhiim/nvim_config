@@ -35,12 +35,14 @@ local included_groups = {
   'LSP',
   'Debug',
   'Git',
+  'Diffview',
   'Copilot',
   'CodeCompanion',
   'DimMode',
   'Snacks',
   'Portal',
   'Grapple',
+  'Gemini',
 } -- can add group name or with mode
 
 local state = {
@@ -146,9 +148,14 @@ function M.draw()
   state.mappings_tb = organize_mappings()
 
   local buf = api.nvim_create_buf(false, true)
-  local win = api.nvim_get_current_win()
-
-  api.nvim_set_current_win(win)
+  local win = api.nvim_open_win(buf, true, {
+    relative = 'editor',
+    width = vim.o.columns,
+    height = vim.o.lines,
+    row = 0,
+    col = 0,
+    style = 'minimal',
+  })
 
   -- add left padding (strs) to ascii so it looks centered
   local ascii_header = vim.tbl_values(ascii)
@@ -422,12 +429,13 @@ function M.draw()
   vim.g['cheatsheet' .. '_displayed'] = true
 
   vim.keymap.set('n', 'q', function()
-    if vim.g.options.mode == 'IDE' then
-      Snacks.bufdelete()
+    if #vim.api.nvim_list_wins() > 1 then
+      vim.api.nvim_win_close(vim.api.nvim_get_current_win(), true)
     else
-      vim.cmd 'bp|sp|bn|bd!'
+      -- last window, just replace it with an empty buffer
+      vim.cmd 'enew!'
     end
-  end, { buffer = buf })
+  end, { buffer = buf, silent = true })
 end
 
 return M
