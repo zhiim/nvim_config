@@ -78,6 +78,13 @@ return {
   },
   config = function()
     local change_model = function(chat)
+      if chat.adapter.type == 'acp' then
+        vim.notify(
+          "Model can't be changed for ACP adapters",
+          vim.log.levels.WARN
+        )
+        return
+      end
       local function select_opts(prompt, conditional)
         return {
           prompt = prompt,
@@ -262,6 +269,38 @@ return {
               defaults = {
                 auth_method = 'oauth-personal',
                 oauth_credentials_path = vim.fs.abspath '~/.gemini/oauth_creds.json',
+              },
+              handlers = {
+                -- do not auth again if oauth_credentials is already exists
+                auth = function(self)
+                  local oauth_credentials_path =
+                    self.defaults.oauth_credentials_path
+                  return (
+                    oauth_credentials_path
+                    and vim.fn.filereadable(oauth_credentials_path)
+                  ) == 1
+                end,
+              },
+            })
+          end,
+          qwen_code = function()
+            return require('codecompanion.adapters').extend('gemini_cli', {
+              name = 'qwen_code',
+              formatted_name = 'Qwen Code',
+              commands = {
+                default = {
+                  'qwen',
+                  '--experimental-acp',
+                },
+                yolo = {
+                  'qwen',
+                  '--yolo',
+                  '--experimental-acp',
+                },
+              },
+              defaults = {
+                auth_method = 'qwen-oauth',
+                oauth_credentials_path = vim.fs.abspath '~/.qwen/oauth_creds.json',
               },
               handlers = {
                 -- do not auth again if oauth_credentials is already exists
