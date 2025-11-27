@@ -170,7 +170,9 @@ return {
           roles = {
             llm = function(adapter)
               -- adapter.formatted_name is not save by history extension
-              if adapter.parameters == nil then
+              if
+                adapter.parameters == nil or adapter.parameters.model == nil
+              then
                 return 'CodeCompanion (' .. adapter.formatted_name .. ')'
               end
               return 'CodeCompanion ('
@@ -259,6 +261,18 @@ return {
             return require('codecompanion.adapters').extend('gemini_cli', {
               defaults = {
                 auth_method = 'oauth-personal',
+                oauth_credentials_path = vim.fs.abspath '~/.gemini/oauth_creds.json',
+              },
+              handlers = {
+                -- do not auth again if oauth_credentials is already exists
+                auth = function(self)
+                  local oauth_credentials_path =
+                    self.defaults.oauth_credentials_path
+                  return (
+                    oauth_credentials_path
+                    and vim.fn.filereadable(oauth_credentials_path)
+                  ) == 1
+                end,
               },
             })
           end,
