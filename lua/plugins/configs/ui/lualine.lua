@@ -115,7 +115,7 @@ return {
             icon = '󰐱 LSP:',
           },
         },
-        lualine_y = { 'venv-selector', 'progress' },
+        lualine_y = { 'progress' },
       },
     }
   end,
