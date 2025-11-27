@@ -29,11 +29,10 @@ require('lazy').setup({
         require('which-key').add {
           {
             '<leader>c',
-            group = 'Copilot, CodeCompanion, CommentBox',
+            group = 'CodeCompanion, CommentBox',
             mode = { 'n', 'v' },
           },
           { '<leader>cc', group = 'CodeCompanion', mode = { 'n', 'v' } },
-          { '<leader>cp', group = 'Copilot', mode = { 'n', 'v' } },
           { '<leader>cb', group = 'CommentBox', mode = { 'n', 'v' } },
           { '<leader>d', group = 'Dropbar, DiffView' },
           { '<leader>dv', group = 'DiffView' },

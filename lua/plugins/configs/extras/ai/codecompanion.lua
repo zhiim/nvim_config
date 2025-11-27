@@ -4,6 +4,8 @@ return {
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-treesitter/nvim-treesitter',
+    'ravitemer/codecompanion-history.nvim',
+    'lalitmee/codecompanion-spinners.nvim',
   },
   keys = {
     {
@@ -13,9 +15,39 @@ return {
       mode = { 'n', 'v' },
     },
     {
-      '<leader>ccc',
-      '<cmd>CodeCompanionChat Toggle<CR>',
-      desc = 'CodeCompanion toggle chat',
+      '<leader>cct',
+      function()
+        require('codecompanion').toggle {
+          window_opts = { layout = 'vertical' },
+        }
+      end,
+      desc = 'CodeCompanion chat toggle',
+      mode = { 'n', 'v' },
+    },
+    {
+      '<leader>ccf',
+      function()
+        require('codecompanion').toggle {
+          window_opts = { layout = 'float', height = 0.8, width = 0.8 },
+        }
+      end,
+      desc = 'CodeCompanion chat float',
+      mode = { 'n', 'v' },
+    },
+    {
+      '<leader>cci',
+      function()
+        require('codecompanion').toggle {
+          window_opts = {
+            layout = 'float',
+            relative = 'cursor',
+            width = 1,
+            height = 0.4,
+            row = 1,
+          },
+        }
+      end,
+      desc = 'CodeCompanion chat inline',
       mode = { 'n', 'v' },
     },
     {
@@ -118,10 +150,12 @@ return {
     end
 
     require('codecompanion').setup {
+      opts = {
+        language = 'Chinese',
+      },
       display = {
         chat = {
           render_headers = false,
-          -- show_settings = true,
           window = {
             width = 0.3,
           },
@@ -135,6 +169,10 @@ return {
           adapter = 'gemini',
           roles = {
             llm = function(adapter)
+              -- adapter.formatted_name is not save by history extension
+              if adapter.parameters == nil then
+                return 'CodeCompanion (' .. adapter.formatted_name .. ')'
+              end
               return 'CodeCompanion ('
                 .. adapter.formatted_name
                 .. ': '
@@ -143,6 +181,19 @@ return {
             end,
           },
           keymaps = {
+            send = { -- add process spinner
+              modes = {
+                n = { '<CR>', '<C-s>' },
+                i = '<C-s>',
+              },
+              index = 2,
+              callback = function(chat)
+                vim.cmd 'stopinsert'
+                chat:submit()
+                chat:add_buf_message { role = 'llm', content = '' }
+              end,
+              description = 'Send message',
+            },
             close = {
               modes = {
                 n = '<C-x>',
@@ -174,14 +225,51 @@ return {
         },
         inline = {
           adapter = 'gemini',
+          keymaps = {
+            accept_change = {
+              modes = { n = 'cda' },
+              opts = { nowait = true, noremap = true },
+              index = 1,
+              callback = 'keymaps.accept_change',
+              description = 'Accept change',
+            },
+            reject_change = {
+              modes = { n = 'cdr' },
+              opts = { nowait = true, noremap = true },
+              index = 2,
+              callback = 'keymaps.reject_change',
+              description = 'Reject change',
+            },
+            always_accept = {
+              modes = { n = 'cdy' },
+              opts = { nowait = true },
+              index = 3,
+              callback = 'keymaps.always_accept',
+              description = 'Accept and enable auto mode',
+            },
+          },
         },
       },
       adapters = {
+        acp = {
+          opts = {
+            show_defaults = false, -- Show default adapters
+          },
+          gemini_cli = function()
+            return require('codecompanion.adapters').extend('gemini_cli', {
+              defaults = {
+                auth_method = 'oauth-personal',
+              },
+            })
+          end,
+        },
         http = {
           opts = {
             show_model_choices = false,
             proxy = vim.g.options.proxy,
+            show_defaults = false, -- Show default adapters
           },
+          copilot = 'copilot',
           gemini = function()
             return require('codecompanion.adapters').extend('gemini', {
               env = {
@@ -189,24 +277,29 @@ return {
               },
             })
           end,
-          xai = function()
-            return require('codecompanion.adapters').extend('xai', {
-              env = {
-                api_key = vim.g.options.xai_api_key,
-              },
-              schema = {
-                model = {
-                  default = 'grok-3-beta',
-                  choices = {
-                    'grok-3-beta',
-                    'grok-3-mini-beta',
-                    'grok-2-1212',
-                    'grok-beta',
-                  },
-                },
-              },
-            })
-          end,
+        },
+      },
+      extensions = {
+        history = {
+          enabled = true, -- defaults to true
+          opts = {
+            keymap = 'gh',
+            save_chat_keymap = 'gv',
+            auto_save = false,
+            picker = vim.g.options.picker == 'fzf_lua' and 'fzf-lua'
+              or 'telescope',
+            auto_generate_title = true,
+            title_generation_opts = {
+              adapter = 'gemini',
+              model = 'gemini-2.5-flash-lite',
+            },
+          },
+        },
+        spinner = {
+          enabled = true,
+          opts = {
+            style = 'snacks',
+          },
         },
       },
       prompt_library = {

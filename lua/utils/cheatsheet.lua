@@ -36,7 +36,6 @@ local included_groups = {
   'Debug',
   'Git',
   'Diffview',
-  'Copilot',
   'CodeCompanion',
   'DimMode',
   'Snacks',
