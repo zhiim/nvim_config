@@ -157,10 +157,11 @@ return {
     end
 
     local config = {
-      opts = {
-        language = 'Chinese',
-      },
       display = {
+        diff = {
+          enabled = true,
+          provider = "split",
+        },
         chat = {
           render_headers = false,
           window = {
@@ -234,29 +235,6 @@ return {
         },
         inline = {
           adapter = 'gemini',
-          keymaps = {
-            accept_change = {
-              modes = { n = 'cda' },
-              opts = { nowait = true, noremap = true },
-              index = 1,
-              callback = 'keymaps.accept_change',
-              description = 'Accept change',
-            },
-            reject_change = {
-              modes = { n = 'cdr' },
-              opts = { nowait = true, noremap = true },
-              index = 2,
-              callback = 'keymaps.reject_change',
-              description = 'Reject change',
-            },
-            always_accept = {
-              modes = { n = 'cdy' },
-              opts = { nowait = true },
-              index = 3,
-              callback = 'keymaps.always_accept',
-              description = 'Accept and enable auto mode',
-            },
-          },
         },
       },
       adapters = {
