@@ -29,7 +29,6 @@ vim.g.options = {
   -- ━━ use bash in windows ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   bash_path = '',
   -- ━━ api key ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  xai_api_key = '',
   gemini_api_key = '',
   -- ━━ command to find python env path ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   -- in linux

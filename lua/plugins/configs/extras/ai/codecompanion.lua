@@ -156,7 +156,7 @@ return {
       )
     end
 
-    require('codecompanion').setup {
+    local config = {
       opts = {
         language = 'Chinese',
       },
@@ -630,5 +630,96 @@ Finally, you consider the operational aspects of the solutions. You think about 
         },
       },
     }
+
+    local utils = require 'utils.util'
+    local providers_path = vim.fn.stdpath 'config' .. '/providers.json'
+    local custom_providers
+
+    -- if not providers file, create one with example content
+    if vim.fn.filereadable(providers_path) == 0 then
+      local f = io.open(providers_path, 'w')
+      if f then
+        -- write example content
+        f:write '{"none":{"name":"ExampleProvider","url":"https://ai.example.com","api_key":"","chat_url":"opt-/v1/chat/completions","models_endpoint":"opt-/v1/models","model":"opt"}}'
+        f:close()
+        custom_providers = {}
+      else
+        vim.notify(
+          'cannot create providers.json',
+          vim.log.levels.ERROR,
+          { title = 'Cache Create' }
+        )
+        custom_providers = {}
+      end
+    else
+      -- read providers file
+      utils.with_file(
+        providers_path,
+        'r',
+        function(file)
+          -- read cache into options
+          custom_providers = vim.json.decode(file:read '*a')
+        end,
+        function(err)
+          vim.notify(
+            'Error reading cache file: ' .. err,
+            vim.log.levels.ERROR,
+            { title = 'Cache Read' }
+          )
+        end
+      )
+    end
+
+    -- loop through custom providers and add them to http adapters
+    local http_adapters = {}
+    for name, provider_info in pairs(custom_providers) do
+      if
+        name == 'nil' or
+        -- must have name, url, api_key
+        provider_info.name == nil
+        or provider_info.url == nil
+        or provider_info.api_key == nil
+      then
+        goto continue
+      end
+
+      -- basic provider options
+      local provider_opts = {
+        name = name,
+        formatted_name = provider_info.name,
+        env = {
+          url = provider_info.url,
+          api_key = provider_info.api_key,
+        },
+      }
+
+      -- optional provider options
+      if provider_info.chat_url ~= nil then
+        provider_opts.env.chat_url = provider_info.chat_url
+      end
+      if provider_info.models_endpoint ~= nil then
+        provider_opts.env.models_endpoint = provider_info.models_endpoint
+      end
+      vim.print(provider_opts)
+      if provider_info.model ~= nil then
+        provider_opts.schema = {}
+        provider_opts.schema.model = {}
+        provider_opts.schema.model.default = provider_info.model
+      end
+
+
+      -- extend the openai_compatible adapter
+      http_adapters[name] = function()
+        return require('codecompanion.adapters').extend('openai_compatible', provider_opts)
+      end
+        ::continue::
+    end
+
+    -- add to codecompanion config
+    for k, v in pairs(http_adapters) do
+      config.adapters.http[k] = v
+    end
+
+    require('codecompanion').setup(config)
   end,
 }
