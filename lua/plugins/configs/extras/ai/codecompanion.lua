@@ -700,7 +700,6 @@ Finally, you consider the operational aspects of the solutions. You think about 
       if provider_info.models_endpoint ~= nil then
         provider_opts.env.models_endpoint = provider_info.models_endpoint
       end
-      vim.print(provider_opts)
       if provider_info.model ~= nil then
         provider_opts.schema = {}
         provider_opts.schema.model = {}
