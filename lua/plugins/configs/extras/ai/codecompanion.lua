@@ -165,7 +165,7 @@ return {
         chat = {
           render_headers = false,
           window = {
-            width = 0.3,
+            width = 0.33,
           },
         },
         action_palette = {

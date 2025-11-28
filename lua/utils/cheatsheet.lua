@@ -41,7 +41,6 @@ local included_groups = {
   'Snacks',
   'Portal',
   'Grapple',
-  'Gemini',
 } -- can add group name or with mode
 
 local state = {
