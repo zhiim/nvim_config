@@ -163,7 +163,7 @@ return {
       display = {
         diff = {
           enabled = true,
-          provider = "split",
+          provider = "inline",
           provider_opts = {
             split = {
               layout = "vertical",
