@@ -146,7 +146,7 @@ if vim.fn.has 'nvim-0.12' == 1 then
     'internal',
     'filler',
     'closeoff',
-    'algorithm:patience',
+    'algorithm:histogram',
     'indent-heuristic',
     'inline:word',
     'linematch:40',
@@ -156,7 +156,7 @@ else
     'internal',
     'filler',
     'closeoff',
-    'algorithm:patience',
+    'algorithm:histogram',
     'indent-heuristic',
     'linematch:40',
   }

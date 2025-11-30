@@ -171,7 +171,7 @@ return {
                 'internal',
                 'filler',
                 'closeoff',
-                'algorithm:patience',
+                'algorithm:histogram',
                 'indent-heuristic',
                 'inline:word',
                 'linematch:40',

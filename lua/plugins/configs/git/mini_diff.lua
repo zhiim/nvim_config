@@ -20,5 +20,11 @@ return {
         delete = '',
       },
     },
+    options = {
+      algorithm = 'histogram',
+      indent_heuristic = true,
+      linematch = 40,
+      wrap_goto = false,
+    },
   },
 }
