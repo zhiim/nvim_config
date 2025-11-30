@@ -139,3 +139,25 @@ vim.diagnostic.config {
     },
   },
 }
+
+-- diffopt
+if vim.fn.has 'nvim-0.12' == 1 then
+  vim.opt.diffopt = {
+    'internal',
+    'filler',
+    'closeoff',
+    'algorithm:patience',
+    'indent-heuristic',
+    'inline:word',
+    'linematch:40',
+  }
+else
+  vim.opt.diffopt = {
+    'internal',
+    'filler',
+    'closeoff',
+    'algorithm:patience',
+    'indent-heuristic',
+    'linematch:40',
+  }
+end

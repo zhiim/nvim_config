@@ -164,6 +164,20 @@ return {
         diff = {
           enabled = true,
           provider = "split",
+          provider_opts = {
+            split = {
+              layout = "vertical",
+              opts = {
+                'internal',
+                'filler',
+                'closeoff',
+                'algorithm:patience',
+                'indent-heuristic',
+                'inline:word',
+                'linematch:40',
+              },
+            },
+          },
         },
         chat = {
           render_headers = false,
