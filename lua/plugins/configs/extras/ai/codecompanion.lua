@@ -346,7 +346,7 @@ return {
         spinner = {
           enabled = true,
           opts = {
-            style = 'snacks',
+            style = vim.g.options.mode == "IDE" and 'snacks' or "native" ,
           },
         },
       },
