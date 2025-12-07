@@ -191,7 +191,7 @@ return {
       },
       strategies = {
         chat = {
-          adapter = 'gemini',
+          adapter = 'copilot',
           roles = {
             llm = function(adapter)
               -- adapter.formatted_name is not save by history extension
@@ -251,7 +251,7 @@ return {
           },
         },
         inline = {
-          adapter = 'gemini',
+          adapter = 'copilot',
         },
       },
       adapters = {
