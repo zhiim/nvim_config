@@ -37,4 +37,11 @@ return {
       desc = 'Git Diffview view current file history',
     },
   },
+  opts = {
+    view = {
+      merge_tool = {
+        layout = 'diff3_mixed',
+      },
+    },
+  },
 }
