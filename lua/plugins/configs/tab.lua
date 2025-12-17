@@ -70,7 +70,9 @@ local tab_tools = {
       require('bufferline').setup {
         options = {
           numbers = 'ordinal', -- show buffer numbers
-          separator_style = 'slant', -- style of buffer separator
+          max_name_length = 16,
+          tab_size = 16,
+          separator_style = 'thin', -- style of buffer separator
           diagnostics = 'nvim_lsp', -- show diagnostics
           -- snippet used to customize the diagnostics indicator
           diagnostics_indicator = function(_, _, diagnostics_dict)
