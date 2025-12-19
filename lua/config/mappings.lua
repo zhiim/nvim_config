@@ -94,13 +94,3 @@ end, { desc = 'Utils display cheatsheet' })
 map('n', '<leader>uf', function()
   require('utils.util').lint_format_config()
 end, { desc = 'Utils create config file' })
-
--- helper function for debug
-function _G.l2f(message)
-  vim.notify(message, vim.log.levels.DEBUG, { title = 'Write to file' })
-  local fd, _ = io.open(vim.fn.getcwd() .. '/debug', 'w+')
-  if fd then
-    fd:write(message .. '\n')
-    fd:close()
-  end
-end

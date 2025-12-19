@@ -179,4 +179,14 @@ function utils.lint_format_config()
   end)
 end
 
+-- helper function for debug
+function utils.l2f(message)
+  vim.notify(message, vim.log.levels.DEBUG, { title = 'Write to file' })
+  local fd, _ = io.open(vim.fn.getcwd() .. '/debug', 'w+')
+  if fd then
+    fd:write(message .. '\n')
+    fd:close()
+  end
+end
+
 return utils

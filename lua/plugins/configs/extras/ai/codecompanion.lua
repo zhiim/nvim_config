@@ -110,9 +110,10 @@ return {
       local current_model = vim.deepcopy(chat.adapter.schema.model.default)
 
       -- Select a model
-      local models = chat.adapter.schema.model.choices
-      if type(models) == 'function' then
-        models = models(chat.adapter)
+      local model_choices = chat.adapter.schema.model.choices
+      local models = nil
+      if type(model_choices) == 'function' then
+        models = model_choices(chat.adapter, {async = false})
       end
       if not models or vim.tbl_count(models) < 2 then
         return
@@ -138,6 +139,10 @@ return {
         :totable()
       table.insert(models, 1, new_model)
 
+      local function get_model_id(model)
+        return type(model) == "table" and model.id or model
+      end
+
       vim.ui.select(
         models,
         select_opts('Select Model', new_model),
@@ -150,7 +155,8 @@ return {
             util.fire('ChatModel', { bufnr = chat.bufnr, model = selected })
           end
 
-          chat:apply_model(selected)
+          local model_id = get_model_id(selected)
+          chat:apply_model_or_command({ model = model_id })
           chat:apply_settings()
         end
       )
@@ -180,7 +186,6 @@ return {
           },
         },
         chat = {
-          render_headers = false,
           window = {
             width = 0.33,
           },
@@ -189,7 +194,7 @@ return {
           provider = 'default',
         },
       },
-      strategies = {
+      interactions = {
         chat = {
           adapter = 'copilot',
           roles = {
@@ -257,7 +262,7 @@ return {
       adapters = {
         acp = {
           opts = {
-            show_defaults = false, -- Show default adapters
+            show_presets = false, -- Show default adapters
           },
           gemini_cli = function()
             return require('codecompanion.adapters').extend('gemini_cli', {
@@ -313,9 +318,9 @@ return {
         },
         http = {
           opts = {
-            show_model_choices = false,
             proxy = vim.g.options.proxy,
-            show_defaults = false, -- Show default adapters
+            cache_models_for = 10, -- cache models list for 10 minutes, almost no cache (for same adaptor, different API url)
+            show_presets = false, -- do not show default adapters
           },
           copilot = 'copilot',
           gemini = function()
