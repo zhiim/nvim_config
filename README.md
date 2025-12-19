@@ -8,6 +8,7 @@
 - Git
 - GCC
 - Make
+- tree-sitter-cli (if use nvim-treesitter)
 - Ripgrep (if use telescope)
 - fzf (if use fzf-lua)
 - Python (optional, to use LSP)
