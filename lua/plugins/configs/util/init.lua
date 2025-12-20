@@ -25,44 +25,28 @@ if vim.g.options.mode == 'IDE' then
       },
       keys = {
         {
-          '<leader>fl',
-          mode = { 'c', 'n' },
+          '<C-s>',
+          mode = { 'c' },
           function()
             require('flash').toggle()
           end,
           desc = 'Flash Toggle',
         },
         {
-          '<leader>fj',
+          ']f',
           mode = { 'n', 'x', 'o' },
           function()
             require('flash').jump()
           end,
-          desc = 'Flash jump',
+          desc = 'Jump with Flash',
         },
         {
-          '<leader>ft',
-          mode = { 'n', 'x', 'o' },
-          function()
-            require('flash').treesitter()
-          end,
-          desc = 'Flash Treesitter',
-        },
-        {
-          '<leader>fr',
-          mode = 'o',
-          function()
-            require('flash').remote()
-          end,
-          desc = 'Flash remote',
-        },
-        {
-          '<leader>fs',
+          ']F',
           mode = { 'n', 'o', 'x' },
           function()
             require('flash').treesitter_search()
           end,
-          desc = 'Flash treesitter search',
+          desc = 'Jump with Flash treesitter search',
         },
       },
     },

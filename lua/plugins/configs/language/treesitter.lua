@@ -53,6 +53,11 @@ return { -- Highlight, edit, and navigate code
               end
             end,
           })
+        else
+          vim.notify(
+            'Treesitter: could not get language for filetype ' .. filetype,
+            vim.log.levels.WARN
+          )
         end
       end
 
@@ -94,50 +99,80 @@ return { -- Highlight, edit, and navigate code
           'textobjects'
         )
       end, { desc = 'Select inner class' })
+      vim.keymap.set({ 'x', 'o' }, 'as', function()
+        require('nvim-treesitter-textobjects.select').select_textobject(
+          '@local.scope',
+          'locals'
+        )
+      end, { desc = 'Select around local scope' })
 
       vim.keymap.set({ 'n', 'x', 'o' }, ']m', function()
         require('nvim-treesitter-textobjects.move').goto_next_start(
           '@function.outer',
           'textobjects'
         )
-      end, { desc = 'Go to next function start' })
+      end, { desc = 'Jump to next function start' })
       vim.keymap.set({ 'n', 'x', 'o' }, ']]', function()
         require('nvim-treesitter-textobjects.move').goto_next_start(
           '@class.outer',
           'textobjects'
         )
-      end, { desc = 'Go to next class start' })
+      end, { desc = 'Jump to next class start' })
       vim.keymap.set({ 'n', 'x', 'o' }, ']o', function()
         require('nvim-treesitter-textobjects.move').goto_next_start(
           { '@loop.inner', '@loop.outer' },
           'textobjects'
         )
-      end, { desc = 'Go to next loop start' })
+      end, { desc = 'Jump to next loop start' })
       vim.keymap.set({ 'n', 'x', 'o' }, ']s', function()
         require('nvim-treesitter-textobjects.move').goto_next_start(
           '@local.scope',
           'locals'
         )
-      end, { desc = 'Go to next local scope start' })
+      end, { desc = 'Jump to next local scope start' })
       vim.keymap.set({ 'n', 'x', 'o' }, ']z', function()
         require('nvim-treesitter-textobjects.move').goto_next_start(
           '@fold',
           'folds'
         )
-      end, { desc = 'Go to next fold start' })
+      end, { desc = 'Jump to next fold start' })
+      vim.keymap.set({ 'n', 'x', 'o' }, ']M', function()
+        require('nvim-treesitter-textobjects.move').goto_next_end(
+          '@function.outer',
+          'textobjects'
+        )
+      end, { desc = 'Jump to next function end' })
+      vim.keymap.set({ 'n', 'x', 'o' }, '][', function()
+        require('nvim-treesitter-textobjects.move').goto_next_end(
+          '@class.outer',
+          'textobjects'
+        )
+      end, { desc = 'Jump to next class end' })
 
       vim.keymap.set({ 'n', 'x', 'o' }, '[m', function()
         require('nvim-treesitter-textobjects.move').goto_previous_start(
           '@function.outer',
           'textobjects'
         )
-      end, { desc = 'Go to previous function start' })
+      end, { desc = 'Jump to previous function start' })
       vim.keymap.set({ 'n', 'x', 'o' }, '[[', function()
         require('nvim-treesitter-textobjects.move').goto_previous_start(
           '@class.outer',
           'textobjects'
         )
-      end, { desc = 'Go to previous class start' })
+      end, { desc = 'Jump to previous class start' })
+      vim.keymap.set({ 'n', 'x', 'o' }, '[M', function()
+        require('nvim-treesitter-textobjects.move').goto_previous_end(
+          '@function.outer',
+          'textobjects'
+        )
+      end, { desc = 'Jump to previous function end' })
+      vim.keymap.set({ 'n', 'x', 'o' }, '[]', function()
+        require('nvim-treesitter-textobjects.move').goto_previous_end(
+          '@class.outer',
+          'textobjects'
+        )
+      end, { desc = 'Jump to previous class end' })
     end,
   },
 

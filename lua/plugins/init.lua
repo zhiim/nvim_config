@@ -37,7 +37,6 @@ require('lazy').setup({
           { '<leader>d', group = 'Dropbar, DiffView' },
           { '<leader>dv', group = 'DiffView' },
           { '<leader>dt', group = 'DapView toggle' },
-          { '<leader>f', group = 'Flashs', mode = { 'n', 'v' } },
           { '<leader>g', group = 'Glance, GrugFar' },
           { '<leader>gp', group = 'Grapple' },
           { '<leader>l', group = 'LSP' },

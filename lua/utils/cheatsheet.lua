@@ -23,7 +23,6 @@ local included_groups = {
   'Telescope',
   'FzfLua',
   'CommentBox',
-  'Flash',
   'GrugFar',
   'MiniMap',
   'Resession',
@@ -41,6 +40,8 @@ local included_groups = {
   'Snacks',
   'Portal',
   'Grapple',
+  'Select',
+  'Jump',
 } -- can add group name or with mode
 
 local state = {
