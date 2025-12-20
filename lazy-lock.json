@@ -7,7 +7,7 @@
   "cmp-dap": { "branch": "master", "commit": "ea92773e84c0ad3288c3bc5e452ac91559669087" },
   "codecompanion-history.nvim": { "branch": "main", "commit": "8c6ca9f998aeef89f3543343070f8562bf911fb4" },
   "codecompanion-spinners.nvim": { "branch": "main", "commit": "86926cbf7554d69d40d2a5c3cf576063814a42d5" },
-  "codecompanion.nvim": { "branch": "main", "commit": "57232d7aedcc0675933fe5596d3167029d9057a8" },
+  "codecompanion.nvim": { "branch": "main", "commit": "a226ca071ebc1d8b5ae1f70800fa9cf4a06a2101" },
   "comment-box.nvim": { "branch": "main", "commit": "06bb771690bc9df0763d14769b779062d8f12bc5" },
   "conform.nvim": { "branch": "master", "commit": "41715945edf518ca73a9bd63ab6cdc23dd5c7b33" },
   "copilot.lua": { "branch": "master", "commit": "508d8b00390ff3046323f61187a57069910c6e17" },
