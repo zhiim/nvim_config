@@ -113,6 +113,7 @@ return {
     quickfile = { enabled = true },
     statuscolumn = { enabled = false },
     words = { enabled = true },
+    scope = { enabled = true },
   },
   keys = {
     {

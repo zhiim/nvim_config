@@ -35,8 +35,13 @@ local function get_git_log(git_root, count, file_path, callback)
   --  1 file changed, 7 insertions(+)
 
   if file_path and file_path ~= '' then
+    -- limit to specific file
     table.insert(args, '--')
     table.insert(args, file_path)
+  else
+    -- ignore empty commit
+    table.insert(args, '--')
+    table.insert(args, '.')
   end
 
   run_git_async(args, { cwd = git_root }, function(err, output)
@@ -53,6 +58,12 @@ local function get_git_log(git_root, count, file_path, callback)
     for _, line in ipairs(lines) do
       local commit_info = line:match '^COMMIT:(.+)$'
       if commit_info then -- first line is commit info
+        -- what if no files changed line follows? this commit is merge commit and should also be shown
+        if current_commit then
+          local formatted =
+            string.format(' 0 files | %s (Merge Commit)', current_commit)
+          table.insert(results, formatted)
+        end
         current_commit = commit_info
       elseif line:match '%d+ files? changed' and current_commit then
         -- files changed number
@@ -64,6 +75,13 @@ local function get_git_log(git_root, count, file_path, callback)
         table.insert(results, formatted)
         current_commit = nil
       end
+    end
+
+    -- if the last commit was a merge commit without files changed line
+    if current_commit then
+      local formatted =
+        string.format(' 0 files | %s (Merge Commit)', current_commit)
+      table.insert(results, formatted)
     end
 
     callback(nil, results)
@@ -102,7 +120,7 @@ local function create_commit_log_window(lines, on_select_1, on_select_2, opts)
 
   vim.api.nvim_set_option_value(
     'winbar',
-    'Git Logs. <i>: compare with previous commit; <I> compare with working tree',
+    'Git Logs. <i>: compare with previous commit; <I> compare with working tree; <q>: quit',
     { win = win }
   )
 
@@ -131,6 +149,79 @@ local function create_commit_log_window(lines, on_select_1, on_select_2, opts)
   end, keymap_opts)
 end
 
+local function focus_buf(buf)
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_get_buf(win) == buf then
+      vim.api.nvim_set_current_win(win)
+      return true
+    end
+  end
+  return false
+end
+
+local function show_git_history(git_utils, file_only, num_commits)
+  local cur_buf = vim.api.nvim_get_current_buf()
+  local cur_file = vim.api.nvim_buf_get_name(cur_buf)
+
+  if file_only and cur_file == '' then
+    vim.notify('Current buffer is not a file', vim.log.levels.ERROR)
+    return
+  end
+
+  local check_path = cur_file ~= '' and cur_file or vim.fn.getcwd()
+
+  git_utils.get_git_root(check_path, function(err_root, git_root)
+    if err_root then
+      vim.schedule(function()
+        vim.notify(err_root, vim.log.levels.ERROR)
+      end)
+      return
+    end
+
+    local relative_path = file_only
+        and git_utils.get_relative_path(cur_file, git_root)
+      or nil
+
+    get_git_log(git_root, num_commits, relative_path, function(err_log, lines)
+      if err_log then
+        vim.schedule(function()
+          vim.notify(err_log, vim.log.levels.ERROR)
+        end)
+        return
+      end
+
+      if not lines or #lines == 0 then
+        vim.schedule(function()
+          vim.notify('No git history found', vim.log.levels.WARN)
+        end)
+        return
+      end
+
+      vim.schedule(function()
+        create_commit_log_window(lines, function(commit, buf)
+          if file_only then
+            -- first focus back to original buffer
+            focus_buf(cur_buf)
+            vim.cmd('CodeDiff file ' .. commit .. '~1 ' .. commit)
+            -- focus back to log buffer
+            focus_buf(buf)
+          else
+            vim.cmd('CodeDiff ' .. commit .. '~1 ' .. commit)
+          end
+        end, function(commit, buf)
+          if file_only then
+            focus_buf(cur_buf)
+            vim.cmd('CodeDiff file ' .. commit)
+            focus_buf(buf)
+          else
+            vim.cmd('CodeDiff ' .. commit)
+          end
+        end, { height = 12 })
+      end)
+    end)
+  end)
+end
+
 return {
   'esmuellert/vscode-diff.nvim',
   enabled = vim.fn.has 'nvim-0.10',
@@ -148,44 +239,7 @@ return {
       '<leader>dvh',
       function()
         local git = require 'vscode-diff.git'
-
-        local current_buf = vim.api.nvim_get_current_buf()
-        local current_file = vim.api.nvim_buf_get_name(current_buf)
-        local check_path = current_file ~= '' and current_file
-          or vim.fn.getcwd()
-
-        git.get_git_root(check_path, function(err_root, git_root)
-          if err_root then
-            vim.schedule(function()
-              vim.notify(err_root, vim.log.levels.ERROR)
-            end)
-            return
-          end
-
-          get_git_log(git_root, 100, nil, function(err_log, lines)
-            if err_log then
-              vim.schedule(function()
-                vim.notify(err_log, vim.log.levels.ERROR)
-              end)
-              return
-            end
-
-            if not lines or #lines == 0 then
-              vim.schedule(function()
-                vim.notify('No git history found', vim.log.levels.WARN)
-              end)
-              return
-            end
-
-            vim.schedule(function()
-              create_commit_log_window(lines, function(commit)
-                vim.cmd('CodeDiff ' .. commit .. '~1 ' .. commit)
-              end, function(commit)
-                vim.cmd('CodeDiff ' .. commit)
-              end, { height = 12 })
-            end)
-          end)
-        end)
+        show_git_history(git, false, 100)
       end,
       mode = 'n',
       desc = 'Git Diffview view current branch files history',
@@ -194,68 +248,7 @@ return {
       '<leader>dvf',
       function()
         local git = require 'vscode-diff.git'
-
-        local current_buf = vim.api.nvim_get_current_buf()
-        local current_file = vim.api.nvim_buf_get_name(current_buf)
-
-        if current_file == '' then
-          vim.notify('Current buffer is not a file', vim.log.levels.ERROR)
-          return
-        end
-
-        git.get_git_root(current_file, function(err_root, git_root)
-          if err_root then
-            vim.schedule(function()
-              vim.notify(err_root, vim.log.levels.ERROR)
-            end)
-            return
-          end
-
-          local relative_path = git.get_relative_path(current_file, git_root)
-
-          get_git_log(git_root, 100, relative_path, function(err_log, lines)
-            if err_log then
-              vim.schedule(function()
-                vim.notify(err_log, vim.log.levels.ERROR)
-              end)
-              return
-            end
-
-            if not lines or #lines == 0 then
-              vim.schedule(function()
-                vim.notify(
-                  'No git history found for this file',
-                  vim.log.levels.WARN
-                )
-              end)
-              return
-            end
-
-            local function focus_buf(buf)
-              for _, win in ipairs(vim.api.nvim_list_wins()) do
-                if vim.api.nvim_win_get_buf(win) == buf then
-                  vim.api.nvim_set_current_win(win)
-                  return true
-                end
-              end
-              return false
-            end
-
-            vim.schedule(function()
-              create_commit_log_window(lines, function(commit, buf)
-                -- first focus back to original buffer
-                focus_buf(current_buf)
-                vim.cmd('CodeDiff file ' .. commit .. '~1 ' .. commit)
-                -- focus back to log buffer
-                focus_buf(buf)
-              end, function(commit, buf)
-                focus_buf(current_buf)
-                vim.cmd('CodeDiff file ' .. commit)
-                focus_buf(buf)
-              end, { height = 12 })
-            end)
-          end)
-        end)
+        show_git_history(git, true, 100)
       end,
       mode = 'n',
       desc = 'Git Diffview view current file history',
