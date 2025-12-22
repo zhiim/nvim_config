@@ -264,6 +264,7 @@ return {
           folder_closed = '󰉋',
           folder_open = '󰝰',
         },
+        view_mode = 'list',
       },
 
       keymaps = {
@@ -281,7 +282,7 @@ return {
           select = '<CR>',
           hover = 'K',
           refresh = 'R',
-          toggle_view_mode = 'i',
+          toggle_view_mode = '<C-s>',
         },
       },
     }
