@@ -48,7 +48,7 @@ return {
       'LiadOz/nvim-dap-repl-highlights',
       config = function()
         require('nvim-dap-repl-highlights').setup()
-        if not require('nvim-treesitter.parsers').has_parser 'dap_repl' then
+        if not vim._ts_has_language 'dap_repl' then
           vim.cmd 'TSInstall dap_repl'
         end
       end,

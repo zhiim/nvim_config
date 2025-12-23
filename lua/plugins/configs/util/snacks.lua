@@ -133,22 +133,6 @@ return {
       mode = 'n',
     },
     {
-      ']]',
-      function()
-        Snacks.words.jump(vim.v.count1)
-      end,
-      desc = 'Snacks next Reference',
-      mode = 'n',
-    },
-    {
-      '[[',
-      function()
-        Snacks.words.jump(-vim.v.count1)
-      end,
-      desc = 'Snacks prev Reference',
-      mode = 'n',
-    },
-    {
       '<leader>nnh',
       function()
         Snacks.notifier.show_history()
@@ -183,22 +167,6 @@ return {
       end,
       mode = 'n',
       desc = 'Snacks toggle zen mode',
-    },
-    {
-      '<leader>nsc',
-      function()
-        Snacks.scratch()
-      end,
-      mode = 'n',
-      desc = 'Snacks toggle scratch buffer',
-    },
-    {
-      '<leader>nss',
-      function()
-        Snacks.scratch.select()
-      end,
-      mode = 'n',
-      desc = 'Snacks select scratch buffer',
     },
     {
       '<leader>ni',
