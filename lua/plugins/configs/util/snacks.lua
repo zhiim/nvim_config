@@ -37,7 +37,7 @@ return {
             icon = '  ',
             key = 's',
             desc = 'Read Saved Session',
-            action = ":lua vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Leader>rsr', true, false, true), 'm', true)",
+            action = ":lua require('resession').load('latest', {dir = 'session/' .. string.lower(string.gsub(vim.fn.getcwd(), '[:/\\\\.]', '_')), notify = false})",
           },
           {
             icon = '  ',
