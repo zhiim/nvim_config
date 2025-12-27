@@ -20,6 +20,7 @@ return { -- Autoformat
         lua = { 'stylua' },
         css = { 'prettier' },
         html = { 'prettier' },
+        javascript = { 'prettier' },
         markdown = { 'prettier' },
         json = { 'prettier' },
         python = { 'ruff_fix', 'ruff_format' },
