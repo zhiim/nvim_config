@@ -164,7 +164,7 @@ return {
 
     local config = {
       opts = {
-        language = "Chinese", -- The language used for LLM responses
+        language = "the language I use", -- The language used for LLM responses
       },
       display = {
         diff = {

@@ -3,6 +3,17 @@ local M = {}
 local diff_saved_text = nil
 local diff_saved_filetype = nil
 
+local function generate_random_id(length)
+  local charset =
+    'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+  local ret = {}
+  for _ = 1, length do
+    local r = math.random(1, #charset)
+    table.insert(ret, string.sub(charset, r, r))
+  end
+  return table.concat(ret)
+end
+
 local function disable_diag_lsp(bufnr)
   -- disable diagnostics
   if vim.diagnostic.enable then
@@ -24,14 +35,15 @@ local function disable_diag_lsp(bufnr)
   end)
 end
 
-local function create_buf(buf, filetype, file_content)
+local function create_buf(buf, filetype, file_name, file_content)
   vim.bo[buf].buftype = 'nofile'
   vim.bo[buf].bufhidden = 'wipe'
   vim.bo[buf].swapfile = false
+  pcall(vim.api.nvim_buf_set_name, buf, file_name)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(file_content, '\n'))
   if filetype then
     vim.bo[buf].filetype = filetype
   end
-  vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(file_content, '\n'))
   disable_diag_lsp(buf)
   vim.keymap.set('n', 'q', '<cmd>tabclose<cr>', {
     buffer = buf,
@@ -63,15 +75,21 @@ function M.diff_selection()
     -- create new tab for diff
     vim.cmd 'tabnew'
 
+    local unique_id = generate_random_id(6)
     local buf1 = vim.api.nvim_get_current_buf()
-    create_buf(buf1, first_ft, first_text)
+    create_buf(buf1, first_ft, 'diff://' .. unique_id .. '/left', first_text)
     -- do diff
     vim.cmd 'diffthis'
 
     -- split window for second buffer
     vim.cmd 'vnew'
     local buf2 = vim.api.nvim_get_current_buf()
-    create_buf(buf2, current_ft, current_text)
+    create_buf(
+      buf2,
+      current_ft,
+      'diff://' .. unique_id .. '/right',
+      current_text
+    )
     vim.cmd 'diffthis'
   end
 end
