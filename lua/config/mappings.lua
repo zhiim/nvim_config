@@ -94,3 +94,7 @@ end, { desc = 'Utils display cheatsheet' })
 map('n', '<leader>uf', function()
   require('utils.util').lint_format_config()
 end, { desc = 'Utils create config file' })
+
+map('v', '<leader>df', function()
+  require('utils.diffline').diff_selection()
+end, { desc = 'Diff two selections' })
