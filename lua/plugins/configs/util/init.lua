@@ -7,55 +7,6 @@ if vim.g.options.mode == 'IDE' then
       opts = {},
     },
 
-    { -- Useful plugin to show you pending keybinds.
-      'folke/which-key.nvim',
-      event = 'VeryLazy', -- Sets the loading event to 'VimEnter'
-      keys = {
-        {
-          '<leader>?',
-          function()
-            require('which-key').show { global = false }
-          end,
-          desc = 'Local Keymaps (which-key)',
-        },
-      },
-      config = function() -- This is the function that runs, AFTER loading
-        require('which-key').setup {
-          preset = 'helix',
-        }
-        if vim.g.options.mode == 'IDE' then
-          require('which-key').add {
-            {
-              '<leader>c',
-              group = 'CodeCompanion, CommentBox',
-              mode = { 'n', 'v' },
-            },
-            { '<leader>cc', group = 'CodeCompanion', mode = { 'n', 'v' } },
-            { '<leader>cb', group = 'CommentBox', mode = { 'n', 'v' } },
-            { '<leader>d', group = 'Dropbar, DiffView' },
-            { '<leader>dv', group = 'DiffView' },
-            { '<leader>dt', group = 'DapView toggle' },
-            { '<leader>g', group = 'Glance, GrugFar' },
-            { '<leader>gp', group = 'Grapple' },
-            { '<leader>l', group = 'LSP' },
-            { '<leader>m', group = 'Mini' },
-            { '<leader>mm', group = 'Mini.map' },
-            { '<leader>n', group = 'Snacks' },
-            { '<leader>nn', group = 'Snacks.notification' },
-            { '<leader>nt', group = 'Snacks.toggle' },
-            { '<leader>ns', group = 'Snacks.scratch' },
-            { '<leader>p', group = 'Portal, Preview image' },
-            { '<leader>r', group = 'Rename, ReSessison' },
-            { '<leader>rs', group = 'ReSessison' },
-            { '<leader>s', group = 'Picker' },
-            { '<leader>t', group = 'Trouble' },
-            { '<leader>u', group = 'Utils' },
-            { '<leader>uo', group = 'Utils.options' },
-          }
-        end
-      end,
-    },
-
     {
       'AckslD/nvim-neoclip.lua',
       event = 'BufRead',
