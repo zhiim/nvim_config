@@ -223,7 +223,7 @@ local function show_git_history(git_utils, file_only, num_commits)
 end
 
 return {
-  'esmuellert/vscode-diff.nvim',
+  'esmuellert/codediff.nvim',
   enabled = vim.fn.has 'nvim-0.10',
   dependencies = { 'MunifTanjim/nui.nvim' },
   branch = 'next',
@@ -238,7 +238,7 @@ return {
     {
       '<leader>dvh',
       function()
-        local git = require 'vscode-diff.git'
+        local git = require 'codediff.core.git'
         show_git_history(git, false, 100)
       end,
       mode = 'n',
@@ -247,7 +247,7 @@ return {
     {
       '<leader>dvf',
       function()
-        local git = require 'vscode-diff.git'
+        local git = require 'codediff.core.git'
         show_git_history(git, true, 100)
       end,
       mode = 'n',
@@ -255,7 +255,7 @@ return {
     },
   },
   config = function()
-    require('vscode-diff').setup {
+    require('codediff').setup {
       explorer = {
         position = 'left',
         width = 40,
