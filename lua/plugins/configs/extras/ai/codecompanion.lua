@@ -156,8 +156,7 @@ return {
           end
 
           local model_id = get_model_id(selected)
-          chat:apply_model_or_command({ model = model_id })
-          chat:apply_settings()
+          chat:change_model({model = model_id})
         end
       )
     end
