@@ -224,6 +224,9 @@ return {
       name = 'file:workspace',
       program = '${file}',
       cwd = '${workspaceFolder}',
+      env = {
+        PYTHONPATH = '${workspaceFolder}',
+      },
     })
   end,
 }
