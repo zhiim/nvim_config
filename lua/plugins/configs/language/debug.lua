@@ -221,12 +221,16 @@ return {
     table.insert(require('dap').configurations.python, {
       type = 'python',
       request = 'launch',
-      name = 'file:workspace',
+      name = 'file (workspace, args optional)',
       program = '${file}',
       cwd = '${workspaceFolder}',
       env = {
         PYTHONPATH = '${workspaceFolder}',
       },
+      args = function()
+        local input = vim.fn.input 'Args: '
+        return vim.split(input, ' ', { trimempty = true })
+      end,
     })
   end,
 }
