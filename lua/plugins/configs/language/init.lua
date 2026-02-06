@@ -211,11 +211,7 @@ if vim.g.options.mode.chosen == 2 then
       'folke/lazydev.nvim',
       ft = 'lua',
       enabled = vim.fn.has 'nvim-0.10'
-        and (language_opts.components.basic.enabled or language_opts.enable_all)
-        and (
-          language_opts.components.basic.lsp_server.use_all
-          or language_opts.components.basic.lsp_server.servers['lua_ls']
-        ),
+        and (language_opts.components.basic.enabled or language_opts.enable_all),
       dependencies = {
         { 'gonstoll/wezterm-types', lazy = true },
       },

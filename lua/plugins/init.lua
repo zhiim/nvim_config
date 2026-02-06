@@ -60,7 +60,10 @@ require('lazy').setup({
 
   { -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
-    enabled = vim.g.options.mode.chosen ~= 2,
+    enabled = not (
+        vim.g.options.plugins.util.components.snacks
+        or vim.g.options.plugins.util.enable_all
+      ),
     event = 'BufRead',
     main = 'ibl',
     opts = {},
@@ -256,6 +259,14 @@ require('lazy').setup({
         return package.loaded['nvim-web-devicons']
       end
     end,
+  },
+
+  {
+    'grapp-dev/nui-components.nvim',
+    enabled = vim.g.options.mode.chosen == 2,
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+    },
   },
 
   require 'plugins.configs.ui',

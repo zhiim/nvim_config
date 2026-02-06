@@ -353,7 +353,7 @@ return {
         spinner = {
           enabled = true,
           opts = {
-            style = vim.g.options.mode.chosen == 2 and 'snacks' or "native" ,
+            style = (vim.g.options.mode.chosen == 2 and ( vim.g.options.plugins.util.enable_all or vim.g.options.plugins.util.components.snacks )) and 'snacks' or "native" ,
           },
         },
       },
@@ -441,7 +441,6 @@ return {
         provider_opts.schema.model = {}
         provider_opts.schema.model.default = provider_info.model
       end
-
 
       -- extend the openai_compatible adapter
       http_adapters[name] = function()

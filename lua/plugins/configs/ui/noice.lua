@@ -137,26 +137,28 @@ return {
       },
     }
     local fg_colors = require('utils.palette').get_palette()
-    require('lualine').setup {
-      sections = {
-        lualine_x = {
-          ---@diagnostic disable: undefined-field
-          {
-            require('noice').api.status.command.get,
-            cond = require('noice').api.status.command.has,
-            color = { fg = fg_colors.blue },
+    if ui_opts.components.lualine or ui_opts.enable_all then
+      require('lualine').setup {
+        sections = {
+          lualine_x = {
+            ---@diagnostic disable: undefined-field
+            {
+              require('noice').api.status.command.get,
+              cond = require('noice').api.status.command.has,
+              color = { fg = fg_colors.blue },
+            },
+            {
+              require('noice').api.status.search.get,
+              cond = require('noice').api.status.search.has,
+              color = { fg = fg_colors.orange },
+            },
+            'encoding',
+            'fileformat',
+            'filetype',
           },
-          {
-            require('noice').api.status.search.get,
-            cond = require('noice').api.status.search.has,
-            color = { fg = fg_colors.orange },
-          },
-          'encoding',
-          'fileformat',
-          'filetype',
         },
-      },
-    }
+      }
+    end
     if vim.g.options.picker.chosen == 2 then
       require('telescope').load_extension 'noice'
       vim.keymap.set(

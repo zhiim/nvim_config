@@ -113,18 +113,17 @@ local config_funcs = {
         -- miscs = {}, -- Uncomment to turn off hard-coded styles
       },
       integrations = {
-        barbar = vim.g.options.tab.chosen == 1,
+        barbar = true,
         blink_cmp = false,
-        diffview = vim.g.options.mode.chosen == 2,
         dropbar = {
-          enabled = vim.g.options.mode.chosen == 2,
-          color_mode = vim.g.options.mode.chosen == 2, -- enable color for kind's texts, not just kind's icons
+          enabled = true,
+          color_mode = true, -- enable color for kind's texts, not just kind's icons
         },
-        grug_far = vim.g.options.mode.chosen == 2,
+        grug_far = true,
         mason = true,
-        noice = vim.g.options.mode.chosen == 2,
-        snacks = vim.g.options.mode.chosen == 2,
-        lsp_trouble = vim.g.options.mode.chosen == 2,
+        noice = true,
+        snacks = true,
+        lsp_trouble = true,
         which_key = true,
       },
     }

@@ -138,7 +138,13 @@ local tab_tools = {
           require('bufferline').go_to(i, true)
         end, { desc = 'buffer goto ' .. i })
       end
-      if vim.g.options.mode.chosen == 2 then
+      if
+        vim.g.options.mode.chosen == 2
+        and (
+          vim.g.options.plugins.util.enable_all
+          or vim.g.options.plugins.util.components.snacks
+        )
+      then
         vim.keymap.set('n', '<leader>x', function()
           Snacks.bufdelete()
         end, { desc = 'Buffer close' })
@@ -174,7 +180,13 @@ local tab_tools = {
         '<cmd>bpre<CR>',
         { desc = 'Buffer goto previous' }
       )
-      if vim.g.options.mode.chosen == 2 then
+      if
+        vim.g.options.mode.chosen == 2
+        and (
+          vim.g.options.plugins.util.enable_all
+          or vim.g.options.plugins.util.components.snacks
+        )
+      then
         vim.keymap.set('n', '<leader>x', function()
           Snacks.bufdelete()
         end, { desc = 'Buffer close' })
