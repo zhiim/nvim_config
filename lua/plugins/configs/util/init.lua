@@ -1,8 +1,11 @@
+local util_opts = vim.g.options.plugins.util
+
 if vim.g.options.mode.chosen == 2 then
   return {
     {
       'AckslD/nvim-neoclip.lua',
       event = 'BufRead',
+      enabled = util_opts.components.neoclip or util_opts.enable_all,
       config = function()
         require('neoclip').setup {
           keys = {
@@ -41,6 +44,8 @@ if vim.g.options.mode.chosen == 2 then
 
     {
       'LudoPinelli/comment-box.nvim',
+      enabled = vim.fn.has 'nvim-0.8' and util_opts.components.comment_box
+        or util_opts.enable_all,
       keys = {
         {
           '<leader>cbe',
@@ -117,6 +122,8 @@ if vim.g.options.mode.chosen == 2 then
     {
       'folke/flash.nvim',
       event = 'BufRead',
+      enabled = vim.fn.has 'nvim-0.8' and util_opts.components.flash
+        or util_opts.enable_all,
       opts = {
         search = {
           exclude = {
@@ -167,6 +174,8 @@ if vim.g.options.mode.chosen == 2 then
 
     {
       'MagicDuck/grug-far.nvim',
+      enabled = vim.fn.has 'nvim-0.11' and util_opts.components.grug_far
+        or util_opts.enable_all,
       cmd = 'GrugFar',
       opts = {
         keymaps = {
@@ -195,6 +204,7 @@ if vim.g.options.mode.chosen == 2 then
     {
       'echasnovski/mini.surround',
       event = 'BufRead',
+      enabled = util_opts.components.mini_surround or util_opts.enable_all,
       version = false,
       config = function()
         require('mini.surround').setup {}
@@ -203,6 +213,8 @@ if vim.g.options.mode.chosen == 2 then
 
     {
       'cbochs/portal.nvim',
+      enabled = vim.fn.has 'nvim-0.8' and util_opts.components.portal
+        or util_opts.enable_all,
       keys = {
         {
           '<leader>pj',
@@ -236,6 +248,8 @@ if vim.g.options.mode.chosen == 2 then
 
     {
       'cbochs/grapple.nvim',
+      enabled = vim.fn.has 'nvim-0.5' and util_opts.components.grapple
+        or util_opts.enable_all,
       opts = {
         scope = 'git', -- default scope when creating a new tag
       },

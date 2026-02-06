@@ -37,7 +37,13 @@ local tab_tools = {
           { desc = 'buffer goto ' .. i }
         )
       end
-      if vim.g.options.mode.chosen == 2 then
+      if
+        vim.g.options.mode.chosen == 2
+        and (
+          vim.g.options.plugins.util.enable_all
+          or vim.g.options.plugins.util.components.snacks
+        )
+      then
         vim.keymap.set('n', '<leader>x', function()
           Snacks.bufdelete()
         end, { desc = 'buffer close' })

@@ -1,6 +1,10 @@
---- get git diff information using gitsigns
+local ui_opts = vim.g.options.plugins.ui
+
 return {
   'nvim-lualine/lualine.nvim',
+  enabled = vim.fn.has 'nvim-0.7' and ui_opts.components.lualine
+    or ui_opts.enable_all,
+  dependencies = { 'echasnovski/mini.icons' },
   config = function()
     -- custom filename component that highlights the filename based on its status
     local custom_fname = require('lualine.components.filename'):extend()

@@ -1,6 +1,10 @@
+local git_opts = vim.g.options.plugins.git
+
 return {
   'f-person/git-blame.nvim',
   event = 'BufRead',
+  enabled = vim.fn.has 'nvim-0.5' and git_opts.components.blame
+    or git_opts.enable_all,
   config = function()
     local cur_line = require('utils.util').get_hl('CursorLine').bg
     vim.api.nvim_create_autocmd({ 'ModeChanged' }, {

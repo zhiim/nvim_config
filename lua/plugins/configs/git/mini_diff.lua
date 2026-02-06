@@ -1,5 +1,8 @@
+local git_opts = vim.g.options.plugins.git
+
 return {
   'echasnovski/mini.diff',
+  enabled = git_opts.components.mini_diff or git_opts.enable_all,
   event = 'VeryLazy',
   version = false,
   keys = {

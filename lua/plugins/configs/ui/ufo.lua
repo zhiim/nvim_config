@@ -1,8 +1,11 @@
+local ui_opts = vim.g.options.plugins.ui
+
 return {
   'kevinhwang91/nvim-ufo',
   event = 'BufRead',
   dependencies = 'kevinhwang91/promise-async',
-  enabled = vim.fn.has 'nvim-0.7.2',
+  enabled = vim.fn.has 'nvim-0.7.2' and ui_opts.components.ufo
+    or ui_opts.enable_all,
   config = function()
     vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
     vim.o.foldcolumn = '1'

@@ -1,7 +1,13 @@
+local language_opts = vim.g.options.plugins.language
+
 if vim.g.options.mode.chosen == 2 then
   return {
     {
       'danymat/neogen',
+      enabled = (
+        language_opts.components.neogen
+        and language_opts.components.basic.enabled
+      ) or language_opts.enable_all,
       dependencies = 'nvim-treesitter/nvim-treesitter',
       config = true,
       keys = {
@@ -26,6 +32,13 @@ if vim.g.options.mode.chosen == 2 then
         'codecompanion',
         'copilot-chat',
       },
+      enabled = vim.fn.has 'nvim-0.9'
+          and (language_opts.components.render_markdown and language_opts.components.basic.enabled)
+        or language_opts.enable_all,
+      dependencies = {
+        'nvim-treesitter/nvim-treesitter',
+        'nvim-mini/mini.icons',
+      },
       config = function()
         require('render-markdown').setup {
           file_types = {
@@ -39,6 +52,9 @@ if vim.g.options.mode.chosen == 2 then
 
     {
       'linux-cultist/venv-selector.nvim',
+      enabled = vim.fn.has 'nvim-0.9'
+          and (language_opts.components.render_markdown and language_opts.components.basic.enabled)
+        or language_opts.enable_all,
       dependencies = {
         'neovim/nvim-lspconfig',
       },
@@ -75,6 +91,9 @@ if vim.g.options.mode.chosen == 2 then
 
     {
       'dnlhc/glance.nvim',
+      enabled = vim.fn.has 'nvim-0.9'
+          and (language_opts.components.glance and language_opts.components.basic.enabled)
+        or language_opts.enable_all,
       cmd = 'Glance',
       keys = {
         {
@@ -118,6 +137,9 @@ if vim.g.options.mode.chosen == 2 then
     {
       'folke/trouble.nvim',
       cmd = 'Trouble',
+      enabled = vim.fn.has 'nvim-0.9.2'
+          and (language_opts.components.trouble and language_opts.components.basic.enabled)
+        or language_opts.enable_all,
       keys = {
         {
           '<leader>tw',
@@ -165,6 +187,9 @@ if vim.g.options.mode.chosen == 2 then
 
     {
       'smjonas/inc-rename.nvim',
+      enabled = vim.fn.has 'nvim-0.8'
+          and (language_opts.components.inc_rename and language_opts.components.basic.enabled)
+        or language_opts.enable_all,
       config = function()
         require('inc_rename').setup {}
       end,
@@ -185,6 +210,12 @@ if vim.g.options.mode.chosen == 2 then
     {
       'folke/lazydev.nvim',
       ft = 'lua',
+      enabled = vim.fn.has 'nvim-0.10'
+        and (language_opts.components.basic.enabled or language_opts.enable_all)
+        and (
+          language_opts.components.basic.lsp_server.use_all
+          or language_opts.components.basic.lsp_server.servers['lua_ls']
+        ),
       dependencies = {
         { 'gonstoll/wezterm-types', lazy = true },
       },

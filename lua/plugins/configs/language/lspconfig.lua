@@ -1,6 +1,9 @@
+local language_opts = vim.g.options.plugins.language
+
 return { -- LSP Configuration & Plugins
   'neovim/nvim-lspconfig',
-  enabled = vim.fn.argv()[1] ~= 'leetcode',
+  enabled = vim.fn.argv()[1] ~= 'leetcode'
+    and (language_opts.components.basic.enabled or language_opts.enable_all),
   config = function()
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup(
@@ -174,32 +177,41 @@ return { -- LSP Configuration & Plugins
     vim.lsp.config('*', {
       capabilities = capabilities,
     })
-    vim.lsp.config('clangd', {
-      cmd = { 'clangd', '--clang-tidy' },
-    })
-    vim.lsp.config('basedpyright', {
-      settings = {
-        basedpyright = {
-          analysis = {
-            typeCheckingMode = 'off', -- off, basic, standard, strict, all
-            autoImportCompletions = false,
-            autoSearchPaths = true,
-            diagnosticMode = 'openFilesOnly',
-            useLibraryCodeForTypes = true,
-            reportMissingTypeStubs = false,
+
+    local server_opts = language_opts.components.basic.lsp_server
+
+    if server_opts.use_all or server_opts.servers['clangd'] then
+      vim.lsp.config('clangd', {
+        cmd = { 'clangd', '--clang-tidy' },
+      })
+    end
+    if server_opts.use_all or server_opts.servers['basedpyright'] then
+      vim.lsp.config('basedpyright', {
+        settings = {
+          basedpyright = {
+            analysis = {
+              typeCheckingMode = 'off', -- off, basic, standard, strict, all
+              autoImportCompletions = false,
+              autoSearchPaths = true,
+              diagnosticMode = 'openFilesOnly',
+              useLibraryCodeForTypes = true,
+              reportMissingTypeStubs = false,
+            },
           },
         },
-      },
-    })
-    vim.lsp.config('lua_ls', {
-      settings = {
-        Lua = {
-          completion = {
-            callSnippet = 'Replace',
+      })
+    end
+    if server_opts.use_all or server_opts.servers['lua_ls'] then
+      vim.lsp.config('lua_ls', {
+        settings = {
+          Lua = {
+            completion = {
+              callSnippet = 'Replace',
+            },
           },
         },
-      },
-    })
+      })
+    end
 
     -- use lspconfig name
     local servers = {
@@ -210,27 +222,35 @@ return { -- LSP Configuration & Plugins
       'ruff',
       'lua_ls',
     }
+    if not server_opts.use_all then
+      servers = vim.tbl_filter(function(server)
+        return server_opts.servers[server]
+      end, servers)
+    end
+
     if vim.g.options.plugins.tex then
       servers = vim.list_extend(servers, { 'texlab' })
     end
     vim.lsp.enable(servers)
 
-    vim.api.nvim_create_autocmd('LspAttach', {
-      group = vim.api.nvim_create_augroup(
-        'lsp_attach_disable_ruff_hover',
-        { clear = true }
-      ),
-      callback = function(args)
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        if client == nil then
-          return
-        end
-        if client.name == 'ruff' then
-          -- Disable hover in favor of Pyright
-          client.server_capabilities.hoverProvider = false
-        end
-      end,
-      desc = 'LSP: Disable hover capability from Ruff',
-    })
+    if server_opts.use_all or server_opts.servers['ruff'] then
+      vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup(
+          'lsp_attach_disable_ruff_hover',
+          { clear = true }
+        ),
+        callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client == nil then
+            return
+          end
+          if client.name == 'ruff' then
+            -- Disable hover in favor of Pyright
+            client.server_capabilities.hoverProvider = false
+          end
+        end,
+        desc = 'LSP: Disable hover capability from Ruff',
+      })
+    end
   end,
 }

@@ -62,7 +62,7 @@ function M.set_options()
       'material',
     },
     -- theme_style options
-    theme_style = style_options[vim.g.options.theme] or {},
+    theme_style = style_options[vim.g.options.plugins.theme] or {},
   }
   local option_info = {
     ai = 'Enable AI tools',
@@ -87,7 +87,7 @@ function M.set_options()
     if
       option == 'theme'
       and utils.find_value(result, selections.theme)
-      and result ~= vim.g.options.theme
+      and result ~= vim.g.options.plugins.theme
     then
       vim.g.theme_changed = true
       vim.api.nvim_set_var(
@@ -99,7 +99,7 @@ function M.set_options()
     if
       option == 'theme_style'
       and not vim.g.theme_changed
-      and not utils.find_value(vim.g.options.theme, {
+      and not utils.find_value(vim.g.options.plugins.theme, {
         'everforest',
         'material',
         'onenord',

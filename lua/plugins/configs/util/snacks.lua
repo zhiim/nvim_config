@@ -1,9 +1,11 @@
+local util_opts = vim.g.options.plugins.util
 local cmd_row = math.floor(vim.api.nvim_list_uis()[1].height) * 0.3
 
 return {
   'folke/snacks.nvim',
   priority = 1000,
-  enabled = vim.g.options.mode.chosen == 2,
+  enabled = vim.fn.has 'nvim-0.9.4' and util_opts.components.snacks
+    or util_opts.enable_all,
   lazy = false,
   opts = {
     scroll = {

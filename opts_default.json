@@ -20,93 +20,98 @@
     "bash_path": "",
     "gemini_api_key": ""
   },
-  "theme": {
-    "enabled": false,
-    "chosen": 1,
-    "choices": [
-      "github",
-      "catppuccin",
-      "nightfox",
-      "tokyonight",
-      "kanagawa",
-      "onedark",
-      "everforest",
-      "onenord",
-      "nordic",
-      "gruvbox",
-      "material"
-    ],
-    "theme_variants": {
-      "github": {
-        "chosen": 3,
-        "choices": [
-          "github_dark",
-          "github_light",
-          "github_dark_dimmed",
-          "github_dark_default",
-          "github_light_default",
-          "github_dark_high_contrast",
-          "github_light_high_contrast",
-          "github_dark_colorblind",
-          "github_light_colorblind",
-          "github_dark_tritanopia",
-          "github_light_tritanopia"
-        ]
-      },
-      "catppuccin": {
-        "chosen": 3,
-        "choices": [
-          "catppuccin-latte",
-          "catppuccin-frappe",
-          "catppuccin-macchiato",
-          "catppuccin-mocha"
-        ]
-      },
-      "nightfox": {
-        "chosen": 3,
-        "choices": [
-          "carbonfox",
-          "dawnfox",
-          "dayfox",
-          "duskfox",
-          "nightfox",
-          "nordfox",
-          "terafox"
-        ]
-      },
-      "tokyonight": {
-        "chosen": 2,
-        "choices": [
-          "tokyonight-night",
-          "tokyonight-storm",
-          "tokyonight-day",
-          "tokyonight-moon"
-        ]
-      },
-      "kanagawa": {
-        "chosen": 1,
-        "choices": ["kanagawa-wave", "kanagawa-dragon", "kanagawa-lotus"]
-      },
-      "onedark": {
-        "chosen": 1,
-        "choices": ["onedark", "onelight", "onedark_vivid", "onedark_dark"]
-      },
-      "material": {
-        "chosen": 1,
-        "choices": ["darker", "lighter", "oceanic", "palenight", "deep ocean"]
-      }
-    }
-  },
   "plugins": {
+    "theme": {
+      "enabled": false,
+      "chosen": 1,
+      "choices": [
+        "github",
+        "catppuccin",
+        "nightfox",
+        "tokyonight",
+        "kanagawa",
+        "onedark",
+        "everforest",
+        "onenord",
+        "nordic",
+        "gruvbox",
+        "material"
+      ],
+      "theme_variants": {
+        "github": {
+          "chosen": 3,
+          "choices": [
+            "github_dark",
+            "github_light",
+            "github_dark_dimmed",
+            "github_dark_default",
+            "github_light_default",
+            "github_dark_high_contrast",
+            "github_light_high_contrast",
+            "github_dark_colorblind",
+            "github_light_colorblind",
+            "github_dark_tritanopia",
+            "github_light_tritanopia"
+          ]
+        },
+        "catppuccin": {
+          "chosen": 3,
+          "choices": [
+            "catppuccin-latte",
+            "catppuccin-frappe",
+            "catppuccin-macchiato",
+            "catppuccin-mocha"
+          ]
+        },
+        "nightfox": {
+          "chosen": 3,
+          "choices": [
+            "carbonfox",
+            "dawnfox",
+            "dayfox",
+            "duskfox",
+            "nightfox",
+            "nordfox",
+            "terafox"
+          ]
+        },
+        "tokyonight": {
+          "chosen": 2,
+          "choices": [
+            "tokyonight-night",
+            "tokyonight-storm",
+            "tokyonight-day",
+            "tokyonight-moon"
+          ]
+        },
+        "kanagawa": {
+          "chosen": 1,
+          "choices": ["kanagawa-wave", "kanagawa-dragon", "kanagawa-lotus"]
+        },
+        "onedark": {
+          "chosen": 1,
+          "choices": ["onedark", "onelight", "onedark_vivid", "onedark_dark"]
+        },
+        "material": {
+          "chosen": 1,
+          "choices": ["darker", "lighter", "oceanic", "palenight", "deep ocean"]
+        }
+      }
+    },
     "ui": {
       "enable_all": false,
       "components": {
         "dashboard": false,
         "dropbar": false,
         "lualine": false,
+        "noice": false,
         "ufo": false,
         "statuscol": false,
-        "tiny-glimmer": false
+        "smear_cursor": false,
+        "tiny_inline_diagnostic": false,
+        "tiny_glimmer": false,
+        "nvim_colorizer": false,
+        "todo_comments": false
       }
     },
     "language": {
@@ -129,6 +134,23 @@
               "lua_ls": false
             }
           },
+          "formatter": {
+            "use_all": false,
+            "formatters": {
+              "stylua": false,
+              "prettier": false,
+              "clang-format": false,
+              "cmake_format": false,
+              "taplo": false
+            }
+          },
+          "linter": {
+            "use_all": false,
+            "linters": {
+              "jsonlint": false,
+              "yamllint": false
+            }
+          },
           "treesitter": {
             "use_all": false,
             "parsers": {
@@ -149,20 +171,6 @@
             }
           }
         },
-        "format": {
-          "enabled": false,
-          "formatter": {
-            "use_all": false,
-            "formatters": {
-              "stylua": false,
-              "prettier": false,
-              "ruff": false,
-              "clang-format": false,
-              "taplo": false,
-              "latexindent": false
-            }
-          }
-        },
         "debug": {
           "enabled": false,
           "dap_server": {
@@ -174,12 +182,12 @@
           }
         },
         "neogen": false,
-        "markdown": false,
+        "render_markdown": false,
         "venv-selector": false,
         "glance": false,
         "trouble": false,
-        "inc-rename": false,
-        "lazydev": false
+        "inc_rename": false,
+        "symbol_usage": false
       }
     },
     "git": {
@@ -195,13 +203,13 @@
       "components": {
         "minimap": false,
         "neoclip": false,
-        "comment-box": false,
+        "comment_box": false,
         "flash": false,
-        "grug-far": false,
-        "mini-surround": false,
+        "grug_far": false,
+        "mini_surround": false,
         "portal": false,
         "grapple": false,
-        "snack": false
+        "snacks": false
       }
     },
     "ai": {

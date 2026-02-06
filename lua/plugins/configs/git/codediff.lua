@@ -1,3 +1,5 @@
+local git_opts = vim.g.options.plugins.git
+
 local function run_git_async(args, opts, callback)
   opts = opts or {}
 
@@ -224,7 +226,8 @@ end
 
 return {
   'esmuellert/codediff.nvim',
-  enabled = vim.fn.has 'nvim-0.10',
+  enabled = vim.fn.has 'nvim-0.10' and git_opts.components.codediff
+    or git_opts.enable_all,
   dependencies = { 'MunifTanjim/nui.nvim' },
   branch = 'next',
   cmd = 'CodeDiff',

@@ -1,4 +1,4 @@
-local theme_opt = vim.g.options.theme
+local theme_opt = vim.g.options.plugins.theme
 local color_scheme = theme_opt.choices[theme_opt.chosen]
 local theme_plugins = {
   ['onedark'] = 'olimorris/onedarkpro.nvim',
@@ -257,6 +257,7 @@ local config_funcs = {
 return {
   theme_plugins[color_scheme],
   priority = 1200, -- Ensure it loads first
+  enabled = vim.g.options.plugins.theme.enabled,
   config = function()
     config_funcs[color_scheme]()
   end,

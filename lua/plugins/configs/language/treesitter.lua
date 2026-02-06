@@ -1,6 +1,10 @@
+local language_opts = vim.g.options.plugins.language
+
 return { -- Highlight, edit, and navigate code
   {
     'nvim-treesitter/nvim-treesitter',
+    enabled = vim.fn.has 'nvim-0.11' and language_opts.components.basic.enabled
+      or language_opts.enable_all,
     branch = 'main',
     lazy = false,
     build = ':TSUpdate',
@@ -21,6 +25,14 @@ return { -- Highlight, edit, and navigate code
         'json',
         'toml',
       }
+
+      local ts_opts = language_opts.components.basic.treesitter
+      if not ts_opts.use_all then
+        ensure_installed = vim.tbl_filter(function(ts)
+          return ts_opts.parsers[ts]
+        end, ensure_installed)
+      end
+
       local group =
         vim.api.nvim_create_augroup('TreesitterSetup', { clear = true })
 
@@ -69,6 +81,8 @@ return { -- Highlight, edit, and navigate code
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
     branch = 'main',
+    enabled = vim.fn.has 'nvim-0.11' and language_opts.components.basic.enabled
+      or language_opts.enable_all,
     init = function()
       -- Disable entire built-in ftplugin mappings to avoid conflicts.
       -- See https://github.com/neovim/neovim/tree/master/runtime/ftplugin for built-in ftplugins.
@@ -175,9 +189,10 @@ return { -- Highlight, edit, and navigate code
       end, { desc = 'Jump to previous class end' })
     end,
   },
-
   {
     'nvim-treesitter/nvim-treesitter-context',
+    enabled = vim.fn.has 'nvim-0.11' and language_opts.components.basic.enabled
+      or language_opts.enable_all,
     config = function()
       require('treesitter-context').setup {
         max_lines = 3,

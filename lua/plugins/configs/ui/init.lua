@@ -1,8 +1,11 @@
+local ui_opts = vim.g.options.plugins.ui
+
 if vim.g.options.mode.chosen == 2 then
   return {
     {
       'norcalli/nvim-colorizer.lua',
       event = 'BufRead',
+      enabled = ui_opts.components.nvim_colorizer or ui_opts.enable_all,
       config = function()
         require('colorizer').setup()
       end,
@@ -12,6 +15,7 @@ if vim.g.options.mode.chosen == 2 then
     {
       'folke/todo-comments.nvim',
       event = 'BufRead',
+      enabled = ui_opts.components.todo_comments or ui_opts.enable_all,
       dependencies = { 'nvim-lua/plenary.nvim' },
       opts = { signs = false },
     },
@@ -19,7 +23,8 @@ if vim.g.options.mode.chosen == 2 then
     {
       'luukvbaal/statuscol.nvim',
       event = 'BufRead',
-      enabled = vim.fn.has 'nvim-0.10',
+      enabled = vim.fn.has 'nvim-0.10' and ui_opts.components.statuscol
+        or ui_opts.enable_all,
       config = function()
         local builtin = require 'statuscol.builtin'
         require('statuscol').setup {
@@ -78,7 +83,8 @@ if vim.g.options.mode.chosen == 2 then
 
     {
       'rachartier/tiny-glimmer.nvim',
-      enabled = vim.fn.has 'nvim-0.10',
+      enabled = vim.fn.has 'nvim-0.10' and ui_opts.components.tiny_glimmer
+        or ui_opts.enable_all,
       event = 'VeryLazy',
       config = function()
         local palette = require('utils.palette').get_palette()

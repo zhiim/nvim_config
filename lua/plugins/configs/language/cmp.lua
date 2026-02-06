@@ -26,11 +26,15 @@ local kind_icons = {
   TypeParameter = '󰅲',
 }
 
+local language_opts = vim.g.options.plugins.language
+
 local cmp_tool = { -- Autocompletion
   nvim_cmp = {
     {
       'hrsh7th/nvim-cmp',
       event = 'BufRead',
+      enabled = language_opts.components.basic.enabled
+        or language_opts.enable_all,
       dependencies = {
         -- Snippet Engine & its associated nvim-cmp source
         {
@@ -169,6 +173,9 @@ local cmp_tool = { -- Autocompletion
     {
       'ray-x/lsp_signature.nvim',
       event = 'InsertEnter',
+      enabled = vim.fn.has 'nvim-0.10'
+          and language_opts.components.basic.enabled
+        or language_opts.enable_all,
       opts = {
         hint_prefix = ' ',
         floating_window_off_x = 5, -- adjust float windows x position.
@@ -199,6 +206,9 @@ local cmp_tool = { -- Autocompletion
     {
       'saghen/blink.cmp',
       event = 'BufRead',
+      enabled = vim.fn.has 'nvim-0.10'
+          and language_opts.components.basic.enabled
+        or language_opts.enable_all,
       version = '*',
       dependencies = {
         'rafamadriz/friendly-snippets',
@@ -433,12 +443,15 @@ local cmp_tool = { -- Autocompletion
 }
 
 local cmp = vim.g.options.plugins.language.components.basic.cmp
+
 return {
   cmp_tool[cmp.choices[cmp.chosen]],
 
   {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
+    enabled = vim.fn.has 'nvim-0.7' and language_opts.components.basic.enabled
+      or language_opts.enable_all,
     -- Optional dependency
     config = function()
       require('nvim-autopairs').setup {}

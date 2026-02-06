@@ -89,10 +89,15 @@ for _, button in ipairs(config_center) do
   button.key_hl = 'Number'
 end
 
+local ui_opts = vim.g.options.plugins.ui
+local util_opts = vim.g.options.plugins.util
+
 return {
   'nvimdev/dashboard-nvim',
   event = 'VimEnter',
-  enabled = not vim.g.options.mode.chosen == 2,
+  enabled = ui_opts.components.dashboard
+    or ui_opts.enable_all
+      and not (util_opts.components.snacks or util_opts.enable_all),
   config = function()
     require('dashboard').setup {
       -- config

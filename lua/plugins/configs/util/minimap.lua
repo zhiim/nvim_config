@@ -1,6 +1,9 @@
+local util_opts = vim.g.options.plugins.util
+
 return { -- Collection of various small independent plugins/modules
   'echasnovski/mini.map',
   version = false,
+  enabled = util_opts.components.minimap or util_opts.enable_all,
   config = function()
     -- minimap settings
     local MiniMap = require 'mini.map'

@@ -1,5 +1,9 @@
+local ai_opts = vim.g.options.plugins.ai
+
 return {
   'olimorris/codecompanion.nvim',
+  enabled =  ai_opts.components.codecomponion
+    or ai_opts.enable_all,
   cmd = { 'CodeCompanionActions', 'CodeCompanionChat', 'CodeCompanion' },
   dependencies = {
     'nvim-lua/plenary.nvim',
@@ -195,7 +199,7 @@ return {
       },
       interactions = {
         chat = {
-          adapter = 'copilot',
+          adapter = 'gemini',
           roles = {
             llm = function(adapter)
               -- adapter.formatted_name is not save by history extension
@@ -255,7 +259,7 @@ return {
           },
         },
         inline = {
-          adapter = 'copilot',
+          adapter = 'gemini',
         },
       },
       adapters = {
@@ -321,7 +325,6 @@ return {
             cache_models_for = 10, -- cache models list for 10 minutes, almost no cache (for same adaptor, different API url)
             show_presets = false, -- do not show default adapters
           },
-          copilot = 'copilot',
           gemini = function()
             return require('codecompanion.adapters').extend('gemini', {
               env = {
@@ -450,6 +453,10 @@ return {
     -- add to codecompanion config
     for k, v in pairs(http_adapters) do
       config.adapters.http[k] = v
+    end
+
+    if ai_opts.components.copilot or ai_opts.enable_all then
+      config.adapters.http.copilot = 'copilot'
     end
 
     require('codecompanion').setup(config)

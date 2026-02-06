@@ -1,7 +1,13 @@
+local ui_opts = vim.g.options.plugins.ui
+
 return {
   'folke/noice.nvim',
   event = 'VeryLazy',
-  enabled = vim.g.options.mode.chosen == 2,
+  enabled = vim.fn.has 'nvim-0.9' and ui_opts.components.noice
+    or ui_opts.enable_all,
+  dependencies = {
+    'MunifTanjim/nui.nvim',
+  },
   opts = {
     -- add any options here
   },
@@ -14,7 +20,9 @@ return {
         override = {
           ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
           ['vim.lsp.util.stylize_markdown'] = true,
-          ['cmp.entry.get_documentation'] = (vim.g.options.plugins.language.components.basic.cmp.chosen == 2), -- requires hrsh7th/nvim-cmp
+          ['cmp.entry.get_documentation'] = (
+            vim.g.options.plugins.language.components.basic.cmp.chosen == 2
+          ), -- requires hrsh7th/nvim-cmp
         },
         hover = {
           silent = true, -- do not show a message if hover is not available

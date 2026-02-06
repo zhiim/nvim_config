@@ -1,9 +1,8 @@
-if not vim.g.options.mode.chosen == 2 then
-  return {}
-end
+local language_opts = vim.g.options.plugins.language
 
 return {
   'mfussenegger/nvim-dap',
+  enabled = language_opts.components.debug.enabled or language_opts.enable_all,
   keys = {
     {
       '<F6>',
@@ -124,14 +123,26 @@ return {
       end,
     })
 
-    require('mason-nvim-dap').setup {
-      automatic_installation = true,
-      handlers = {},
+    local dap_server_opts = language_opts.components.debug.dap_server
 
+    local ensure_installed = {}
+    if dap_server_opts.use_all then
       ensure_installed = {
         'python',
         'codelldb',
-      },
+      }
+    else
+      for adapter, enabled in pairs(dap_server_opts.servers) do
+        if enabled then
+          table.insert(ensure_installed, adapter)
+        end
+      end
+    end
+
+    require('mason-nvim-dap').setup {
+      automatic_installation = true,
+      handlers = {},
+      ensure_installed = ensure_installed,
     }
 
     vim.keymap.set(
@@ -208,29 +219,31 @@ return {
       )
     end, { desc = 'Debug toggle repl widget' })
 
-    if vim.fn.has 'win32' == 0 then
-      require('dap-python').setup(
-        vim.fn.stdpath 'data' .. '/mason/packages/debugpy/venv/bin/python'
-      )
-    else
-      require('dap-python').setup(
-        vim.fn.stdpath 'data'
-          .. '/mason/packages/debugpy/venv/Scripts/python.exe'
-      )
+    if dap_server_opts.servers.python then
+      if vim.fn.has 'win32' == 0 then
+        require('dap-python').setup(
+          vim.fn.stdpath 'data' .. '/mason/packages/debugpy/venv/bin/python'
+        )
+      else
+        require('dap-python').setup(
+          vim.fn.stdpath 'data'
+            .. '/mason/packages/debugpy/venv/Scripts/python.exe'
+        )
+      end
+      table.insert(require('dap').configurations.python, {
+        type = 'python',
+        request = 'launch',
+        name = 'file (workspace, args optional)',
+        program = '${file}',
+        cwd = '${workspaceFolder}',
+        env = {
+          PYTHONPATH = '${workspaceFolder}',
+        },
+        args = function()
+          local input = vim.fn.input 'Args: '
+          return vim.split(input, ' ', { trimempty = true })
+        end,
+      })
     end
-    table.insert(require('dap').configurations.python, {
-      type = 'python',
-      request = 'launch',
-      name = 'file (workspace, args optional)',
-      program = '${file}',
-      cwd = '${workspaceFolder}',
-      env = {
-        PYTHONPATH = '${workspaceFolder}',
-      },
-      args = function()
-        local input = vim.fn.input 'Args: '
-        return vim.split(input, ' ', { trimempty = true })
-      end,
-    })
   end,
 }

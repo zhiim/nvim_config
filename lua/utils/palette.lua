@@ -2,7 +2,7 @@ local M = {}
 
 --- get palette according to color_scheme
 function M.get_palette()
-  local theme_opt = vim.g.options.theme
+  local theme_opt = vim.g.options.plugins.theme
   local color_scheme = theme_opt.choices[theme_opt.chosen]
   local theme_variants_opt = theme_opt.theme_variants[color_scheme]
 

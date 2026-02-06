@@ -1,7 +1,9 @@
+local ui_opts = vim.g.options.plugins.ui
+
 return {
   'Bekaboo/dropbar.nvim',
   event = 'BufReadPre',
-  enabled = vim.g.options.mode.chosen == 2,
+  enabled = ui_opts.enable_all or ui_opts.components.dropbar,
   keys = {
     {
       '<leader>db',

@@ -1,3 +1,5 @@
+local language_opts = vim.g.options.plugins.language
+
 return {
   'Wansmer/symbol-usage.nvim',
   -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
@@ -8,9 +10,8 @@ return {
       return 'BufReadPre'
     end
   end,
-  enabled = function()
-    return vim.fn.has 'nvim-0.9' and vim.g.options.mode.chosen == 2
-  end,
+  enabled = vim.fn.has 'nvim-0.9' and language_opts.components.symbol_usage
+    or language_opts.enable_all,
   config = function()
     local function text_format(symbol)
       local res = {}
