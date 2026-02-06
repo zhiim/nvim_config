@@ -20,84 +20,84 @@
     "bash_path": "",
     "gemini_api_key": ""
   },
-  "plugins": {
-    "theme": {
-      "enabled": false,
-      "chosen": 1,
-      "choices": [
-        "github",
-        "catppuccin",
-        "nightfox",
-        "tokyonight",
-        "kanagawa",
-        "onedark",
-        "everforest",
-        "onenord",
-        "nordic",
-        "gruvbox",
-        "material"
-      ],
-      "theme_variants": {
-        "github": {
-          "chosen": 3,
-          "choices": [
-            "github_dark",
-            "github_light",
-            "github_dark_dimmed",
-            "github_dark_default",
-            "github_light_default",
-            "github_dark_high_contrast",
-            "github_light_high_contrast",
-            "github_dark_colorblind",
-            "github_light_colorblind",
-            "github_dark_tritanopia",
-            "github_light_tritanopia"
-          ]
-        },
-        "catppuccin": {
-          "chosen": 3,
-          "choices": [
-            "catppuccin-latte",
-            "catppuccin-frappe",
-            "catppuccin-macchiato",
-            "catppuccin-mocha"
-          ]
-        },
-        "nightfox": {
-          "chosen": 3,
-          "choices": [
-            "carbonfox",
-            "dawnfox",
-            "dayfox",
-            "duskfox",
-            "nightfox",
-            "nordfox",
-            "terafox"
-          ]
-        },
-        "tokyonight": {
-          "chosen": 2,
-          "choices": [
-            "tokyonight-night",
-            "tokyonight-storm",
-            "tokyonight-day",
-            "tokyonight-moon"
-          ]
-        },
-        "kanagawa": {
-          "chosen": 1,
-          "choices": ["kanagawa-wave", "kanagawa-dragon", "kanagawa-lotus"]
-        },
-        "onedark": {
-          "chosen": 1,
-          "choices": ["onedark", "onelight", "onedark_vivid", "onedark_dark"]
-        },
-        "material": {
-          "chosen": 1,
-          "choices": ["darker", "lighter", "oceanic", "palenight", "deep ocean"]
-        }
+  "theme": {
+    "enabled": false,
+    "chosen": 1,
+    "choices": [
+      "github",
+      "catppuccin",
+      "nightfox",
+      "tokyonight",
+      "kanagawa",
+      "onedark",
+      "everforest",
+      "onenord",
+      "nordic",
+      "gruvbox",
+      "material"
+    ],
+    "theme_variants": {
+      "github": {
+        "chosen": 3,
+        "choices": [
+          "github_dark",
+          "github_light",
+          "github_dark_dimmed",
+          "github_dark_default",
+          "github_light_default",
+          "github_dark_high_contrast",
+          "github_light_high_contrast",
+          "github_dark_colorblind",
+          "github_light_colorblind",
+          "github_dark_tritanopia",
+          "github_light_tritanopia"
+        ]
+      },
+      "catppuccin": {
+        "chosen": 3,
+        "choices": [
+          "catppuccin-latte",
+          "catppuccin-frappe",
+          "catppuccin-macchiato",
+          "catppuccin-mocha"
+        ]
+      },
+      "nightfox": {
+        "chosen": 3,
+        "choices": [
+          "carbonfox",
+          "dawnfox",
+          "dayfox",
+          "duskfox",
+          "nightfox",
+          "nordfox",
+          "terafox"
+        ]
+      },
+      "tokyonight": {
+        "chosen": 2,
+        "choices": [
+          "tokyonight-night",
+          "tokyonight-storm",
+          "tokyonight-day",
+          "tokyonight-moon"
+        ]
+      },
+      "kanagawa": {
+        "chosen": 1,
+        "choices": ["kanagawa-wave", "kanagawa-dragon", "kanagawa-lotus"]
+      },
+      "onedark": {
+        "chosen": 1,
+        "choices": ["onedark", "onelight", "onedark_vivid", "onedark_dark"]
+      },
+      "material": {
+        "chosen": 1,
+        "choices": ["darker", "lighter", "oceanic", "palenight", "deep ocean"]
       }
-    },
+    }
+  },
+  "plugins": {
     "ui": {
       "enable_all": false,
       "components": {
