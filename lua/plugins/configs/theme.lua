@@ -253,11 +253,21 @@ local config_funcs = {
   end,
 }
 
+if vim.g.options.theme.enabled then
 return {
   theme_plugins[color_scheme],
   priority = 1200, -- Ensure it loads first
-  enabled = vim.g.options.theme.enabled,
   config = function()
     config_funcs[color_scheme]()
   end,
 }
+else
+  vim.cmd.colorscheme 'habamax'
+  local colors = require('utils.palette').get_palette()
+  local get_hl = require('utils.util').get_hl
+  local fg = get_hl('Normal').bg
+  vim.api.nvim_set_hl(0, 'Search', { bg = colors.blue, fg = fg })
+  vim.api.nvim_set_hl(0, 'IncSearch', { bg = colors.yellow, fg = fg })
+  vim.api.nvim_set_hl(0, 'CurSearch', { bg = colors.yellow, fg = fg })
+  return {}
+end
