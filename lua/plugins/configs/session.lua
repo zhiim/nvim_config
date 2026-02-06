@@ -26,19 +26,19 @@ return {
     {
       'stevearc/oil.nvim',
       cond = function()
-        return vim.g.options.mode == 'IDE'
+        return vim.g.options.mode.chosen == 2
       end,
     },
     {
       'kevinhwang91/nvim-ufo',
       cond = function()
-        return vim.g.options.mode == 'IDE'
+        return vim.g.options.mode.chosen == 2
       end,
     },
     {
       'luukvbaal/statuscol.nvim',
       cond = function()
-        return vim.g.options.mode == 'IDE'
+        return vim.g.options.mode.chosen == 2
       end,
     },
   },

@@ -1,4 +1,4 @@
-local picker = { -- Fuzzy Finder (files, lsp, etc)
+local pickers = { -- Fuzzy Finder (files, lsp, etc)
   telescope = {
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
@@ -349,4 +349,5 @@ local picker = { -- Fuzzy Finder (files, lsp, etc)
   },
 }
 
-return picker[vim.g.options.picker]
+local picker = vim.g.options.picker
+return pickers[picker.choices[picker.chosen]]

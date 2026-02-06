@@ -12,7 +12,7 @@ return { -- LSP Configuration & Plugins
           vim.keymap.set('n', keys, func, { buffer = event.buf, desc = desc })
         end
 
-        if vim.g.options.picker == 'telescope' then
+        if vim.g.options.picker.chosen == 2 then
           -- Jump to the definition of the word under your cursor.
           map(
             'gd',
@@ -159,7 +159,7 @@ return { -- LSP Configuration & Plugins
     })
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    if vim.g.options.cmp == 'nvim_cmp' then
+    if vim.g.options.plugins.language.components.basic.cmp.chosen == 2 then
       capabilities = vim.tbl_deep_extend(
         'force',
         capabilities,
@@ -210,7 +210,7 @@ return { -- LSP Configuration & Plugins
       'ruff',
       'lua_ls',
     }
-    if vim.g.options.tex then
+    if vim.g.options.plugins.tex then
       servers = vim.list_extend(servers, { 'texlab' })
     end
     vim.lsp.enable(servers)

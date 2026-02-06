@@ -2,7 +2,7 @@ tags
 test.sh
 .luarc.json
 nvim
-cache.json
+opts_cache.json
 providers.json
 
 spell/

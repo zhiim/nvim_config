@@ -23,7 +23,7 @@ return {
       'yamllint',
     }
     -- enable texlab
-    if vim.g.options.tex then
+    if vim.g.options.plugins.tex then
       ensure_installed =
         vim.list_extend(ensure_installed, { 'texlab', 'latexindent' })
     end

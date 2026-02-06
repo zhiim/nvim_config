@@ -1,12 +1,5 @@
-if vim.g.options.mode == 'IDE' then
+if vim.g.options.mode.chosen == 2 then
   return {
-    -- "gc" to comment visual regions/lines
-    {
-      'numToStr/Comment.nvim',
-      event = 'BufRead',
-      opts = {},
-    },
-
     {
       'AckslD/nvim-neoclip.lua',
       event = 'BufRead',
@@ -31,7 +24,7 @@ if vim.g.options.mode == 'IDE' then
             },
           },
         }
-        if vim.g.options.picker == 'telescope' then
+        if vim.g.options.picker.chosen == 2 then
           vim.keymap.set(
             'n',
             '<leader>sc',

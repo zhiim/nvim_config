@@ -1,4 +1,4 @@
-if vim.g.options.mode == 'IDE' then
+if vim.g.options.mode.chosen == 2 then
   return {
     {
       'danymat/neogen',
@@ -45,14 +45,6 @@ if vim.g.options.mode == 'IDE' then
       event = 'BufEnter *.py', -- lazy load when entering python files
       config = function()
         require('venv-selector').setup {
-          search = {
-            find_conda = {
-              command = vim.g.options.python_conda_command,
-            },
-            find_venv = {
-              command = vim.g.options.python_venv_command,
-            },
-          },
           options = {
             picker_icons = {
               cwd = ' ',

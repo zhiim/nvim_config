@@ -2,6 +2,13 @@ require('lazy').setup({
 
   { 'tpope/vim-sleuth', event = 'BufRead' }, -- Detect tabstop and shiftwidth automatically
 
+  -- "gc" to comment visual regions/lines
+  {
+    'numToStr/Comment.nvim',
+    event = 'BufRead',
+    opts = {},
+  },
+
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VeryLazy', -- Sets the loading event to 'VimEnter'
@@ -18,7 +25,7 @@ require('lazy').setup({
       require('which-key').setup {
         preset = 'helix',
       }
-      if vim.g.options.mode == 'IDE' then
+      if vim.g.options.mode.chosen == 2 then
         require('which-key').add {
           {
             '<leader>c',
@@ -53,7 +60,7 @@ require('lazy').setup({
 
   { -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
-    enabled = vim.g.options.mode ~= 'IDE',
+    enabled = vim.g.options.mode.chosen ~= 2,
     event = 'BufRead',
     main = 'ibl',
     opts = {},

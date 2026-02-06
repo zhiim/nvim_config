@@ -2,7 +2,7 @@ return {
   'lervag/vimtex',
   ft = { 'tex', 'plaintex' },
   -- tag = "v2.15", -- uncomment to pin to a specific release
-  enabled = vim.g.options.tex,
+  enabled = vim.g.options.plugins.tex,
   init = function()
     -- VimTeX configuration goes here, e.g.
     vim.g.tex_flavor = 'latex'
@@ -22,7 +22,7 @@ return {
   dependencies = {
     'micangl/cmp-vimtex',
     config = function()
-      if vim.g.options.cmp == 'nvim_cmp' then
+      if vim.g.options.plugins.language.components.basic.cmp.chosen == 2 then
         require('cmp').setup {
           sources = {
             { name = 'vimtex' },

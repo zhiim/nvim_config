@@ -1,5 +1,5 @@
-local color_scheme = vim.g.options.theme ~= '' and vim.g.options.theme
-  or 'github'
+local theme_opt = vim.g.options.theme
+local color_scheme = theme_opt.choices[theme_opt.chosen]
 local theme_plugins = {
   ['onedark'] = 'olimorris/onedarkpro.nvim',
   ['onenord'] = 'rmehri01/onenord.nvim',
@@ -15,10 +15,8 @@ local theme_plugins = {
 }
 
 local function set_theme()
-  vim.cmd.colorscheme(
-    vim.g.options.theme_style ~= '' and vim.g.options.theme_style
-      or color_scheme
-  )
+  local theme_variants_opt = theme_opt.theme_variants[color_scheme]
+  vim.cmd.colorscheme(theme_variants_opt.choices[theme_variants_opt.chosen])
 end
 
 local config_funcs = {
@@ -115,18 +113,18 @@ local config_funcs = {
         -- miscs = {}, -- Uncomment to turn off hard-coded styles
       },
       integrations = {
-        barbar = vim.g.options.tab == 'barbar',
+        barbar = vim.g.options.tab.chosen == 1,
         blink_cmp = false,
-        diffview = vim.g.options.mode == 'IDE',
+        diffview = vim.g.options.mode.chosen == 2,
         dropbar = {
-          enabled = vim.g.options.mode == 'IDE',
-          color_mode = vim.g.options.mode == 'IDE', -- enable color for kind's texts, not just kind's icons
+          enabled = vim.g.options.mode.chosen == 2,
+          color_mode = vim.g.options.mode.chosen == 2, -- enable color for kind's texts, not just kind's icons
         },
-        grug_far = vim.g.options.mode == 'IDE',
+        grug_far = vim.g.options.mode.chosen == 2,
         mason = true,
-        noice = vim.g.options.mode == 'IDE',
-        snacks = vim.g.options.mode == 'IDE',
-        lsp_trouble = vim.g.options.mode == 'IDE',
+        noice = vim.g.options.mode.chosen == 2,
+        snacks = vim.g.options.mode.chosen == 2,
+        lsp_trouble = vim.g.options.mode.chosen == 2,
         which_key = true,
       },
     }
@@ -164,9 +162,8 @@ local config_funcs = {
       },
       lualine_style = 'stealth', -- Lualine style ( can be 'stealth' or 'default' )
     }
-    vim.g.material_style = vim.g.options.theme_style ~= ''
-        and vim.g.options.theme_style
-      or 'deep ocean'
+    local theme_variants_opt = theme_opt.theme_variants[color_scheme]
+    vim.g.material_style = theme_variants_opt.choices[theme_variants_opt.chosen]
     vim.cmd.colorscheme 'material'
   end,
   ['github'] = function()
@@ -186,10 +183,8 @@ local config_funcs = {
         },
       },
     }
-    vim.cmd.colorscheme(
-      vim.g.options.theme_style ~= '' and vim.g.options.theme_style
-        or 'github_dark'
-    )
+    local theme_variants_opt = theme_opt.theme_variants[color_scheme]
+    vim.cmd.colorscheme(theme_variants_opt.choices[theme_variants_opt.chosen])
   end,
   ['kanagawa'] = function()
     require('kanagawa').setup {

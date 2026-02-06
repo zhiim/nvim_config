@@ -1,0 +1,217 @@
+{
+  "mode": {
+    "chosen": 1,
+    "choices": ["minimal", "IDE"]
+  },
+  "picker": {
+    "chosen": 1,
+    "choices": ["fzf_lua", "telescope"]
+  },
+  "tab": {
+    "chosen": 1,
+    "choices": ["barbar", "bufferline", "tabby"]
+  },
+  "explorer": {
+    "chosen": 1,
+    "choices": ["nvimtree", "neotree", "fyler"]
+  },
+  "settings": {
+    "proxy": "",
+    "bash_path": "",
+    "gemini_api_key": ""
+  },
+  "theme": {
+    "enabled": false,
+    "chosen": 1,
+    "choices": [
+      "github",
+      "catppuccin",
+      "nightfox",
+      "tokyonight",
+      "kanagawa",
+      "onedark",
+      "everforest",
+      "onenord",
+      "nordic",
+      "gruvbox",
+      "material"
+    ],
+    "theme_variants": {
+      "github": {
+        "chosen": 3,
+        "choices": [
+          "github_dark",
+          "github_light",
+          "github_dark_dimmed",
+          "github_dark_default",
+          "github_light_default",
+          "github_dark_high_contrast",
+          "github_light_high_contrast",
+          "github_dark_colorblind",
+          "github_light_colorblind",
+          "github_dark_tritanopia",
+          "github_light_tritanopia"
+        ]
+      },
+      "catppuccin": {
+        "chosen": 3,
+        "choices": [
+          "catppuccin-latte",
+          "catppuccin-frappe",
+          "catppuccin-macchiato",
+          "catppuccin-mocha"
+        ]
+      },
+      "nightfox": {
+        "chosen": 3,
+        "choices": [
+          "carbonfox",
+          "dawnfox",
+          "dayfox",
+          "duskfox",
+          "nightfox",
+          "nordfox",
+          "terafox"
+        ]
+      },
+      "tokyonight": {
+        "chosen": 2,
+        "choices": [
+          "tokyonight-night",
+          "tokyonight-storm",
+          "tokyonight-day",
+          "tokyonight-moon"
+        ]
+      },
+      "kanagawa": {
+        "chosen": 1,
+        "choices": ["kanagawa-wave", "kanagawa-dragon", "kanagawa-lotus"]
+      },
+      "onedark": {
+        "chosen": 1,
+        "choices": ["onedark", "onelight", "onedark_vivid", "onedark_dark"]
+      },
+      "material": {
+        "chosen": 1,
+        "choices": ["darker", "lighter", "oceanic", "palenight", "deep ocean"]
+      }
+    }
+  },
+  "plugins": {
+    "ui": {
+      "enable_all": false,
+      "components": {
+        "dashboard": false,
+        "dropbar": false,
+        "lualine": false,
+        "ufo": false,
+        "statuscol": false,
+        "tiny-glimmer": false
+      }
+    },
+    "language": {
+      "enable_all": false,
+      "components": {
+        "basic": {
+          "enabled": false,
+          "cmp": {
+            "chosen": 1,
+            "choices": ["blink_cmp", "nvim_cmp"]
+          },
+          "lsp_server": {
+            "use_all": false,
+            "servers": {
+              "clangd": false,
+              "taplo": false,
+              "cmake": false,
+              "basedpyright": false,
+              "ruff": false,
+              "lua_ls": false
+            }
+          },
+          "treesitter": {
+            "use_all": false,
+            "parsers": {
+              "bash": false,
+              "c": false,
+              "cpp": false,
+              "python": false,
+              "lua": false,
+              "luadoc": false,
+              "markdown": false,
+              "markdown_inline": false,
+              "yaml": false,
+              "json": false,
+              "toml": false,
+              "diff": false,
+              "vim": false,
+              "vimdoc": false
+            }
+          }
+        },
+        "format": {
+          "enabled": false,
+          "formatter": {
+            "use_all": false,
+            "formatters": {
+              "stylua": false,
+              "prettier": false,
+              "ruff": false,
+              "clang-format": false,
+              "taplo": false,
+              "latexindent": false
+            }
+          }
+        },
+        "debug": {
+          "enabled": false,
+          "dap_server": {
+            "use_all": false,
+            "servers": {
+              "python": false,
+              "codelldb": false
+            }
+          }
+        },
+        "neogen": false,
+        "markdown": false,
+        "venv-selector": false,
+        "glance": false,
+        "trouble": false,
+        "inc-rename": false,
+        "lazydev": false
+      }
+    },
+    "git": {
+      "enable_all": false,
+      "components": {
+        "blame": false,
+        "codediff": false,
+        "mini_diff": false
+      }
+    },
+    "util": {
+      "enable_all": false,
+      "components": {
+        "minimap": false,
+        "neoclip": false,
+        "comment-box": false,
+        "flash": false,
+        "grug-far": false,
+        "mini-surround": false,
+        "portal": false,
+        "grapple": false,
+        "snack": false
+      }
+    },
+    "ai": {
+      "enable_all": false,
+      "components": {
+        "copilot": false,
+        "codecomponion": false
+      }
+    },
+    "leetcode": false,
+    "tex": false
+  }
+}

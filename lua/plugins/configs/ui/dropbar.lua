@@ -1,7 +1,7 @@
 return {
   'Bekaboo/dropbar.nvim',
   event = 'BufReadPre',
-  enabled = vim.g.options.mode == 'IDE',
+  enabled = vim.g.options.mode.chosen == 2,
   keys = {
     {
       '<leader>db',

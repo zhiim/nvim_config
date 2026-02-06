@@ -1,4 +1,4 @@
-if not vim.g.options.mode == 'IDE' then
+if not vim.g.options.mode.chosen == 2 then
   return {}
 end
 
@@ -57,9 +57,9 @@ return {
     -- completion for DAP REPL
     {
       'rcarriga/cmp-dap',
-      enabled = vim.g.options.mode == 'IDE',
+      enabled = vim.g.options.mode.chosen == 2,
       config = function()
-        if vim.g.options.cmp == 'nvim_cmp' then
+        if vim.g.options.plugins.language.components.basic.cmp.chosen == 2 then
           require('cmp').setup {
             enabled = function()
               return vim.bo.buftype ~= 'prompt'

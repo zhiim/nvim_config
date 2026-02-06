@@ -150,7 +150,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     )
 
     -- -- neo-tree --------------------------------------------------------
-    if vim.g.options.explorer == 'nvimtree' then
+    if vim.g.options.explorer.chosen == 1 then
       vim.api.nvim_set_hl(0, 'NeoTreeModified', { fg = colors.red })
     end
 
@@ -191,7 +191,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     local bg = get_hl('NormalFloat').bg
     local preview_title = colors.green
     local prompt_title_bg = colors.blue
-    if vim.g.options.picker == 'telescope' then
+    if vim.g.options.picker.chosen == 2 then
       local result_title_bg = colors.orange
       -- return a table of highlights for telescope based on
       -- colors gotten from highlight groups
@@ -233,7 +233,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     )
 
     -- -- blink.cmp -------------------------------------------------------
-    if vim.g.options.cmp == 'blink_cmp' then
+    if vim.g.options.plugins.language.components.basic.cmp.chosen == 1 then
       vim.api.nvim_set_hl(0, 'BlinkCmpMenu', { link = 'NormalFloat' })
       vim.api.nvim_set_hl(0, 'BlinkCmpMenuBorder', { link = 'FloatBorder' })
       vim.api.nvim_set_hl(0, 'BlinkCmpMenuSelection', { link = 'MyPmenuSel' })
@@ -248,7 +248,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     end
 
     -- -- fzf-lua ---------------------------------------------------------
-    if vim.g.options.picker == 'fzf_lua' then
+    if vim.g.options.picker.chosen == 1 then
       vim.api.nvim_set_hl(0, 'FzfLuaNormal', { link = 'NormalFloat' })
       vim.api.nvim_set_hl(0, 'FzfLuaBorder', { link = 'FloatBorder' })
       vim.api.nvim_set_hl(0, 'FzfLuaTitle', { fg = bg, bg = prompt_title_bg })
@@ -261,7 +261,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     end
 
     -- -- fyler -----------------------------------------------------------
-    if vim.g.options.explorer == 'fyler' then
+    if vim.g.options.explorer.chosen == 3 then
       vim.api.nvim_set_hl(0, 'FylerNormal', { link = 'NormalFloat' })
       vim.api.nvim_set_hl(0, 'FylerNormalNC', { link = 'NormalFloat' })
     end

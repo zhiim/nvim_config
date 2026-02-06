@@ -37,7 +37,7 @@ local tab_tools = {
           { desc = 'buffer goto ' .. i }
         )
       end
-      if vim.g.options.mode == 'IDE' then
+      if vim.g.options.mode.chosen == 2 then
         vim.keymap.set('n', '<leader>x', function()
           Snacks.bufdelete()
         end, { desc = 'buffer close' })
@@ -132,7 +132,7 @@ local tab_tools = {
           require('bufferline').go_to(i, true)
         end, { desc = 'buffer goto ' .. i })
       end
-      if vim.g.options.mode == 'IDE' then
+      if vim.g.options.mode.chosen == 2 then
         vim.keymap.set('n', '<leader>x', function()
           Snacks.bufdelete()
         end, { desc = 'Buffer close' })
@@ -168,7 +168,7 @@ local tab_tools = {
         '<cmd>bpre<CR>',
         { desc = 'Buffer goto previous' }
       )
-      if vim.g.options.mode == 'IDE' then
+      if vim.g.options.mode.chosen == 2 then
         vim.keymap.set('n', '<leader>x', function()
           Snacks.bufdelete()
         end, { desc = 'Buffer close' })
@@ -317,8 +317,10 @@ local tab_tools = {
     end,
   },
 }
+
+local tab = vim.g.options.tab
 return {
-  tab_tools[vim.g.options.tab],
+  tab_tools[tab.choices[tab.chosen]],
   {
     'tiagovla/scope.nvim',
     config = function()

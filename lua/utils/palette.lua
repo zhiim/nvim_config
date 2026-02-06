@@ -2,6 +2,10 @@ local M = {}
 
 --- get palette according to color_scheme
 function M.get_palette()
+  local theme_opt = vim.g.options.theme
+  local color_scheme = theme_opt.choices[theme_opt.chosen]
+  local theme_variants_opt = theme_opt.theme_variants[color_scheme]
+
   -- default_palette using habamax colorscheme
   local default_palette = {
     red = '#d75f5f',
@@ -12,7 +16,7 @@ function M.get_palette()
     purple = '#af87af',
     cyan = '#5f8787',
   }
-  if vim.g.options.mode ~= 'IDE' then
+  if vim.g.options.mode.chosen ~= 2 then
     return default_palette
   end
   local palette_funcs = {
@@ -54,8 +58,7 @@ function M.get_palette()
     end,
     github = function()
       local palette = require('github-theme.palette').load(
-        vim.g.options.theme_style ~= '' and vim.g.options.theme_style
-          or 'github_dark'
+        theme_variants_opt.choices[theme_variants_opt.chosen]
       )
       return {
         red = palette.red.base,
@@ -82,8 +85,7 @@ function M.get_palette()
     end,
     nightfox = function()
       local palette = require('nightfox.palette').load(
-        vim.g.options.theme_style ~= '' and vim.g.options.theme_style
-          or 'nightfox'
+        theme_variants_opt.choices[theme_variants_opt.chosen]
       )
       return {
         red = palette.red.base,
@@ -123,8 +125,6 @@ function M.get_palette()
       }
     end,
   }
-  local color_scheme = vim.g.options.theme == '' and 'github'
-    or vim.g.options.theme
   return palette_funcs[color_scheme]()
 end
 

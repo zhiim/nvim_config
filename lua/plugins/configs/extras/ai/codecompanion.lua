@@ -317,7 +317,7 @@ return {
         },
         http = {
           opts = {
-            proxy = vim.g.options.proxy,
+            proxy = vim.g.options.settings.proxy,
             cache_models_for = 10, -- cache models list for 10 minutes, almost no cache (for same adaptor, different API url)
             show_presets = false, -- do not show default adapters
           },
@@ -325,7 +325,7 @@ return {
           gemini = function()
             return require('codecompanion.adapters').extend('gemini', {
               env = {
-                api_key = vim.g.options.gemini_api_key,
+                api_key = vim.g.options.settings.gemini_api_key,
               },
             })
           end,
@@ -338,7 +338,7 @@ return {
             keymap = 'gh',
             save_chat_keymap = 'gv',
             auto_save = false,
-            picker = vim.g.options.picker == 'fzf_lua' and 'fzf-lua'
+            picker = vim.g.options.picker.chosen == 1 and 'fzf-lua'
               or 'telescope',
             auto_generate_title = true,
             title_generation_opts = {
@@ -350,7 +350,7 @@ return {
         spinner = {
           enabled = true,
           opts = {
-            style = vim.g.options.mode == "IDE" and 'snacks' or "native" ,
+            style = vim.g.options.mode.chosen == 2 and 'snacks' or "native" ,
           },
         },
       },

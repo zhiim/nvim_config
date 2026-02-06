@@ -7,7 +7,7 @@ return {
   dependencies = {
     'MunifTanjim/nui.nvim',
   },
-  enabled = vim.g.options.leetcode,
+  enabled = vim.g.options.plugins.leetcode,
   opts = {
     -- configuration goes here
     arg = leet_arg,
@@ -19,12 +19,18 @@ return {
     },
     hooks = {
       ['enter'] = function()
-        if vim.g.options.ai then
+        if
+          vim.g.options.plugins.ai.components.copilot
+          or vim.g.options.plugins.ai.enable_all
+        then
           vim.cmd 'Copilot disable'
         end
       end,
       ['leave'] = function()
-        if vim.g.options.ai then
+        if
+          vim.g.options.plugins.ai.components.copilot
+          or vim.g.options.plugins.ai.enable_all
+        then
           vim.cmd 'Copilot enable'
         end
       end,

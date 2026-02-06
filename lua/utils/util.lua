@@ -55,8 +55,8 @@ function utils.with_file(file, mode, callback, on_error)
 end
 
 -- read options from cache
-function utils.read_options()
-  utils.with_file(vim.g.cache_path, 'r', function(file)
+function utils.read_options(opt_path)
+  utils.with_file(opt_path, 'r', function(file)
     -- read cache into options
     vim.g.options = vim.json.decode(file:read '*a')
   end, function(err)
@@ -69,8 +69,8 @@ function utils.read_options()
 end
 
 -- write options to cache
-function utils.write_options()
-  utils.with_file(vim.g.cache_path, 'w+', function(file)
+function utils.write_options(opt_path)
+  utils.with_file(opt_path, 'w+', function(file)
     -- write default options into cache
     file:write(vim.json.encode(vim.g.options))
   end, function(err)

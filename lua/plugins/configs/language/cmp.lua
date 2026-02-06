@@ -353,7 +353,7 @@ local cmp_tool = { -- Autocompletion
                 return { 'path', 'buffer' }
               else
                 if
-                  vim.g.options.mode == 'IDE'
+                  vim.g.options.mode.chosen == 2
                   and require('utils.util').find_value(
                     vim.bo.filetype,
                     { 'dap-repl', 'dapui_watches', 'dapui_hover' }
@@ -361,7 +361,7 @@ local cmp_tool = { -- Autocompletion
                 then
                   return { 'dap', 'buffer' }
                 end
-                if vim.g.options.tex and vim.bo.filetype == 'tex' then
+                if vim.g.options.plugins.tex and vim.bo.filetype == 'tex' then
                   return { 'vimtex', 'path', 'snippets', 'buffer' }
                 end
                 return { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' }
@@ -416,7 +416,7 @@ local cmp_tool = { -- Autocompletion
         }
 
         -- required by nvim-cmp
-        if vim.g.options.mode == 'IDE' then
+        if vim.g.options.mode.chosen == 2 then
           opts.enabled = function()
             return vim.bo.buftype ~= 'prompt'
               or require('utils.util').find_value(
@@ -431,8 +431,10 @@ local cmp_tool = { -- Autocompletion
     },
   },
 }
+
+local cmp = vim.g.options.plugins.language.components.basic.cmp
 return {
-  cmp_tool[vim.g.options.cmp],
+  cmp_tool[cmp.choices[cmp.chosen]],
 
   {
     'windwp/nvim-autopairs',
@@ -440,7 +442,7 @@ return {
     -- Optional dependency
     config = function()
       require('nvim-autopairs').setup {}
-      if vim.g.options.cmp == 'nvim_cmp' then
+      if vim.g.options.plugins.language.components.basic.cmp.choices == 2 then
         -- If you want to automatically add `(` after selecting a function or method
         local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
         local cmp = require 'cmp'

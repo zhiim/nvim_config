@@ -1,7 +1,7 @@
 return {
   'folke/noice.nvim',
   event = 'VeryLazy',
-  enabled = vim.g.options.mode == 'IDE',
+  enabled = vim.g.options.mode.chosen == 2,
   opts = {
     -- add any options here
   },
@@ -14,7 +14,7 @@ return {
         override = {
           ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
           ['vim.lsp.util.stylize_markdown'] = true,
-          ['cmp.entry.get_documentation'] = (vim.g.options.cmp == 'nvim_cmp'), -- requires hrsh7th/nvim-cmp
+          ['cmp.entry.get_documentation'] = (vim.g.options.plugins.language.components.basic.cmp.chosen == 2), -- requires hrsh7th/nvim-cmp
         },
         hover = {
           silent = true, -- do not show a message if hover is not available
@@ -149,7 +149,7 @@ return {
         },
       },
     }
-    if vim.g.options.picker == 'telescope' then
+    if vim.g.options.picker.chosen == 2 then
       require('telescope').load_extension 'noice'
       vim.keymap.set(
         'n',

@@ -1,5 +1,5 @@
 local config_center = {}
-if vim.g.options.picker == 'telescope' then
+if vim.g.options.picker.chosen == 2 then
   config_center = {
     {
       icon = '  ',
@@ -92,7 +92,7 @@ end
 return {
   'nvimdev/dashboard-nvim',
   event = 'VimEnter',
-  enabled = not vim.g.options.mode == 'IDE',
+  enabled = not vim.g.options.mode.chosen == 2,
   config = function()
     require('dashboard').setup {
       -- config
