@@ -431,7 +431,7 @@ local function show_input_panel(item, on_done)
     border = {
       style = 'rounded',
       text = {
-        top = 'prompt',
+        top = prompt,
         top_align = 'center',
       },
     },
@@ -459,7 +459,7 @@ local function show_input_panel(item, on_done)
 end
 
 -- Main settings menu
-local function show_main_menu()
+local function show_main_menu(restore_cursor)
   local Menu = require 'nui.menu'
 
   -- Build tab header
@@ -477,15 +477,17 @@ local function show_main_menu()
   table.insert(items, 1, Menu.item '')
   table.insert(items, 1, Menu.item '')
 
+  local last_cursor = nil
+
   local menu = Menu({
     position = '50%',
-    size = { width = 55, height = 20 },
+    size = { width = 65, height = 30 },
     border = {
       style = 'rounded',
       text = {
         top = '  Nvim Settings ',
         top_align = 'center',
-        bottom = ' <Tab>: Change Tabs | <s>: Save | <r>: Reset ',
+        bottom = '<Tab>: Change Tabs | <Space>: Select | <s>: Save | <r>: Reset',
         bottom_align = 'center',
       },
     },
@@ -504,11 +506,15 @@ local function show_main_menu()
       if item.type == 'toggle' then
         local current = get_nested(working_options, item.path) or false
         set_nested(working_options, item.path, not current)
-        show_main_menu() -- Refresh
+        show_main_menu(last_cursor) -- Refresh with cursor position
       elseif item.type == 'select' then
-        show_select_submenu(item, show_main_menu)
+        show_select_submenu(item, function()
+          show_main_menu(last_cursor)
+        end)
       elseif item.type == 'input' then
-        show_input_panel(item, show_main_menu)
+        show_input_panel(item, function()
+          show_main_menu(last_cursor)
+        end)
       end
     end,
   })
@@ -554,6 +560,16 @@ local function show_main_menu()
 
   menu:mount()
 
+  -- Track cursor position while menu is open
+  vim.api.nvim_create_autocmd('CursorMoved', {
+    buffer = menu.bufnr,
+    callback = function()
+      if menu.winid and vim.api.nvim_win_is_valid(menu.winid) then
+        last_cursor = vim.api.nvim_win_get_cursor(menu.winid)
+      end
+    end,
+  })
+
   -- Set header line (first line shows tabs)
   vim.schedule(function()
     local ns = vim.api.nvim_create_namespace 'nvim_settings_header'
@@ -561,6 +577,12 @@ local function show_main_menu()
       virt_text = { { tab_header, 'Title' } },
       virt_text_pos = 'overlay',
     })
+
+    if restore_cursor then
+      local line =
+        math.min(restore_cursor[1], vim.api.nvim_buf_line_count(menu.bufnr))
+      vim.api.nvim_win_set_cursor(menu.winid, { line, restore_cursor[2] })
+    end
   end)
 end
 
