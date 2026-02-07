@@ -2,7 +2,7 @@ return {
   'lervag/vimtex',
   ft = { 'tex', 'plaintex' },
   -- tag = "v2.15", -- uncomment to pin to a specific release
-  enabled = vim.g.options.plugins.tex,
+  enabled = vim.g.options.plugins.extra.components.tex,
   init = function()
     -- VimTeX configuration goes here, e.g.
     vim.g.tex_flavor = 'latex'

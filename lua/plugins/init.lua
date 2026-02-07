@@ -262,11 +262,8 @@ require('lazy').setup({
   },
 
   {
-    'grapp-dev/nui-components.nvim',
-    enabled = vim.g.options.mode.chosen == 2,
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-    },
+    'MunifTanjim/nui.nvim',
+    enabled = vim.fn.has 'nvim-0.5' and vim.g.options.mode.chosen == 2,
   },
 
   require 'plugins.configs.ui',

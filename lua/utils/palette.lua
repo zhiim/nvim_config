@@ -16,7 +16,7 @@ function M.get_palette()
     purple = '#af87af',
     cyan = '#5f8787',
   }
-  if vim.g.options.mode.chosen ~= 2 then
+  if not vim.g.options.theme.enabled then
     return default_palette
   end
   local palette_funcs = {

@@ -7,7 +7,7 @@ return {
   dependencies = {
     'MunifTanjim/nui.nvim',
   },
-  enabled = vim.g.options.plugins.leetcode,
+  enabled = vim.g.options.plugins.extra.components.leetcode,
   opts = {
     -- configuration goes here
     arg = leet_arg,

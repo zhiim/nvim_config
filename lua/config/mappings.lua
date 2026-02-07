@@ -79,9 +79,21 @@ end, { desc = 'utils generate cmake files' })
 
 -- set options
 map('n', '<leader>uoc', function()
-  require('utils.option').set_options()
+  if vim.g.options.mode.chosen == 1 then
+    local current_options = vim.g.options
+    current_options.mode.chosen = 2
+    vim.g.options = current_options
+    require('utils.util').write_options(
+      vim.fn.stdpath 'config' .. '/opts_cache.json'
+    )
+    vim.notify 'Mode changed, restart to apply.'
+  else
+    require('utils.settings').open()
+  end
 end, { desc = 'utils change user options' })
-
+vim.api.nvim_create_user_command('NvimSettings', function()
+  require('utils.settings').open()
+end, { desc = 'Open Nvim settings TUI' })
 map('n', '<leader>uod', function()
   vim.print(vim.g.options)
 end, { desc = 'utils display user options' })
