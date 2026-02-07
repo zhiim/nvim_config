@@ -13,7 +13,7 @@ return {
 
   {
     'rachartier/tiny-inline-diagnostic.nvim',
-    event = 'VeryLazy',
+    event = 'LspAttach',
     enabled = vim.fn.has 'nvim-0.10.0'
         and ui_opts.components.tiny_inline_diagnostic
       or ui_opts.enable_all,

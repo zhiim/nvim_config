@@ -87,7 +87,7 @@ map('n', '<leader>uoc', function()
       vim.fn.stdpath 'config' .. '/opts_cache.json'
     )
     vim.notify 'Mode changed, restart to apply.'
-  else
+  elseif require('lazy.core.config').plugins['nui.nvim'] ~= nil then
     require('utils.settings').open()
   end
 end, { desc = 'utils change user options' })

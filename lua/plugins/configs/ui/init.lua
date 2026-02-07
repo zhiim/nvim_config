@@ -85,7 +85,7 @@ if vim.g.options.mode.chosen == 2 then
       'rachartier/tiny-glimmer.nvim',
       enabled = vim.fn.has 'nvim-0.10' and ui_opts.components.tiny_glimmer
         or ui_opts.enable_all,
-      event = 'VeryLazy',
+      event = 'BufRead',
       config = function()
         local palette = require('utils.palette').get_palette()
         local opts = {
