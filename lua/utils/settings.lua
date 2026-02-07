@@ -578,6 +578,9 @@ local function show_main_menu(restore_cursor)
       virt_text_pos = 'overlay',
     })
 
+    -- default to line 3
+    vim.api.nvim_win_set_cursor(menu.winid, { 3, 0 })
+
     if restore_cursor then
       local line =
         math.min(restore_cursor[1], vim.api.nvim_buf_line_count(menu.bufnr))
