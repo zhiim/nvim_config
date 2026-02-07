@@ -343,7 +343,7 @@ return {
             auto_save = false,
             picker = vim.g.options.picker.chosen == 1 and 'fzf-lua'
               or 'telescope',
-            auto_generate_title = true,
+            auto_generate_title = false,
             title_generation_opts = {
               adapter = 'gemini',
               model = 'gemini-2.5-flash-lite',
