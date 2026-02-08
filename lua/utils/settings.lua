@@ -178,7 +178,7 @@ local function build_menu_lines(tab_id)
     table.insert(
       items,
       Menu.item(
-        ' ' .. enabled_icon(ui.enable_all) .. ' Enable All',
+        ' ' .. enabled_icon(ui.enable_all) .. ' Enable All ',
         { type = 'toggle', path = 'plugins.ui.enable_all' }
       )
     )
@@ -186,7 +186,7 @@ local function build_menu_lines(tab_id)
       table.insert(
         items,
         Menu.item(
-          ' ' .. enabled_icon(value) .. ' ' .. name,
+          ' ' .. enabled_icon(value or ui.enable_all) .. ' ' .. name,
           { type = 'toggle', path = 'plugins.ui.components.' .. name }
         )
       )
@@ -196,7 +196,7 @@ local function build_menu_lines(tab_id)
     table.insert(
       items,
       Menu.item(
-        ' ' .. enabled_icon(language.enable_all) .. ' Enable All',
+        ' ' .. enabled_icon(language.enable_all) .. ' Enable All ',
         { type = 'toggle', path = 'plugins.language.enable_all' }
       )
     )
@@ -204,16 +204,22 @@ local function build_menu_lines(tab_id)
       if name == 'basic' or name == 'debug' then
         table.insert(
           items,
-          Menu.item(' ' .. enabled_icon(value.enabled) .. ' ' .. name, {
-            type = 'toggle',
-            path = 'plugins.language.components.' .. name .. '.enabled',
-          })
+          Menu.item(
+            ' '
+              .. enabled_icon(value.enabled or language.enable_all)
+              .. ' '
+              .. name,
+            {
+              type = 'toggle',
+              path = 'plugins.language.components.' .. name .. '.enabled',
+            }
+          )
         )
       else
         table.insert(
           items,
           Menu.item(
-            ' ' .. enabled_icon(value) .. ' ' .. name,
+            ' ' .. enabled_icon(value or language.enable_all) .. ' ' .. name,
             { type = 'toggle', path = 'plugins.language.components.' .. name }
           )
         )
@@ -224,7 +230,7 @@ local function build_menu_lines(tab_id)
     table.insert(
       items,
       Menu.item(
-        ' ' .. enabled_icon(git.enable_all) .. ' Enable All',
+        ' ' .. enabled_icon(git.enable_all) .. ' Enable All ',
         { type = 'toggle', path = 'plugins.git.enable_all' }
       )
     )
@@ -232,7 +238,7 @@ local function build_menu_lines(tab_id)
       table.insert(
         items,
         Menu.item(
-          ' ' .. enabled_icon(value) .. ' ' .. name,
+          ' ' .. enabled_icon(value or git.enable_all) .. ' ' .. name,
           { type = 'toggle', path = 'plugins.git.components.' .. name }
         )
       )
@@ -242,7 +248,7 @@ local function build_menu_lines(tab_id)
     table.insert(
       items,
       Menu.item(
-        ' ' .. enabled_icon(util.enable_all) .. ' Enable All',
+        ' ' .. enabled_icon(util.enable_all) .. ' Enable All ',
         { type = 'toggle', path = 'plugins.util.enable_all' }
       )
     )
@@ -250,7 +256,7 @@ local function build_menu_lines(tab_id)
       table.insert(
         items,
         Menu.item(
-          ' ' .. enabled_icon(value) .. ' ' .. name,
+          ' ' .. enabled_icon(value or util.enable_all) .. ' ' .. name,
           { type = 'toggle', path = 'plugins.util.components.' .. name }
         )
       )
@@ -260,7 +266,7 @@ local function build_menu_lines(tab_id)
     table.insert(
       items,
       Menu.item(
-        ' ' .. enabled_icon(ai.enable_all) .. ' Enable All',
+        ' ' .. enabled_icon(ai.enable_all) .. ' Enable All ',
         { type = 'toggle', path = 'plugins.ai.enable_all' }
       )
     )
@@ -268,7 +274,7 @@ local function build_menu_lines(tab_id)
       table.insert(
         items,
         Menu.item(
-          ' ' .. enabled_icon(value) .. ' ' .. name,
+          ' ' .. enabled_icon(value or ai.enable_all) .. ' ' .. name,
           { type = 'toggle', path = 'plugins.ai.components.' .. name }
         )
       )
@@ -292,7 +298,7 @@ local function build_menu_lines(tab_id)
     table.insert(items, Menu.separator '── LSP ──')
     table.insert(
       items,
-      Menu.item(' ' .. enabled_icon(lsp.use_all) .. ' Use All', {
+      Menu.item(' ' .. enabled_icon(lsp.use_all) .. ' Use All ', {
         type = 'toggle',
         path = 'plugins.language.components.basic.lsp_server.use_all',
       })
@@ -300,7 +306,7 @@ local function build_menu_lines(tab_id)
     for name, value in pairs(lsp.servers) do
       table.insert(
         items,
-        Menu.item(' ' .. enabled_icon(value) .. ' ' .. name, {
+        Menu.item(' ' .. enabled_icon(value or lsp.use_all) .. ' ' .. name, {
           type = 'toggle',
           path = 'plugins.language.components.basic.lsp_server.servers.'
             .. name,
@@ -310,7 +316,7 @@ local function build_menu_lines(tab_id)
     table.insert(items, Menu.separator '── Treesitter ──')
     table.insert(
       items,
-      Menu.item(' ' .. enabled_icon(ts.use_all) .. ' Use All', {
+      Menu.item(' ' .. enabled_icon(ts.use_all) .. ' Use All ', {
         type = 'toggle',
         path = 'plugins.language.components.basic.treesitter.use_all',
       })
@@ -318,7 +324,7 @@ local function build_menu_lines(tab_id)
     for name, value in pairs(ts.parsers) do
       table.insert(
         items,
-        Menu.item(' ' .. enabled_icon(value) .. ' ' .. name, {
+        Menu.item(' ' .. enabled_icon(value or ts.use_all) .. ' ' .. name, {
           type = 'toggle',
           path = 'plugins.language.components.basic.treesitter.parsers.'
             .. name,
@@ -328,7 +334,7 @@ local function build_menu_lines(tab_id)
     table.insert(items, Menu.separator '── Fomatter ──')
     table.insert(
       items,
-      Menu.item(' ' .. enabled_icon(fmt.use_all) .. ' Use All', {
+      Menu.item(' ' .. enabled_icon(fmt.use_all) .. ' Use All ', {
         type = 'toggle',
         path = 'plugins.language.components.basic.formatter.use_all',
       })
@@ -336,7 +342,7 @@ local function build_menu_lines(tab_id)
     for name, value in pairs(fmt.formatters) do
       table.insert(
         items,
-        Menu.item(' ' .. enabled_icon(value) .. ' ' .. name, {
+        Menu.item(' ' .. enabled_icon(value or fmt.use_all) .. ' ' .. name, {
           type = 'toggle',
           path = 'plugins.language.components.basic.formatter.formatters.'
             .. name,
@@ -346,7 +352,7 @@ local function build_menu_lines(tab_id)
     table.insert(items, Menu.separator '── Linter ──')
     table.insert(
       items,
-      Menu.item(' ' .. enabled_icon(lt.use_all) .. ' Use All', {
+      Menu.item(' ' .. enabled_icon(lt.use_all) .. ' Use All ', {
         type = 'toggle',
         path = 'plugins.language.components.basic.linter.use_all',
       })
@@ -354,7 +360,7 @@ local function build_menu_lines(tab_id)
     for name, value in pairs(lt.linters) do
       table.insert(
         items,
-        Menu.item(' ' .. enabled_icon(value) .. ' ' .. name, {
+        Menu.item(' ' .. enabled_icon(value or lt.use_all) .. ' ' .. name, {
           type = 'toggle',
           path = 'plugins.language.components.basic.linter.linters.' .. name,
         })
@@ -481,7 +487,7 @@ local function show_main_menu(restore_cursor)
 
   local menu = Menu({
     position = '50%',
-    size = { width = 65, height = 30 },
+    size = { width = 65, height = 25 },
     border = {
       style = 'rounded',
       text = {
