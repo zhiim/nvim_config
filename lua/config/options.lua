@@ -102,10 +102,10 @@ vim.env.PATH = vim.fn.stdpath 'data'
 -- use powershell in Windows
 if is_windows then
   if
-    vim.g.options.settings.bash_path ~= ''
-    and (vim.uv or vim.loop).fs_stat(vim.g.options.settings.bash_path)
+    vim.g.options.settings.win_bash_path ~= ''
+    and (vim.uv or vim.loop).fs_stat(vim.g.options.settings.win_bash_path)
   then
-    vim.o.shell = vim.g.options.settings.bash_path .. ' -i' .. ' -l'
+    vim.o.shell = vim.g.options.settings.win_bash_path .. ' -i' .. ' -l'
     vim.o.shellcmdflag = '-s'
   else
     vim.o.shell = vim.fn.executable 'pwsh' and 'pwsh' or 'powershell'
