@@ -33,7 +33,7 @@ if vim.g.options.mode.chosen == 2 then
         'copilot-chat',
       },
       enabled = vim.fn.has 'nvim-0.9'
-          and (language_opts.components.render_markdown and language_opts.components.basic.enabled)
+          and language_opts.components.render_markdown
         or language_opts.enable_all,
       dependencies = {
         'nvim-treesitter/nvim-treesitter',

@@ -4,7 +4,8 @@ return { -- Highlight, edit, and navigate code
   {
     'nvim-treesitter/nvim-treesitter',
     enabled = vim.fn.has 'nvim-0.11' and language_opts.components.basic.enabled
-      or language_opts.enable_all,
+      or language_opts.enable_all
+      or language_opts.components.render_markdown,
     branch = 'main',
     lazy = false,
     build = ':TSUpdate',
@@ -31,6 +32,15 @@ return { -- Highlight, edit, and navigate code
         ensure_installed = vim.tbl_filter(function(ts)
           return ts_opts.parsers[ts]
         end, ensure_installed)
+      end
+
+      if language_opts.components.render_markdown then
+        if not vim.tbl_contains(ensure_installed, 'markdown') then
+          table.insert(ensure_installed, 'markdown')
+        end
+        if not vim.tbl_contains(ensure_installed, 'markdown_inline') then
+          table.insert(ensure_installed, 'markdown_inline')
+        end
       end
 
       local group =

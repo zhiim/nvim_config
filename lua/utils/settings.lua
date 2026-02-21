@@ -322,14 +322,35 @@ local function build_menu_lines(tab_id)
       })
     )
     for name, value in pairs(ts.parsers) do
-      table.insert(
-        items,
-        Menu.item(' ' .. enabled_icon(value or ts.use_all) .. ' ' .. name, {
-          type = 'toggle',
-          path = 'plugins.language.components.basic.treesitter.parsers.'
-            .. name,
-        })
-      )
+      if name == 'markdown' or name == 'markdown_inline' then
+        table.insert(
+          items,
+          Menu.item(
+            ' '
+              .. enabled_icon(
+                value
+                  or ts.use_all
+                  or opts.plugins.language.components.render_markdown
+              )
+              .. ' '
+              .. name,
+            {
+              type = 'toggle',
+              path = 'plugins.language.components.basic.treesitter.parsers.'
+                .. name,
+            }
+          )
+        )
+      else
+        table.insert(
+          items,
+          Menu.item(' ' .. enabled_icon(value or ts.use_all) .. ' ' .. name, {
+            type = 'toggle',
+            path = 'plugins.language.components.basic.treesitter.parsers.'
+              .. name,
+          })
+        )
+      end
     end
     table.insert(items, Menu.separator '── Fomatter ──')
     table.insert(
