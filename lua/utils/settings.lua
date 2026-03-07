@@ -295,6 +295,7 @@ local function build_menu_lines(tab_id)
     local ts = opts.plugins.language.components.basic.treesitter
     local fmt = opts.plugins.language.components.basic.formatter
     local lt = opts.plugins.language.components.basic.linter
+    local dap = opts.plugins.language.components.debug.dap_server
     table.insert(items, Menu.separator '── LSP ──')
     table.insert(
       items,
@@ -384,6 +385,24 @@ local function build_menu_lines(tab_id)
         Menu.item(' ' .. enabled_icon(value or lt.use_all) .. ' ' .. name, {
           type = 'toggle',
           path = 'plugins.language.components.basic.linter.linters.' .. name,
+        })
+      )
+    end
+    table.insert(items, Menu.separator '── DAP ──')
+    table.insert(
+      items,
+      Menu.item(' ' .. enabled_icon(dap.use_all) .. ' Use All ', {
+        type = 'toggle',
+        path = 'plugins.language.components.debug.dap_server.use_all',
+      })
+    )
+    for name, value in pairs(dap.servers) do
+      table.insert(
+        items,
+        Menu.item(' ' .. enabled_icon(value or dap.use_all) .. ' ' .. name, {
+          type = 'toggle',
+          path = 'plugins.language.components.debug.dap_server.servers.'
+            .. name,
         })
       )
     end
