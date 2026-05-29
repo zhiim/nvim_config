@@ -27,7 +27,17 @@ vim.api.nvim_set_keymap(
 )
 
 -- Diagnostic keymaps were predefined
-vim.diagnostic.config { jump = { float = true } }
+vim.diagnostic.config {
+  jump = {
+    on_jump = function(_, bufnr)
+      vim.diagnostic.open_float {
+        bufnr = bufnr,
+        scope = 'cursor',
+        focus = false,
+      }
+    end,
+  },
+}
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
