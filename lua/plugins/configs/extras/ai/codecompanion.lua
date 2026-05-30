@@ -81,90 +81,6 @@ return {
     },
   },
   config = function()
-    local change_model = function(chat)
-      if chat.adapter.type == 'acp' then
-        vim.notify(
-          "Model can't be changed for ACP adapters",
-          vim.log.levels.WARN
-        )
-        return
-      end
-      local function select_opts(prompt, conditional)
-        return {
-          prompt = prompt,
-          kind = 'codecompanion.nvim',
-          format_item = function(item)
-            if conditional == item then
-              return '* ' .. item
-            end
-            return '  ' .. item
-          end,
-        }
-      end
-
-      local config = require 'codecompanion.config'
-      local util = require 'codecompanion.utils'
-      if config.display.chat.show_settings then
-        return util.notify(
-          "Model can't be changed when `display.chat.show_settings = true`",
-          vim.log.levels.WARN
-        )
-      end
-
-      local current_model = vim.deepcopy(chat.adapter.schema.model.default)
-
-      -- Select a model
-      local model_choices = chat.adapter.schema.model.choices
-      local models = nil
-      if type(model_choices) == 'function' then
-        models = model_choices(chat.adapter, {async = false})
-      end
-      if not models or vim.tbl_count(models) < 2 then
-        return
-      end
-
-      local new_model = chat.adapter.schema.model.default
-      if type(new_model) == 'function' then
-        new_model = new_model(chat.adapter)
-      end
-
-      models = vim
-        .iter(models)
-        :map(function(model, value)
-          if type(model) == 'string' then
-            return model
-          else
-            return value -- This is for the table entry case
-          end
-        end)
-        :filter(function(model)
-          return model ~= new_model
-        end)
-        :totable()
-      table.insert(models, 1, new_model)
-
-      local function get_model_id(model)
-        return type(model) == "table" and model.id or model
-      end
-
-      vim.ui.select(
-        models,
-        select_opts('Select Model', new_model),
-        function(selected)
-          if not selected then
-            return
-          end
-
-          if current_model ~= selected then
-            util.fire('ChatModel', { bufnr = chat.bufnr, model = selected })
-          end
-
-          local model_id = get_model_id(selected)
-          chat:change_model({model = model_id})
-        end
-      )
-    end
-
     local config = {
       opts = {
         language = "the language I use", -- The language used for LLM responses
@@ -240,7 +156,7 @@ return {
             },
             stop = {
               modes = {
-                n = '<C-c>',
+                n = 'gp',
               },
               index = 4,
               callback = 'keymaps.stop',
@@ -252,7 +168,8 @@ return {
               },
               index = 15,
               callback = function(chat)
-                change_model(chat)
+                vim.print(chat)
+                require("codecompanion.interactions.chat.keymaps.change_adapter").select_model(chat)
               end,
               description = 'Change model',
             },
