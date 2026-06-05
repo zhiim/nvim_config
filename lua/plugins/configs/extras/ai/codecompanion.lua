@@ -168,7 +168,6 @@ return {
               },
               index = 15,
               callback = function(chat)
-                vim.print(chat)
                 require("codecompanion.interactions.chat.keymaps.change_adapter").select_model(chat)
               end,
               description = 'Change model',
