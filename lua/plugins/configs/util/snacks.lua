@@ -119,7 +119,7 @@ return {
   },
   keys = {
     {
-      '<leader>ng',
+      '<leader>nl',
       function()
         Snacks.lazygit()
       end,

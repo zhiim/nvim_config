@@ -195,7 +195,8 @@
       "components": {
         "blame": false,
         "codediff": false,
-        "mini_diff": false
+        "mini_diff": false,
+        "neogit": false
       }
     },
     "util": {
