@@ -131,7 +131,8 @@
               "cmake": false,
               "basedpyright": false,
               "ruff": false,
-              "lua_ls": false
+              "lua_ls": false,
+              "vtsls": false
             }
           },
           "formatter": {

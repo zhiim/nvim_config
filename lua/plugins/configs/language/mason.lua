@@ -17,6 +17,7 @@ return {
       'basedpyright',
       'ruff',
       'lua-language-server',
+      'vtsls',
       -- formatters
       'stylua',
       'clang-format',

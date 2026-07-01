@@ -221,6 +221,7 @@ return { -- LSP Configuration & Plugins
       'basedpyright',
       'ruff',
       'lua_ls',
+      'vtsls',
     }
     if not server_opts.use_all then
       servers = vim.tbl_filter(function(server)
