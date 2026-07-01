@@ -15,6 +15,7 @@ return { -- Autoformat
       css = { 'prettier' },
       html = { 'prettier' },
       javascript = { 'prettier' },
+      typescript = { 'prettier' },
       markdown = { 'prettier' },
       json = { 'prettier' },
       c = { 'clang-format' },
