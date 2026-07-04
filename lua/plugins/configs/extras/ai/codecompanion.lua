@@ -4,7 +4,7 @@ return {
   'olimorris/codecompanion.nvim',
   enabled =  ai_opts.components.codecomponion
     or ai_opts.enable_all,
-  cmd = { 'CodeCompanionActions', 'CodeCompanionChat', 'CodeCompanion' },
+  cmd = { 'CodeCompanionActions', 'CodeCompanionChat', 'CodeCompanion', 'CodeCompanionCLI' },
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-treesitter/nvim-treesitter',
@@ -55,13 +55,19 @@ return {
       mode = { 'n', 'v' },
     },
     {
+      '<leader>ccc',
+      '<cmd>CodeCompanionCLI<CR>',
+      desc = 'CodeCompanion CLI',
+      mode = { 'n', 'v' },
+    },
+    {
       'q',
       function()
         if
           vim.api.nvim_get_option_value('filetype', { buf = 0 })
           == 'codecompanion'
         then
-          vim.cmd 'CodeCompanionChat Toggle'
+          require('codecompanion').toggle()
         end
       end,
       desc = 'Toggle the CodeCompanion Chat',
@@ -75,8 +81,10 @@ return {
     },
     {
       '<leader>ccp',
-      '<cmd>CodeCompanion<CR>',
-      desc = 'CodeCompanion insert prompt',
+      function ()
+        require("codecompanion").cli({ prompt = true })
+      end,
+      desc = 'CodeCompanion prompt',
       mode = { 'n', 'v' },
     },
   },
@@ -105,6 +113,7 @@ return {
           },
         },
         chat = {
+          show_settings = false,  -- cannot change adapter when `show_settings` is enabled
           window = {
             width = 0.33,
           },
@@ -115,7 +124,7 @@ return {
       },
       interactions = {
         chat = {
-          adapter = 'gemini',
+          adapter = 'gateway',
           roles = {
             llm = function(adapter)
               -- adapter.formatted_name is not save by history extension
@@ -164,7 +173,7 @@ return {
             },
             change_model = {
               modes = {
-                n = 'gm',
+                n = 'gs',
               },
               index = 15,
               callback = function(chat)
@@ -175,14 +184,73 @@ return {
           },
         },
         inline = {
-          adapter = 'gemini',
+          adapter = 'gateway',
         },
+        cli = {
+          agent = "pi_agent",
+          agents = {
+            pi_agent = {
+              cmd = "pi",
+              args = {},
+              description = "Pi Code Agent",
+              provider = "terminal",
+            }
+          }
+        }
       },
       adapters = {
         acp = {
           opts = {
             show_presets = false, -- Show default adapters
           },
+          pi_agent = function()
+            local helpers = require("codecompanion.adapters.acp.helpers")
+            return {
+              name = "pi_agent",
+              formatted_name = "PI Agent",
+              type = "acp",
+              roles = {
+                llm = "assistant",
+                user = "user",
+              },
+              opts = {
+                vision = false,
+              },
+              commands = {
+                default = {
+                  "pi-acp"
+                },
+              },
+              defaults = {
+                mcpServers = {},
+                timeout = 120000,
+              },
+              env = {
+              },
+              parameters = {
+                protocolVersion = 1,
+                clientCapabilities = {
+                  fs = { readTextFile = true, writeTextFile = true },
+                },
+                clientInfo = {
+                  name = "CodeCompanion.nvim",
+                  version = "1.0.0",
+                },
+              },
+              handlers = {
+                setup = function(self)
+                  return true
+                end,
+                auth = function(self)
+                  return true
+                end,
+                form_messages = function(self, messages, capabilities)
+                  return helpers.form_messages(self, messages, capabilities)
+                end,
+                on_exit = function(self, code) end,
+              },
+            }
+          end
         },
         http = {
           opts = {
@@ -190,10 +258,13 @@ return {
             cache_models_for = 1800, -- cache models list for certain seconds
             show_presets = false, -- do not show default adapters
           },
-          gemini = function()
-            return require('codecompanion.adapters').extend('gemini', {
+          gateway = function()
+            return require('codecompanion.adapters').extend('openai_compatible', {
+              name = "gateway",
+              formatted_name = "Gateway",
               env = {
-                api_key = vim.g.options.settings.gemini_api_key,
+                url = "PROVIDER_BASE_URL",
+                api_key = "PROVIDER_API_KEY",
               },
             })
           end,
@@ -209,10 +280,6 @@ return {
             picker = vim.g.options.picker.chosen == 1 and 'fzf-lua'
               or 'telescope',
             auto_generate_title = false,
-            title_generation_opts = {
-              adapter = 'gemini',
-              model = 'gemini-2.5-flash-lite',
-            },
           },
         },
         spinner = {
@@ -275,7 +342,7 @@ return {
     local http_adapters = {}
     for name, provider_info in pairs(custom_providers) do
       if
-        name == 'nil' or
+        name == 'none' or
         -- must have name, url, api_key
         provider_info.name == nil
         or provider_info.url == nil
