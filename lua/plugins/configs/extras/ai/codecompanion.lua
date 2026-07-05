@@ -268,7 +268,6 @@ return {
               },
               handlers = {
                 parse_message_meta = function (self, data)  -- display reasoning content in chat if available
-                  vim.print(data)
                   local reasoning_content = data.extra and data.extra.reasoning or data.extra.reasoning_content
                   if reasoning_content then
                     data.output.reasoning = { content = reasoning_content }
