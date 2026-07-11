@@ -137,6 +137,9 @@ return {
                 .. adapter.formatted_name
                 .. ': '
                 .. adapter.parameters.model
+                .. " ["
+                .. adapter.parameters.reasoning_effort
+                .. "]"
                 .. ')'
             end,
           },
@@ -173,7 +176,7 @@ return {
             },
             change_model = {
               modes = {
-                n = 'gs',
+                n = 'go',
               },
               index = 15,
               callback = function(chat)
@@ -181,6 +184,28 @@ return {
               end,
               description = 'Change model',
             },
+            change_thinking_level = {
+              modes = {
+                n = 'gt',
+              },
+              index = 16,
+              callback = function(chat)
+                local available_levels = { "minimal", "low", "medium", "high", "max" }
+                local settings = chat.settings
+                vim.ui.select(available_levels, {
+                  prompt = "Select thinking level:",
+                }, function(choice)
+                  if choice then
+                    settings.reasoning_effort = choice
+                    vim.notify("Thinking level set to: " .. choice)
+                  else
+                    vim.notify("No thinking level selected")
+                  end
+                end)
+                chat:apply_settings(settings)
+              end,
+              description = 'Change thinking level',
+            }
           },
         },
         inline = {
@@ -277,6 +302,15 @@ return {
                   end
                   return data
                 end
+              },
+              schema = {
+                reasoning_effort = {
+                  mapping = "parameters",
+                  type = "string",
+                  optional = true,
+                  default = "medium",
+                  choices = { "minimal", "low", "medium", "high", "max" },
+                },
               }
             })
           end,
