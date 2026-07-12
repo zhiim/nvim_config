@@ -137,9 +137,9 @@ return {
                 .. adapter.formatted_name
                 .. ': '
                 .. adapter.parameters.model
-                .. " ["
+                .. " |"
                 .. adapter.parameters.reasoning_effort
-                .. "]"
+                .. "|"
                 .. ')'
             end,
           },
