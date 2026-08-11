@@ -128,7 +128,7 @@
             "servers": {
               "clangd": false,
               "taplo": false,
-              "cmake": false,
+              "neocmake": false,
               "basedpyright": false,
               "ruff": false,
               "lua_ls": false,

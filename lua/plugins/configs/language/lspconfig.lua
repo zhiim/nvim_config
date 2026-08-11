@@ -217,7 +217,7 @@ return { -- LSP Configuration & Plugins
     local servers = {
       'clangd',
       'taplo',
-      'cmake',
+      'neocmake',
       'basedpyright',
       'ruff',
       'lua_ls',

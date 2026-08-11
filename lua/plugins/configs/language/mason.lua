@@ -13,7 +13,7 @@ return {
       -- lsp servers
       'clangd',
       'taplo',
-      'cmake-language-server',
+      'neocmakelsp',
       'basedpyright',
       'ruff',
       'lua-language-server',
@@ -31,7 +31,7 @@ return {
 
     local reverse_mason_name = {
       -- lsp
-      ['cmake-language-server'] = 'cmake',
+      ['neocmakelsp'] = 'neocmake',
       ['lua-language-server'] = 'lua_ls',
       -- formatters
       ['cmakelang'] = 'cmake_format',
