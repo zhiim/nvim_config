@@ -46,6 +46,9 @@ if vim.g.options.mode.chosen == 2 then
             'codecompanion',
             'copilot-chat',
           },
+          anti_conceal = {
+            enabled = false,
+          },
         }
       end,
     },
