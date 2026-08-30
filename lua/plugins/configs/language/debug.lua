@@ -5,6 +5,14 @@ return {
   enabled = language_opts.components.debug.enabled or language_opts.enable_all,
   keys = {
     {
+      '<F5>',
+      function()
+        require('dap').continue()
+      end,
+      mode = { 'n', 'i' },
+      desc = 'Debug continue',
+    },
+    {
       '<F6>',
       function()
         require('dap').toggle_breakpoint()
