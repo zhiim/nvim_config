@@ -185,22 +185,6 @@ return { -- LSP Configuration & Plugins
         cmd = { 'clangd', '--clang-tidy' },
       })
     end
-    if server_opts.use_all or server_opts.servers['basedpyright'] then
-      vim.lsp.config('basedpyright', {
-        settings = {
-          basedpyright = {
-            analysis = {
-              typeCheckingMode = 'off', -- off, basic, standard, strict, all
-              autoImportCompletions = false,
-              autoSearchPaths = true,
-              diagnosticMode = 'openFilesOnly',
-              useLibraryCodeForTypes = true,
-              reportMissingTypeStubs = false,
-            },
-          },
-        },
-      })
-    end
     if server_opts.use_all or server_opts.servers['lua_ls'] then
       vim.lsp.config('lua_ls', {
         settings = {
@@ -218,7 +202,7 @@ return { -- LSP Configuration & Plugins
       'clangd',
       'taplo',
       'neocmake',
-      'basedpyright',
+      'ty',
       'ruff',
       'lua_ls',
       'vtsls',
@@ -246,7 +230,7 @@ return { -- LSP Configuration & Plugins
             return
           end
           if client.name == 'ruff' then
-            -- Disable hover in favor of Pyright
+            -- Disable hover in favor of ty
             client.server_capabilities.hoverProvider = false
           end
         end,

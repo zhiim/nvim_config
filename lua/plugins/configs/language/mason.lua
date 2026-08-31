@@ -14,7 +14,7 @@ return {
       'clangd',
       'taplo',
       'neocmakelsp',
-      'basedpyright',
+      'ty',
       'ruff',
       'lua-language-server',
       'vtsls',

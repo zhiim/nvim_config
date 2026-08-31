@@ -73,9 +73,6 @@ else
   map('v', '<C-_>', 'gc', { desc = 'comment toggle', remap = true })
 end
 
--- cmd to change pyright type checking mode
-vim.cmd "command! -nargs=1 PyrightTypeCheck lua require('utils.util').pyright_type_checking(<f-args>)"
-
 -- mappings for ta
 map('n', 'ga', '<cmd>tabnew<CR>', { desc = 'Tab new tab' })
 map('n', 'gx', '<cmd>tabclose<CR>', { desc = 'Tab close tab' })
