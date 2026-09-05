@@ -32,7 +32,7 @@ return {
       '<leader>ccf',
       function()
         require('codecompanion').toggle {
-          window_opts = { layout = 'float', height = 0.8, width = 0.8 },
+          window_opts = { layout = 'float', height = 0.8, width = 0.9 },
         }
       end,
       desc = 'CodeCompanion chat float',
@@ -115,7 +115,7 @@ return {
         chat = {
           show_settings = false,  -- cannot change adapter when `show_settings` is enabled
           window = {
-            width = 0.33,
+            width = 0.4,
           },
         },
         action_palette = {
@@ -124,7 +124,6 @@ return {
       },
       interactions = {
         chat = {
-          adapter = 'gateway',
           roles = {
             llm = function(adapter)
               -- adapter.formatted_name is not save by history extension
@@ -208,9 +207,6 @@ return {
             }
           },
         },
-        inline = {
-          adapter = 'gateway',
-        },
         cli = {
           agent = "pi_agent",
           agents = {
@@ -279,41 +275,9 @@ return {
         },
         http = {
           opts = {
-            proxy = vim.g.options.settings.proxy,
-            cache_models_for = 1800, -- cache models list for certain seconds
+            cache_models_for = 3, -- cache models list for certain seconds
             show_presets = false, -- do not show default adapters
-          },
-          gateway = function()
-            return require('codecompanion.adapters').extend('openai_compatible', {
-              name = "gateway",
-              formatted_name = "Gateway",
-              env = {
-                url = "PROVIDER_BASE_URL",
-                api_key = "PROVIDER_API_KEY",
-              },
-              handlers = {
-                parse_message_meta = function (self, data)  -- display reasoning content in chat if available
-                  local reasoning_content = data.extra and data.extra.reasoning or data.extra.reasoning_content
-                  if reasoning_content then
-                    data.output.reasoning = { content = reasoning_content }
-                    if data.output.content == "" then
-                      data.output.content = nil
-                    end
-                  end
-                  return data
-                end
-              },
-              schema = {
-                reasoning_effort = {
-                  mapping = "parameters",
-                  type = "string",
-                  optional = true,
-                  default = "medium",
-                  choices = { "minimal", "low", "medium", "high", "max" },
-                },
-              }
-            })
-          end,
+          }
         },
       },
       extensions = {
@@ -354,7 +318,7 @@ return {
       local f = io.open(providers_path, 'w')
       if f then
         -- write example content
-        f:write '{"none":{"name":"ExampleProvider","url":"https://ai.example.com","api_key":"","chat_url":"opt-/v1/chat/completions","models_endpoint":"opt-/v1/models","model":"opt"}}'
+        f:write '{"nil":{"name":"ExampleProvider","url":"https://ai.example.com","api_key":"","chat_url":"opt-/v1/chat/completions","models_endpoint":"opt-/v1/models","model":"opt"}}'
         f:close()
         custom_providers = {}
       else
@@ -388,7 +352,7 @@ return {
     local http_adapters = {}
     for name, provider_info in pairs(custom_providers) do
       if
-        name == 'none' or
+        name == 'nil' or
         -- must have name, url, api_key
         provider_info.name == nil
         or provider_info.url == nil
@@ -405,6 +369,27 @@ return {
           url = provider_info.url,
           api_key = provider_info.api_key,
         },
+        handlers = {
+          parse_message_meta = function (self, data)  -- display reasoning content in chat if available
+            local reasoning_content = data.extra and data.extra.reasoning or data.extra.reasoning_content
+            if reasoning_content then
+              data.output.reasoning = { content = reasoning_content }
+              if data.output.content == "" then
+                data.output.content = nil
+              end
+            end
+            return data
+          end
+        },
+        schema = {
+          reasoning_effort = {
+            mapping = "parameters",
+            type = "string",
+            optional = true,
+            default = "medium",
+            choices = { "minimal", "low", "medium", "high", "max" },
+          },
+        }
       }
 
       -- optional provider options
@@ -428,8 +413,20 @@ return {
     end
 
     -- add to codecompanion config
-    for k, v in pairs(http_adapters) do
-      config.adapters.http[k] = v
+    local adapter_set = false
+    for name, opts in pairs(http_adapters) do
+      if not adapter_set then
+        config.interactions.chat.adapter = name
+        config.interactions.inline = {
+          adapter = name
+        }
+        adapter_set = true
+      end
+      config.adapters.http[name] = opts
+    end
+
+    if vim.g.options.settings.proxy ~= nil and vim.g.options.settings.proxy ~= "" then
+      config.adapters.http.opts.proxy = vim.g.options.settings.proxy
     end
 
     require('codecompanion').setup(config)
