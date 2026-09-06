@@ -36,7 +36,7 @@ function utils.gen_make_files()
     vim.log.levels.INFO,
     { title = 'Generate build files' }
   )
-  vim.api.nvim_command 'LspRestart clangd'
+  vim.api.nvim_command 'lsp restart clangd'
 end
 
 --- Execute function with open file
@@ -158,7 +158,6 @@ function utils.lint_format_config()
       .. '/config_files/'
       .. config_name[choice]
     utils.copy_file(config_file, cwd_file)
-    vim.api.nvim_command 'LspRestart'
   end)
 end
 
