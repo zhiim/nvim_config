@@ -107,7 +107,7 @@ return {
         windows = {
           size = 0.3,
         },
-        auto_toggle = true,
+        auto_toggle = false,
       },
       keys = {
         {
@@ -161,7 +161,7 @@ return {
     )
     vim.keymap.set(
       { 'n', 'i' },
-      '<F4>',
+      '<F8>',
       dap.terminate,
       { desc = 'Debug terminate' }
     )
@@ -181,6 +181,12 @@ return {
       { 'n', 'i' },
       '<F3>',
       dap.step_out,
+      { desc = 'Debug step out' }
+    )
+    vim.keymap.set(
+      { 'n', 'i' },
+      '<F4>',
+      dap.goto_(),
       { desc = 'Debug step out' }
     )
 
@@ -212,13 +218,13 @@ return {
 
     -- key mappings for DAP
     vim.keymap.set({ 'n' }, '<leader>dh', function()
-      widgets.hover()
+      widgets.hover(nil, { border = 'rounded' })
     end, { desc = 'Debug hover' })
     vim.keymap.set({ 'n' }, '<leader>ds', function()
-      widgets.centered_float(widgets.scopes)
+      widgets.centered_float(widgets.scopes, { border = 'rounded' })
     end, { desc = 'Debug toggle scopes widget' })
     vim.keymap.set({ 'n' }, '<leader>df', function()
-      widgets.centered_float(widgets.frames)
+      widgets.centered_float(widgets.frames, { border = 'rounded' })
     end, { desc = 'Debug toggle frames widget' })
     vim.keymap.set({ 'n' }, '<leader>dr', function()
       require('dap.repl').toggle(
