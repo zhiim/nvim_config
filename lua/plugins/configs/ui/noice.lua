@@ -175,5 +175,50 @@ return {
         { desc = 'FzfLua search noice' }
       )
     end
+
+    -- Work around noice.nvim ignoring Tree-sitter #offset! metadata for
+    -- Markdown backslash escapes, which conceals both characters in `\_`.
+    local markdown = require 'noice.text.markdown'
+    local conceal_escape_characters = markdown.conceal_escape_characters
+
+    --- @param buf integer Buffer id, or 0 for current buffer
+    markdown.conceal_escape_characters = function(buf, ns, range)
+      -- Noice's own correct extmark: conceal only the backslash.
+      conceal_escape_characters(buf, ns, range)
+
+      local escapable = [[\`*_{}[]()#+-.!/]]
+      local extmarks = vim.api.nvim_buf_get_extmarks(
+        buf,
+        ns,
+        { range[1], range[2] },
+        { range[3], range[4] },
+        { details = true }
+      )
+
+      for _, extmark in ipairs(extmarks) do
+        local id, row, col, details =
+          extmark[1], extmark[2], extmark[3], extmark[4]
+
+        -- Remove only the malformed Tree-sitter conceal covering both
+        -- characters, e.g. `\_`. Keep Noice's one-byte backslash conceal.
+        if
+          details ~= nil
+          and details.hl_group == '@conceal.markdown_inline'
+          and details.conceal == ''
+          and details.end_row == row
+          and details.end_col == col + 2
+        then
+          local text =
+            vim.api.nvim_buf_get_text(buf, row, col, row, col + 2, {})[1]
+
+          if
+            text:sub(1, 1) == '\\'
+            and escapable:find(text:sub(2, 2), 1, true)
+          then
+            vim.api.nvim_buf_del_extmark(buf, ns, id)
+          end
+        end
+      end
+    end
   end,
 }
