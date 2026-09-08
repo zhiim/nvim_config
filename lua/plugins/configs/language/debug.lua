@@ -186,7 +186,7 @@ return {
     vim.keymap.set(
       { 'n', 'i' },
       '<F4>',
-      dap.goto_(),
+      dap.goto_,
       { desc = 'Debug step out' }
     )
 
