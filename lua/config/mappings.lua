@@ -117,3 +117,7 @@ end, { desc = 'Utils create config file' })
 map('v', '<leader>df', function()
   require('utils.diffline').diff_selection()
 end, { desc = 'Diff two selections' })
+
+map('x', '<leader>ap', function()
+  require('utils.pi_agent').send_visual_selection()
+end, { desc = 'AI send selection to Pi input' })
