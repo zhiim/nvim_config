@@ -142,7 +142,8 @@
               "prettier": false,
               "clang-format": false,
               "cmake_format": false,
-              "taplo": false
+              "taplo": false,
+              "nixfmt": false
             }
           },
           "linter": {
@@ -168,7 +169,8 @@
               "toml": false,
               "diff": false,
               "vim": false,
-              "vimdoc": false
+              "vimdoc": false,
+              "nix": false
             }
           }
         },

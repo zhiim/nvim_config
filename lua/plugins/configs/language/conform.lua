@@ -23,6 +23,7 @@ return { -- Autoformat
       toml = { 'taplo' },
       yaml = { 'prettier' },
       cmake = { 'cmake_format' },
+      nix = { 'nixfmt' },
     }
 
     local fmt_opts = vim.g.options.plugins.language.components.basic.formatter

@@ -25,6 +25,7 @@ return { -- Highlight, edit, and navigate code
         'yaml',
         'json',
         'toml',
+        'nix',
       }
 
       local ts_opts = language_opts.components.basic.treesitter

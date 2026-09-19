@@ -216,6 +216,9 @@ return { -- LSP Configuration & Plugins
     if vim.g.options.plugins.tex then
       servers = vim.list_extend(servers, { 'texlab' })
     end
+    if vim.fn.executable 'nixd' == 1 then
+      servers = vim.list_extend(servers, { 'nixd' })
+    end
     vim.lsp.enable(servers)
 
     if server_opts.use_all or server_opts.servers['ruff'] then

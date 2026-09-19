@@ -24,6 +24,7 @@ return {
       'cmakelang',
       'prettier',
       'taplo',
+      'nixfmt',
       -- linters
       'jsonlint',
       'yamllint',
