@@ -38,13 +38,6 @@ if vim.g.options.mode.chosen == 2 then
       dependencies = {
         'nvim-treesitter/nvim-treesitter',
         'nvim-mini/mini.icons',
-        {
-          'ice345/markdown-table-wrap.nvim',
-          ft = { 'markdown' },
-          opts = {
-            preview_mode = 'inline',
-          },
-        },
       },
       config = function()
         require('render-markdown').setup {
@@ -52,9 +45,6 @@ if vim.g.options.mode.chosen == 2 then
             'markdown',
             'codecompanion',
             'copilot-chat',
-          },
-          pipe_table = {
-            enabled = false,
           },
         }
       end,
