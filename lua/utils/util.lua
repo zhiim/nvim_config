@@ -36,7 +36,6 @@ function utils.gen_make_files()
     vim.log.levels.INFO,
     { title = 'Generate build files' }
   )
-  vim.api.nvim_command 'lsp restart clangd'
 end
 
 --- Execute function with open file
