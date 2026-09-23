@@ -24,7 +24,7 @@ return {
           folder_closed = '󰉋',
           folder_open = '󰝰',
         },
-        view_mode = 'list',
+        view_mode = 'tree',
       },
 
       keymaps = {
