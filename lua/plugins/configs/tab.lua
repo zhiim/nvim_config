@@ -347,7 +347,52 @@ return {
         'tabpages',
         'globals',
       }
-      require('scope').setup {}
+      -- Unlisting buffers on TabLeave fires BufDelete, which resets mini.diff's
+      -- buffer-local overlay even though it can re-enable the Git signs later.
+      local overlays = {}
+      require('scope').setup {
+        hooks = {
+          pre_tab_leave = function()
+            local diff = package.loaded['mini.diff']
+            if not diff then
+              return
+            end
+
+            local tab = vim.api.nvim_get_current_tabpage()
+            overlays[tab] = {}
+            for _, buf in ipairs(require('scope.utils').get_valid_buffers()) do
+              local data = diff.get_buf_data(buf)
+              if data and data.overlay then
+                overlays[tab][buf] = true
+              end
+            end
+          end,
+          post_tab_enter = function()
+            local tab = vim.api.nvim_get_current_tabpage()
+            local saved = overlays[tab]
+            if not saved then
+              return
+            end
+
+            local diff = package.loaded['mini.diff']
+            if not diff then
+              return
+            end
+            for buf in pairs(saved) do
+              if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted then
+                if not diff.get_buf_data(buf) then
+                  diff.enable(buf)
+                end
+                local data = diff.get_buf_data(buf)
+                if data and not data.overlay then
+                  diff.toggle_overlay(buf)
+                end
+              end
+            end
+            overlays[tab] = nil
+          end,
+        },
+      }
     end,
   },
 }
