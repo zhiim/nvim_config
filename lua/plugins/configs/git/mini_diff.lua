@@ -1,4 +1,5 @@
 local git_opts = vim.g.options.plugins.git
+local commit_to_diff = nil
 local previous_configs = {}
 
 return {
@@ -9,14 +10,20 @@ return {
   config = function(_, opts)
     require('mini.diff').setup(opts)
 
+    local function is_file_buf(buf)
+      return vim.api.nvim_buf_is_valid(buf)
+        and vim.api.nvim_buf_is_loaded(buf)
+        and vim.bo[buf].buftype == ''
+        and vim.api.nvim_buf_get_name(buf) ~= ''
+    end
+
     local function git(cwd, args)
       local command = { 'git', '-C', cwd }
       vim.list_extend(command, args)
       return vim.system(command, { text = false }):wait()
     end
 
-    local function diff_show(commit)
-      local buf = vim.api.nvim_get_current_buf()
+    local function diff_show(buf, commit)
       local path = vim.api.nvim_buf_get_name(buf)
       if path == '' or vim.bo[buf].buftype ~= '' then
         return false, 'Current buffer must be a file'
@@ -93,12 +100,8 @@ return {
       return true, 'mini.diff overlay enabled for ' .. commit
     end
 
-    local function diff_reset()
-      local buf = vim.api.nvim_get_current_buf()
+    local function diff_reset(buf)
       local previous = previous_configs[buf]
-      if not previous then
-        return false, 'No commit diff active for this buffer'
-      end
 
       local diff = require 'mini.diff'
       diff.disable(buf)
@@ -110,38 +113,57 @@ return {
           diff.toggle_overlay(buf)
         end
       end
-
-      return true, 'mini.diff state restored'
     end
 
-    vim.api.nvim_create_autocmd('BufWipeout', {
+    vim.api.nvim_create_autocmd('BufEnter', {
       callback = function(args)
+        if commit_to_diff ~= nil then
+          if is_file_buf(args.buf) and previous_configs[args.buf] == nil then
+            diff_show(args.buf, commit_to_diff)
+          end
+        end
+      end,
+    })
+
+    vim.api.nvim_create_autocmd('BufUnload', {
+      callback = function(args)
+        local previous = previous_configs[args.buf]
+        if not previous then
+          return
+        end
+        vim.b[args.buf].minidiff_config = previous.config
         previous_configs[args.buf] = nil
       end,
     })
 
     vim.keymap.set('n', '<leader>md', function()
-      local buf = vim.api.nvim_get_current_buf()
-      if previous_configs[buf] == nil then
+      local cur_buf = vim.api.nvim_get_current_buf()
+      if commit_to_diff == nil then
         vim.ui.input({
           prompt = 'Commit ID: (current branch by default)',
         }, function(commit)
           if commit ~= nil then
-            local ok, msg = diff_show(commit)
+            if not is_file_buf(cur_buf) then
+              vim.notify('Not a file buffer', vim.log.levels.ERROR)
+              return
+            end
+            local ok, msg = diff_show(cur_buf, commit)
             if not ok then
               vim.notify(msg, vim.log.levels.ERROR)
             else
+              commit_to_diff = commit
               vim.notify(msg, vim.log.levels.INFO)
             end
           end
         end)
       else
-        local ok, msg = diff_reset()
-        if not ok then
-          vim.notify(msg, vim.log.levels.ERROR)
-        else
-          vim.notify(msg, vim.log.levels.INFO)
+        commit_to_diff = nil
+        for buf in pairs(previous_configs) do
+          if vim.api.nvim_buf_is_valid(buf) then
+            diff_reset(buf)
+          end
         end
+        vim.notify('mini.diff state restored', vim.log.levels.INFO)
       end
     end, { desc = 'Git toggle mini.diff overlay on commit' })
   end,
