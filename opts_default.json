@@ -111,7 +111,8 @@
         "tiny_inline_diagnostic": false,
         "tiny_glimmer": false,
         "nvim_colorizer": false,
-        "todo_comments": false
+        "todo_comments": false,
+        "colorful_winsep": false
       }
     },
     "language": {

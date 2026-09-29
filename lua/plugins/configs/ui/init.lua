@@ -120,6 +120,31 @@ if vim.g.options.mode.chosen == 2 then
       end,
     },
 
+    {
+      'nvim-zh/colorful-winsep.nvim',
+      enabled = vim.fn.has 'nvim-0.11.3' and ui_opts.components.colorful_winsep
+        or ui_opts.enable_all,
+
+      event = { 'WinLeave' },
+      config = function()
+        require('colorful-winsep').setup {
+          border = 'single',
+          indicator_for_2wins = {
+            symbols = {
+              start_left = '',
+              end_left = '',
+              start_down = '',
+              end_down = '',
+              start_up = '',
+              end_up = '',
+              start_right = '',
+              end_right = '',
+            },
+          },
+        }
+      end,
+    },
+
     require 'plugins.configs.ui.dashboard',
     require 'plugins.configs.ui.lualine',
     -- require 'plugins.configs.ui.incline',

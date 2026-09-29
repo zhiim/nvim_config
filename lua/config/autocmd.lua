@@ -265,5 +265,13 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       vim.api.nvim_set_hl(0, 'FylerNormal', { link = 'NormalFloat' })
       vim.api.nvim_set_hl(0, 'FylerNormalNC', { link = 'NormalFloat' })
     end
+
+    if
+      vim.fn.has 'nvim-0.11.3'
+        and vim.g.options.plugins.ui.components.colorful_winsep
+      or vim.g.options.plugins.ui.enable_all
+    then
+      vim.api.nvim_set_hl(0, 'ColorfulWinSep', { link = 'Title' })
+    end
   end,
 })
