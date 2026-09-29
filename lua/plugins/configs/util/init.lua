@@ -212,41 +212,6 @@ if vim.g.options.mode.chosen == 2 then
     },
 
     {
-      'cbochs/portal.nvim',
-      enabled = vim.fn.has 'nvim-0.8' and util_opts.components.portal
-        or util_opts.enable_all,
-      keys = {
-        {
-          '<leader>pj',
-          function()
-            require('portal.builtin').jumplist.tunnel()
-          end,
-          mode = 'n',
-          desc = 'Portal jumplist',
-        },
-        {
-          '<leader>pc',
-          function()
-            require('portal.builtin').changelist.tunnel()
-          end,
-          mode = 'n',
-          desc = 'Portal changelist',
-        },
-      },
-      config = function()
-        require('portal').setup {
-          escape = {
-            ['q'] = true,
-          },
-          window_options = {
-            border = 'rounded',
-            height = 5,
-          },
-        }
-      end,
-    },
-
-    {
       'cbochs/grapple.nvim',
       enabled = vim.fn.has 'nvim-0.5' and util_opts.components.grapple
         or util_opts.enable_all,
@@ -295,6 +260,7 @@ if vim.g.options.mode.chosen == 2 then
 
     require 'plugins.configs.util.minimap',
     require 'plugins.configs.util.snacks',
+    require 'plugins.configs.util.portal',
   }
 else
   return {}
