@@ -215,34 +215,31 @@ if vim.g.options.mode.chosen == 2 then
       'cbochs/grapple.nvim',
       enabled = vim.fn.has 'nvim-0.5' and util_opts.components.grapple
         or util_opts.enable_all,
-      opts = {
-        scope = 'git', -- default scope when creating a new tag
-      },
       cmd = 'Grapple',
       keys = {
         {
-          '<leader>gpt',
+          '<leader>gt',
           function()
-            require('grapple').toggle()
+            require('grapple').tag()
           end,
           desc = 'Grapple toggle tag',
         },
         {
-          '<leader>gpT',
+          '<leader>gT',
           function()
-            require('grapple').toggle { scope = 'global' }
+            require('grapple').tag { scope = 'global' }
           end,
           desc = 'Grapple toggle global tag',
         },
         {
-          '<leader>gpw',
+          '<leader>gw',
           function()
             require('grapple').open_tags()
           end,
           desc = 'Grapple open tags window',
         },
         {
-          '<leader>gpW',
+          '<leader>gW',
           function()
             require('grapple').open_tags { scope = 'global' }
           end,
@@ -250,10 +247,19 @@ if vim.g.options.mode.chosen == 2 then
         },
       },
       config = function()
+        local default_tag_hook = require('grapple').app().settings.tag_hook
         require('grapple').setup {
+          scope = 'git', -- default scope when creating a new tag
           win_opts = {
             border = 'rounded',
           },
+          tag_hook = function(window)
+            default_tag_hook(window)
+            window:map('n', '<C-v>', '|', {
+              remap = true,
+              desc = 'select the tag under the cursor (vsplit)',
+            })
+          end,
         }
       end,
     },

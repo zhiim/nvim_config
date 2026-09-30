@@ -97,6 +97,20 @@ return {
         lualine_c = {
           { custom_fname },
           {
+            function()
+              local scope = ''
+              if require('grapple').exists { scope = 'global' } then
+                scope = ' G'
+              end
+              return scope
+            end,
+            color = 'Function',
+            cond = function()
+              return package.loaded['grapple'] and require('grapple').exists()
+                or require('grapple').exists { scope = 'global' }
+            end,
+          },
+          {
             -- Lsp server name .
             function()
               local msg = 'No Active Lsp'
@@ -117,6 +131,7 @@ return {
               return client_names
             end,
             icon = '󰐱 LSP:',
+            color = 'Special',
           },
         },
         lualine_y = { 'progress' },

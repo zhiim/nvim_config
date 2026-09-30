@@ -125,6 +125,10 @@ if vim.g.options.mode.chosen == 2 then
         local actions = require('glance').actions
         local opt = {
           mappings = {
+            list = {
+              ['<C-v>'] = actions.jump_vsplit,
+              ['<C-s>'] = actions.jump_split,
+            },
             preview = {
               ['q'] = actions.close,
             },
