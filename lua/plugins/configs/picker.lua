@@ -135,14 +135,14 @@ local pickers = { -- Fuzzy Finder (files, lsp, etc)
 
       vim.keymap.set(
         'n',
-        '<leader>st',
-        builtin.tags,
-        { desc = 'Telescope search tags' }
+        '<leader>sm',
+        builtin.marks,
+        { desc = 'Telescope search marks' }
       )
 
       vim.keymap.set(
         'n',
-        '<leader>sm',
+        '<leader>s:',
         builtin.commands,
         { desc = 'Telescope search commands' }
       )
@@ -313,14 +313,14 @@ local pickers = { -- Fuzzy Finder (files, lsp, etc)
 
       vim.keymap.set(
         'n',
-        '<leader>st',
-        '<cmd>FzfLua tags_grep<cr>',
-        { desc = 'FzfLua search tags' }
+        '<leader>sm',
+        '<cmd>FzfLua marks<cr>',
+        { desc = 'FzfLua search marks' }
       )
 
       vim.keymap.set(
         'n',
-        '<leader>sm',
+        '<leader>s:',
         '<cmd>FzfLua commands<cr>',
         { desc = 'FzfLua search commands' }
       )
