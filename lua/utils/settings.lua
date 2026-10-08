@@ -108,6 +108,22 @@ local function build_menu_lines(tab_id)
       )
     )
 
+    if
+      opts.plugins.language.enable_all
+      or opts.plugins.language.components.basic.enabled
+    then
+      local cmp_opts = opts.plugins.language.components.basic.cmp
+      local cmp_val = cmp_opts.choices[cmp_opts.chosen]
+      table.insert(
+        items,
+        Menu.item('  Cmp: ' .. cmp_val, {
+          type = 'select',
+          path = 'plugins.language.components.basic.cmp',
+          choices = opts.plugins.language.components.basic.cmp.choices,
+        })
+      )
+    end
+
     table.insert(items, Menu.separator '── Settings ──')
     local proxy_val = opts.settings.proxy
     table.insert(
