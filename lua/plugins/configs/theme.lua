@@ -254,13 +254,13 @@ local config_funcs = {
 }
 
 if vim.g.options.theme.enabled then
-return {
-  theme_plugins[color_scheme],
-  priority = 1200, -- Ensure it loads first
-  config = function()
-    config_funcs[color_scheme]()
-  end,
-}
+  return {
+    theme_plugins[color_scheme],
+    priority = 1200, -- Ensure it loads first
+    config = function()
+      config_funcs[color_scheme]()
+    end,
+  }
 else
   vim.cmd.colorscheme 'habamax'
   local colors = require('utils.palette').get_palette()

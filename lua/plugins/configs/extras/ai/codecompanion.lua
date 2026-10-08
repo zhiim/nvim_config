@@ -2,9 +2,13 @@ local ai_opts = vim.g.options.plugins.ai
 
 return {
   'olimorris/codecompanion.nvim',
-  enabled =  ai_opts.components.codecomponion
-    or ai_opts.enable_all,
-  cmd = { 'CodeCompanionActions', 'CodeCompanionChat', 'CodeCompanion', 'CodeCompanionCLI' },
+  enabled = ai_opts.components.codecomponion or ai_opts.enable_all,
+  cmd = {
+    'CodeCompanionActions',
+    'CodeCompanionChat',
+    'CodeCompanion',
+    'CodeCompanionCLI',
+  },
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-treesitter/nvim-treesitter',
@@ -81,8 +85,8 @@ return {
     },
     {
       '<leader>ccp',
-      function ()
-        require("codecompanion").cli({ prompt = true })
+      function()
+        require('codecompanion').cli { prompt = true }
       end,
       desc = 'CodeCompanion prompt',
       mode = { 'n', 'v' },
@@ -91,15 +95,15 @@ return {
   config = function()
     local config = {
       opts = {
-        language = "the language I use", -- The language used for LLM responses
+        language = 'the language I use', -- The language used for LLM responses
       },
       display = {
         diff = {
           enabled = true,
-          provider = "inline",
+          provider = 'inline',
           provider_opts = {
             split = {
-              layout = "vertical",
+              layout = 'vertical',
               opts = {
                 'internal',
                 'filler',
@@ -113,7 +117,7 @@ return {
           },
         },
         chat = {
-          show_settings = false,  -- cannot change adapter when `show_settings` is enabled
+          show_settings = false, -- cannot change adapter when `show_settings` is enabled
           window = {
             width = 0.4,
           },
@@ -136,9 +140,9 @@ return {
                 .. adapter.formatted_name
                 .. ': '
                 .. adapter.parameters.model
-                .. " |"
+                .. ' |'
                 .. adapter.parameters.reasoning_effort
-                .. "|"
+                .. '|'
                 .. ')'
             end,
           },
@@ -179,7 +183,9 @@ return {
               },
               index = 15,
               callback = function(chat)
-                require("codecompanion.interactions.chat.keymaps.change_adapter").select_model(chat)
+                require(
+                  'codecompanion.interactions.chat.keymaps.change_adapter'
+                ).select_model(chat)
               end,
               description = 'Change model',
             },
@@ -189,35 +195,36 @@ return {
               },
               index = 16,
               callback = function(chat)
-                local available_levels = { "minimal", "low", "medium", "high", "max" }
+                local available_levels =
+                  { 'minimal', 'low', 'medium', 'high', 'max' }
                 local settings = chat.settings
                 vim.ui.select(available_levels, {
-                  prompt = "Select thinking level:",
+                  prompt = 'Select thinking level:',
                 }, function(choice)
                   if choice then
                     settings.reasoning_effort = choice
-                    vim.notify("Thinking level set to: " .. choice)
+                    vim.notify('Thinking level set to: ' .. choice)
                   else
-                    vim.notify("No thinking level selected")
+                    vim.notify 'No thinking level selected'
                   end
                 end)
                 chat:apply_settings(settings)
               end,
               description = 'Change thinking level',
-            }
+            },
           },
         },
         cli = {
-          agent = "pi_agent",
+          agent = 'pi_agent',
           agents = {
             pi_agent = {
-              cmd = "pi",
+              cmd = 'pi',
               args = {},
-              description = "Pi Code Agent",
-              provider = "terminal",
-            }
-          }
-        }
+              description = 'Pi Code Agent',
+              provider = 'terminal',
+            },
+          },
+        },
       },
       adapters = {
         acp = {
@@ -225,37 +232,36 @@ return {
             show_presets = false, -- Show default adapters
           },
           pi_agent = function()
-            local helpers = require("codecompanion.adapters.acp.helpers")
+            local helpers = require 'codecompanion.adapters.acp.helpers'
             return {
-              name = "pi_agent",
-              formatted_name = "PI Agent",
-              type = "acp",
+              name = 'pi_agent',
+              formatted_name = 'PI Agent',
+              type = 'acp',
               roles = {
-                llm = "assistant",
-                user = "user",
+                llm = 'assistant',
+                user = 'user',
               },
               opts = {
                 vision = false,
               },
               commands = {
                 default = {
-                  "pi-acp"
+                  'pi-acp',
                 },
               },
               defaults = {
                 mcpServers = {},
                 timeout = 120000,
               },
-              env = {
-              },
+              env = {},
               parameters = {
                 protocolVersion = 1,
                 clientCapabilities = {
                   fs = { readTextFile = true, writeTextFile = true },
                 },
                 clientInfo = {
-                  name = "CodeCompanion.nvim",
-                  version = "1.0.0",
+                  name = 'CodeCompanion.nvim',
+                  version = '1.0.0',
                 },
               },
               handlers = {
@@ -271,13 +277,13 @@ return {
                 on_exit = function(self, code) end,
               },
             }
-          end
+          end,
         },
         http = {
           opts = {
             cache_models_for = 3, -- cache models list for certain seconds
             show_presets = false, -- do not show default adapters
-          }
+          },
         },
       },
       extensions = {
@@ -295,16 +301,24 @@ return {
         spinner = {
           enabled = true,
           opts = {
-            style = (vim.g.options.mode.chosen == 2 and ( vim.g.options.plugins.util.enable_all or vim.g.options.plugins.util.components.snacks )) and 'snacks' or "native" ,
+            style = (
+              vim.g.options.mode.chosen == 2
+              and (
+                vim.g.options.plugins.util.enable_all
+                or vim.g.options.plugins.util.components.snacks
+              )
+            )
+                and 'snacks'
+              or 'native',
           },
         },
       },
       prompt_library = {
         markdown = {
           dirs = {
-            vim.fn.getcwd() .. "/.prompts",  -- project specific prompts
-            vim.fn.stdpath("config") .. "/prompts"  -- built-in user prompts
-          }
+            vim.fn.getcwd() .. '/.prompts', -- project specific prompts
+            vim.fn.stdpath 'config' .. '/prompts', -- built-in user prompts
+          },
         },
       },
     }
@@ -331,30 +345,25 @@ return {
       end
     else
       -- read providers file
-      utils.with_file(
-        providers_path,
-        'r',
-        function(file)
-          -- read cache into options
-          custom_providers = vim.json.decode(file:read '*a')
-        end,
-        function(err)
-          vim.notify(
-            'Error reading cache file: ' .. err,
-            vim.log.levels.ERROR,
-            { title = 'Cache Read' }
-          )
-        end
-      )
+      utils.with_file(providers_path, 'r', function(file)
+        -- read cache into options
+        custom_providers = vim.json.decode(file:read '*a')
+      end, function(err)
+        vim.notify(
+          'Error reading cache file: ' .. err,
+          vim.log.levels.ERROR,
+          { title = 'Cache Read' }
+        )
+      end)
     end
 
     -- loop through custom providers and add them to http adapters
     local http_adapters = {}
     for name, provider_info in pairs(custom_providers) do
       if
-        name == 'nil' or
+        name == 'nil'
         -- must have name, url, api_key
-        provider_info.name == nil
+        or provider_info.name == nil
         or provider_info.url == nil
         or provider_info.api_key == nil
       then
@@ -370,26 +379,27 @@ return {
           api_key = provider_info.api_key,
         },
         handlers = {
-          parse_message_meta = function (self, data)  -- display reasoning content in chat if available
-            local reasoning_content = data.extra and data.extra.reasoning or data.extra.reasoning_content
+          parse_message_meta = function(self, data) -- display reasoning content in chat if available
+            local reasoning_content = data.extra and data.extra.reasoning
+              or data.extra.reasoning_content
             if reasoning_content then
               data.output.reasoning = { content = reasoning_content }
-              if data.output.content == "" then
+              if data.output.content == '' then
                 data.output.content = nil
               end
             end
             return data
-          end
+          end,
         },
         schema = {
           reasoning_effort = {
-            mapping = "parameters",
-            type = "string",
+            mapping = 'parameters',
+            type = 'string',
             optional = true,
-            default = "medium",
-            choices = { "minimal", "low", "medium", "high", "max" },
+            default = 'medium',
+            choices = { 'minimal', 'low', 'medium', 'high', 'max' },
           },
-        }
+        },
       }
 
       -- optional provider options
@@ -407,9 +417,13 @@ return {
 
       -- extend the openai_compatible adapter
       http_adapters[name] = function()
-        return require('codecompanion.adapters').extend('openai_compatible', provider_opts)
+        return require('codecompanion.adapters').extend(
+          'openai_compatible',
+          provider_opts
+        )
       end
-        ::continue::
+
+      ::continue::
     end
 
     -- add to codecompanion config
@@ -418,14 +432,17 @@ return {
       if not adapter_set then
         config.interactions.chat.adapter = name
         config.interactions.inline = {
-          adapter = name
+          adapter = name,
         }
         adapter_set = true
       end
       config.adapters.http[name] = opts
     end
 
-    if vim.g.options.settings.proxy ~= nil and vim.g.options.settings.proxy ~= "" then
+    if
+      vim.g.options.settings.proxy ~= nil
+      and vim.g.options.settings.proxy ~= ''
+    then
       config.adapters.http.opts.proxy = vim.g.options.settings.proxy
     end
 
