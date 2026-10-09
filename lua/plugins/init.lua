@@ -111,7 +111,8 @@ require('lazy').setup({
   },
 
   {
-    'mrjones2014/smart-splits.nvim',
+    'smart-splits-nvim/smart-splits.nvim',
+    version = 'v2.1.1-final',
     lazy = false,
     keys = {
       --smart-split

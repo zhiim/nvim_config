@@ -368,6 +368,62 @@ return {
             end
           end,
           post_tab_enter = function()
+            -- scope's BufDelete clears context attachments; BufAdd does not
+            -- restore them. Reattach only if context is still enabled.
+            local context = package.loaded['treesitter-context']
+            if context and context.enabled() then
+              context.enable()
+            end
+
+            -- Replay only loaded plugins' own attachment callbacks. Do not
+            -- reconnect LSP clients or rerun other plugins' initialization.
+            local diagnostics =
+              package.loaded['tiny-inline-diagnostic.autocmds']
+            local dropbar_lsp = package.loaded['dropbar.sources.lsp']
+            local dropbar_markdown = package.loaded['dropbar.sources.markdown']
+            if diagnostics or dropbar_lsp or dropbar_markdown then
+              for _, buf in ipairs(require('scope.utils').get_valid_buffers()) do
+                if vim.api.nvim_buf_is_loaded(buf) then
+                  if diagnostics and not diagnostics.is_attached(buf) then
+                    local client = vim.lsp.get_clients({ bufnr = buf })[1]
+                    if client then
+                      vim.api.nvim_exec_autocmds('LspAttach', {
+                        group = 'TinyInlineDiagnosticAutocmds',
+                        buffer = buf,
+                        data = { client_id = client.id },
+                        modeline = false,
+                      })
+                    end
+                  end
+                  if dropbar_lsp and not vim.b[buf].dropbar_lsp_attached then
+                    local client = vim.lsp.get_clients({
+                      bufnr = buf,
+                      method = 'textDocument/documentSymbol',
+                    })[1]
+                    if client then
+                      vim.api.nvim_exec_autocmds('LspAttach', {
+                        group = 'dropbar.sources.lsp',
+                        buffer = buf,
+                        data = { client_id = client.id },
+                        modeline = false,
+                      })
+                    end
+                  end
+                  if
+                    dropbar_markdown
+                    and vim.bo[buf].filetype == 'markdown'
+                    and not vim.b[buf].dropbar_markdown_heading_parser_attached
+                  then
+                    vim.api.nvim_exec_autocmds('FileType', {
+                      group = 'dropbar.sources.markdown',
+                      buffer = buf,
+                      modeline = false,
+                    })
+                  end
+                end
+              end
+            end
+
             local tab = vim.api.nvim_get_current_tabpage()
             local saved = overlays[tab]
             if not saved then
