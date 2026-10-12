@@ -262,7 +262,7 @@ if vim.g.options.theme.enabled then
     end,
   }
 else
-  vim.cmd.colorscheme 'habamax'
+  vim.cmd.colorscheme 'catppuccin'
   local colors = require('utils.palette').get_palette()
   local get_hl = require('utils.util').get_hl
   local fg = get_hl('Normal').bg

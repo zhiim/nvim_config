@@ -35,12 +35,64 @@ require 'config.options'
 require 'config.mappings'
 
 -- +---------------------------------------------------------+
--- |                  4. Basic Autocommands                  |
+-- |                     4. use firenvim                     |
+-- +---------------------------------------------------------+
+if vim.g.started_by_firenvim == true then
+  vim.o.laststatus = 0
+  vim.cmd.colorscheme 'shine'
+
+  vim.api.nvim_create_autocmd('PackChanged', {
+    group = vim.api.nvim_create_augroup('FirenvimInstall', { clear = true }),
+    callback = function(ev)
+      local data = ev.data
+
+      if
+        data.spec.name == 'firenvim'
+        and (data.kind == 'install' or data.kind == 'update')
+      then
+        vim.cmd 'packadd firenvim'
+        vim.fn['firenvim#install'](0)
+      end
+    end,
+  })
+  vim.pack.add {
+    {
+      src = 'https://github.com/glacambre/firenvim',
+      name = 'firenvim',
+    },
+  }
+
+  vim.g.firenvim_config = {
+    localSettings = {
+      ['.*'] = {
+        takeover = 'never',
+      },
+    },
+  }
+  vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI' }, {
+    callback = function(e)
+      if vim.g.timer_started == true then
+        return
+      end
+      vim.g.timer_started = true
+      vim.fn.timer_start(10000, function()
+        vim.g.timer_started = false
+        vim.cmd 'silent write'
+      end)
+    end,
+  })
+  vim.keymap.set('i', '<C-S-v>', '<C-r>+')
+
+  return
+end
+
+-- +---------------------------------------------------------+
+-- |                  5. Basic Autocommands                  |
 -- +---------------------------------------------------------+
 require 'config.autocmd'
 
 -- +---------------------------------------------------------+
--- |          5. Install `lazy.nvim` plugin manager          |
+-- |          6. Install `lazy.nvim` plugin manager          |
 -- +---------------------------------------------------------+
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -57,7 +109,7 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 -- +---------------------------------------------------------+
--- |            6. Configure and install plugins             |
+-- |            7. Configure and install plugins             |
 -- +---------------------------------------------------------+
 --  To check the current status of your plugins, run
 --    :Lazy
