@@ -39,7 +39,8 @@ require 'config.mappings'
 -- +---------------------------------------------------------+
 if vim.g.started_by_firenvim == true then
   vim.o.laststatus = 0
-  vim.opt.cursorlone = false
+  vim.o.cursorline = false
+  vim.o.signcolumn = 'auto'
   vim.cmd.colorscheme 'shine'
 
   vim.api.nvim_create_autocmd('PackChanged', {
