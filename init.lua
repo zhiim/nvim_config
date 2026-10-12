@@ -39,6 +39,7 @@ require 'config.mappings'
 -- +---------------------------------------------------------+
 if vim.g.started_by_firenvim == true then
   vim.o.laststatus = 0
+  vim.opt.cursorlone = false
   vim.cmd.colorscheme 'shine'
 
   vim.api.nvim_create_autocmd('PackChanged', {
@@ -69,16 +70,50 @@ if vim.g.started_by_firenvim == true then
       },
     },
   }
-  vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI' }, {
-    callback = function(e)
-      if vim.g.timer_started == true then
-        return
-      end
-      vim.g.timer_started = true
-      vim.fn.timer_start(10000, function()
-        vim.g.timer_started = false
+  local pending = {}
+  local interval = 200
+
+  local function write_buffer(buf)
+    if
+      not vim.api.nvim_buf_is_valid(buf)
+      or not vim.api.nvim_buf_is_loaded(buf)
+      or not vim.bo[buf].modified
+    then
+      return
+    end
+
+    local ok, err = pcall(function()
+      vim.api.nvim_buf_call(buf, function()
         vim.cmd 'silent write'
       end)
+    end)
+
+    if not ok then
+      vim.notify(
+        'Firenvim sync failed: ' .. tostring(err),
+        vim.log.levels.ERROR
+      )
+    end
+  end
+
+  vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI' }, {
+    group = vim.api.nvim_create_augroup('FirenvimAutoSync', {
+      clear = true,
+    }),
+
+    callback = function(e)
+      local buf = e.buf
+
+      if pending[buf] then
+        return
+      end
+
+      pending[buf] = true
+
+      vim.defer_fn(function()
+        pending[buf] = nil
+        write_buffer(buf)
+      end, interval)
     end,
   })
   vim.keymap.set('i', '<C-S-v>', '<C-r>+')
