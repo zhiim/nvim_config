@@ -9,61 +9,34 @@ return {
     { 'mason-org/mason.nvim', opts = {} },
   },
   config = function()
-    local ensure_installed = {
-      -- lsp servers
-      'clangd',
-      'taplo',
-      'neocmakelsp',
-      'ty',
-      'ruff',
-      'lua-language-server',
-      'vtsls',
-      'gopls',
-      -- formatters
-      'stylua',
-      'clang-format',
-      'cmakelang',
-      'prettier',
-      'taplo',
-      'nixfmt',
-      -- linters
-      'jsonlint',
-      'yamllint',
-    }
-
-    local reverse_mason_name = {
+    local ensure_installed = {}
+    local mason_names = {
       -- lsp
-      ['neocmakelsp'] = 'neocmake',
-      ['lua-language-server'] = 'lua_ls',
+      neocmake = 'neocmakelsp',
+      lua_ls = 'lua-language-server',
       -- formatters
-      ['cmakelang'] = 'cmake_format',
+      cmake_format = 'cmakelang',
     }
     local language_basic_opts = language_opts.components.basic
 
+    local function add_tools(opts, tools)
+      for name, enabled in pairs(tools) do
+        -- gofmt is provided by Go, not Mason.
+        if (opts.use_all or enabled) and name ~= 'gofmt' then
+          local package_name = mason_names[name] or name
+          if not vim.tbl_contains(ensure_installed, package_name) then
+            table.insert(ensure_installed, package_name)
+          end
+        end
+      end
+    end
+
     local server_opts = language_basic_opts.lsp_server
-    if not server_opts.use_all then
-      ensure_installed = vim.tbl_filter(function(sv)
-        local sv_status = server_opts.servers[reverse_mason_name[sv] or sv]
-        return sv_status == nil or sv_status
-      end, ensure_installed)
-    end
-
     local formatter_opts = language_basic_opts.formatter
-    if not formatter_opts.use_all then
-      ensure_installed = vim.tbl_filter(function(fmt)
-        local fmt_status =
-          formatter_opts.formatters[reverse_mason_name[fmt] or fmt]
-        return fmt_status == nil or fmt_status
-      end, ensure_installed)
-    end
-
     local linter_opts = language_basic_opts.linter
-    if not linter_opts.use_all then
-      ensure_installed = vim.tbl_filter(function(lt)
-        local lt_status = linter_opts.linters[reverse_mason_name[lt] or lt]
-        return lt_status == nil or lt_status
-      end, ensure_installed)
-    end
+    add_tools(server_opts, server_opts.servers)
+    add_tools(formatter_opts, formatter_opts.formatters)
+    add_tools(linter_opts, linter_opts.linters)
 
     -- enable texlab
     if vim.g.options.plugins.tex then

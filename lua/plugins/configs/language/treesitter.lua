@@ -10,30 +10,12 @@ return { -- Highlight, edit, and navigate code
     lazy = false,
     build = ':TSUpdate',
     config = function()
-      local ensure_installed = {
-        'bash',
-        'c',
-        'cpp',
-        'python',
-        'diff',
-        'lua',
-        'luadoc',
-        'markdown',
-        'markdown_inline',
-        'vim',
-        'vimdoc',
-        'yaml',
-        'json',
-        'toml',
-        'nix',
-        'go',
-      }
-
       local ts_opts = language_opts.components.basic.treesitter
-      if not ts_opts.use_all then
-        ensure_installed = vim.tbl_filter(function(ts)
-          return ts_opts.parsers[ts]
-        end, ensure_installed)
+      local ensure_installed = {}
+      for parser, enabled in pairs(ts_opts.parsers) do
+        if ts_opts.use_all or enabled then
+          table.insert(ensure_installed, parser)
+        end
       end
 
       if language_opts.components.render_markdown then
