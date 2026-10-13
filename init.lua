@@ -37,26 +37,28 @@ require 'config.mappings'
 -- +---------------------------------------------------------+
 -- |                     4. use firenvim                     |
 -- +---------------------------------------------------------+
-vim.api.nvim_create_autocmd('PackChanged', {
-  group = vim.api.nvim_create_augroup('FirenvimInstall', { clear = true }),
-  callback = function(ev)
-    local data = ev.data
+if vim.g.options.firenvim.enabled then
+  vim.api.nvim_create_autocmd('PackChanged', {
+    group = vim.api.nvim_create_augroup('FirenvimInstall', { clear = true }),
+    callback = function(ev)
+      local data = ev.data
 
-    if
-      data.spec.name == 'firenvim'
-      and (data.kind == 'install' or data.kind == 'update')
-    then
-      vim.cmd 'packadd firenvim'
-      vim.fn['firenvim#install'](0)
-    end
-  end,
-})
-vim.pack.add {
-  {
-    src = 'https://github.com/glacambre/firenvim',
-    name = 'firenvim',
-  },
-}
+      if
+        data.spec.name == 'firenvim'
+        and (data.kind == 'install' or data.kind == 'update')
+      then
+        vim.cmd 'packadd firenvim'
+        vim.fn['firenvim#install'](0)
+      end
+    end,
+  })
+  vim.pack.add {
+    {
+      src = 'https://github.com/glacambre/firenvim',
+      name = 'firenvim',
+    },
+  }
+end
 
 if vim.g.started_by_firenvim == true then
   vim.o.laststatus = 0

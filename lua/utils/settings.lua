@@ -72,6 +72,13 @@ local function build_menu_lines(tab_id)
   end
 
   if tab_id == 'general' then
+    table.insert(
+      items,
+      Menu.item(
+        ' ' .. enabled_icon(opts.firenvim.enabled) .. ' Enable Firenvim',
+        { type = 'toggle', path = 'firenvim.enabled' }
+      )
+    )
     local mode_val = opts.mode.choices[opts.mode.chosen]
     table.insert(
       items,

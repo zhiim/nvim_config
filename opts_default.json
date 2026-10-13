@@ -15,6 +15,9 @@
     "chosen": 1,
     "choices": ["nvimtree", "neotree", "fyler"]
   },
+  "firenvim": {
+    "enabled": false
+  },
   "settings": {
     "proxy": "",
     "gemini_api_key": "",
