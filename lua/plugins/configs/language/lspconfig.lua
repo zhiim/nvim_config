@@ -198,20 +198,11 @@ return { -- LSP Configuration & Plugins
     end
 
     -- use lspconfig name
-    local servers = {
-      'clangd',
-      'taplo',
-      'neocmake',
-      'ty',
-      'ruff',
-      'lua_ls',
-      'vtsls',
-      'gopls',
-    }
-    if not server_opts.use_all then
-      servers = vim.tbl_filter(function(server)
-        return server_opts.servers[server]
-      end, servers)
+    local servers = {}
+    for server, enabled in pairs(server_opts.servers) do
+      if server_opts.use_all or enabled then
+        table.insert(servers, server)
+      end
     end
 
     if vim.g.options.plugins.tex then
