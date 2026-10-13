@@ -26,6 +26,7 @@ return { -- Highlight, edit, and navigate code
         'json',
         'toml',
         'nix',
+        'go',
       }
 
       local ts_opts = language_opts.components.basic.treesitter

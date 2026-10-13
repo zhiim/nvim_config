@@ -136,7 +136,8 @@
               "ty": false,
               "ruff": false,
               "lua_ls": false,
-              "vtsls": false
+              "vtsls": false,
+              "gopls": false
             }
           },
           "formatter": {
@@ -147,7 +148,8 @@
               "clang-format": false,
               "cmake_format": false,
               "taplo": false,
-              "nixfmt": false
+              "nixfmt": false,
+              "gofmt": false
             }
           },
           "linter": {
@@ -174,7 +176,8 @@
               "diff": false,
               "vim": false,
               "vimdoc": false,
-              "nix": false
+              "nix": false,
+              "go": false
             }
           }
         },

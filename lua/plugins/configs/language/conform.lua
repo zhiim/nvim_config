@@ -24,6 +24,7 @@ return { -- Autoformat
       yaml = { 'prettier' },
       cmake = { 'cmake_format' },
       nix = { 'nixfmt' },
+      go = { 'gofmt' },
     }
 
     local fmt_opts = vim.g.options.plugins.language.components.basic.formatter

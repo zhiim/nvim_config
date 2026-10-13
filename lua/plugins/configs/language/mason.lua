@@ -18,6 +18,7 @@ return {
       'ruff',
       'lua-language-server',
       'vtsls',
+      'gopls',
       -- formatters
       'stylua',
       'clang-format',

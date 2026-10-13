@@ -206,6 +206,7 @@ return { -- LSP Configuration & Plugins
       'ruff',
       'lua_ls',
       'vtsls',
+      'gopls',
     }
     if not server_opts.use_all then
       servers = vim.tbl_filter(function(server)
