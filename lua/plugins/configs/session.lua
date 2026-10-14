@@ -141,5 +141,23 @@ return {
       end,
     })
   end,
-  opts = {},
+  opts = function()
+    local tab_buffers = require 'utils.tab_buffers'
+    if not tab_buffers.enabled() then
+      return {}
+    end
+    return {
+      tab_buf_filter = function(tabpage, bufnr)
+        return tab_buffers.contains(tabpage, bufnr)
+      end,
+      extensions = { tab_buffers = { enable_in_tab = true } },
+    }
+  end,
+  config = function(_, opts)
+    require('resession').setup(opts)
+    if require('utils.tab_buffers').enabled() then
+      require('utils.tab_buffers').setup()
+      require('resession.extensions.tab_buffers').setup()
+    end
+  end,
 }

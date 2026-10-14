@@ -1,3 +1,7 @@
+local tab_picker = require('utils.tab_buffers').enabled()
+    and require 'utils.tab_buffer_picker'
+  or nil
+
 local pickers = { -- Fuzzy Finder (files, lsp, etc)
   telescope = {
     'nvim-telescope/telescope.nvim',
@@ -105,9 +109,21 @@ local pickers = { -- Fuzzy Finder (files, lsp, etc)
       vim.keymap.set(
         'n',
         '<leader>sb',
-        '<cmd>Telescope buffers<cr>',
-        { desc = 'Telescope search existing buffers' }
+        tab_picker and tab_picker.telescope_buffers
+          or '<cmd>Telescope buffers<cr>',
+        {
+          desc = tab_picker and 'Telescope search current-tab buffers'
+            or 'Telescope search existing buffers',
+        }
       )
+      if tab_picker then
+        vim.keymap.set(
+          'n',
+          '<leader>sB',
+          builtin.buffers,
+          { desc = 'Telescope search all buffers' }
+        )
+      end
       vim.keymap.set(
         'n',
         '<leader>su',
@@ -125,12 +141,21 @@ local pickers = { -- Fuzzy Finder (files, lsp, etc)
         builtin.current_buffer_fuzzy_find()
       end, { desc = 'Telescope search in current buffer fuzzily' })
 
-      vim.keymap.set('n', '<leader>sa', function()
-        builtin.live_grep {
-          grep_open_files = true,
-          prompt_title = 'Live Grep in Open Files',
+      vim.keymap.set(
+        'n',
+        '<leader>sa',
+        tab_picker and tab_picker.telescope_live_grep
+          or function()
+            builtin.live_grep {
+              grep_open_files = true,
+              prompt_title = 'Live Grep in Open Files',
+            }
+          end,
+        {
+          desc = tab_picker and 'Telescope search in current-tab buffers'
+            or 'Telescope search in all buffers fuzzily',
         }
-      end, { desc = 'Telescope search in all buffers fuzzily' })
+      )
 
       vim.keymap.set(
         'n',
@@ -279,9 +304,20 @@ local pickers = { -- Fuzzy Finder (files, lsp, etc)
       vim.keymap.set(
         'n',
         '<leader>sb',
-        '<cmd>FzfLua buffers<cr>',
-        { desc = 'FzfLua search existing buffers' }
+        tab_picker and tab_picker.fzf_buffers or '<cmd>FzfLua buffers<cr>',
+        {
+          desc = tab_picker and 'FzfLua search current-tab buffers'
+            or 'FzfLua search existing buffers',
+        }
       )
+      if tab_picker then
+        vim.keymap.set(
+          'n',
+          '<leader>sB',
+          '<cmd>FzfLua buffers<cr>',
+          { desc = 'FzfLua search all buffers' }
+        )
+      end
       vim.keymap.set(
         'n',
         '<leader>s\\',
@@ -299,8 +335,11 @@ local pickers = { -- Fuzzy Finder (files, lsp, etc)
       vim.keymap.set(
         'n',
         '<leader>sa',
-        '<cmd>FzfLua lines<cr>',
-        { desc = 'FzfLua search in all buffer fuzzily' }
+        tab_picker and tab_picker.fzf_lines or '<cmd>FzfLua lines<cr>',
+        {
+          desc = tab_picker and 'FzfLua search in current-tab buffers'
+            or 'FzfLua search in all buffer fuzzily',
+        }
       )
 
       vim.keymap.set(

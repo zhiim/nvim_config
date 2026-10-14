@@ -67,6 +67,9 @@ local tab_tools = {
   bufferline = {
     'akinsho/bufferline.nvim',
     event = 'BufReadPre',
+    init = function()
+      require('utils.tab_buffers').setup()
+    end,
     config = function()
       vim.opt.termguicolors = true
       local explorer_type = {
@@ -101,11 +104,17 @@ local tab_tools = {
             },
           },
           custom_filter = function(buf, _)
-            -- dont show help buffers in the bufferline
-            return not require('utils.util').find_value(
-              vim.bo[buf].filetype,
-              { 'dap-repl', 'codecompanion' }
-            )
+            return require('utils.tab_buffers').contains(nil, buf)
+              and not require('utils.util').find_value(
+                vim.bo[buf].filetype,
+                { 'dap-repl', 'codecompanion' }
+              )
+          end,
+          close_command = function(buf)
+            require('utils.tab_buffers').close(nil, buf)
+          end,
+          right_mouse_command = function(buf)
+            require('utils.tab_buffers').close(nil, buf)
           end,
         },
       }
@@ -138,24 +147,9 @@ local tab_tools = {
           require('bufferline').go_to(i, true)
         end, { desc = 'buffer goto ' .. i })
       end
-      if
-        vim.g.options.mode.chosen == 2
-        and (
-          vim.g.options.plugins.util.enable_all
-          or vim.g.options.plugins.util.components.snacks
-        )
-      then
-        vim.keymap.set('n', '<leader>x', function()
-          Snacks.bufdelete()
-        end, { desc = 'Buffer close' })
-      else
-        vim.keymap.set(
-          'n',
-          '<leader>x',
-          '<cmd> bp|sp|bn|bd! <CR>',
-          { desc = 'Buffer close', noremap = true, silent = true }
-        )
-      end
+      vim.keymap.set('n', '<leader>x', function()
+        require('utils.tab_buffers').close()
+      end, { desc = 'Buffer close in current tab' })
     end,
   },
 
