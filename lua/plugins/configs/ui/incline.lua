@@ -1,6 +1,7 @@
 return {
   'b0o/incline.nvim',
   event = 'BufReadPre',
+  enabled = vim.g.options.tab.chosen == 3,
   config = function()
     local devicons = require 'nvim-web-devicons'
 

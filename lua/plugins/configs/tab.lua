@@ -168,37 +168,6 @@ local tab_tools = {
       -- always show tabline
       vim.o.showtabline = 2
 
-      vim.keymap.set(
-        'n',
-        '<tab>',
-        '<cmd>bnext<CR>',
-        { desc = 'Buffer goto next' }
-      )
-      vim.keymap.set(
-        'n',
-        '<S-tab>',
-        '<cmd>bpre<CR>',
-        { desc = 'Buffer goto previous' }
-      )
-      if
-        vim.g.options.mode.chosen == 2
-        and (
-          vim.g.options.plugins.util.enable_all
-          or vim.g.options.plugins.util.components.snacks
-        )
-      then
-        vim.keymap.set('n', '<leader>x', function()
-          Snacks.bufdelete()
-        end, { desc = 'Buffer close' })
-      else
-        vim.keymap.set(
-          'n',
-          '<leader>x',
-          '<cmd> bp|sp|bn|bd! <CR>',
-          { desc = 'Buffer close', noremap = true, silent = true }
-        )
-      end
-
       local theme = {}
       local ok, ll_theme = pcall(require, 'lualine.themes.auto')
       if ok then
@@ -207,9 +176,6 @@ local tab_tools = {
           head = ll_theme.normal.b,
           current_tab = vim.list_extend(ll_theme.normal.a, { style = 'bold' }),
           tab = vim.list_extend(ll_theme.normal.b, { style = 'bold' }),
-          current_buf = ll_theme.normal.a,
-          buf = ll_theme.normal.b,
-          tail = ll_theme.normal.b,
         }
       else
         theme = {
@@ -217,114 +183,44 @@ local tab_tools = {
           head = 'TabLine',
           current_tab = 'TabLineSel',
           tab = 'TabLine',
-          current_buf = 'TabLineSel',
-          buf = 'TabLine',
-          tail = 'TabLine',
         }
       end
 
-      local function lsp_diag(bufnr)
-        local icons = {
-          error = ' ',
-          warn = ' ',
-          info = ' ',
-          hint = ' ',
-        }
-        local label = ''
-        for severity, icon in pairs(icons) do
-          local n = #vim.diagnostic.get(
-            bufnr,
-            { severity = vim.diagnostic.severity[string.upper(severity)] }
-          )
-          if n > 0 then
-            label = label .. ' ' .. icon .. n
+      -- any buffer have unsaved changes
+      local function tab_is_modified(tab)
+        for _, win in ipairs(tab.wins().wins) do
+          if win.buf().is_changed() then
+            return true
           end
         end
-        return label
       end
 
       require('tabby').setup {
         line = function(line)
-          if vim.fn.tabpagenr '$' > 1 then
-            -- if there are multiple tabs, work as the tabline, with wins
-            return {
-              {
-                { '  ', hl = theme.head },
-                line.sep('', theme.head, theme.fill),
-              },
+          return {
+            {
+              { '  ', hl = theme.head },
+              line.sep('', theme.head, theme.fill),
+            },
+            line.tabs().foreach(function(tab)
+              local name = tab.name()
+              local index = string.find(name, '%[%d')
+              local tab_name = index and string.sub(name, 1, index - 1) or name
 
-              line.bufs().foreach(function(buf)
-                if
-                  require('utils.util').find_value(
-                    vim.bo[buf.id].filetype,
-                    { 'dap-repl', 'codecompanion' }
-                  )
-                then
-                  return {}
-                end
-                local hl = buf.is_current() and theme.current_buf or theme.buf
-                return {
-                  line.sep('', hl, theme.fill),
-                  buf.is_changed() and '[+]' or '',
-                  buf.file_icon(),
-                  buf.name(),
-                  lsp_diag(buf.id),
-                  line.sep('', hl, theme.fill),
-                  hl = hl,
-                  margin = ' ',
-                }
-              end),
-
-              line.spacer(),
-
-              line.tabs().foreach(function(tab)
-                local hl = tab.is_current() and theme.current_tab or theme.tab
-                return {
-                  line.sep('', hl, theme.fill),
-                  tab.number(),
-                  line.sep('', hl, theme.fill),
-                  hl = hl,
-                  margin = ' ',
-                }
-              end),
-
-              hl = theme.fill,
-            }
-          else
-            -- if there is only one tab, work as the bufferline
-            return {
-              {
-                { '  ', hl = theme.head },
-                line.sep('', theme.head, theme.fill),
-              },
-
-              line.bufs().foreach(function(buf)
-                if
-                  require('utils.util').find_value(
-                    vim.bo[buf.id].filetype,
-                    { 'dap-repl', 'codecompanion' }
-                  )
-                then
-                  return {}
-                end
-                local hl = buf.is_current() and theme.current_buf or theme.buf
-                return {
-                  line.sep('', hl, theme.fill),
-                  buf.is_changed() and '[+]' or '',
-                  buf.file_icon(),
-                  buf.name(),
-                  lsp_diag(buf.id),
-                  line.sep('', hl, theme.fill),
-                  hl = hl,
-                  margin = ' ',
-                }
-              end),
-
-              line.spacer(),
-
-              hl = theme.fill,
-            }
-          end
+              local hl = tab.is_current() and theme.current_tab or theme.tab
+              return {
+                line.sep('', hl, theme.fill),
+                tab.is_current() and '' or '',
+                tab.number() .. '#',
+                tab_name,
+                tab_is_modified(tab) and '*' or '',
+                line.sep('', hl, theme.fill),
+                hl = hl,
+                margin = ' ',
+              }
+            end),
+            hl = theme.fill,
+          }
         end,
         option = {
           buf_name = {
