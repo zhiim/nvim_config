@@ -45,7 +45,6 @@ local pickers = { -- Fuzzy Finder (files, lsp, etc)
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
       pcall(require('telescope').load_extension, 'undo')
-      pcall(require('telescope').load_extension, 'scope')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -106,7 +105,7 @@ local pickers = { -- Fuzzy Finder (files, lsp, etc)
       vim.keymap.set(
         'n',
         '<leader>sb',
-        '<cmd>Telescope scope buffers<cr>',
+        '<cmd>Telescope buffers<cr>',
         { desc = 'Telescope search existing buffers' }
       )
       vim.keymap.set(
