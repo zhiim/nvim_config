@@ -1,8 +1,0 @@
-{
-  "plugins": {
-    "firenvim": {
-      "rev": "302c105ff79c51d3d362eb37210f95f65285926d",
-      "src": "https://github.com/glacambre/firenvim"
-    }
-  }
-}
