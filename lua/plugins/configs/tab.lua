@@ -180,6 +180,39 @@ local tab_tools = {
         }
       end
 
+      local function get_tab_name(tab)
+        for _, win in ipairs(tab.wins().wins) do
+          local win_name =
+            vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(win.id))
+          if win_name:match '^codediff://' then
+            local cwd = vim.fn.getcwd()
+            local project = vim.fn.fnamemodify(cwd, ':t')
+            return '  ' .. project
+          end
+        end
+
+        local max_len = 15
+        local filename = tab.name()
+        local stem, ext = filename:match '(.+)%.([^.]+)$'
+
+        if not stem then
+          stem = filename
+          ext = ''
+        else
+          ext = '.' .. ext
+        end
+
+        if #stem > max_len then
+          -- Ensure we have enough space for the ellipsis.
+          local trunc_len = max_len - 1
+          if trunc_len < 0 then
+            trunc_len = 0
+          end
+          stem = stem:sub(1, trunc_len) .. '…'
+        end
+        return stem .. ext
+      end
+
       -- any buffer have unsaved changes
       local function tab_is_modified(tab)
         for _, win in ipairs(tab.wins().wins) do
@@ -197,16 +230,12 @@ local tab_tools = {
               line.sep('', theme.head, theme.fill),
             },
             line.tabs().foreach(function(tab)
-              local name = tab.name()
-              local index = string.find(name, '%[%d')
-              local tab_name = index and string.sub(name, 1, index - 1) or name
-
               local hl = tab.is_current() and theme.current_tab or theme.tab
               return {
                 line.sep('', hl, theme.fill),
                 tab.is_current() and '' or '',
                 tab.number() .. '#',
-                tab_name,
+                get_tab_name(tab),
                 tab_is_modified(tab) and '*' or '',
                 line.sep('', hl, theme.fill),
                 hl = hl,
