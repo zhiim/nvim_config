@@ -1,6 +1,8 @@
 local git_opts = vim.g.options.plugins.git
 local commit_to_diff = nil
 local previous_configs = {}
+local codediff_tabs = {}
+local suspended_overlays = {}
 
 return {
   'echasnovski/mini.diff',
@@ -15,6 +17,32 @@ return {
         and vim.api.nvim_buf_is_loaded(buf)
         and vim.bo[buf].buftype == ''
         and vim.api.nvim_buf_get_name(buf) ~= ''
+    end
+
+    local function in_codediff()
+      return codediff_tabs[vim.api.nvim_get_current_tabpage()] == true
+    end
+
+    local function sync_overlays()
+      local diff = require 'mini.diff'
+      if in_codediff() then
+        -- Overlay extmarks belong to buffers, including files shared with CodeDiff.
+        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+          local data = diff.get_buf_data(buf)
+          if data and data.overlay then
+            suspended_overlays[buf] = true
+            diff.toggle_overlay(buf)
+          end
+        end
+      else
+        for buf in pairs(suspended_overlays) do
+          local data = vim.api.nvim_buf_is_valid(buf) and diff.get_buf_data(buf)
+          if data and not data.overlay then
+            diff.toggle_overlay(buf)
+          end
+          suspended_overlays[buf] = nil
+        end
+      end
     end
 
     local function git(cwd, args)
@@ -107,6 +135,7 @@ return {
       diff.disable(buf)
       vim.b[buf].minidiff_config = previous.config
       previous_configs[buf] = nil
+      suspended_overlays[buf] = nil
       if previous.enabled then
         diff.enable(buf)
         if previous.overlay then
@@ -115,18 +144,31 @@ return {
       end
     end
 
-    vim.api.nvim_create_autocmd('BufEnter', {
+    vim.api.nvim_create_autocmd('User', {
+      pattern = { 'CodeDiffOpen', 'CodeDiffClose' },
       callback = function(args)
-        if commit_to_diff ~= nil then
-          if is_file_buf(args.buf) and previous_configs[args.buf] == nil then
-            diff_show(args.buf, commit_to_diff)
-          end
-        end
+        codediff_tabs[args.data.tabpage] = args.match == 'CodeDiffOpen' or nil
+        -- CodeDiffClose fires before cleanup; BufEnter can precede CodeDiffOpen.
+        vim.schedule(sync_overlays)
       end,
+    })
+
+    vim.api.nvim_create_autocmd({ 'BufEnter', 'TabEnter' }, {
+      callback = vim.schedule_wrap(function()
+        sync_overlays()
+        if commit_to_diff == nil or in_codediff() then
+          return
+        end
+        local buf = vim.api.nvim_get_current_buf()
+        if is_file_buf(buf) and previous_configs[buf] == nil then
+          diff_show(buf, commit_to_diff)
+        end
+      end),
     })
 
     vim.api.nvim_create_autocmd('BufUnload', {
       callback = function(args)
+        suspended_overlays[args.buf] = nil
         local previous = previous_configs[args.buf]
         if not previous then
           return
@@ -139,6 +181,13 @@ return {
     vim.keymap.set('n', '<leader>md', function()
       local cur_buf = vim.api.nvim_get_current_buf()
       if commit_to_diff == nil then
+        if in_codediff() then
+          vim.notify(
+            'mini.diff overlay is hidden in CodeDiff',
+            vim.log.levels.INFO
+          )
+          return
+        end
         vim.ui.input({
           prompt = 'Commit ID: (current branch by default)',
         }, function(commit)
@@ -163,6 +212,7 @@ return {
             diff_reset(buf)
           end
         end
+        sync_overlays()
         vim.notify('mini.diff state restored', vim.log.levels.INFO)
       end
     end, { desc = 'Git toggle mini.diff overlay on commit' })
