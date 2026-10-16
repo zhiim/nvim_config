@@ -6,3 +6,4 @@ opts_cache.json
 providers.json
 
 spell/
+nvim-pack-lock.json
