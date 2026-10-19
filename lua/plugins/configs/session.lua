@@ -85,7 +85,6 @@ return {
       '<leader>rsr',
       function()
         require('resession').load(nil, { dir = '/session/' .. get_cwd_name() })
-        vim.cmd 'silent! :e'
       end,
       mode = 'n',
       desc = 'Resession session read',
