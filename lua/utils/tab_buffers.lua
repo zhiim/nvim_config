@@ -225,10 +225,12 @@ end
 function M.setup()
   tracking_generation = tracking_generation + 1
   local group = api.nvim_create_augroup('nvim_tab_buffers', { clear = true })
-  api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
+  api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter', 'BufAdd' }, {
     group = group,
     callback = function(event)
       -- BufWinEnter need not refer to the current window (e.g. win_set_buf).
+      -- fzf-lua lists buffers after entering them; BufAdd catches that change.
+      -- Scan visible windows only, so hidden additions/previews stay excluded.
       scan(event.buf)
     end,
   })

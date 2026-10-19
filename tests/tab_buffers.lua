@@ -150,10 +150,51 @@ test(
   end
 )
 
+test('buffers listed after entering a window are tracked', function(m)
+  m.setup()
+  local tab = api.nvim_get_current_tabpage()
+  local a = buffer(false)
+  api.nvim_set_current_buf(a)
+  assert(not m.contains(tab, a))
+  vim.bo[a].buflisted = true
+  assert(m.contains(tab, a))
+  equal(m.list(tab)[#m.list(tab)], a)
+end)
+
+test('listing a background window buffer attaches only to its tab', function(m)
+  m.setup()
+  local first = api.nvim_get_current_tabpage()
+  local win = api.nvim_get_current_win()
+  vim.cmd 'tabnew'
+  local second = api.nvim_get_current_tabpage()
+  local a = buffer(false)
+  api.nvim_win_set_buf(win, a)
+  vim.bo[a].buflisted = true
+  assert(m.contains(first, a))
+  assert(not m.contains(second, a))
+end)
+
+test(
+  'listing hidden buffers or buffers while paused does not attach them',
+  function(m)
+    m.setup()
+    local tab = api.nvim_get_current_tabpage()
+    local hidden, paused = buffer(false), buffer(false)
+    vim.bo[hidden].buflisted = true
+    assert(not m.contains(tab, hidden))
+    m.pause()
+    api.nvim_set_current_buf(paused)
+    vim.bo[paused].buflisted = true
+    m.resume()
+    flush()
+    assert(not m.contains(tab, paused))
+  end
+)
+
 test('float and preview windows do not attach their buffers', function(m)
   m.setup()
   local tab = api.nvim_get_current_tabpage()
-  local a = buffer()
+  local a = buffer(false)
   local float = api.nvim_open_win(a, true, {
     relative = 'editor',
     row = 1,
@@ -161,6 +202,7 @@ test('float and preview windows do not attach their buffers', function(m)
     width = 10,
     height = 2,
   })
+  vim.bo[a].buflisted = true
   assert(not m.contains(tab, a))
   flush()
   assert(not m.contains(tab, a))
@@ -175,9 +217,10 @@ test('float and preview windows do not attach their buffers', function(m)
   assert(preview, 'pedit did not create a preview window')
   local pbuf = api.nvim_win_get_buf(preview)
   assert(not m.contains(tab, pbuf))
-  local b = buffer()
+  local b = buffer(false)
   api.nvim_win_set_buf(preview, b)
   api.nvim_set_current_win(preview)
+  vim.bo[b].buflisted = true
   flush()
   assert(not m.contains(tab, b))
 end)
