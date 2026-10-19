@@ -259,6 +259,46 @@ test(
   end
 )
 
+test(
+  'real fzf-lua file actions add newly listed buffers to bufferline',
+  function()
+    local tabs = require 'utils.tab_buffers'
+    tabs.setup()
+    local actions = require 'fzf-lua.actions'
+    for _, action in ipairs {
+      actions.file_edit,
+      actions.file_split,
+      actions.file_vsplit,
+      actions.file_tabedit,
+    } do
+      local first = api.nvim_get_current_tabpage()
+      local original = file()
+      api.nvim_set_current_buf(original)
+      tabs.replace(first, { original })
+      serial = serial + 1
+      local name = root .. '/fzf-selected-' .. serial .. '.txt'
+      vim.fn.writefile({ 'selected file' }, name)
+      -- fzf-lua uses bufadd(), enters the unlisted buffer, then lists it.
+      action({ name }, { no_action_zz = true })
+      local selected = api.nvim_get_current_buf()
+      local target = api.nvim_get_current_tabpage()
+      equal(api.nvim_buf_get_name(selected), name)
+      assert(vim.bo[selected].buflisted)
+      assert(tabs.contains(target, selected))
+      assert(tabs.contains(first, original))
+      if target ~= first then
+        assert(not tabs.contains(first, selected))
+        assert(not tabs.contains(target, original))
+      end
+      api.nvim_eval_statusline(vim.o.tabline, { use_tabline = true })
+      local ids = vim.tbl_map(function(element)
+        return element.id
+      end, require('bufferline').get_elements().elements)
+      assert(vim.tbl_contains(ids, selected))
+    end
+  end
+)
+
 local function setup_session()
   local spec = dofile 'lua/plugins/configs/session.lua'
   spec.config(nil, spec.opts())
