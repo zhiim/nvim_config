@@ -126,6 +126,7 @@ if vim.g.options.mode.chosen == 2 then
         local opt = {
           mappings = {
             list = {
+              ['<C-t>'] = actions.jump_tab,
               ['<C-v>'] = actions.jump_vsplit,
               ['<C-s>'] = actions.jump_split,
             },

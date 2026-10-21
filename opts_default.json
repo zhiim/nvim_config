@@ -220,7 +220,8 @@
         "mini_surround": false,
         "portal": false,
         "grapple": false,
-        "snacks": false
+        "snacks": false,
+        "obsidian": false
       }
     },
     "ai": {

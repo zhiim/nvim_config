@@ -267,6 +267,7 @@ if vim.g.options.mode.chosen == 2 then
     require 'plugins.configs.util.minimap',
     require 'plugins.configs.util.snacks',
     require 'plugins.configs.util.portal',
+    require 'plugins.configs.util.obsidian',
   }
 else
   return {}
