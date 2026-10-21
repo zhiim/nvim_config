@@ -88,11 +88,14 @@ local pickers = { -- Fuzzy Finder (files, lsp, etc)
         builtin.live_grep,
         { desc = 'Telescope search by grep' }
       )
+      vim.keymap.set('n', '<leader>sd', function()
+        builtin.diagnostics { bufnr = 0 }
+      end, { desc = 'Telescope search workspace diagnostics' })
       vim.keymap.set(
         'n',
-        '<leader>sd',
+        '<leader>sD',
         builtin.diagnostics,
-        { desc = 'Telescope search diagnostics' }
+        { desc = 'Telescope search workspace diagnostics' }
       )
       vim.keymap.set(
         'n',
@@ -183,6 +186,12 @@ local pickers = { -- Fuzzy Finder (files, lsp, etc)
         '<leader>ss',
         builtin.lsp_document_symbols,
         { desc = 'Telescope search document symbols' }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>sS',
+        builtin.lsp_workspace_symbols,
+        { desc = 'Telescope search workspace symbols' }
       )
     end,
   },
@@ -286,8 +295,14 @@ local pickers = { -- Fuzzy Finder (files, lsp, etc)
       vim.keymap.set(
         'n',
         '<leader>sd',
+        '<cmd>FzfLua diagnostics_document<cr>',
+        { desc = 'FzfLua search document diagnostics' }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>sD',
         '<cmd>FzfLua diagnostics_workspace<cr>',
-        { desc = 'FzfLua search diagnostics' }
+        { desc = 'FzfLua search workspace diagnostics' }
       )
       vim.keymap.set(
         'n',
@@ -375,6 +390,13 @@ local pickers = { -- Fuzzy Finder (files, lsp, etc)
         '<leader>ss',
         '<cmd>FzfLua lsp_document_symbols<cr>',
         { desc = 'FzfLua search document symbols' }
+      )
+
+      vim.keymap.set(
+        'n',
+        '<leader>sS',
+        '<cmd>FzfLua lsp_workspace_symbols<cr>',
+        { desc = 'FzfLua search workspace symbols' }
       )
 
       vim.keymap.set(
