@@ -177,18 +177,6 @@ return {
               callback = 'keymaps.stop',
               description = 'Stop Request',
             },
-            change_model = {
-              modes = {
-                n = 'go',
-              },
-              index = 15,
-              callback = function(chat)
-                require(
-                  'codecompanion.interactions.chat.keymaps.change_adapter'
-                ).select_model(chat)
-              end,
-              description = 'Change model',
-            },
             change_thinking_level = {
               modes = {
                 n = 'gt',
