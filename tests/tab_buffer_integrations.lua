@@ -213,7 +213,7 @@ test(
 )
 
 test(
-  'closing the last modified buffer keeps it alive and supplies an empty view',
+  'closing the last modified buffer refuses deletion and preserves its view',
   function()
     local tabs = require 'utils.tab_buffers'
     local a = file()
@@ -221,14 +221,13 @@ test(
     api.nvim_set_current_buf(a)
     api.nvim_buf_set_lines(a, 0, -1, false, { 'unsaved' })
     tabs.replace(tab, { a })
-    assert(tabs.close(tab, a))
+    assert(not pcall(tabs.close, tab, a))
     flush()
     assert(
       api.nvim_buf_is_valid(a) and vim.bo[a].modified and vim.bo[a].buflisted
     )
-    assert(not tabs.contains(tab, a))
-    assert(tabs.contains(tab, api.nvim_get_current_buf()))
-    equal(api.nvim_buf_get_name(0), '')
+    assert(tabs.contains(tab, a))
+    equal(api.nvim_get_current_buf(), a)
   end
 )
 
@@ -245,6 +244,8 @@ test(
     for _, win in ipairs(api.nvim_tabpage_list_wins(tab)) do
       equal(api.nvim_win_get_buf(win), b)
     end
+    assert(not api.nvim_buf_is_loaded(a))
+    a = file()
     api.nvim_set_current_buf(a)
     local original = api.nvim_win_set_buf
     api.nvim_win_set_buf = function()

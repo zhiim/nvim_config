@@ -127,13 +127,28 @@ function M.detach(tabpage, bufnr)
   return true
 end
 
----Close a buffer's view in one tab without deleting shared/modified buffers.
+---Delete a buffer owned by one tab; otherwise close only this tab's view.
+---Unsaved changes prevent deletion of an exclusively owned buffer.
 ---@param tabpage? integer
 ---@param bufnr? integer
 ---@return boolean changed
 function M.close(tabpage, bufnr)
   tabpage, bufnr = resolve_tab(tabpage), resolve_buf(bufnr)
   if not M.contains(tabpage, bufnr) then
+    return false
+  end
+  local shared = false
+  for tab, state in pairs(tabs) do
+    if tab ~= tabpage and valid_tab(tab) and state.members[bufnr] then
+      shared = true
+      break
+    end
+  end
+  if not shared and vim.bo[bufnr].modified then
+    vim.notify(
+      'Buffer has unsaved changes; save it or use :bdelete! to discard them',
+      'warn'
+    )
     return false
   end
   local replacement
@@ -150,6 +165,9 @@ function M.close(tabpage, bufnr)
         replacement = replacement or api.nvim_create_buf(true, false)
         api.nvim_win_set_buf(win, replacement)
       end
+    end
+    if not shared then
+      api.nvim_buf_delete(bufnr, { force = false })
     end
     M.detach(tabpage, bufnr)
     if replacement then

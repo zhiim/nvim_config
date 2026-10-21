@@ -47,37 +47,6 @@ Add plugins by editing `lua/plugins/init.lua`. Or add a `{plugin_name}.lua` file
 
 Open lazy.nvim panel with command `:Lazy`.
 
-### Tab-local Buffers
-
-When `vim.g.options.tab.choices[vim.g.options.tab.chosen]` is `bufferline`,
-ordinary editing buffers are tracked per tab without changing `buflisted`.
-The same buffer can belong to multiple tabs; its contents remain shared.
-Choosing `barbar` or `tabby` keeps the default session and picker behavior.
-
-- Bufferline shows and navigates the current tab's buffers.
-- `<leader>x`, the bufferline close button, and right-click remove the buffer's
-  view from the current tab instead of globally deleting it. Use `:bdelete` for
-  actual buffer deletion, which affects every tab.
-- `<leader>sb` lists current-tab buffers; `<leader>sB` lists all buffers.
-- `<leader>sa` searches current-tab buffers (Telescope searches their files on
-  disk; fzf-lua searches loaded buffer lines).
-- Direct `:Telescope buffers` / `:FzfLua buffers` and native picker deletion
-  actions retain their global behavior.
-- Resession stores tab membership by filename, including hidden buffers.
-  Old sessions without membership data infer only visible buffers on load.
-  Unnamed buffers follow resession's default save limitations.
-
-Tests can be run from the configuration root:
-
-```sh
-nvim --headless -u NONE -i NONE -n -c 'luafile tests/tab_buffers.lua'
-nvim --headless -u NONE -i NONE -n -c 'luafile tests/tab_buffer_integrations.lua'
-```
-
-The integration suite uses installed bufferline, resession, and fzf-lua plugins
-under `stdpath('data')/lazy` (override with `NVIM_TEST_PLUGIN_DIR`). Telescope
-adapter/configuration tests use stubs and do not require installing Telescope.
-
 ### Add Language Support
 
 #### Language Parsers
