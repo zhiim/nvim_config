@@ -28,7 +28,7 @@ return {
     bigfile = { enabled = true },
     image = {
       doc = {
-        enabled = false,
+        enabled = true,
       },
     },
     dashboard = {
